@@ -6,6 +6,15 @@
   <link rel="icon" type="image/png" href="logo.png">
   <title>DNMMO - Hệ Thống Cung Cấp Tài Khoản Bản Quyền & Phần Mềm Uy Tín</title>
   <meta name="description" content="Chuyên cung cấp gói tài khoản phần mềm và công cụ AI: ChatGPT Plus, Canva Pro, CapCut Pro, YouTube Premium, Gemini Advanced, Claude AI uy tín, hỗ trợ kích hoạt tận tình qua Zalo.">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D665LJT68V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-D665LJT68V');
+  </script>
   <script>
     (function(){
       const origWarn = console.warn;
@@ -780,15 +789,16 @@
     async function loadCatalog() {
       try {
         const res = await fetch('/api/catalog');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
-        if (res.ok && data.success) {
+        if (data && data.success && Array.isArray(data.products)) {
           CATEGORIES = data.categories || [];
           PRODUCTS = data.products || [];
           renderCategoryPills();
           renderProducts();
         }
       } catch (err) {
-        console.error('Error loading catalog:', err);
+        console.warn('Notice loading catalog from server:', err.message || err);
       }
     }
 
