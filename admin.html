@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>DNMMO Admin Console - Trung Tâm Quản Trị Hệ Thống</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #030712; color: #f3f4f6; }
+    .glass-card { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+    .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased text-slate-100">
+
+  <!-- 1. KHUNG ĐĂNG NHẬP ADMIN (KHI CHƯA XÁC THỰC) -->
+  <div id="admin-login-screen" class="fixed inset-0 z-50 bg-slate-950 flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-slate-800 shadow-2xl relative">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto mb-3 shadow-lg">
+          <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <h1 class="text-2xl font-black text-white tracking-tight">DNMMO ADMIN</h1>
+        <p class="text-xs text-slate-400 mt-1">Cổng Quản Trị Hệ Thống An Toàn</p>
+      </div>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Email Quản Trị Viên</label>
+          <input type="email" id="login-admin-email" required placeholder="admin@domain.com"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Mật Khẩu Quản Trị</label>
+          <input type="password" id="login-admin-pass" required placeholder="Nhập mật khẩu"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+        </div>
+        <button type="submit" id="btn-login-submit"
+          class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-amber-500/20 active:scale-95">
+          Đăng Nhập Quản Trị
+        </button>
+      </form>
+      <div class="mt-6 text-center">
+        <a href="/" class="text-xs text-slate-400 hover:text-white transition">&larr; Quay về Cửa Hàng</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. GIAO DIỆN CHÍNH ADMIN CONSOLE (KHI ĐÃ XÁC THỰC) -->
+  <div id="admin-main-screen" class="hidden flex-1 flex flex-col md:flex-row min-h-screen">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="w-full md:w-64 bg-slate-950 border-b md:border-b-0 md:border-r border-slate-800 p-3 sm:p-4 flex flex-col justify-between flex-shrink-0">
+      <div>
+        <div class="flex items-center justify-between md:justify-start gap-3 px-2 sm:px-3 py-2 sm:py-3 mb-3 md:mb-6 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <img src="logo.png" alt="DNMMO" class="w-8 h-8 rounded-lg object-contain bg-black border border-amber-500/40">
+            <div>
+              <span class="font-black text-base text-white tracking-wide block leading-tight">DNMMO</span>
+              <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block leading-tight">Admin Console</span>
+            </div>
+          </div>
+          <!-- Mobile Logout Button Shortcut -->
+          <div class="md:hidden flex items-center gap-2">
+            <button onclick="handleAdminLogout()" class="px-2.5 py-1 rounded-lg bg-rose-950/60 border border-rose-800/50 text-rose-300 hover:text-white text-xs font-semibold">
+              Đăng xuất
+            </button>
+          </div>
+        </div>
+
+        <nav class="flex md:flex-col overflow-x-auto gap-1 pb-2 md:pb-0 scrollbar-none text-xs font-bold whitespace-nowrap">
+          <button onclick="setTab('dashboard')" id="tab-dashboard" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center gap-2.5 text-white bg-blue-600 shadow transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <span>Tổng quan KPI</span>
+          </button>
+
+          <button onclick="setTab('orders')" id="tab-orders" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-2 text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <span class="flex items-center gap-2.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span>Đơn hàng</span>
+            </span>
+            <span id="badge-pending-orders" class="bg-amber-500 text-slate-950 px-1.5 py-0.2 rounded-full text-[10px] font-black">0</span>
+          </button>
+
+          <button onclick="setTab('inventory')" id="tab-inventory" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-2 text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <span class="flex items-center gap-2.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              <span>Kho tài khoản</span>
+            </span>
+          </button>
+
+          <button onclick="setTab('products')" id="tab-products" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center gap-2.5 text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            <span>Sản phẩm & Gói</span>
+          </button>
+
+          <button onclick="setTab('warranties')" id="tab-warranties" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-2 text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <span class="flex items-center gap-2.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>Sổ bảo hành</span>
+            </span>
+          </button>
+
+          <button onclick="setTab('audit')" id="tab-audit" class="flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center gap-2.5 text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Nhật ký Audit Log</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="hidden md:block pt-4 border-t border-slate-800">
+        <div class="flex items-center justify-between mb-3 text-xs">
+          <span class="text-slate-400 truncate max-w-[140px]" id="current-admin-name">Admin</span>
+          <span class="text-[9px] bg-amber-500/20 text-amber-300 font-bold px-1.5 py-0.5 rounded border border-amber-500/30">ADMIN</span>
+        </div>
+        <button onclick="handleAdminLogout()" class="w-full py-2 bg-slate-900 hover:bg-rose-950/50 hover:text-rose-400 text-slate-400 rounded-xl text-xs font-semibold transition border border-slate-800">
+          Đăng Xuất
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+      
+      <!-- Top header bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-slate-800 mb-6">
+        <div>
+          <h2 id="view-title" class="text-2xl font-black text-white">Tổng Quan Bảng Điều Khiển</h2>
+          <p id="view-subtitle" class="text-xs text-slate-400">Số liệu kinh doanh và trạng thái đơn hàng thời gian thực</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="refreshCurrentTab()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold rounded-xl border border-slate-800 transition flex items-center gap-1.5 shadow">
+            🔄 Làm mới
+          </button>
+          <a href="/" target="_blank" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow">
+            🌐 Xem Cửa Hàng &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- VIEW 1: DASHBOARD OVERVIEW -->
+      <div id="panel-dashboard" class="space-y-6">
+        <!-- 4 KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="glass-card p-5 rounded-2xl border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">Đơn chờ xử lý</span>
+            <span id="kpi-pending-orders" class="text-3xl font-black text-amber-400">0</span>
+            <span class="text-[10px] text-amber-300/80 block mt-1">Cần gọi điện / bàn giao</span>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">Doanh thu hôm nay</span>
+            <span id="kpi-revenue-today" class="text-2xl font-black text-emerald-400">0 đ</span>
+            <span class="text-[10px] text-emerald-300/80 block mt-1">Đơn đã thanh toán</span>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">Doanh thu tháng này</span>
+            <span id="kpi-revenue-month" class="text-2xl font-black text-cyan-400">0 đ</span>
+            <span class="text-[10px] text-cyan-300/80 block mt-1">Từ ngày đầu tháng</span>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">Cảnh báo kho / Bảo hành</span>
+            <div class="flex items-center gap-2 mt-1">
+              <span id="kpi-low-stock" class="text-xl font-bold text-rose-400">0 gói sắp hết</span>
+            </div>
+            <span id="kpi-expiring-warranty" class="text-[10px] text-slate-400 block mt-1">0 đơn hết hạn &le; 7 ngày</span>
+          </div>
+        </div>
+
+        <!-- Quick Orders Table -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-white text-sm">Đơn Hàng Gần Đây Cần Xử Lý</h3>
+            <button onclick="setTab('orders')" class="text-xs text-blue-400 hover:underline font-bold">Xem tất cả &rarr;</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Mã đơn</th>
+                  <th class="py-2.5 px-3">Khách hàng</th>
+                  <th class="py-2.5 px-3">SĐT (Zalo)</th>
+                  <th class="py-2.5 px-3">Gói mua</th>
+                  <th class="py-2.5 px-3">Số tiền</th>
+                  <th class="py-2.5 px-3">Trạng thái</th>
+                  <th class="py-2.5 px-3 text-right">Tác vụ</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-recent-orders" class="divide-y divide-slate-800/60 text-slate-300">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: ORDERS MANAGEMENT -->
+      <div id="panel-orders" class="hidden space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950 p-3 rounded-2xl border border-slate-800">
+          <div class="flex items-center gap-2">
+            <input type="text" id="order-search" oninput="filterOrdersTable()" placeholder="Tìm theo Mã đơn, SĐT, Tên khách..."
+              class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 w-64">
+            <select id="order-status-filter" onchange="filterOrdersTable()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white">
+              <option value="ALL">Tất cả trạng thái</option>
+              <option value="pending">Chờ xử lý (Pending)</option>
+              <option value="paid">Đã thanh toán (Paid)</option>
+              <option value="delivered">Đã bàn giao (Delivered)</option>
+              <option value="cancelled">Đã hủy (Cancelled)</option>
+            </select>
+          </div>
+          <div class="text-xs text-slate-400">
+            Tổng cộng: <strong id="orders-total-count" class="text-white">0</strong> đơn hàng
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                <th class="py-3 px-3">Mã đơn</th>
+                <th class="py-3 px-3">Khách hàng</th>
+                <th class="py-3 px-3">Số Điện Thoại</th>
+                <th class="py-3 px-3">Gói sản phẩm</th>
+                <th class="py-3 px-3">Số tiền</th>
+                <th class="py-3 px-3">Trạng thái</th>
+                <th class="py-3 px-3">Tài khoản</th>
+                <th class="py-3 px-3 text-right">Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="divide-y divide-slate-800/60 text-slate-300">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VIEW 3: INVENTORY MANAGEMENT -->
+      <div id="panel-inventory" class="hidden space-y-6">
+        <!-- Batch Add Form -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+            <span>📥 Nhập Hàng Loạt Vào Kho Tài Khoản</span>
+            <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">MÃ HÓA AES-256-GCM TỰ ĐỘNG</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Mỗi dòng là một thông tin tài khoản (Email|Password hoặc Cookie/Token). Dữ liệu được mã hóa ngay khi lưu vào Database.</p>
+
+          <form onsubmit="handleBatchAddInventory(event)" class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Chọn gói sản phẩm tương ứng *</label>
+              <select id="inv-plan-select" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <!-- Rendered dynamically -->
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Danh sách tài khoản (Mỗi tài khoản 1 dòng) *</label>
+              <textarea id="inv-lines-input" required rows="4" placeholder="user1@gmail.com|pass123&#10;user2@gmail.com|pass456"
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs font-mono text-emerald-300 placeholder-slate-600 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+            <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow active:scale-95">
+              + Mã Hóa & Lưu Vào Kho
+            </button>
+          </form>
+        </div>
+
+        <!-- Inventory List -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold text-white text-sm">Danh Sách Tài Khoản Trong Kho</h4>
+            <span class="text-xs text-slate-400">Mật khẩu được che mặc định để bảo mật</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">ID</th>
+                  <th class="py-2.5 px-3">Sản phẩm & Gói</th>
+                  <th class="py-2.5 px-3">Trạng thái</th>
+                  <th class="py-2.5 px-3">Ngày nhập</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body" class="divide-y divide-slate-800/60 text-slate-300">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: PRODUCTS & PLANS -->
+      <div id="panel-products" class="hidden space-y-6">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white">Quản Lý Sản Phẩm & Các Gói Giá</h3>
+              <p class="text-xs text-slate-400">Giá bán và thời hạn bảo hành do cơ sở dữ liệu quyết định</p>
+            </div>
+          </div>
+          <div id="products-plans-list" class="space-y-4">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 5: WARRANTIES -->
+      <div id="panel-warranties" class="hidden space-y-4">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <h3 class="text-sm font-bold text-white mb-1">Sổ Theo Dõi Hạn Bảo Hành</h3>
+          <p class="text-xs text-slate-400 mb-4">Danh sách các đơn hàng đã bàn giao và thời gian bảo hành tương ứng</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Mã đơn</th>
+                  <th class="py-2.5 px-3">Khách hàng</th>
+                  <th class="py-2.5 px-3">SĐT (Zalo)</th>
+                  <th class="py-2.5 px-3">Gói mua</th>
+                  <th class="py-2.5 px-3">Hạn bảo hành</th>
+                  <th class="py-2.5 px-3">Tình trạng</th>
+                  <th class="py-2.5 px-3 text-right">Nhắc Zalo</th>
+                </tr>
+              </thead>
+              <tbody id="warranties-table-body" class="divide-y divide-slate-800/60 text-slate-300">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 6: AUDIT LOGS -->
+      <div id="panel-audit" class="hidden space-y-4">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <h3 class="text-sm font-bold text-white mb-1">Nhật Ký Kiểm Toán (Audit Logs)</h3>
+          <p class="text-xs text-slate-400 mb-4">Theo dõi mọi hành động nhạy cảm: xem mật khẩu tài khoản, bàn giao, cập nhật trạng thái đơn</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Thời gian</th>
+                  <th class="py-2.5 px-3">Hành động</th>
+                  <th class="py-2.5 px-3">Mục tiêu</th>
+                  <th class="py-2.5 px-3">Chi tiết</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body" class="divide-y divide-slate-800/60 text-slate-300">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL BÀN GIAO TÀI KHOẢN THỦ CÔNG CHO ĐƠN HÀNG -->
+  <div id="modal-deliver" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 rounded-3xl border border-slate-800 shadow-2xl relative">
+      <button onclick="closeDeliverModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
+      <h3 class="text-lg font-bold text-white mb-1">Bàn Giao Tài Khoản Cho Khách</h3>
+      <p class="text-xs text-slate-400 mb-4">Đơn hàng: <strong id="deliver-order-code" class="text-amber-400"></strong></p>
+
+      <form onsubmit="handleDeliverSubmit(event)" class="space-y-3">
+        <input type="hidden" id="deliver-order-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Thời hạn bảo hành (ngày)</label>
+          <input type="number" id="deliver-days" value="30" required min="1"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Thông tin tài khoản bàn giao (Tự động mã hóa khi lưu) *</label>
+          <textarea id="deliver-credentials" required rows="4" placeholder="Email: ... | Pass: ... | Hướng dẫn: ..."
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs font-mono text-emerald-300 placeholder-slate-600 focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeDeliverModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Hủy</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow">
+            ✓ Bàn Giao & Gửi Cho Khách
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-24 opacity-0 transition-all duration-300">
+    <span id="toast-text" class="text-xs font-semibold">Thông báo</span>
+  </div>
+
+  <script>
+    let adminToken = localStorage.getItem('dnmmo_admin_token') || '';
+    let currentAdminUser = JSON.parse(localStorage.getItem('dnmmo_admin_user') || 'null');
+    let allOrders = [];
+    let currentTab = 'dashboard';
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      const txt = document.getElementById('toast-text');
+      if (!t || !txt) return;
+      txt.textContent = msg;
+      t.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => t.classList.add('translate-y-24', 'opacity-0'), 3000);
+    }
+
+    async function adminApi(action, method = 'GET', body = null) {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      };
+      const options = { method, headers };
+      if (body) options.body = JSON.stringify(body);
+      
+      const res = await fetch(`/api/admin-api?action=${action}`, options);
+      if (res.status === 401 || res.status === 403) {
+        handleAdminLogout();
+        throw new Error('Phiên đăng nhập hết hạn hoặc không có quyền Admin!');
+      }
+      return await res.json();
+    }
+
+    // AUTH LOGIN
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-admin-email').value.trim();
+      const password = document.getElementById('login-admin-pass').value;
+      const btn = document.getElementById('btn-login-submit');
+
+      btn.disabled = true;
+      btn.innerText = 'Đang xác thực...';
+
+      try {
+        const res = await fetch('/api/admin-api?action=login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          alert(data.error || 'Đăng nhập không thành công!');
+          return;
+        }
+
+        adminToken = data.token;
+        currentAdminUser = data.user;
+        localStorage.setItem('dnmmo_admin_token', adminToken);
+        localStorage.setItem('dnmmo_admin_user', JSON.stringify(currentAdminUser));
+
+        initAdminUI();
+        showToast('Đăng nhập Quản trị viên thành công!');
+      } catch (err) {
+        alert(err.message || 'Lỗi mạng khi kết nối máy chủ');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Đăng Nhập Quản Trị';
+      }
+    }
+
+    function handleAdminLogout() {
+      adminToken = '';
+      currentAdminUser = null;
+      localStorage.removeItem('dnmmo_admin_token');
+      localStorage.removeItem('dnmmo_admin_user');
+      document.getElementById('admin-login-screen').classList.remove('hidden');
+      document.getElementById('admin-main-screen').classList.add('hidden');
+    }
+
+    function initAdminUI() {
+      if (!adminToken) {
+        document.getElementById('admin-login-screen').classList.remove('hidden');
+        document.getElementById('admin-main-screen').classList.add('hidden');
+        return;
+      }
+      document.getElementById('admin-login-screen').classList.add('hidden');
+      document.getElementById('admin-main-screen').classList.remove('hidden');
+
+      const nameEl = document.getElementById('current-admin-name');
+      if (nameEl && currentAdminUser) nameEl.textContent = currentAdminUser.name || currentAdminUser.email;
+
+      setTab('dashboard');
+    }
+
+    function setTab(tab) {
+      currentTab = tab;
+      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'warranties', 'audit'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const panel = document.getElementById(`panel-${t}`);
+        if (btn) {
+          if (t === tab) {
+            btn.className = 'flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center gap-2.5 text-white bg-blue-600 shadow transition font-bold';
+          } else {
+            btn.className = 'flex-shrink-0 text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-2 text-slate-400 hover:text-white hover:bg-slate-900 transition font-bold';
+          }
+        }
+        if (panel) {
+          panel.classList.toggle('hidden', t !== tab);
+        }
+      });
+
+      refreshCurrentTab();
+    }
+
+    async function refreshCurrentTab() {
+      if (currentTab === 'dashboard') loadDashboard();
+      if (currentTab === 'orders') loadOrders();
+      if (currentTab === 'inventory') loadInventory();
+      if (currentTab === 'products') loadProducts();
+      if (currentTab === 'warranties') loadWarranties();
+      if (currentTab === 'audit') loadAuditLogs();
+    }
+
+    // 1. DASHBOARD
+    async function loadDashboard() {
+      try {
+        const res = await adminApi('stats');
+        if (res.success && res.stats) {
+          const s = res.stats;
+          document.getElementById('kpi-pending-orders').textContent = s.pending_orders;
+          document.getElementById('badge-pending-orders').textContent = s.pending_orders;
+          document.getElementById('kpi-revenue-today').textContent = (s.revenue_today || 0).toLocaleString('vi-VN') + ' đ';
+          document.getElementById('kpi-revenue-month').textContent = (s.revenue_month || 0).toLocaleString('vi-VN') + ' đ';
+          document.getElementById('kpi-low-stock').textContent = `${s.low_stock_count} gói sắp hết`;
+          document.getElementById('kpi-expiring-warranty').textContent = `${s.expiring_warranties} đơn hết hạn ≤ 7 ngày`;
+        }
+
+        const oRes = await adminApi('orders');
+        if (oRes.success && oRes.orders) {
+          allOrders = oRes.orders;
+          renderDashboardRecentOrders(allOrders.slice(0, 5));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderDashboardRecentOrders(orders) {
+      const tb = document.getElementById('dashboard-recent-orders');
+      if (!tb) return;
+      if (orders.length === 0) {
+        tb.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500">Chưa có đơn hàng nào</td></tr>';
+        return;
+      }
+      tb.innerHTML = orders.map(o => `
+        <tr class="hover:bg-slate-900/50 transition">
+          <td class="py-2.5 px-3 font-mono font-bold text-amber-400">${escapeHtml(o.code)}</td>
+          <td class="py-2.5 px-3 font-semibold text-white">${escapeHtml(o.contact_name || 'Khách')}</td>
+          <td class="py-2.5 px-3 font-mono text-emerald-400">
+            <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone)}</a>
+          </td>
+          <td class="py-2.5 px-3 text-slate-300">${escapeHtml(o.plan_name || o.product_name)}</td>
+          <td class="py-2.5 px-3 font-bold text-white">${(o.amount || 0).toLocaleString('vi-VN')} đ</td>
+          <td class="py-2.5 px-3">${renderStatusBadge(o.status)}</td>
+          <td class="py-2.5 px-3 text-right">
+            <button onclick="openDeliverModal('${o.id}', '${escapeHtml(o.code)}', ${o.duration_days || 30})" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold">
+              Bàn giao
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // 2. ORDERS TAB
+    async function loadOrders() {
+      try {
+        const res = await adminApi('orders');
+        if (res.success && res.orders) {
+          allOrders = res.orders;
+          filterOrdersTable();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function filterOrdersTable() {
+      const q = (document.getElementById('order-search')?.value || '').toLowerCase().trim();
+      const statusFilter = document.getElementById('order-status-filter')?.value || 'ALL';
+
+      let filtered = allOrders.filter(o => {
+        const matchStatus = (statusFilter === 'ALL') || (o.status === statusFilter);
+        const matchQuery = !q || (o.code || '').toLowerCase().includes(q) ||
+          (o.contact_phone || '').toLowerCase().includes(q) ||
+          (o.contact_name || '').toLowerCase().includes(q) ||
+          (o.plan_name || '').toLowerCase().includes(q);
+        return matchStatus && matchQuery;
+      });
+
+      document.getElementById('orders-total-count').textContent = filtered.length;
+      renderOrdersTable(filtered);
+    }
+
+    function renderOrdersTable(orders) {
+      const tb = document.getElementById('orders-table-body');
+      if (!tb) return;
+      if (orders.length === 0) {
+        tb.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-500">Không tìm thấy đơn hàng phù hợp</td></tr>';
+        return;
+      }
+      tb.innerHTML = orders.map(o => `
+        <tr class="hover:bg-slate-900/50 transition">
+          <td class="py-3 px-3 font-mono font-bold text-amber-400">${escapeHtml(o.code)}</td>
+          <td class="py-3 px-3">
+            <div class="font-bold text-white">${escapeHtml(o.contact_name || 'Khách')}</div>
+            <div class="text-[10px] text-slate-400">${new Date(o.created_at).toLocaleString('vi-VN')}</div>
+          </td>
+          <td class="py-3 px-3">
+            <div class="flex items-center gap-1.5 font-mono text-emerald-400">
+              <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone)}</a>
+              <a href="https://zalo.me/${escapeHtml(o.contact_phone.replace(/[^0-9]/g, ''))}" target="_blank" class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] hover:bg-blue-500/30">Zalo</a>
+            </div>
+          </td>
+          <td class="py-3 px-3">
+            <div class="text-white font-semibold">${escapeHtml(o.plan_name || o.product_name)}</div>
+            <div class="text-[10px] text-slate-400">${o.duration_days || 30} ngày • ${o.account_type === 'shared' ? 'Dùng chung' : 'Dùng riêng'}</div>
+          </td>
+          <td class="py-3 px-3 font-bold text-white">${(o.amount || 0).toLocaleString('vi-VN')} đ</td>
+          <td class="py-3 px-3">${renderStatusBadge(o.status)}</td>
+          <td class="py-3 px-3" id="cred-cell-${o.id}">
+            ${o.has_delivery > 0 ? `
+              <button onclick="revealCredentials('${o.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] flex items-center gap-1">
+                👁️ Xem Pass
+              </button>
+            ` : '<span class="text-slate-600 text-[11px]">Chưa cấp</span>'}
+          </td>
+          <td class="py-3 px-3 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openDeliverModal('${o.id}', '${escapeHtml(o.code)}', ${o.duration_days || 30})" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold transition">
+                Giao Acc
+              </button>
+              <select onchange="updateStatus('${o.id}', this.value)" class="bg-slate-800 text-slate-300 rounded-lg text-[10px] px-1.5 py-1 border border-slate-700">
+                <option value="">Đổi TT</option>
+                <option value="paid">Đã TT</option>
+                <option value="delivered">Đã giao</option>
+                <option value="cancelled">Hủy đơn</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function revealCredentials(orderId) {
+      try {
+        const res = await adminApi(`view-credentials&order_id=${orderId}`);
+        const cell = document.getElementById(`cred-cell-${orderId}`);
+        if (res.success && res.credentials && cell) {
+          cell.innerHTML = `
+            <div class="p-1.5 bg-black rounded font-mono text-[10px] text-emerald-400 border border-slate-800 select-all max-w-xs break-all">
+              ${escapeHtml(res.credentials)}
+            </div>
+          `;
+          showToast('Đã ghi 1 dòng audit log khi xem mật khẩu!');
+        } else {
+          alert(res.error || 'Không thể xem thông tin bàn giao');
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    async function updateStatus(orderId, status) {
+      if (!status) return;
+      if (!confirm(`Bạn có chắc muốn đổi trạng thái đơn thành "${status}"?`)) return;
+      try {
+        const res = await adminApi('update-order-status', 'POST', { order_id: orderId, status });
+        if (res.success) {
+          showToast(res.message);
+          loadOrders();
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    // 3. INVENTORY TAB
+    async function loadInventory() {
+      try {
+        // Load plans for select dropdown
+        const pRes = await adminApi('products-plans');
+        const sel = document.getElementById('inv-plan-select');
+        if (pRes.success && pRes.plans && sel) {
+          sel.innerHTML = pRes.plans.map(p => `
+            <option value="${p.id}">${escapeHtml(p.name)} - Giá: ${(p.price || 0).toLocaleString('vi-VN')} đ (Hiện còn: ${p.available_stock || 0} acc)</option>
+          `).join('');
+        }
+
+        // Load items list
+        const iRes = await adminApi('inventory-list');
+        const tb = document.getElementById('inventory-table-body');
+        if (iRes.success && iRes.items && tb) {
+          if (iRes.items.length === 0) {
+            tb.innerHTML = '<tr><td colspan="4" class="py-6 text-center text-slate-500">Kho đang trống</td></tr>';
+            return;
+          }
+          tb.innerHTML = iRes.items.map(i => `
+            <tr>
+              <td class="py-2.5 px-3 font-mono text-slate-500">#${i.id}</td>
+              <td class="py-2.5 px-3 font-bold text-white">${escapeHtml(i.product_name)} - ${escapeHtml(i.plan_name)}</td>
+              <td class="py-2.5 px-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${i.status === 'available' ? 'bg-emerald-500/20 text-emerald-400' : (i.status === 'sold' ? 'bg-slate-800 text-slate-400' : 'bg-rose-500/20 text-rose-400')}">
+                  ${i.status === 'available' ? '🟢 Sẵn sàng' : (i.status === 'sold' ? '⚪ Đã bán' : '🔴 Lỗi')}
+                </span>
+              </td>
+              <td class="py-2.5 px-3 text-slate-400">${new Date(i.created_at).toLocaleString('vi-VN')}</td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function handleBatchAddInventory(e) {
+      e.preventDefault();
+      const planId = document.getElementById('inv-plan-select').value;
+      const rawText = document.getElementById('inv-lines-input').value;
+      const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+
+      if (lines.length === 0) return alert('Vui lòng nhập ít nhất 1 dòng tài khoản!');
+
+      try {
+        const res = await adminApi('inventory-add-batch', 'POST', { plan_id: planId, lines });
+        if (res.success) {
+          showToast(res.message);
+          document.getElementById('inv-lines-input').value = '';
+          loadInventory();
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    // 4. PRODUCTS TAB
+    async function loadProducts() {
+      try {
+        const res = await adminApi('products-plans');
+        const container = document.getElementById('products-plans-list');
+        if (res.success && res.products && container) {
+          container.innerHTML = res.products.map(p => {
+            const productPlans = (res.plans || []).filter(pl => pl.product_id === p.id);
+            return `
+              <div class="glass-card p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white font-bold">
+                    ${escapeHtml(p.name.substring(0, 2).toUpperCase())}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h4 class="font-bold text-white text-sm">${escapeHtml(p.name)}</h4>
+                      <span class="text-[10px] px-2 py-0.5 rounded font-bold ${p.is_active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-800 text-slate-500'}">
+                        ${p.is_active ? 'Đang bán' : 'Tạm ẩn'}
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-400">${escapeHtml(p.short_desc || '')}</p>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                  ${productPlans.map(pl => `
+                    <div class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+                      <span class="text-slate-300 font-semibold">${escapeHtml(pl.name)}:</span>
+                      <strong class="text-emerald-400 ml-1">${(pl.price || 0).toLocaleString('vi-VN')} đ</strong>
+                      <span class="text-[10px] text-slate-500 ml-1">(Kho: ${pl.available_stock || 0})</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // 5. WARRANTIES TAB
+    async function loadWarranties() {
+      try {
+        const res = await adminApi('orders');
+        const tb = document.getElementById('warranties-table-body');
+        if (res.success && res.orders && tb) {
+          const deliveredOrders = res.orders.filter(o => o.status === 'delivered');
+          if (deliveredOrders.length === 0) {
+            tb.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500">Chưa có đơn hàng nào được kích hoạt bảo hành</td></tr>';
+            return;
+          }
+          tb.innerHTML = deliveredOrders.map(o => {
+            let statusBadge = '<span class="text-slate-500">Không có hạn</span>';
+            let cleanPhone = (o.contact_phone || '').replace(/[^0-9]/g, '');
+            if (o.warranty_until) {
+              const diffMs = new Date(o.warranty_until) - new Date();
+              const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+              if (daysLeft > 7) {
+                statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">🟢 Còn ${daysLeft} ngày</span>`;
+              } else if (daysLeft > 0) {
+                statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400">🟡 Sắp hết (${daysLeft} ngày)</span>`;
+              } else {
+                statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400">🔴 Hết hạn</span>';
+              }
+            }
+            return `
+              <tr>
+                <td class="py-2.5 px-3 font-mono text-amber-400 font-bold">${escapeHtml(o.code)}</td>
+                <td class="py-2.5 px-3 text-white font-semibold">${escapeHtml(o.contact_name || 'Khách')}</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">${escapeHtml(o.contact_phone)}</td>
+                <td class="py-2.5 px-3 text-slate-300">${escapeHtml(o.plan_name || o.product_name)}</td>
+                <td class="py-2.5 px-3 text-slate-400">${o.warranty_until ? new Date(o.warranty_until).toLocaleDateString('vi-VN') : '---'}</td>
+                <td class="py-2.5 px-3">${statusBadge}</td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href="https://zalo.me/${cleanPhone}" target="_blank" class="px-2 py-1 bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white rounded-lg text-[10px] font-bold transition">
+                    Nhắn Zalo
+                  </a>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // 6. AUDIT LOGS TAB
+    async function loadAuditLogs() {
+      try {
+        const res = await adminApi('audit-logs');
+        const tb = document.getElementById('audit-table-body');
+        if (res.success && res.logs && tb) {
+          if (res.logs.length === 0) {
+            tb.innerHTML = '<tr><td colspan="4" class="py-6 text-center text-slate-500">Chưa có nhật ký nào</td></tr>';
+            return;
+          }
+          tb.innerHTML = res.logs.map(l => `
+            <tr>
+              <td class="py-2.5 px-3 text-slate-400">${new Date(l.created_at).toLocaleString('vi-VN')}</td>
+              <td class="py-2.5 px-3 font-bold text-amber-400">${escapeHtml(l.action)}</td>
+              <td class="py-2.5 px-3 text-slate-300">${escapeHtml(l.target_type)}:${escapeHtml(l.target_id || '')}</td>
+              <td class="py-2.5 px-3 text-slate-500 select-all max-w-xs truncate">${escapeHtml(JSON.stringify(l.detail))}</td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // DELIVER MODAL
+    function openDeliverModal(orderId, orderCode, durationDays) {
+      document.getElementById('deliver-order-id').value = orderId;
+      document.getElementById('deliver-order-code').textContent = orderCode;
+      document.getElementById('deliver-days').value = durationDays || 30;
+      document.getElementById('deliver-credentials').value = '';
+      document.getElementById('modal-deliver').classList.remove('hidden');
+    }
+
+    function closeDeliverModal() {
+      document.getElementById('modal-deliver').classList.add('hidden');
+    }
+
+    async function handleDeliverSubmit(e) {
+      e.preventDefault();
+      const orderId = document.getElementById('deliver-order-id').value;
+      const durationDays = document.getElementById('deliver-days').value;
+      const credentials = document.getElementById('deliver-credentials').value;
+
+      try {
+        const res = await adminApi('deliver', 'POST', {
+          order_id: orderId,
+          duration_days: durationDays,
+          credentials
+        });
+        if (res.success) {
+          showToast(res.message);
+          closeDeliverModal();
+          refreshCurrentTab();
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    // HELPERS
+    function renderStatusBadge(status) {
+      const map = {
+        'pending': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">⏳ Chờ xử lý</span>',
+        'paid': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">💳 Đã thanh toán</span>',
+        'delivered': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✅ Đã bàn giao</span>',
+        'cancelled': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">❌ Đã hủy</span>'
+      };
+      return map[status] || `<span class="px-2 py-0.5 rounded text-[10px]">${escapeHtml(status)}</span>`;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Start
+    initAdminUI();
+  </script>
+</body>
+</html>
