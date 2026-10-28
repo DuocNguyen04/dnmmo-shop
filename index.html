@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>DNMMO - Hệ Thống Cung Cấp Tài Khoản Bản Quyền & MMO AI</title>
+  <meta name="description" content="Chuyên cung cấp tài khoản ChatGPT Plus, Canva Pro, CapCut, YouTube Premium, Gemini Advanced, Claude AI bản quyền uy tín, hỗ trợ kích hoạt tận tình qua Zalo.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glow-bg {
+      background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.18) 0%, rgba(15, 23, 42, 0) 75%);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(59, 130, 246, 0.45);
+      box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.25);
+    }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    /* GIAO DIỆN DARK NIGHT (OLED BLACK & CYBER CYAN - DNMMO) */
+    body.theme-darknight {
+      background-color: #02040a !important;
+      color: #f8fafc !important;
+    }
+    body.theme-darknight .glow-bg {
+      background: radial-gradient(circle at 50% 15%, rgba(0, 210, 255, 0.16) 0%, rgba(2, 6, 23, 0) 72%) !important;
+    }
+    body.theme-darknight header {
+      background-color: rgba(2, 6, 17, 0.95) !important;
+      border-bottom-color: rgba(0, 210, 255, 0.22) !important;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8) !important;
+    }
+    body.theme-darknight .glass-card {
+      background: rgba(6, 11, 22, 0.88) !important;
+      border-color: rgba(0, 210, 255, 0.15) !important;
+    }
+    body.theme-darknight .glass-card:hover {
+      border-color: rgba(0, 210, 255, 0.55) !important;
+      box-shadow: 0 0 25px -4px rgba(0, 210, 255, 0.35) !important;
+    }
+    body.theme-darknight footer {
+      background-color: #010206 !important;
+      border-top-color: rgba(0, 210, 255, 0.18) !important;
+    }
+    body.theme-darknight .bg-slate-900 {
+      background-color: #070d1c !important;
+    }
+    body.theme-darknight .bg-slate-950 {
+      background-color: #03050c !important;
+    }
+    body.theme-darknight .border-slate-800 {
+      border-color: rgba(0, 210, 255, 0.18) !important;
+    }
+    body.theme-darknight .border-slate-700 {
+      border-color: rgba(0, 210, 255, 0.25) !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white theme-darknight">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 py-1.5 px-4 text-xs font-medium text-slate-300 border-b border-cyan-500/20">
+    <div class="container mx-auto max-w-7xl flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 truncate">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
+        <span class="truncate">Cam kết tài khoản bản quyền chính hãng • Hỗ trợ kích hoạt trọn thời gian sử dụng</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-300 flex-shrink-0 text-[11px] sm:text-xs">
+        <span class="hidden md:inline text-slate-400">Hotline/Zalo: <strong class="text-white font-mono">0865 899 763</strong></span>
+        <a href="https://zalo.me/0865899763" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-bold hover:underline flex items-center gap-1 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-lg transition">
+          <span>Nhắn Zalo tư vấn</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-md">
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
+      <!-- Left: Logo & Brand -->
+      <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
+        <img src="logo.png" alt="DNMMO" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform border border-cyan-500/40 bg-black flex-shrink-0">
+        <div class="flex flex-col">
+          <span class="font-black text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent block leading-tight">DNMMO</span>
+          <span class="text-[9px] sm:text-[10px] text-cyan-400 font-semibold uppercase tracking-wider block leading-tight">Dịch Vụ MMO & AI</span>
+        </div>
+      </a>
+
+      <!-- Center: Desktop Navigation Links (Responsive) -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-950/70 p-1 rounded-xl border border-slate-800 text-xs sm:text-sm">
+        <button onclick="switchView('store')" id="nav-store" class="px-3 py-1.5 rounded-lg font-medium text-white bg-blue-600 shadow transition whitespace-nowrap">Sản phẩm & Bảng giá</button>
+        <button onclick="switchView('policy')" id="nav-policy" class="px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">Quy định bảo hành</button>
+        <button onclick="switchView('orders')" id="nav-orders" class="px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap">
+          Đơn đã đặt
+          <span id="user-orders-badge" class="bg-blue-500/20 text-blue-300 text-xs px-1.5 py-0.2 rounded-full font-bold">0</span>
+        </button>
+        <!-- Tab Admin chỉ hiện khi đăng nhập tài khoản có role ADMIN trong DB -->
+        <button onclick="switchView('admin')" id="nav-admin" class="hidden px-3 py-1.5 rounded-lg font-bold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-1.5 border border-amber-500/30 whitespace-nowrap">
+          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+          Quản trị Admin
+          <span id="admin-pending-badge" class="bg-amber-500 text-slate-950 text-[10px] font-bold px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+      </nav>
+
+      <!-- Right: Controls & User Profile -->
+      <div class="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleDarkNightTheme()" id="theme-toggle-btn" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 text-xs font-bold transition shadow-sm" title="Chuyển chế độ Dark Night">
+          <span id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-text" class="hidden xl:inline text-[11px]">Dark Night</span>
+        </button>
+
+        <!-- Logged Out Button -->
+        <div id="auth-logged-out" class="flex items-center">
+          <button onclick="openGoogleLoginModal()" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl transition border border-slate-700 shadow-sm whitespace-nowrap">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="hidden sm:inline">Đăng nhập / Đăng ký</span>
+            <span class="sm:hidden">Đăng nhập</span>
+          </button>
+        </div>
+
+        <!-- Logged In User Pill (Clean, Modern & Compact) -->
+        <div id="auth-logged-in" class="hidden flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2 sm:px-2.5 py-1 shadow-sm">
+          <img id="user-avatar" src="" alt="Avatar" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-cyan-400/50 object-cover flex-shrink-0">
+          <div class="text-left min-w-0 max-w-[85px] sm:max-w-[130px] md:max-w-[160px]">
+            <div class="flex items-center gap-1">
+              <span id="user-name" class="text-xs font-bold text-white truncate block leading-tight"></span>
+              <span id="user-role-badge" class="hidden text-[9px] px-1 py-0.2 rounded font-black tracking-wide leading-none flex-shrink-0"></span>
+            </div>
+            <span id="user-email" class="text-[10px] text-slate-400 truncate block leading-tight"></span>
+          </div>
+          <button onclick="handleLogout()" title="Đăng xuất" class="text-slate-400 hover:text-rose-400 p-1 hover:bg-rose-500/10 rounded-lg transition ml-0.5 flex-shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white bg-slate-800/80 border border-slate-700 hover:bg-slate-700 transition" aria-label="Mở Menu">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-md px-4 py-3 space-y-2">
+      <button onclick="switchView('store'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600/30 border border-blue-500/30 flex items-center justify-between">
+        <span>📦 Sản phẩm & Bảng giá</span>
+        <span class="text-slate-400">&rarr;</span>
+      </button>
+      <button onclick="switchView('policy'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+        <span>🛡️ Quy định bảo hành</span>
+        <span class="text-slate-400">&rarr;</span>
+      </button>
+      <button onclick="switchView('orders'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+        <span>📋 Đơn đã đặt của bạn</span>
+        <span id="mobile-orders-badge" class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full text-[10px] font-bold">0</span>
+      </button>
+      <button onclick="switchView('admin'); toggleMobileMenu()" id="mobile-nav-admin" class="hidden w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+          Quản trị Admin
+        </span>
+        <span id="mobile-admin-badge" class="bg-amber-500 text-slate-950 px-2 py-0.5 rounded-full text-[10px] font-bold">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="flex-1">
+    <!-- VIEW 1: STOREFRONT -->
+    <div id="view-store" class="block">
+      <section class="relative pt-12 pb-14 px-4 overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 glow-bg pointer-events-none"></div>
+        <div class="container mx-auto max-w-5xl text-center relative z-10">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/30 text-blue-300 text-xs font-medium mb-5 shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Hệ Thống Đặt Hàng Trực Tuyến • Nhân Viên Hỗ Trợ Kích Hoạt Nhanh
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 uppercase">
+            Kho Tài Khoản Bản Quyền & Phần Mềm <br class="hidden sm:inline">
+            <span class="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">Chính Hãng Uy Tín</span>
+          </h1>
+          <p class="text-slate-300 text-sm md:text-base max-w-2xl mx-auto mb-7 leading-relaxed">
+            Cung cấp tài khoản ChatGPT Plus, Canva Pro, CapCut, YouTube Premium, Gemini 1.5 Pro, Claude AI với chi phí tối ưu. Đặt hàng trực tiếp - Shop liên hệ tư vấn và bàn giao tận tay.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xl mx-auto">
+            <div class="relative w-full">
+              <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Tìm kiếm ChatGPT, Canva, Capcut, Gemini, Youtube..." 
+                class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-4 py-3 pl-11 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition shadow-inner">
+              <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <a href="https://zalo.me/0865899763" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition whitespace-nowrap flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              Zalo: 0865 899 763
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Filter Pills -->
+      <section class="py-5 bg-slate-950 border-b border-slate-900 sticky top-16 z-30 backdrop-blur-md bg-slate-950/90">
+        <div class="container mx-auto max-w-6xl px-4">
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="category-pills">
+            <button onclick="setCategory('ALL', this)" class="cat-pill active px-4 py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap">
+              Tất cả danh mục (<span id="cat-count-all">8</span>)
+            </button>
+            <button onclick="setCategory('AI', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap">
+              Trí tuệ nhân tạo (AI Tools)
+            </button>
+            <button onclick="setCategory('DESIGN', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap">
+              Đồ họa & Thiết kế
+            </button>
+            <button onclick="setCategory('MEDIA', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap">
+              Video & Giải trí
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Grid -->
+      <section class="py-10 px-4">
+        <div class="container mx-auto max-w-6xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-blue-500 rounded-full inline-block"></span>
+                BẢNG GIÁ & DANH MỤC DỊCH VỤ
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Chọn gói tài khoản phù hợp với nhu cầu học tập, sáng tạo và làm việc của bạn</p>
+            </div>
+            <div class="text-xs text-slate-400 flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+              Kho hàng: <strong class="text-white">Sẵn sàng kích hoạt</strong>
+            </div>
+          </div>
+
+          <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 2: PRODUCT DETAIL MODAL -->
+    <div id="product-detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
+        <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl bg-slate-800/80">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="flex items-start gap-4 mb-6">
+          <div id="detail-icon-wrap" class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700 p-2.5 flex items-center justify-center text-white shadow-lg flex-shrink-0">
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="detail-product-name" class="text-2xl font-black text-white tracking-tight"></h3>
+              <span id="detail-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-400/30 text-blue-300 bg-blue-500/10"></span>
+            </div>
+            <p id="detail-category-name" class="text-xs text-blue-400 font-medium mt-0.5"></p>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-between">
+            <span>Chọn gói bạn muốn mua</span>
+            <span class="text-[11px] text-blue-400 font-normal lowercase">bấm để chọn gói phù hợp</span>
+          </h4>
+          <div id="detail-variants-list" class="space-y-2"></div>
+        </div>
+
+        <div class="mb-5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Giới thiệu gói dịch vụ</h4>
+          <p id="detail-long-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3.5 rounded-2xl border border-slate-800"></p>
+        </div>
+
+        <div class="mb-6 bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            Quy định bảo hành & Hỗ trợ kỹ thuật
+          </h4>
+          <ul id="detail-warranty-policy" class="text-xs text-slate-300 space-y-1.5 list-disc pl-4 leading-relaxed"></ul>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-800">
+          <div>
+            <span class="text-[11px] text-slate-400 block">Giá thanh toán:</span>
+            <span id="detail-selected-price" class="text-xl font-black text-emerald-400">220.000 đ</span>
+          </div>
+          <button onclick="openOrderModalFromDetail()" id="detail-btn-order" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <span>Đặt hàng (Để lại SĐT)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: ORDER MODAL -->
+    <div id="order-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+        <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="text-center mb-5">
+          <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 mx-auto flex items-center justify-center mb-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-white">Xác nhận thông tin đặt hàng</h3>
+          <p class="text-xs text-slate-400 mt-1">Shop sẽ liên hệ qua SĐT hoặc Zalo để hỗ trợ giao tài khoản</p>
+        </div>
+
+        <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 mb-4 text-xs">
+          <div class="flex justify-between items-center text-slate-300 mb-1.5">
+            <span>Sản phẩm:</span>
+            <strong id="order-summary-title" class="text-white">ChatGPT Plus 1 Tháng</strong>
+          </div>
+          <div class="flex justify-between items-center text-slate-300 mb-1.5">
+            <span>Tình trạng kho:</span>
+            <span class="text-emerald-400 font-semibold" id="order-summary-stock">Còn 12 tài khoản</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+            <span class="text-slate-300 font-bold">Thành tiền:</span>
+            <span id="order-summary-price" class="text-base font-black text-emerald-400">220.000 đ</span>
+          </div>
+        </div>
+
+        <form onsubmit="handlePlaceOrder(event)" class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">
+              Số điện thoại nhận tư vấn & tài khoản <span class="text-rose-400">*</span>
+            </label>
+            <input type="tel" id="order-phone" required placeholder="Ví dụ: 0912 345 678" 
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Họ và tên của bạn</label>
+            <input type="text" id="order-name" placeholder="Nguyễn Văn A" 
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Email nhận tài khoản (nếu có)</label>
+            <input type="email" id="order-email" placeholder="email@gmail.com" 
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Ghi chú thêm (Tùy chọn)</label>
+            <input type="text" id="order-note" placeholder="Nhắn Zalo hoặc gọi trước 18h..." 
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Xác nhận gửi đơn đặt hàng</span>
+            </button>
+            <p class="text-[10px] text-slate-400 text-center mt-2">Shop sẽ bảo mật tuyệt đối số điện thoại và thông tin liên hệ của bạn.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 4: ORDER SUCCESS MODAL -->
+    <div id="order-success-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-emerald-500/40 rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-center">
+        <div class="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h3 class="text-xl font-black text-white">Gửi Đơn Thành Công!</h3>
+        <p class="text-xs text-slate-300 mt-1 mb-4">
+          Cảm ơn bạn! Đơn hàng <strong id="success-order-code" class="text-blue-400 font-mono">ORD-8921</strong> đã được lưu vào hệ thống.
+        </p>
+
+        <div class="bg-slate-950 p-3.5 rounded-2xl text-left text-xs space-y-1.5 mb-5 border border-slate-800">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Gói đã đặt:</span>
+            <span class="text-white font-semibold" id="success-item-title">ChatGPT Plus 1 Tháng</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Số điện thoại liên hệ:</span>
+            <span class="text-emerald-400 font-mono font-bold" id="success-phone">0912 345 678</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Trạng thái:</span>
+            <span class="text-amber-400 font-medium">Chờ Shop gọi điện / Zalo</span>
+          </div>
+        </div>
+
+        <div class="flex gap-2.5">
+          <a href="https://zalo.me/0865899763" target="_blank" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+            <span>Nhắn Zalo luôn để nhận nhanh</span>
+          </a>
+          <button onclick="closeOrderSuccessModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 5: USER ORDERS LIST (BẢO MẬT RIÊNG TƯ - CHỈ ADMIN VÀ KHÁCH MUA MỚI THẤY) -->
+    <div id="view-orders" class="hidden py-10 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white tracking-tight">Lịch Sử Đơn Đặt Hàng</h2>
+            <p class="text-xs text-slate-400">Xem tiến độ xử lý và thông tin bàn giao tài khoản bản quyền của bạn</p>
+          </div>
+          <button onclick="switchView('store')" class="text-xs text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1">
+            &larr; Mua thêm sản phẩm khác
+          </button>
+        </div>
+
+        <!-- Khung hiển thị khi CHƯA đăng nhập -->
+        <div id="orders-logged-out" class="glass-card rounded-2xl p-8 text-center border border-slate-800">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-2xl">
+            🔒
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Đơn Hàng Được Bảo Mật Riêng Tư</h3>
+          <p class="text-xs text-slate-400 max-w-md mx-auto mb-5 leading-relaxed">
+            Để bảo mật thông tin cá nhân và tài khoản bản quyền, lịch sử đơn hàng không công khai. Chỉ tài khoản khách mua và Quản trị viên mới xem được đơn hàng.
+          </p>
+          <button onclick="openAuthModal('login')" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-blue-600/30 inline-flex items-center gap-2">
+            🔑 Đăng Nhập / Đăng Ký Để Xem Đơn Hàng Của Bạn
+          </button>
+        </div>
+
+        <!-- Khung hiển thị khi ĐÃ đăng nhập -->
+        <div id="orders-logged-in" class="hidden space-y-4">
+          <div class="glass-card p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <img id="orders-user-avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=User" class="w-10 h-10 rounded-full border border-blue-500/30">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span id="orders-user-name" class="text-xs font-bold text-white">Khách hàng</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">Đã bảo mật</span>
+                </div>
+                <p id="orders-user-email" class="text-[11px] text-slate-400"></p>
+              </div>
+            </div>
+            
+          </div>
+
+          <div id="user-orders-list" class="space-y-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: WARRANTY POLICY PAGE -->
+    <div id="view-policy" class="hidden py-10 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-white mb-2">Chính Sách & Quy Định Bảo Hành</h2>
+          <p class="text-xs text-slate-400">Minh bạch quyền lợi khách hàng và trách nhiệm của cửa hàng</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+          <div class="glass-card rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-emerald-400 mb-3 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Trường Hợp Được Bảo Hành
+            </h3>
+            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4 leading-relaxed">
+              <li>Tài khoản bị mất gói bản quyền hoặc lỗi thanh toán trong thời gian gói đăng ký.</li>
+              <li>Tài khoản không đăng nhập được do sự cố xác thực từ phía nhà phát hành.</li>
+              <li>Hỗ trợ chuyển gói hoặc cấp lại tài khoản tương đương nếu tài khoản cũ bị lỗi kỹ thuật.</li>
+              <li>Hỗ trợ hướng dẫn cấu hình trình duyệt, đăng nhập 2FA và giải đáp thắc mắc 24/7.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-rose-400 mb-3 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              Trường Hợp Từ Chối Bảo Hành
+            </h3>
+            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4 leading-relaxed">
+              <li>Khách hàng tự ý thay đổi email đăng nhập hoặc phương thức bảo mật trái với hướng dẫn.</li>
+              <li>Chia sẻ tài khoản cho nhiều người sử dụng đồng thời dẫn đến việc hệ thống khóa IP do nghi ngờ spam.</li>
+              <li>Sử dụng vi phạm chính sách của nhà cung cấp (tạo nội dung vi phạm pháp luật, bot spam API).</li>
+              <li>Hết thời hạn gói đăng ký theo thông tin thỏa thuận ban đầu.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 7: ADMIN PORTAL (QUẢN TRỊ CRM & KHO HÀNG) -->
+    <div id="view-admin" class="hidden py-8 px-4">
+      <div class="container mx-auto max-w-6xl">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-bold">ADMIN CONSOLE</span>
+              <h2 class="text-lg font-bold text-white">Quản Trị Đơn Hàng & Kho Sản Phẩm</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Phân quyền tự động từ Database cho tài khoản: <strong class="text-amber-300" id="admin-user-display">duocnguyen.work@gmail.com</strong></p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="dbRefreshAll(true)" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-slate-700 shadow">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              🔄 Làm Mới
+            </button>
+            <button onclick="openAddProductModal()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              Thêm sản phẩm mới
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="glass-card rounded-2xl p-4">
+            <span class="text-xs text-slate-400 block mb-1">Đơn chờ gọi tư vấn</span>
+            <span class="text-2xl font-extrabold text-amber-400" id="admin-pending-count-card">2</span>
+            <span class="text-[10px] text-amber-300/80 block mt-1">Cần liên hệ sớm</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4">
+            <span class="text-xs text-slate-400 block mb-1">Đơn đã bàn giao xong</span>
+            <span class="text-2xl font-extrabold text-emerald-400" id="admin-completed-count-card">0</span>
+            <span class="text-[10px] text-emerald-300/80 block mt-1">Giao dịch thành công</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4">
+            <span class="text-xs text-slate-400 block mb-1">Tổng sản phẩm</span>
+            <span class="text-2xl font-extrabold text-white" id="admin-total-prods-card">8</span>
+            <span class="text-[10px] text-slate-400 block mt-1">ChatGPT, Canva, CapCut...</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4">
+            <span class="text-xs text-slate-400 block mb-1">Phân quyền Database</span>
+            <span class="text-base font-bold text-emerald-400 flex items-center gap-1.5 mt-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Supabase Admin
+            </span>
+            <span class="text-[10px] text-slate-400 block mt-1">Quyền Quản trị tối cao</span>
+          </div>
+        </div>
+
+        <!-- Subtabs -->
+        <div class="flex items-center gap-2 mb-6 border-b border-slate-800 pb-3 overflow-x-auto">
+          <button onclick="setAdminTab('orders')" id="tab-btn-admin-orders" class="admin-tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow whitespace-nowrap">
+            📞 Khách Chờ Gọi Điện (<span id="admin-orders-count">0</span>)
+          </button>
+          <button onclick="setAdminTab('warranty')" id="tab-btn-admin-warranty" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white whitespace-nowrap">
+            🛡️ Quản Lý Bảo Hành & Đơn Đã Mua (<span id="admin-warranty-count">0</span>)
+          </button>
+          <button onclick="setAdminTab('products')" id="tab-btn-admin-products" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white whitespace-nowrap">
+            📦 Quản Lý Sản Phẩm (<span id="admin-prods-count">0</span>)
+          </button>
+          <button onclick="setAdminTab('categories')" id="tab-btn-admin-categories" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white whitespace-nowrap">
+            📂 Danh Mục (<span id="admin-categories-count">3</span>)
+          </button>
+        </div>
+
+        <!-- Admin Section 1: Customer Phone Orders List -->
+        <div id="admin-orders-panel" class="block">
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h4 class="font-bold text-white text-sm">Danh Sách Khách Đặt Hàng Để Lại Số Điện Thoại</h4>
+                <p class="text-xs text-slate-400">Nhấn trực tiếp vào số điện thoại để gọi ngay hoặc mở Zalo tư vấn</p>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 uppercase text-[11px]">
+                    <th class="py-3 px-3">Mã đơn</th>
+                    <th class="py-3 px-3">Khách hàng</th>
+                    <th class="py-3 px-3">Số Điện Thoại (Zalo)</th>
+                    <th class="py-3 px-3">Gói đặt mua</th>
+                    <th class="py-3 px-3">Thành tiền</th>
+                    <th class="py-3 px-3">Trạng thái</th>
+                    <th class="py-3 px-3 text-right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-table" class="divide-y divide-slate-800 text-slate-300">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Section 2: Products List -->
+        <div id="admin-products-panel" class="hidden">
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h4 class="font-bold text-white text-sm">Kho Sản Phẩm & Tồn Kho</h4>
+                <p class="text-xs text-slate-400">Chỉnh sửa logo, mô tả, giá bán và số lượng tồn kho từng gói</p>
+              </div>
+              <button onclick="openAddProductModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+                + Thêm sản phẩm
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 uppercase text-[11px]">
+                    <th class="py-3 px-3">Logo & Tên sản phẩm</th>
+                    <th class="py-3 px-3">Danh mục</th>
+                    <th class="py-3 px-3">Các gói & Giá bán</th>
+                    <th class="py-3 px-3">Tồn kho</th>
+                    <th class="py-3 px-3 text-right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-table" class="divide-y divide-slate-800 text-slate-300">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Section 3: Quản Lý Bảo Hành & Bản Quyền Đã Bán (Lưu ngày mua & Quản lý thời hạn bảo hành) -->
+        <div id="admin-warranty-panel" class="hidden">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <div>
+                <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                  <span>🛡️ Sổ Theo Dõi Bản Quyền & Thời Gian Bảo Hành</span>
+                  <span id="warranty-total-badge" class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">0 gói</span>
+                </h4>
+                <p class="text-xs text-slate-400 mt-0.5">Lưu lại khách mua ngày nào, tính chính xác thời hạn bảo hành và quản lý tài khoản bàn giao</p>
+              </div>
+
+              <!-- Filter Buttons -->
+              <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px] overflow-x-auto">
+                <button type="button" onclick="setWarrantyFilter('ALL', this)" class="warranty-filter-btn active px-3 py-1 rounded-lg font-bold bg-blue-600 text-white whitespace-nowrap">Tất cả (<span id="wf-count-all">0</span>)</button>
+                <button type="button" onclick="setWarrantyFilter('ACTIVE', this)" class="warranty-filter-btn px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-emerald-400 whitespace-nowrap">🟢 Còn hạn (<span id="wf-count-active">0</span>)</button>
+                <button type="button" onclick="setWarrantyFilter('EXPIRING', this)" class="warranty-filter-btn px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-amber-400 whitespace-nowrap">🟡 Sắp hết (<span id="wf-count-expiring">0</span>)</button>
+                <button type="button" onclick="setWarrantyFilter('EXPIRED', this)" class="warranty-filter-btn px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-rose-400 whitespace-nowrap">🔴 Hết hạn (<span id="wf-count-expired">0</span>)</button>
+              </div>
+            </div>
+
+            <!-- Search in Warranty -->
+            <div class="mb-4">
+              <input type="text" id="warranty-search-input" oninput="filterWarrantyList(this.value)" placeholder="🔍 Tìm kiếm theo tên khách hàng, số điện thoại, mã đơn, tên phần mềm..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Table of Warranties -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider">
+                    <th class="py-3 px-3">Mã đơn & Ngày mua</th>
+                    <th class="py-3 px-3">Khách hàng (SĐT / Zalo)</th>
+                    <th class="py-3 px-3">Gói bản quyền</th>
+                    <th class="py-3 px-3">Thời hạn & Hạn BH</th>
+                    <th class="py-3 px-3">Tình trạng bảo hành</th>
+                    <th class="py-3 px-3">Tài khoản cấp cho khách</th>
+                    <th class="py-3 px-3 text-right">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-warranty-table" class="divide-y divide-slate-800/60">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Section 4: Quản Lý Danh Mục Sản Phẩm -->
+        <div id="admin-categories-panel" class="hidden">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <div>
+                <h4 class="font-bold text-white text-sm">Quản Lý Danh Mục Sản Phẩm</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Tạo thêm danh mục mới để phân loại phần mềm và hiển thị trên trang chủ</p>
+              </div>
+              <button onclick="promptAddNewCategory()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow">
+                + Thêm danh mục mới
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 uppercase text-[11px]">
+                    <th class="py-3 px-3">Tên danh mục</th>
+                    <th class="py-3 px-3">Mã đường dẫn (Slug)</th>
+                    <th class="py-3 px-3">Số sản phẩm đang có</th>
+                    <th class="py-3 px-3 text-right">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-categories-table" class="divide-y divide-slate-800/60">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: ADMIN EDIT / ADD PRODUCT -->
+    <div id="product-edit-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
+        <button onclick="closeProductEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <h3 id="edit-modal-title" class="text-xl font-bold text-white mb-1">Chỉnh Sửa Sản Phẩm</h3>
+        <p class="text-xs text-slate-400 mb-4">Cập nhật thông tin, logo, giá bán và số lượng tồn kho từng gói</p>
+
+        <form onsubmit="handleSaveProduct(event)" class="space-y-4 text-xs">
+          <input type="hidden" id="edit-product-id">
+
+          <!-- Row 1: Tên & Danh mục -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-300 font-medium block mb-1">Tên sản phẩm *</label>
+              <input type="text" id="edit-product-name" required placeholder="Ví dụ: ChatGPT, Canva Pro..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="text-slate-300 font-medium">Danh mục *</label>
+                <button type="button" onclick="promptAddNewCategory()" class="text-blue-400 hover:text-blue-300 text-[11px] font-semibold hover:underline">
+                  + Thêm danh mục mới
+                </button>
+              </div>
+              <div class="flex gap-2">
+                <select id="edit-product-category" class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+                  <!-- Rendered dynamically -->
+                </select>
+                <button type="button" onclick="promptAddNewCategory()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-blue-300 rounded-xl text-xs font-bold border border-slate-700" title="Thêm danh mục mới">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Badge & Logo Selection -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-300 font-medium block mb-1">Huy hiệu (Badge)</label>
+              <input type="text" id="edit-product-badge" placeholder="BÁN CHẠY, PRO, GIẢM GIÁ..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="text-slate-300 font-medium block mb-1">Mã nhận diện logo (Preset key)</label>
+              <input type="text" id="edit-product-brandkey" placeholder="chatgpt, canva, capcut, cursor..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <!-- Logo Upload & Image URL Picker -->
+          <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+            <label class="text-amber-300 font-bold block uppercase tracking-wider text-[11px]">Hình ảnh Logo sản phẩm</label>
+            <div class="flex items-center gap-3">
+              <div id="edit-logo-preview" class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 p-2 flex items-center justify-center flex-shrink-0 text-white shadow">
+                <!-- Preview SVG or Image -->
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <div class="flex gap-2">
+                  <input type="text" id="edit-product-logo-url" oninput="updateLogoPreviewFromInput()" placeholder="Dán link ảnh logo hoặc bấm Tải ảnh..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white">
+                  <label class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl cursor-pointer text-xs font-semibold whitespace-nowrap transition shadow">
+                    Tải ảnh từ máy
+                    <input type="file" id="edit-logo-file-input" accept="image/*" class="hidden" onchange="handleLogoFileSelected(event)">
+                  </label>
+                </div>
+                <div class="flex items-center gap-1 overflow-x-auto text-[10px] pb-1 scrollbar-none">
+                  <span class="text-slate-500 whitespace-nowrap">Chọn logo có sẵn:</span>
+                  <button type="button" onclick="setPresetBrand('chatgpt')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-700 whitespace-nowrap">ChatGPT</button>
+                  <button type="button" onclick="setPresetBrand('canva')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-700 whitespace-nowrap">Canva</button>
+                  <button type="button" onclick="setPresetBrand('capcut')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 whitespace-nowrap">CapCut</button>
+                  <button type="button" onclick="setPresetBrand('gemini')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-blue-400 border border-slate-700 whitespace-nowrap">Gemini</button>
+                  <button type="button" onclick="setPresetBrand('claude')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-700 whitespace-nowrap">Claude</button>
+                  <button type="button" onclick="setPresetBrand('youtube')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-red-500 border border-slate-700 whitespace-nowrap">YouTube</button>
+                  <button type="button" onclick="setPresetBrand('suno')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-pink-400 border border-slate-700 whitespace-nowrap">Suno</button>
+                  <button type="button" onclick="setPresetBrand('cursor')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-purple-400 border border-slate-700 whitespace-nowrap">Cursor</button>
+                  <button type="button" onclick="setPresetBrand('netflix')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-rose-500 border border-slate-700 whitespace-nowrap">Netflix</button>
+                  <button type="button" onclick="setPresetBrand('spotify')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-green-400 border border-slate-700 whitespace-nowrap">Spotify</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mô tả ngắn & chi tiết -->
+          <div>
+            <label class="text-slate-300 font-medium block mb-1">Mô tả ngắn hiển thị ngoài trang chủ</label>
+            <input type="text" id="edit-product-short-desc" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+          </div>
+
+          <div>
+            <label class="text-slate-300 font-medium block mb-1">Giới thiệu chi tiết & Quyền lợi gói</label>
+            <textarea id="edit-product-long-desc" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"></textarea>
+          </div>
+
+          <div>
+            <label class="text-slate-300 font-medium block mb-1">Quy định bảo hành riêng (Mỗi dòng 1 gạch đầu dòng)</label>
+            <textarea id="edit-product-warranty" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"></textarea>
+          </div>
+
+          <!-- Dynamic Variants Manager (Sửa giá & Tồn kho) -->
+          <div class="pt-2 border-t border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-amber-300 font-bold uppercase tracking-wider text-[11px]">Các gói dịch vụ, Giá bán & Tồn kho</label>
+              <button type="button" onclick="addNewVariantRow()" class="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 text-blue-300 hover:text-white rounded-lg text-[11px] font-semibold transition border border-slate-700 flex items-center gap-1">
+                + Thêm gói
+              </button>
+            </div>
+            <div id="edit-variants-list" class="space-y-2">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="pt-4 border-t border-slate-800 flex justify-end gap-2">
+            <button type="button" onclick="closeProductEditModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl">
+              Hủy
+            </button>
+            <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow transition">
+              Lưu thay đổi sản phẩm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: AUTH (LOGIN & REGISTER) -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full p-6 text-white shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl bg-slate-800">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Tabs Header: Đăng nhập vs Đăng ký -->
+      <div class="flex items-center gap-2 p-1 bg-slate-950 rounded-2xl mb-5 border border-slate-800">
+        <button id="auth-tab-login-btn" type="button" onclick="setAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white transition shadow">
+          🔑 Đăng Nhập
+        </button>
+        <button id="auth-tab-register-btn" type="button" onclick="setAuthTab('register')" class="flex-1 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition">
+          ✨ Đăng Ký Mới
+        </button>
+      </div>
+
+      <!-- TAB 1: ĐĂNG NHẬP -->
+      <div id="auth-panel-login" class="space-y-4">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-2">Đăng nhập nhanh Google 1 chạm:</span>
+          <div class="space-y-2">
+            <!-- Duoc Nguyen Admin -->
+            <button type="button" onclick="loginWithGoogleAccount('Duoc Nguyen', 'duocnguyen.work@gmail.com')" class="w-full p-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 flex items-center gap-3 transition text-left">
+              <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xs shadow-sm">DN</div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-white block truncate">Duoc Nguyen</span>
+                  <span class="bg-amber-500 text-slate-950 text-[9px] font-extrabold px-1.5 rounded">ADMIN</span>
+                </div>
+                <span class="text-[11px] text-slate-400 block truncate">duocnguyen.work@gmail.com</span>
+              </div>
+            </button>
+
+            <!-- Customer Demo Account -->
+            <button type="button" onclick="loginWithGoogleAccount('Khách Hàng Mẫu', 'khachhang.demo@gmail.com')" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 flex items-center gap-3 transition text-left">
+              <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">KH</div>
+              <div class="flex-1 min-w-0">
+                <span class="text-xs font-bold text-white block truncate">Khách Hàng Mẫu (User)</span>
+                <span class="text-[11px] text-slate-400 block truncate">khachhang.demo@gmail.com</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-800"></div>
+          <span class="flex-shrink mx-2 text-slate-500 text-[10px] uppercase font-bold">hoặc đăng nhập bằng mật khẩu</span>
+          <div class="flex-grow border-t border-slate-800"></div>
+        </div>
+
+        <!-- Form Email + Password Login -->
+        <form onsubmit="handleEmailPasswordLogin(event)" class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Email hoặc Số điện thoại</label>
+            <input id="login-identifier" type="text" required placeholder="name@example.com hoặc 0988..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Mật khẩu</label>
+            <input id="login-password" type="password" required placeholder="Nhập mật khẩu" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <button type="submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-1.5">
+            Đăng Nhập
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-slate-400">
+          Chưa có tài khoản? 
+          <button type="button" onclick="setAuthTab('register')" class="text-blue-400 hover:underline font-bold">
+            Đăng ký tài khoản mới &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: ĐĂNG KÝ TÀI KHOẢN KHÁCH HÀNG -->
+      <div id="auth-panel-register" class="hidden space-y-3">
+        <div class="text-center mb-2">
+          <p class="text-xs text-slate-300">Tạo tài khoản khách hàng để nhận tài khoản phần mềm và quản lý đơn hàng</p>
+        </div>
+
+        <form onsubmit="handleCustomerRegister(event)" class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Họ và tên <span class="text-rose-400">*</span></label>
+            <input id="reg-name" type="text" required placeholder="Ví dụ: Nguyễn Văn An" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Số điện thoại (Zalo) <span class="text-slate-500 font-normal">(không bắt buộc)</span></label>
+            <input id="reg-phone" type="tel" placeholder="Ví dụ: 0988 123 456 (để nhận tài khoản qua Zalo)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Địa chỉ Email <span class="text-rose-400">*</span></label>
+            <input id="reg-email" type="email" required placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Mật khẩu <span class="text-rose-400">*</span></label>
+            <input id="reg-password" type="password" required minlength="4" placeholder="Tối thiểu 4 ký tự" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-medium block mb-1">Xác nhận mật khẩu <span class="text-rose-400">*</span></label>
+            <input id="reg-confirm-password" type="password" required minlength="4" placeholder="Nhập lại mật khẩu" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          </div>
+
+          <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-1.5 mt-2">
+            ✓ Hoàn Tất Đăng Ký Tài Khoản
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-slate-400">
+          Đã có tài khoản? 
+          <button type="button" onclick="setAuthTab('login')" class="text-blue-400 hover:underline font-bold">
+            Đăng nhập ngay &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 transform translate-y-24 opacity-0 transition-all duration-300">
+    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <span id="toast-msg" class="text-xs font-medium">Thông báo</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-10 text-slate-400 text-xs">
+    <div class="container mx-auto max-w-6xl px-4 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-3">
+          <img src="logo.png" alt="DNMMO" class="w-7 h-7 rounded-lg object-contain border border-cyan-500/40 bg-black">
+          <span class="font-extrabold text-white text-sm tracking-wide">DNMMO PRO</span>
+        </div>
+        <p class="text-slate-400 leading-relaxed mb-3">
+          Hệ thống cung cấp tài khoản công cụ AI, đồ họa, dựng phim và giải trí bản quyền. Cam kết uy tín, hỗ trợ kỹ thuật lâu dài.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Thông Tin Liên Hệ</h4>
+        <ul class="space-y-2">
+          <li>Hotline / Zalo: <a href="https://zalo.me/0865899763" target="_blank" class="text-blue-400 font-bold hover:underline">0865 899 763</a></li>
+          <li>Kỹ thuật viên: <strong class="text-slate-200">Được Nguyễn (DNMMO)</strong></li>
+          <li>Thời gian hỗ trợ: <span class="text-slate-300">08:00 - 23:00 hàng ngày</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Chính Sách Khách Hàng</h4>
+        <ul class="space-y-1.5 text-slate-400">
+          <li>• Bảo hành trọn thời hạn gói đăng ký</li>
+          <li>• Hỗ trợ cài đặt từ xa qua Ultraviewer</li>
+          <li>• Bảo mật thông tin số điện thoại khách hàng</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-900 pt-6 text-center text-slate-400 text-[11px]">
+      © 2026 DNMMO. Toàn bộ bản quyền được bảo lưu.
+    </div>
+  </footer>
+
+  <script>
+    // SUPABASE CONFIGURATION
+    // SUPABASE CLIENT CONFIG (Bảo mật: Mọi yêu cầu được proxy qua backend an toàn, không lộ secret key)
+    const SUPABASE_CONFIG = {
+      url: '/api/supabase'
+    };
+
+    let CATEGORIES = [
+      { id: '11111111-1111-1111-1111-111111111111', name: 'Trí tuệ nhân tạo (AI Tools)', slug: 'ai-tools' },
+      { id: '22222222-2222-2222-2222-222222222222', name: 'Đồ họa & Thiết kế', slug: 'do-hoa-thiet-ke' },
+      { id: '33333333-3333-3333-3333-333333333333', name: 'Video & Giải trí', slug: 'video-giai-tri' }
+    ];
+
+    let currentWarrantyFilter = 'ALL';
+    let warrantySearchQuery = '';
+
+    // Generic REST API client for Supabase (Proxied via backend on web, direct on file://)
+    async function dbRequest(endpoint, options = {}) {
+      const url = `/api/supabase/${endpoint}`;
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(options.headers || {})
+      };
+      try {
+        const res = await fetch(url, { ...options, headers });
+        if (!res.ok) {
+          const errText = await res.text();
+          console.warn(`API error [${endpoint}] ${res.status}:`, errText);
+          return null;
+        }
+        const ct = res.headers.get('content-type') || '';
+        if (ct && ct.includes('application/json')) {
+          return await res.json();
+        }
+        return true;
+      } catch (err) {
+        console.warn(`Network error querying [${endpoint}]:`, err);
+        return null;
+      }
+    }
+
+    // TOAST NOTIFICATION
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      if (toastMsg) toastMsg.innerText = msg;
+      if (toast) {
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => {
+          toast.classList.add('translate-y-24', 'opacity-0');
+          toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 3500);
+      }
+    }
+
+    // OFFICIAL BRAND SVG PRESETS
+    const BRAND_LOGOS = {
+      chatgpt: `
+        <svg class="w-full h-full text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 9.176a4.506 4.506 0 0 1 2.34-1.974V12.8a.766.766 0 0 0 .387.676l5.843 3.373-2.02 1.168a.076.076 0 0 1-.067 0L4.01 15.2a4.499 4.499 0 0 1-1.67-6.024zm16.597 3.855l-5.833-3.369L15.124 8.5a.076.076 0 0 1 .067 0l4.813 2.816a4.5 4.5 0 0 1-.617 8.085v-5.696a.78.78 0 0 0-.447-.67zm2.754-3.013l-.142-.086-4.783-2.763a.771.771 0 0 0-.78 0L10.14 10.54V8.206a.08.08 0 0 1 .033-.061l4.84-2.818a4.5 4.5 0 0 1 6.677 4.654v.245zM8.877 7.708V2.124a4.504 4.504 0 0 1 7.37 3.443l-.141.08-4.779 2.758a.795.795 0 0 0-.392.681v6.737l-2.02-1.168a.071.071 0 0 1-.038-.052zm1.01 4.792l2.4-1.385 2.4 1.385v2.77l-2.4 1.385-2.4-1.385z"/>
+        </svg>
+      `,
+      canva: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="url(#canva_g)"/>
+          <path d="M12.8 8.2c-.8-.2-1.7-.1-2.4.3-1.6.9-2.1 3.2-1.2 5 .8 1.6 2.7 2.3 4.3 1.6.8-.4 1.5-1.1 1.8-1.9h-1.9c-.3.5-.8.8-1.4.8-1 0-1.7-.8-1.7-2 0-1.3.7-2.1 1.8-2.1.6 0 1.2.3 1.5.8h1.8c-.3-1-1.1-1.8-2.2-2.1z" fill="white"/>
+          <defs><linearGradient id="canva_g" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#00C4CC"/><stop offset="1" stop-color="#7D2AE8"/></linearGradient></defs>
+        </svg>
+      `,
+      capcut: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#0F172A"/>
+          <path d="M4 7.5L12 12L4 16.5V7.5Z" fill="#000" stroke="#FFF" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M20 7.5L12 12L20 16.5V7.5Z" fill="#FFF" stroke="#FFF" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="1.5" fill="#38BDF8"/>
+        </svg>
+      `,
+      gemini: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C12 7.523 7.523 12 2 12C7.523 12 12 16.477 12 22C12 16.477 16.477 12 22 12C16.477 12 12 7.523 12 2Z" fill="url(#gem_g)"/>
+          <defs><linearGradient id="gem_g" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#1A73E8"/><stop offset="0.5" stop-color="#8E54E9"/><stop offset="1" stop-color="#FF6B9B"/></linearGradient></defs>
+        </svg>
+      `,
+      claude: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#D97757"/>
+          <path d="M14.5 7L9.5 17M12 7L7 17M17 12H7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `,
+      cursor: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#0F172A"/>
+          <path d="M7 6L17 12L12 13.5L10 18L7 6Z" fill="#38BDF8" stroke="#38BDF8" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      `,
+      youtube: `
+        <svg class="w-full h-full text-rose-500" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      `,
+      suno: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#18181B"/>
+          <path d="M6 14C6 11 8.5 8 12 8C15.5 8 18 11 18 14C18 16.5 15.5 18 12 18C8.5 18 6 16.5 6 14Z" fill="url(#suno_g)"/>
+          <path d="M12 4V7M18 6L16 8M6 6L8 8" stroke="#F43F5E" stroke-width="2" stroke-linecap="round"/>
+          <defs><linearGradient id="suno_g" x1="6" y1="8" x2="18" y2="18"><stop stop-color="#F43F5E"/><stop offset="1" stop-color="#FB923C"/></linearGradient></defs>
+        </svg>
+      `,
+      muse: `
+        <svg class="w-full h-full" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#1E1B4B"/>
+          <path d="M6 17V7L12 13L18 7V17" stroke="#818CF8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `,
+      netflix: `
+        <svg class="w-full h-full text-red-600" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5.398 0v24c1.073-.06 2.146-.145 3.212-.257V8.232l4.862 14.654c1.238-.17 2.47-.367 3.695-.59V0h-3.212v15.768L8.61 0H5.398z"/>
+        </svg>
+      `,
+      spotify: `
+        <svg class="w-full h-full text-emerald-500" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.495 17.306a.754.754 0 0 1-1.037.249c-2.836-1.733-6.406-2.126-10.61-1.164a.754.754 0 0 1-.34-1.469c4.606-1.052 8.56-.607 11.738 1.347a.754.754 0 0 1 .249 1.037zm1.467-3.262a.944.944 0 0 1-1.298.312c-3.247-1.996-8.196-2.573-12.036-1.407a.945.945 0 0 1-.555-1.805c4.387-1.332 9.843-.687 13.577 1.602a.944.944 0 0 1 .312 1.298zm.126-3.398c-3.893-2.312-10.317-2.525-14.04-1.394a1.132 1.132 0 1 1-.663-2.167c4.278-1.298 11.365-1.047 15.845 1.613a1.132 1.132 0 0 1-1.142 1.948z"/>
+        </svg>
+      `
+    };
+
+    function getProductLogo(prod) {
+      if (prod.logoUrl && prod.logoUrl.trim().length > 0) {
+        return `<img src="${prod.logoUrl}" alt="${prod.name}" class="w-full h-full object-contain rounded-lg p-0.5">`;
+      }
+      const key = (prod.brandKey || prod.name || '').toLowerCase();
+      if (BRAND_LOGOS[key]) return BRAND_LOGOS[key];
+      for (const k in BRAND_LOGOS) {
+        if (key.includes(k)) return BRAND_LOGOS[k];
+      }
+      return `
+        <div class="w-full h-full rounded-lg bg-blue-600/30 text-blue-400 flex items-center justify-center font-bold text-sm">
+          ${(prod.name || 'P').charAt(0)}
+        </div>
+      `;
+    }
+
+    // INITIAL FALLBACK PRODUCTS WITH EXACT SUPABASE UUIDs (0ms Instant Load)
+    const INITIAL_PRODUCTS = [
+      {
+        id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+        name: "ChatGPT",
+        category: "AI",
+        badge: "BÁN CHẠY",
+        brandKey: "chatgpt",
+        logoUrl: "",
+        shortDesc: "Mô hình GPT-4o, Canvas, tạo ảnh DALL-E 3 và phân tích dữ liệu chuyên sâu.",
+        longDesc: "Tài khoản ChatGPT Plus sử dụng độc quyền mô hình GPT-4o và OpenAI o1 siêu nhanh. Hỗ trợ Advanced Voice, tạo ảnh DALL-E 3, trình soạn thảo Canvas cho lập trình viên.",
+        warrantyPolicy: [
+          "Bảo hành trọn thời hạn gói đăng ký (1 tháng hoặc 1 năm theo gói bạn chọn).",
+          "Hỗ trợ cấp lại tài khoản nếu phát sinh lỗi xác minh hoặc lỗi thanh toán.",
+          "Cam kết tài khoản dùng ổn định, riêng tư, không chia sẻ với người lạ."
+        ],
+        variants: [
+          { id: "37ae941e-5212-431d-afc4-b2aab2c2ef1e", title: "CHAT GPT PLUS 1M", oldPrice: 500000, price: 220000, stock: 12 },
+          { id: "75a14486-3416-41db-9831-0a3140ffd5a7", title: "CHAT GPT K12 1 YEAR", oldPrice: 200000, price: 150000, stock: 18 },
+          { id: "76beb240-8163-40d0-82c5-756d95441170", title: "API CODEX TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 99 }
+        ]
+      },
+      {
+        id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+        name: "Canva Pro",
+        category: "DESIGN",
+        badge: "BẢN QUYỀN",
+        brandKey: "canva",
+        logoUrl: "",
+        shortDesc: "Nâng cấp chính chủ email của bạn, mở khóa 100M+ tài nguyên Pro.",
+        longDesc: "Kích hoạt trực tiếp trên email cá nhân của bạn, giữ nguyên thiết kế cũ. Mở khóa 100M+ ảnh/video/đồ họa Pro, công cụ xóa phông nền 1 chạm.",
+        warrantyPolicy: [
+          "Bảo hành trọn thời gian sử dụng 1 năm theo gói cam kết.",
+          "Nâng cấp chính chủ, dữ liệu thiết kế hoàn toàn riêng tư."
+        ],
+        variants: [
+          { id: "22a7c207-69ba-4137-8183-cc55dd564e09", title: "CANVA EDU 1 YEAR", oldPrice: 129000, price: 59000, stock: 35 },
+          { id: "b02837ce-dbc9-4af0-8e75-99155f2cb9b3", title: "CANVA PRO 1 YEAR", oldPrice: 229000, price: 129000, stock: 24 }
+        ]
+      },
+      {
+        id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
+        name: "CapCut Pro",
+        category: "MEDIA",
+        badge: "EDITOR VIP",
+        brandKey: "capcut",
+        logoUrl: "",
+        shortDesc: "Dựng video TikTok/Reels Pro, xóa phông nền AI, phụ đề tự động và hiệu ứng VIP.",
+        longDesc: "Phiên bản CapCut Pro mở khóa toàn bộ kho nhạc bản quyền, hiệu ứng chuyển cảnh độc quyền VIP, phụ đề tự động đa ngôn ngữ cực chuẩn, xuất 4K 60FPS.",
+        warrantyPolicy: [
+          "Bảo hành đúng thời hạn đã chọn (gói 7 ngày trải nghiệm hoặc gói 1 tháng).",
+          "Hỗ trợ đăng nhập trên PC, Laptop, iPhone, Android theo quy định."
+        ],
+        variants: [
+          { id: "d168b246-86bc-404d-9e34-f37f7cc7f8a2", title: "CAPCUT PRO 1M", oldPrice: 139000, price: 49000, stock: 28 },
+          { id: "aa9f67db-c189-4fef-8569-b6ec2c4d95a5", title: "CAPCUT PRO 7DAY", oldPrice: 50000, price: 18000, stock: 40 }
+        ]
+      },
+      {
+        id: "dddddddd-dddd-dddd-dddd-dddddddddddd",
+        name: "Gemini Pro",
+        category: "AI",
+        badge: "GOOGLE ADVANCED",
+        brandKey: "gemini",
+        logoUrl: "",
+        shortDesc: "Mô hình Gemini 1.5 Pro với 2 triệu token context, tích hợp Google Workspace.",
+        longDesc: "Trải nghiệm sức mạnh xử lý đa phương thức (văn bản, video hàng giờ, audio, code phức tạp) với ngữ cảnh lên tới 2 triệu tokens, tặng kèm 2TB Google Drive.",
+        warrantyPolicy: [
+          "Bảo hành trọn vẹn theo thời hạn gói đăng ký.",
+          "Hỗ trợ cấu hình đăng nhập trên tài khoản được bàn giao."
+        ],
+        variants: [
+          { id: "7d1c71f8-85ee-4ae0-aa75-1bddf0d5d3c0", title: "AI GG PRO 1 YEAR", oldPrice: 100000, price: 190000, stock: 15 },
+          { id: "cbde6d4b-5df0-4efc-9173-507b25143971", title: "AI GG PRO 18M LINK", oldPrice: 150000, price: 60000, stock: 30 },
+          { id: "f9c95b40-e3ae-4ddf-b976-b8e198e4011f", title: "AI GG PRO 18M BH 1Y", oldPrice: 250000, price: 180000, stock: 9 }
+        ]
+      },
+      {
+        id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+        name: "Claude AI",
+        category: "AI",
+        badge: "SONNET 3.5",
+        brandKey: "claude",
+        logoUrl: "",
+        shortDesc: "Đỉnh cao lập trình, phân tích tư duy logic và viết lách tự nhiên từ Anthropic.",
+        longDesc: "Claude 3.5 Sonnet là mô hình số 1 thế giới về khả năng coding, phân tích tài liệu phức tạp và tự động hóa tác vụ.",
+        warrantyPolicy: [
+          "Bảo hành số dư Token / Credit API trong 30 ngày sử dụng.",
+          "Cung cấp key API tốc độ cao, độ trễ thấp."
+        ],
+        variants: [
+          { id: "30255045-efb1-425a-b279-c30c031eef4c", title: "100$ API 30D", oldPrice: 200000, price: 100000, stock: 11 },
+          { id: "34563585-bcdd-4bc2-8a5e-4cf3c3905bdc", title: "500$ API 30D", oldPrice: 900000, price: 300000, stock: 6 },
+          { id: "75c95e33-b2c9-4c85-8ebd-9f7c26b75944", title: "100M TOKEN 1DAY", oldPrice: 150000, price: 100000, stock: 14 }
+        ]
+      },
+      {
+        id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
+        name: "YouTube Premium",
+        category: "MEDIA",
+        badge: "GIA ĐÌNH CHÍNH HÃNG",
+        brandKey: "youtube",
+        logoUrl: "",
+        shortDesc: "Chặn 100% quảng cáo, phát trong nền, nghe nhạc YouTube Music chất lượng cao.",
+        longDesc: "Mời nhóm Gia đình (Family) vào email cá nhân của bạn. Xem video không quảng cáo trên mọi thiết bị TV, Điện thoại, Máy tính.",
+        warrantyPolicy: [
+          "Bảo hành trọn vẹn theo thời hạn gói đăng ký.",
+          "Nâng cấp chính chủ email Gmail của bạn."
+        ],
+        variants: [
+          { id: "2b3b8a9d-edd1-4636-80a7-cf8ce83cdd04", title: "YTB PREMIUM 1M", oldPrice: 75000, price: 35000, stock: 50 },
+          { id: "a59b256d-3908-4a31-a68c-b9b152f9a18b", title: "YTB PREMIUM 3M", oldPrice: 300000, price: 180000, stock: 22 },
+          { id: "b615aa1c-9948-4736-a478-3e953149e71d", title: "YTB PREMIUM 6M", oldPrice: 600000, price: 355000, stock: 16 }
+        ]
+      },
+      {
+        id: "12121212-1212-1212-1212-121212121212",
+        name: "Suno AI Music",
+        category: "MEDIA",
+        badge: "TẠO NHẠC AI",
+        brandKey: "suno",
+        logoUrl: "",
+        shortDesc: "Sáng tác bài hát hoàn chỉnh đầy đủ giai điệu và giọng hát bản quyền thương mại.",
+        longDesc: "Tài khoản Suno AI Pro/Premier tạo bài hát AI chuyên nghiệp, đầy đủ bản quyền thương mại để đăng tải YouTube/TikTok.",
+        warrantyPolicy: [
+          "Bảo hành số credit và thời hạn sử dụng 1 tháng của gói tài khoản."
+        ],
+        variants: [
+          { id: "37e2a8b9-4a09-4a8a-8307-726ee6e5bad5", title: "SUNO PRO 1M", oldPrice: 220000, price: 190000, stock: 8 },
+          { id: "d9d0c7c1-0eab-4167-b5df-a0dcf2fea56a", title: "SUNO PREMIER 1M", oldPrice: 999000, price: 590000, stock: 5 }
+        ]
+      },
+      {
+        id: "34343434-3434-3434-3434-343434343434",
+        name: "Muse Token",
+        category: "AI",
+        badge: "TOKEN BẢN QUYỀN",
+        brandKey: "muse",
+        logoUrl: "",
+        shortDesc: "Gói token tài nguyên AI tốc độ cao dành cho nhà phát triển và tự động hóa.",
+        longDesc: "Cung cấp Token kết nối API tốc độ cao, độ trễ thấp, phục vụ nhu cầu tích hợp AI số lượng lớn.",
+        warrantyPolicy: [
+          "Bảo hành lưu lượng token đúng cam kết theo gói đã mua."
+        ],
+        variants: [
+          { id: "6df69097-f6c6-4309-961a-a7c89a47599f", title: "1B TOKEN", oldPrice: 200000, price: 100000, stock: 14 },
+          { id: "eff377bd-b31a-4fb3-ac63-545600be63b6", title: "10B TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 5 }
+        ]
+      }
+    ];
+
+    // APPLICATION STATE
+    let PRODUCTS = [...INITIAL_PRODUCTS];
+    let currentCategory = 'ALL';
+    let searchQuery = '';
+    let currentRole = 'USER';
+    let currentUser = null;
+    let leadOrders = [];
+    let userOrders = [];
+    let activeProduct = null;
+    let activeVariant = null;
+
+    function formatMoney(num) {
+      if (!num || num === 0) return "Liên hệ";
+      return new Intl.NumberFormat('vi-VN').format(num) + " đ";
+    }
+
+    // ON LOAD: Immediate Local Rendering + Live Supabase Database Hydration
+    window.addEventListener('DOMContentLoaded', async () => {
+      initTheme();
+      // 0. Load categories from DB
+      dbLoadCategories();
+
+      // 1. Initial 0ms render so the screen is never blank
+      const cached = localStorage.getItem('dn_products');
+      if (cached) {
+        try { PRODUCTS = JSON.parse(cached); } catch(e) { PRODUCTS = [...INITIAL_PRODUCTS]; }
+      }
+      renderProducts();
+      renderAdminProducts();
+
+      // 2. Restore cached orders for immediate display
+      const cachedOrders = localStorage.getItem('user_orders');
+      if (cachedOrders) {
+        try { userOrders = JSON.parse(cachedOrders); } catch(e) {}
+      }
+      renderUserOrders();
+
+      // 3. Restore previous user from localStorage if logged in
+      const savedUser = localStorage.getItem('dn_user');
+      if (savedUser) {
+        try {
+          const u = JSON.parse(savedUser);
+          await loginWithGoogleAccount(u.name, u.email, false);
+        } catch(e) {
+          updateUserUI();
+        }
+      } else {
+        updateUserUI();
+      }
+
+      // 4. Hydrate live products & variants directly from Supabase DB
+      await dbLoadProductsFromSupabase();
+
+      // 5. Hydrate live orders directly from Supabase DB
+      await dbLoadAdminOrders();
+
+      // 6. Load customer private orders if logged in
+      dbLookupCustomerOrders();
+    });
+
+    // 1. DATABASE: LOAD PRODUCTS & VARIANTS
+    async function dbLoadProductsFromSupabase() {
+      try {
+        const data = await dbRequest('products?select=*,categories(id,slug,name),product_variants(*)&is_active=eq.true&order=created_at.asc');
+        if (data && Array.isArray(data) && data.length > 0) {
+          PRODUCTS = data.map(p => {
+            const catId = p.category_id || p.categories?.id || '11111111-1111-1111-1111-111111111111';
+            const catName = p.categories?.name || 'Trí tuệ nhân tạo (AI Tools)';
+
+            const variants = (p.product_variants || []).map(v => ({
+              id: v.id,
+              title: v.title,
+              price: Number(v.price) || 0,
+              oldPrice: Number(v.old_price) || 0,
+              stock: Number(v.stock) || 0,
+              warrantyDays: Number(v.warranty_days) || 30,
+              isContact: v.is_contact || (Number(v.price) === 0)
+            }));
+
+            return {
+              id: p.id,
+              name: p.name,
+              slug: p.slug,
+              categoryId: catId,
+              categoryName: catName,
+              category: catId,
+              badge: p.badge || 'PRO',
+              brandKey: p.brand_key || p.slug || 'cursor',
+              logoUrl: p.logo_url || '',
+              badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+              shortDesc: p.short_desc || '',
+              longDesc: p.long_desc || '',
+              warrantyPolicy: p.warranty_policy ? p.warranty_policy.split('\n').filter(Boolean) : [
+                "Bảo hành trọn thời hạn gói dịch vụ.",
+                "Hỗ trợ kỹ thuật 24/7."
+              ],
+              variants: variants.length > 0 ? variants : [
+                { id: 'v-' + Date.now(), title: 'Gói chuẩn', price: 100000, oldPrice: 0, stock: 10, warrantyDays: 30, isContact: false }
+              ]
+            };
+          });
+
+          renderCategoryPills();
+          renderProducts();
+          renderAdminProducts();
+        }
+      } catch (err) {
+        console.warn("DB load products error:", err);
+      }
+    }
+
+    // 2. DATABASE: LOAD ALL ORDERS FOR ADMIN CRM
+    async function dbLoadAdminOrders() {
+      try {
+        const data = await dbRequest('orders?order=created_at.desc&select=*');
+        if (data && Array.isArray(data)) {
+          leadOrders = data.map(o => {
+            const d = new Date(o.created_at);
+            const timeStr = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')} - ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+            
+            let completedStr = '';
+            if (o.completed_at) {
+              const cd = new Date(o.completed_at);
+              completedStr = `${cd.getDate()}/${cd.getMonth() + 1}/${cd.getFullYear()}`;
+            } else {
+              completedStr = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+            }
+
+            let endStr = '';
+            if (o.warranty_end_at) {
+              const ed = new Date(o.warranty_end_at);
+              endStr = `${ed.getDate()}/${ed.getMonth() + 1}/${ed.getFullYear()}`;
+            }
+
+            return {
+              id: o.id,
+              code: o.code,
+              customerName: o.customer_name || 'Khách hàng',
+              phone: o.customer_phone,
+              email: o.customer_email || '',
+              productTitle: o.admin_note || 'Đơn hàng phần mềm',
+              price: Number(o.price) || 0,
+              note: o.customer_note || '',
+              createdAt: timeStr,
+              createdAtRaw: o.created_at,
+              completedAt: o.completed_at || o.created_at,
+              completedStr: completedStr,
+              warrantyDays: Number(o.warranty_days) || 30,
+              warrantyEndAt: o.warranty_end_at,
+              endStr: endStr,
+              licenseInfo: o.license_info || '',
+              status: o.status || 'PENDING_CONTACT'
+            };
+          });
+          localStorage.setItem('lead_orders', JSON.stringify(leadOrders));
+          renderAdminOrders();
+          renderAdminWarrantyTable();
+        }
+      } catch (err) {
+        console.warn('Failed to load orders from DB:', err);
+      }
+    }
+
+    // 3. DATABASE: LOOKUP CUSTOMER ORDERS (BẢO MẬT RIÊNG TƯ THEO TÀI KHOẢN)
+    async function dbLookupCustomerOrders() {
+      const loggedOutBox = document.getElementById('orders-logged-out');
+      const loggedInBox = document.getElementById('orders-logged-in');
+
+      if (!currentUser) {
+        if (loggedOutBox) loggedOutBox.classList.remove('hidden');
+        if (loggedInBox) loggedInBox.classList.add('hidden');
+        userOrders = [];
+        renderUserOrdersList([]);
+        return;
+      }
+
+      if (loggedOutBox) loggedOutBox.classList.add('hidden');
+      if (loggedInBox) loggedInBox.classList.remove('hidden');
+
+      const ava = document.getElementById('orders-user-avatar');
+      if (ava) ava.src = currentUser.avatar;
+      const nameEl = document.getElementById('orders-user-name');
+      if (nameEl) nameEl.innerText = currentUser.name;
+      const emailEl = document.getElementById('orders-user-email');
+      if (emailEl) emailEl.innerText = currentUser.email + (currentUser.phone ? ' • ' + currentUser.phone : '');
+
+      // Query Supabase for this customer's private orders ONLY
+      const validUserId = (currentUser.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUser.id)) ? currentUser.id : null;
+      let endpoint = '';
+
+      if (validUserId && currentUser.email) {
+        endpoint = `orders?or=(user_id.eq.${validUserId},customer_email.eq.${encodeURIComponent(currentUser.email)}${currentUser.phone ? ',customer_phone.eq.' + encodeURIComponent(currentUser.phone) : ''})&order=created_at.desc`;
+      } else if (validUserId) {
+        endpoint = `orders?user_id.eq.${validUserId}&order=created_at.desc`;
+      } else if (currentUser.email) {
+        endpoint = `orders?customer_email=eq.${encodeURIComponent(currentUser.email)}&order=created_at.desc`;
+      } else if (currentUser.phone) {
+        endpoint = `orders?customer_phone=eq.${encodeURIComponent(currentUser.phone)}&order=created_at.desc`;
+      } else {
+        renderUserOrdersList(userOrders);
+        return;
+      }
+
+      try {
+        const data = await dbRequest(endpoint);
+        if (data && Array.isArray(data)) {
+          userOrders = data.map(o => {
+            const d = new Date(o.created_at);
+            const timeStr = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')} - ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+            return {
+              id: o.id,
+              code: o.code,
+              customerName: o.customer_name || 'Khách hàng',
+              phone: o.customer_phone,
+              email: o.customer_email || '',
+              productTitle: o.admin_note || 'Đơn hàng phần mềm',
+              price: Number(o.price) || 0,
+              note: o.customer_note || '',
+              createdAt: timeStr,
+              createdAtRaw: o.created_at,
+              status: o.status || 'PENDING_CONTACT',
+              completedAt: o.completed_at || null,
+              warrantyDays: Number(o.warranty_days) || 30,
+              warrantyEndAt: o.warranty_end_at || null,
+              licenseInfo: o.license_info || ''
+            };
+          });
+          localStorage.setItem('user_orders', JSON.stringify(userOrders));
+        }
+      } catch (e) {
+        console.warn('Customer lookup error:', e);
+      }
+      renderUserOrdersList(userOrders);
+    }
+
+    async function dbRefreshAll(showMsg = false) {
+      if (showMsg) showToast("Đang tải dữ liệu mới nhất...");
+      await Promise.all([
+        dbLoadProductsFromSupabase(),
+        dbLoadAdminOrders()
+      ]);
+      if (showMsg) showToast("Đã cập nhật dữ liệu thành công!");
+    }
+
+    // AUTHENTICATION MODAL (LOGIN & REGISTRATION)
+    function openAuthModal(tab = 'login') {
+      const modal = document.getElementById('auth-modal');
+      if (modal) modal.classList.remove('hidden');
+      setAuthTab(tab);
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function openGoogleLoginModal() {
+      openAuthModal('login');
+    }
+
+    function closeGoogleLoginModal() {
+      closeAuthModal();
+    }
+
+    function setAuthTab(tab) {
+      const pLogin = document.getElementById('auth-panel-login');
+      const pReg = document.getElementById('auth-panel-register');
+      const btnL = document.getElementById('auth-tab-login-btn');
+      const btnR = document.getElementById('auth-tab-register-btn');
+
+      if (tab === 'register') {
+        if (pLogin) pLogin.classList.add('hidden');
+        if (pReg) pReg.classList.remove('hidden');
+        if (btnR) {
+          btnR.className = 'flex-1 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white transition shadow';
+        }
+        if (btnL) {
+          btnL.className = 'flex-1 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition';
+        }
+      } else {
+        if (pReg) pReg.classList.add('hidden');
+        if (pLogin) pLogin.classList.remove('hidden');
+        if (btnL) {
+          btnL.className = 'flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white transition shadow';
+        }
+        if (btnR) {
+          btnR.className = 'flex-1 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition';
+        }
+      }
+    }
+
+    // 1. CUSTOMER REGISTRATION: PHONE IS OPTIONAL
+    async function handleCustomerRegister(event) {
+      if (event) event.preventDefault();
+      const name = (document.getElementById('reg-name')?.value || '').trim();
+      const phone = (document.getElementById('reg-phone')?.value || '').trim();
+      const email = (document.getElementById('reg-email')?.value || '').trim().toLowerCase();
+      const pass = (document.getElementById('reg-password')?.value || '').trim();
+      const confirmPass = (document.getElementById('reg-confirm-password')?.value || '').trim();
+
+      if (!name || !email || !pass) {
+        showToast("Vui lòng điền họ và tên, email và mật khẩu!");
+        return;
+      }
+
+      if (pass !== confirmPass) {
+        showToast("Mật khẩu xác nhận không khớp!");
+        return;
+      }
+
+      showToast("Đang tạo tài khoản khách hàng...");
+
+      // Check if email already registered
+      try {
+        const check = await dbRequest(`users?email=eq.${encodeURIComponent(email)}&select=id`);
+        if (check && check.length > 0) {
+          showToast("Email này đã được sử dụng! Vui lòng đăng nhập.");
+          setAuthTab('login');
+          const loginId = document.getElementById('login-identifier');
+          if (loginId) loginId.value = email;
+          return;
+        }
+      } catch (e) {
+        console.warn('Check email error:', e);
+      }
+
+      // Insert new user into Supabase (phone can be null)
+      const regRes = await dbRequest('users', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone || null,
+          password: pass,
+          role: 'USER'
+        })
+      });
+
+      if (regRes && regRes[0]) {
+        const u = regRes[0];
+        currentUser = {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          phone: u.phone || '',
+          role: 'USER',
+          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(u.name)}&backgroundColor=0284c7`
+        };
+        currentRole = 'USER';
+        localStorage.setItem('dn_user', JSON.stringify(currentUser));
+        if (phone) localStorage.setItem('user_phone', phone);
+
+        updateUserUI();
+        closeAuthModal();
+        showToast(`Đăng ký thành công! Xin chào khách hàng ${name}`);
+
+        dbLookupCustomerOrders();
+      } else {
+        showToast("Có lỗi khi tạo tài khoản, vui lòng thử lại!");
+      }
+    }
+
+    // 2. CUSTOMER EMAIL / PHONE + PASSWORD LOGIN
+    async function handleEmailPasswordLogin(event) {
+      if (event) event.preventDefault();
+      const identifier = (document.getElementById('login-identifier')?.value || '').trim();
+      const pass = (document.getElementById('login-password')?.value || '').trim();
+
+      if (!identifier || !pass) {
+        showToast("Vui lòng nhập tài khoản và mật khẩu!");
+        return;
+      }
+
+      showToast("Đang xác thực thông tin đăng nhập...");
+
+      const isEmail = identifier.includes('@');
+      const queryField = isEmail ? 'email' : 'phone';
+      const cleanIdent = isEmail ? identifier.toLowerCase() : identifier;
+
+      try {
+        const res = await dbRequest(`users?${queryField}=eq.${encodeURIComponent(cleanIdent)}&select=*`);
+        if (!res || res.length === 0) {
+          showToast("Không tìm thấy tài khoản! Vui lòng kiểm tra lại hoặc Đăng ký.");
+          return;
+        }
+
+        const user = res[0];
+        if (user.password && user.password === pass) {
+          currentUser = {
+            id: user.id,
+            name: user.name || identifier.split('@')[0],
+            email: user.email,
+            phone: user.phone || '',
+            role: user.role || 'USER',
+            avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || identifier)}&backgroundColor=0284c7`
+          };
+          currentRole = user.role || 'USER';
+
+          localStorage.setItem('dn_user', JSON.stringify(currentUser));
+          if (user.phone) localStorage.setItem('user_phone', user.phone);
+
+          updateUserUI();
+          closeAuthModal();
+
+          if (currentRole === 'ADMIN') {
+            showToast("Đăng nhập thành công! Quyền: ADMIN");
+          } else {
+            showToast(`Đăng nhập thành công! Xin chào ${currentUser.name}`);
+          }
+
+          dbLookupCustomerOrders();
+        } else if (!user.password) {
+          showToast("Tài khoản này được tạo qua Google, vui lòng đăng nhập bằng nút Google bên trên!");
+        } else {
+          showToast("Mật khẩu không chính xác, vui lòng thử lại!");
+        }
+      } catch (err) {
+        console.warn('Login error:', err);
+        showToast("Lỗi kết nối khi đăng nhập, vui lòng thử lại!");
+      }
+    }
+
+    // 3. GOOGLE FAST 1-CLICK LOGIN
+    async function loginWithGoogleAccount(name, email, showNotification = true) {
+      let role = (email === 'duocnguyen.work@gmail.com') ? 'ADMIN' : 'USER';
+      let dbId = null;
+      let userPhone = '';
+
+      try {
+        const data = await dbRequest(`users?email=eq.${encodeURIComponent(email)}&select=*`);
+        if (data && data.length > 0) {
+          if (data[0].role) role = data[0].role;
+          if (data[0].id) dbId = data[0].id;
+          if (data[0].phone) userPhone = data[0].phone;
+        } else {
+          // Auto register Google user in Supabase
+          try {
+            const created = await dbRequest('users', {
+              method: 'POST',
+              headers: { 'Prefer': 'return=representation' },
+              body: JSON.stringify({
+                name: name,
+                email: email,
+                role: role,
+                avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`
+              })
+            });
+            if (created && created[0] && created[0].id) {
+              dbId = created[0].id;
+            }
+          } catch (errCreate) {
+            console.warn("Auto create Google user err:", errCreate);
+          }
+        }
+      } catch (err) {
+        console.warn("DB role fetch:", err);
+      }
+
+      currentRole = role;
+      currentUser = {
+        id: dbId,
+        name: name,
+        email: email,
+        phone: userPhone,
+        role: role,
+        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`
+      };
+
+      localStorage.setItem('dn_user', JSON.stringify(currentUser));
+      if (userPhone) localStorage.setItem('user_phone', userPhone);
+      updateUserUI();
+      closeAuthModal();
+
+      if (showNotification) {
+        if (role === 'ADMIN') {
+          showToast(`Đăng nhập thành công! Quyền: ADMIN`);
+        } else {
+          showToast(`Đăng nhập thành công! Xin chào ${name}`);
+        }
+      }
+
+      dbLookupCustomerOrders();
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      if (drawer) drawer.classList.toggle('hidden');
+    }
+
+    function updateUserUI() {
+      const authLoggedOut = document.getElementById('auth-logged-out');
+      const authLoggedIn = document.getElementById('auth-logged-in');
+      const userAvatar = document.getElementById('user-avatar');
+      const userName = document.getElementById('user-name');
+      const userEmail = document.getElementById('user-email');
+      const userRoleBadge = document.getElementById('user-role-badge');
+      const navAdmin = document.getElementById('nav-admin');
+
+      if (currentUser) {
+        if (authLoggedOut) authLoggedOut.classList.add('hidden');
+        if (authLoggedIn) authLoggedIn.classList.remove('hidden');
+        if (userAvatar) userAvatar.src = currentUser.avatar;
+        if (userName) userName.innerText = currentUser.name;
+        if (userEmail) userEmail.innerText = currentUser.email;
+
+        if (currentUser.role === 'ADMIN') {
+          if (userRoleBadge) {
+            userRoleBadge.innerText = 'ADMIN';
+            userRoleBadge.classList.remove('hidden');
+            userRoleBadge.className = 'bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[9px] px-1.5 py-0.2 rounded font-bold';
+          }
+          if (navAdmin) navAdmin.classList.remove('hidden');
+          const adminDisplay = document.getElementById('admin-user-display');
+          if (adminDisplay) adminDisplay.innerText = currentUser.email;
+        } else {
+          if (userRoleBadge) {
+            userRoleBadge.innerText = 'KHÁCH HÀNG';
+            userRoleBadge.classList.remove('hidden');
+            userRoleBadge.className = 'bg-slate-800 text-slate-400 border border-slate-700 text-[9px] px-1.5 py-0.2 rounded font-semibold';
+          }
+          if (navAdmin) navAdmin.classList.add('hidden');
+        const mobileNavAdmin = document.getElementById('mobile-nav-admin');
+        if (mobileNavAdmin) mobileNavAdmin.classList.add('hidden');
+        }
+      } else {
+        if (authLoggedOut) authLoggedOut.classList.remove('hidden');
+        if (authLoggedIn) authLoggedIn.classList.add('hidden');
+        if (navAdmin) navAdmin.classList.add('hidden');
+      }
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      currentRole = 'GUEST';
+      userOrders = [];
+      localStorage.removeItem('dn_user');
+      localStorage.removeItem('user_phone');
+      localStorage.removeItem('user_orders');
+      updateUserUI();
+      dbLookupCustomerOrders();
+      switchView('store');
+      showToast("Đã đăng xuất tài khoản!");
+    }
+
+    function handleLogout() {
+      logoutUser();
+    }
+
+    // CATEGORY & SEARCH FILTERING
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(el => {
+        el.classList.remove('active', 'bg-blue-600', 'text-white', 'shadow-md');
+        el.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
+      });
+      if (btn) {
+        btn.classList.add('active', 'bg-blue-600', 'text-white', 'shadow-md');
+        btn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
+      }
+      renderProducts();
+    }
+
+    function filterProducts() {
+      const input = document.getElementById('search-input');
+      searchQuery = input ? input.value.toLowerCase().trim() : '';
+      renderProducts();
+    }
+
+    // RENDER STOREFRONT PRODUCTS
+    function renderProducts() {
+      const container = document.getElementById('products-grid');
+      if (!container) return;
+
+      let filtered = PRODUCTS.filter(p => {
+        const matchCat = (currentCategory === 'ALL' || p.categoryId === currentCategory || p.category === currentCategory || p.slug === currentCategory);
+        const matchSearch = p.name.toLowerCase().includes(searchQuery) ||
+                            p.shortDesc.toLowerCase().includes(searchQuery) ||
+                            (p.brandKey || '').toLowerCase().includes(searchQuery);
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 text-2xl">
+              🔍
+            </div>
+            <h3 class="text-base font-bold text-white mb-1">Không tìm thấy sản phẩm</h3>
+            <p class="text-xs text-slate-400">Không có kết quả phù hợp cho danh mục "${currentCategory}".</p>
+            <button onclick="setCategory('ALL', document.querySelector('.cat-pill'))" class="mt-4 px-4 py-2 bg-blue-600 text-xs font-bold text-white rounded-xl">
+              Xem tất cả sản phẩm
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const minPrice = Math.min(...p.variants.map(v => v.price).filter(pr => pr > 0));
+        const totalStock = p.variants.reduce((a, b) => a + (b.stock || 0), 0);
+        const priceDisplay = minPrice === Infinity || minPrice === 0 ? "Liên hệ" : `Từ ${formatMoney(minPrice)}`;
+
+        return `
+          <div class="glass-card rounded-2xl overflow-hidden hover-card flex flex-col justify-between border border-slate-800/80">
+            <div class="p-5">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/60 p-2 flex items-center justify-center shadow-inner">
+                  ${getProductLogo(p)}
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${p.badgeColor || 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+                    ${p.badge}
+                  </span>
+                </div>
+              </div>
+
+              <h3 class="font-bold text-white text-base mb-1 tracking-tight">${p.name}</h3>
+              <p class="text-slate-400 text-xs line-clamp-2 mb-4 leading-relaxed">${p.shortDesc}</p>
+
+              <!-- Variants preview -->
+              <div class="space-y-1.5 mb-4">
+                ${p.variants.slice(0, 3).map(v => `
+                  <div class="flex items-center justify-between text-[11px] bg-slate-950/70 px-2.5 py-1.5 rounded-lg border border-slate-800/80">
+                    <span class="text-slate-300 truncate max-w-[140px]">${v.title}</span>
+                    <span class="font-bold text-emerald-400">${formatMoney(v.price)}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto bg-slate-950/40">
+              <div class="flex items-center justify-between pt-3 mb-3">
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Giá tốt nhất</span>
+                  <span class="text-sm font-extrabold text-white">${priceDisplay}</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-500 block">Tồn kho</span>
+                  <span class="text-xs font-semibold ${totalStock > 0 ? 'text-blue-400' : 'text-rose-400'}">
+                    ${totalStock > 0 ? `Còn ${totalStock} acc` : 'Hết hàng'}
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="openProductDetail('${p.id}')" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition text-center border border-slate-700">
+                  Chi tiết
+                </button>
+                <button onclick="openOrderModalForProduct('${p.id}')" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition text-center shadow-lg shadow-blue-600/30">
+                  Đặt mua ngay
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // MODAL: PRODUCT DETAIL
+    
+    function getProductCategoryName(prod) {
+      if (!prod) return 'Phần mềm & Bản quyền';
+      if (prod.categoryName && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(prod.categoryName)) {
+        return prod.categoryName;
+      }
+      const catId = prod.categoryId || prod.category;
+      const found = CATEGORIES.find(c => c.id === catId || c.slug === catId);
+      if (found && found.name) return found.name;
+      return 'Phần mềm & Bản quyền';
+    }
+
+    function openProductDetail(productId) {
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if (!prod) return;
+
+      activeProduct = prod;
+      activeVariant = prod.variants[0] || null;
+
+      const iconWrap = document.getElementById('detail-icon-wrap');
+      if (iconWrap) iconWrap.innerHTML = getProductLogo(prod);
+
+      const nameEl = document.getElementById('detail-product-name');
+      if (nameEl) nameEl.innerText = prod.name;
+
+      const badgeEl = document.getElementById('detail-badge');
+      if (badgeEl) badgeEl.innerText = prod.badge;
+
+      const catEl = document.getElementById('detail-category-name');
+      if (catEl) catEl.innerText = getProductCategoryName(prod);
+
+      const descEl = document.getElementById('detail-long-desc');
+      if (descEl) descEl.innerText = prod.longDesc;
+
+      // Warranty policy items
+      const warrantyContainer = document.getElementById('detail-warranty-policy');
+      if (warrantyContainer) {
+        warrantyContainer.innerHTML = (prod.warrantyPolicy || []).map(w => `
+          <li class="flex items-start gap-1.5 text-xs text-slate-300">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <span>${w}</span>
+          </li>
+        `).join('');
+      }
+
+      // Render variants selector
+      renderVariantSelector(prod);
+
+      const modal = document.getElementById('product-detail-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeProductDetailModal() {
+      const modal = document.getElementById('product-detail-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function closeProductDetail() {
+      closeProductDetailModal();
+    }
+
+    function renderVariantSelector(prod) {
+      const container = document.getElementById('detail-variants-list');
+      if (!container) return;
+
+      container.innerHTML = prod.variants.map((v, i) => {
+        const wDays = v.warrantyDays || 30;
+        const wText = wDays >= 365 ? '1 Năm (365 ngày)' : (wDays >= 180 ? '6 Tháng' : (wDays >= 90 ? '3 Tháng' : wDays + ' ngày'));
+        return `
+        <div onclick="selectDetailVariant(${i})" class="variant-card cursor-pointer p-3 rounded-xl border ${i === 0 ? 'border-blue-500 bg-blue-600/10' : 'border-slate-800 bg-slate-950'} transition flex items-center justify-between hover:border-slate-700">
+          <div>
+            <div class="font-bold text-white text-xs">${v.title}</div>
+            <div class="text-[10px] text-slate-400">
+              Còn ${v.stock} tk <span class="text-amber-400 font-semibold">• BH ${wText}</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-bold text-emerald-400 text-xs">${formatMoney(v.price)}</div>
+            ${v.oldPrice ? `<div class="text-[10px] text-slate-500 line-through">${formatMoney(v.oldPrice)}</div>` : ''}
+          </div>
+        </div>
+        `;
+      }).join('');
+
+      const priceDisplay = document.getElementById('detail-selected-price');
+      if (priceDisplay && activeVariant) {
+        priceDisplay.innerText = formatMoney(activeVariant.price);
+      }
+    }
+
+    function selectDetailVariant(index) {
+      activeVariant = activeProduct.variants[index];
+      const cards = document.querySelectorAll('#detail-variants-list .variant-card');
+      cards.forEach((c, i) => {
+        if (i === index) {
+          c.classList.add('border-blue-500', 'bg-blue-600/10');
+          c.classList.remove('border-slate-800', 'bg-slate-950');
+        } else {
+          c.classList.remove('border-blue-500', 'bg-blue-600/10');
+          c.classList.add('border-slate-800', 'bg-slate-950');
+        }
+      });
+      const priceDisplay = document.getElementById('detail-selected-price');
+      if (priceDisplay && activeVariant) {
+        priceDisplay.innerText = formatMoney(activeVariant.price);
+      }
+    }
+
+    function openOrderModalFromDetail() {
+      closeProductDetailModal();
+      openOrderModal(activeProduct, activeVariant);
+    }
+
+    function openOrderModalForProduct(productId) {
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if (!prod) return;
+      openOrderModal(prod, prod.variants[0]);
+    }
+
+    // MODAL: ORDER CREATION
+    function openOrderModal(prod, variant) {
+      if (!currentUser) {
+        showToast("Vui lòng đăng nhập hoặc tạo tài khoản để mua hàng!");
+        openAuthModal('login');
+        return;
+      }
+      activeProduct = prod;
+      activeVariant = variant || prod.variants[0];
+
+      const titleEl = document.getElementById('order-summary-title');
+      if (titleEl) titleEl.innerText = `${prod.name} - ${activeVariant.title}`;
+
+      const stockEl = document.getElementById('order-summary-stock');
+      if (stockEl) stockEl.innerText = `Còn ${activeVariant.stock || 10} tài khoản`;
+
+      const priceEl = document.getElementById('order-summary-price');
+      if (priceEl) priceEl.innerText = formatMoney(activeVariant.price);
+
+      // Pre-fill phone / name if user exists
+      const savedPhone = localStorage.getItem('user_phone') || (currentUser ? currentUser.phone : '') || '';
+      const phoneInput = document.getElementById('order-phone');
+      if (phoneInput && savedPhone) {
+        phoneInput.value = savedPhone;
+      }
+      if (currentUser) {
+        const nameInput = document.getElementById('order-name');
+        if (nameInput) nameInput.value = currentUser.name || '';
+        const emailInput = document.getElementById('order-email');
+        if (emailInput) emailInput.value = currentUser.email || '';
+      }
+
+      const modal = document.getElementById('order-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeOrderModal() {
+      const modal = document.getElementById('order-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // ORDER SUBMISSION HANDLER (DECLARED ON WINDOW FOR INLINE ONCLICK/ONSUBMIT)
+    async function submitOrder(event) {
+      if (event) event.preventDefault();
+      const phoneInput = document.getElementById('order-phone');
+      const nameInput = document.getElementById('order-name');
+      const emailInput = document.getElementById('order-email');
+      const noteInput = document.getElementById('order-note');
+
+      const phone = (phoneInput ? phoneInput.value : '').trim();
+      const name = (nameInput ? nameInput.value : '').trim() || (currentUser ? currentUser.name : 'Khách hàng');
+      const email = (emailInput ? emailInput.value : '').trim() || (currentUser ? currentUser.email : '');
+      const note = (noteInput ? noteInput.value : '').trim();
+
+      if (!phone) {
+        showToast("Vui lòng nhập số điện thoại để Shop liên hệ bàn giao tài khoản!");
+        return;
+      }
+
+      localStorage.setItem('user_phone', phone);
+      showToast("Đang gửi đơn hàng...");
+
+      const orderCode = 'ORD-' + Math.floor(1000 + Math.random() * 9000);
+      const isUUIDVariant = activeVariant && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(activeVariant.id);
+      const validUserId = (currentUser && currentUser.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUser.id)) ? currentUser.id : null;
+
+      const orderPayload = {
+        code: orderCode,
+        customer_name: name,
+        customer_phone: phone,
+        customer_email: email || null,
+        customer_note: note || null,
+        price: activeVariant ? activeVariant.price : 0,
+        status: 'PENDING_CONTACT',
+        admin_note: activeProduct && activeVariant ? `${activeProduct.name} - ${activeVariant.title}` : 'Đơn hàng phần mềm',
+        user_id: validUserId,
+        variant_id: isUUIDVariant ? activeVariant.id : null,
+        warranty_days: (activeVariant && activeVariant.warrantyDays) ? activeVariant.warrantyDays : 30
+      };
+
+      // 1. Immediately record in local state so customer sees it right away
+      const now = new Date();
+      const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} - ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+      const localOrder = {
+        id: 'ord-' + Date.now(),
+        code: orderCode,
+        customerName: name,
+        phone: phone,
+        email: email,
+        productTitle: orderPayload.admin_note,
+        price: orderPayload.price,
+        note: note,
+        createdAt: timeStr,
+        createdAtRaw: now.toISOString(),
+        status: 'PENDING_CONTACT',
+        completedAt: null,
+        warrantyDays: orderPayload.warranty_days,
+        warrantyEndAt: null,
+        licenseInfo: ''
+      };
+
+      userOrders.unshift(localOrder);
+      leadOrders.unshift(localOrder);
+      localStorage.setItem('user_orders', JSON.stringify(userOrders));
+      localStorage.setItem('lead_orders', JSON.stringify(leadOrders));
+
+      // 2. Insert directly into Supabase orders table
+      try {
+        const dbRes = await dbRequest('orders', {
+          method: 'POST',
+          headers: { 'Prefer': 'return=representation' },
+          body: JSON.stringify(orderPayload)
+        });
+        if (dbRes && dbRes[0]) {
+          localOrder.id = dbRes[0].id;
+        }
+      } catch (e) {
+        console.warn('DB order save warning:', e);
+      }
+
+      // 3. Decrement variant stock in DB if variant UUID exists
+      if (isUUIDVariant && activeVariant.stock > 0) {
+        const newStock = Math.max(0, activeVariant.stock - 1);
+        dbRequest(`product_variants?id=eq.${activeVariant.id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ stock: newStock })
+        }).catch(console.warn);
+        activeVariant.stock = newStock;
+      }
+
+      closeOrderModal();
+
+      const codeEl = document.getElementById('success-order-code');
+      if (codeEl) codeEl.innerText = orderCode;
+
+      const itemEl = document.getElementById('success-item-title');
+      if (itemEl) itemEl.innerText = orderPayload.admin_note;
+
+      const phoneEl = document.getElementById('success-phone');
+      if (phoneEl) phoneEl.innerText = phone;
+
+      const successModal = document.getElementById('order-success-modal');
+      if (successModal) successModal.classList.remove('hidden');
+
+      // 4. Update UI & re-fetch
+      renderUserOrdersList(userOrders);
+      renderAdminOrders();
+      dbLoadAdminOrders();
+      dbLoadProductsFromSupabase();
+    }
+
+    function handlePlaceOrder(event) {
+      submitOrder(event);
+    }
+
+    function closeOrderSuccessModal() {
+      const modal = document.getElementById('order-success-modal');
+      if (modal) modal.classList.add('hidden');
+      switchView('orders');
+    }
+
+    // RENDER USER ORDERS (LỊCH SỬ ĐƠN HÀNG KHÁCH HÀNG)
+    function renderUserOrders() {
+      renderUserOrdersList(userOrders);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '');
+    }
+
+    function copyToClipboard(text, successMsg = "Đã sao chép vào bộ nhớ tạm!") {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg);
+        }).catch(() => {
+          fallbackCopyText(text, successMsg);
+        });
+      } else {
+        fallbackCopyText(text, successMsg);
+      }
+    }
+
+    function fallbackCopyText(text, successMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (err) {
+        showToast("Không thể sao chép tự động!");
+      }
+      document.body.removeChild(ta);
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('dn_theme') || 'darknight';
+      applyTheme(saved);
+    }
+
+    function applyTheme(mode) {
+      const btnIcon = document.getElementById('theme-toggle-icon');
+      const btnText = document.getElementById('theme-toggle-text');
+      const btn = document.getElementById('theme-toggle-btn');
+      
+      if (mode === 'darknight') {
+        document.body.classList.add('theme-darknight');
+        if (btnIcon) btnIcon.innerText = '🌙';
+        if (btnText) btnText.innerText = 'Dark Night';
+        if (btn) {
+          btn.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 text-xs font-bold transition shadow-sm";
+        }
+      } else {
+        document.body.classList.remove('theme-darknight');
+        if (btnIcon) btnIcon.innerText = '🌌';
+        if (btnText) btnText.innerText = 'Slate Dark';
+        if (btn) {
+          btn.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-300 text-xs font-bold transition shadow-sm";
+        }
+      }
+      localStorage.setItem('dn_theme', mode);
+    }
+
+    function toggleDarkNightTheme() {
+      const current = document.body.classList.contains('theme-darknight') ? 'darknight' : 'slate';
+      const next = (current === 'darknight') ? 'slate' : 'darknight';
+      applyTheme(next);
+      showToast(next === 'darknight' ? "Đã bật giao diện Dark Night (OLED Black & Cyber)" : "Đã chuyển về giao diện Slate Classic");
+    }
+
+    function renderUserOrdersList(ordersList) {
+      const container = document.getElementById('user-orders-list');
+      const badge = document.getElementById('user-orders-badge');
+      if (badge) badge.innerText = ordersList ? ordersList.length : 0;
+      const mBadge = document.getElementById('mobile-orders-badge');
+      if (mBadge) mBadge.innerText = ordersList ? ordersList.length : 0;
+
+      if (!container) return;
+
+      if (!ordersList || ordersList.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card rounded-2xl p-8 text-center text-slate-400 text-xs">
+            <span class="text-2xl block mb-2">📋</span>
+            Tài khoản ${currentUser ? '<strong class="text-white">' + escapeHtml(currentUser.name) + '</strong>' : 'của bạn'} chưa có đơn hàng nào.<br><button onclick="switchView('store')" class="mt-3 px-4 py-2 bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 rounded-xl font-semibold transition inline-block">Khám phá sản phẩm ngay &rarr;</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = ordersList.map(order => {
+        const isCompleted = (order.status === 'COMPLETED');
+        const isCancelled = (order.status === 'CANCELLED');
+        const wInfo = getWarrantyStatus(order);
+
+        let completedFormatted = 'Đang cập nhật';
+        if (order.completedAt) {
+          const cd = new Date(order.completedAt);
+          completedFormatted = `${cd.getDate()}/${cd.getMonth() + 1}/${cd.getFullYear()}`;
+        }
+
+        let endFormatted = 'Đang cập nhật';
+        if (wInfo.endDate) {
+          const ed = new Date(wInfo.endDate);
+          endFormatted = `${ed.getDate()}/${ed.getMonth() + 1}/${ed.getFullYear()}`;
+        }
+
+        let statusBadgeText = 'Đang chờ Shop gọi điện/Zalo';
+        let statusBadgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+        let statusDotClass = 'bg-amber-400';
+
+        if (isCompleted) {
+          statusBadgeText = 'Đã hoàn tất bàn giao';
+          statusBadgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+          statusDotClass = 'bg-emerald-400';
+        } else if (isCancelled) {
+          statusBadgeText = 'Đơn đã hủy';
+          statusBadgeClass = 'bg-rose-500/20 text-rose-300 border-rose-500/30';
+          statusDotClass = 'bg-rose-400';
+        }
+
+        return `
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800 mb-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-white text-base">${escapeHtml(order.productTitle)}</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">${escapeHtml(order.code)}</span>
+                </div>
+                <span class="text-xs text-slate-400">Thời gian đặt: ${order.createdAt} • Giá: ${formatMoney(order.price)}</span>
+              </div>
+              <div>
+                <span class="text-xs px-3 py-1 rounded-full ${statusBadgeClass} border font-semibold flex items-center gap-1.5 shadow-sm">
+                  <span class="w-1.5 h-1.5 rounded-full ${statusDotClass}"></span>
+                  ${statusBadgeText}
+                </span>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl text-xs space-y-1 border border-slate-800/80 text-slate-300">
+              <div>Số điện thoại nhận: <strong class="text-white">${escapeHtml(order.phone)}</strong></div>
+              ${order.email ? `<div>Email nhận tài khoản: <span class="text-slate-400">${escapeHtml(order.email)}</span></div>` : ''}
+              ${order.note ? `<div>Ghi chú đơn: <span class="text-amber-300/90 italic">${escapeHtml(order.note)}</span></div>` : ''}
+            </div>
+
+            <!-- MỤC THỜI HẠN BẢO HÀNH KHI ADMIN ĐÃ XÁC NHẬN HOÀN TẤT ĐƠN -->
+            ${isCompleted ? `
+              <div class="mt-3 p-3.5 rounded-xl bg-gradient-to-r from-blue-950/60 to-cyan-950/60 border border-cyan-500/30 space-y-2.5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">🛡️</span>
+                    <span class="text-xs font-bold text-white">Thời hạn bảo hành:</span>
+                    <span class="text-xs px-2.5 py-0.5 rounded-full font-bold ${wInfo.badgeClass} flex items-center gap-1.5 shadow-sm">
+                      <span class="w-1.5 h-1.5 rounded-full ${wInfo.dotClass}"></span>
+                      ${wInfo.status === 'EXPIRED' ? 'Đã hết hạn bảo hành' : `Còn ${wInfo.daysLeft} ngày bảo hành`}
+                    </span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">
+                    Kích hoạt: <strong class="text-white">${completedFormatted}</strong> • Hết hạn: <strong class="text-cyan-300">${endFormatted}</strong>
+                  </div>
+                </div>
+
+                ${order.licenseInfo ? `
+                  <div class="pt-2 border-t border-cyan-900/40 text-xs">
+                    <div class="flex items-center justify-between mb-1.5">
+                      <span class="text-[11px] font-bold text-cyan-300 flex items-center gap-1">
+                        🔑 Thông tin tài khoản / License Key đã cấp:
+                      </span>
+                      <button onclick="copyToClipboard('${escapeJs(order.licenseInfo)}', 'Đã sao chép License Key!')" class="text-[10px] text-cyan-300 hover:text-white px-2 py-0.5 rounded bg-cyan-950 border border-cyan-700/60 hover:bg-cyan-900 transition font-semibold">
+                        Sao chép Key
+                      </button>
+                    </div>
+                    <div class="p-2.5 bg-black/70 rounded-lg font-mono text-[11px] text-emerald-300 border border-cyan-950 select-all whitespace-pre-wrap break-all">
+                      ${escapeHtml(order.licenseInfo)}
+                    </div>
+                  </div>
+                ` : `
+                  <div class="text-[11px] text-slate-400 pt-1 border-t border-cyan-950/60">
+                    ℹ️ Đơn hàng đã được Shop kích hoạt thành công. Nếu cần hỗ trợ kỹ thuật hoặc bảo hành, vui lòng liên hệ Zalo bên dưới.
+                  </div>
+                `}
+              </div>
+            ` : (order.status === 'PENDING_CONTACT' ? `
+              <div class="mt-3 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-center gap-2">
+                <span class="text-amber-400 text-sm">⏳</span>
+                <span>Đơn hàng đang chờ Shop liên hệ & kích hoạt. Thời gian bảo hành sẽ được tính và hiển thị ngay khi đơn được hoàn tất.</span>
+              </div>
+            ` : '')}
+
+            <div class="mt-3 flex items-center justify-between pt-2">
+              <span class="text-[11px] text-slate-500">Hỗ trợ kỹ thuật: <strong>0865 899 763</strong></span>
+              <a href="https://zalo.me/0865899763" target="_blank" class="text-xs text-cyan-400 hover:underline font-semibold flex items-center gap-1">
+                Nhắn Zalo Shop &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // RENDER ADMIN ORDERS (CRM BẢNG QUẢN TRỊ TRỰC TIẾP TỪ DB)
+    function renderAdminOrders() {
+      const container = document.getElementById('admin-orders-table');
+      // CHỈ LẤY CÁC ĐƠN CHỜ GỌI ĐIỆN (PENDING_CONTACT / PENDING)
+      const pendingOrders = leadOrders.filter(o => o.status === 'PENDING_CONTACT' || o.status === 'PENDING');
+      const completedCount = leadOrders.filter(o => o.status === 'COMPLETED' || o.completedAt || o.warrantyEndAt).length;
+
+      const pBadge = document.getElementById('admin-pending-badge');
+      if (pBadge) pBadge.innerText = pendingOrders.length;
+      const mAdminBadge = document.getElementById('mobile-admin-badge');
+      if (mAdminBadge) mAdminBadge.innerText = pendingOrders.length;
+
+      const oCount = document.getElementById('admin-orders-count');
+      if (oCount) oCount.innerText = pendingOrders.length;
+
+      const pCard = document.getElementById('admin-pending-count-card');
+      if (pCard) pCard.innerText = pendingOrders.length;
+
+      const cCard = document.getElementById('admin-completed-count-card');
+      if (cCard) cCard.innerText = completedCount;
+
+      if (!container) return;
+
+      if (pendingOrders.length === 0) {
+        container.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-12 px-4 text-center">
+              <div class="text-3xl mb-2">🎉</div>
+              <strong class="text-emerald-400 text-sm block mb-1">Không có đơn hàng nào đang chờ gọi điện!</strong>
+              <p class="text-xs text-slate-400">Tất cả đơn hàng đã được gọi xác nhận bàn giao và chuyển sang mục <button type="button" onclick="setAdminTab('warranty')" class="text-blue-400 hover:underline font-bold">Quản Lý Bảo Hành & Đơn Đã Mua</button>.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      container.innerHTML = pendingOrders.map((o) => {
+        const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-3 font-mono font-bold text-blue-400">${o.code}</td>
+            <td class="py-3 px-3">
+              <span class="font-bold text-white block">${o.customerName}</span>
+              <span class="text-[10px] text-slate-400">${o.createdAt}</span>
+            </td>
+            <td class="py-3 px-3 font-mono font-bold text-emerald-400">
+              <div class="flex items-center gap-1.5">
+                <a href="tel:${cleanPhone}" class="hover:underline flex items-center gap-1">
+                  📞 ${o.phone}
+                </a>
+                <a href="https://zalo.me/${cleanPhone}" target="_blank" class="text-[10px] text-blue-400 bg-blue-500/20 px-1.5 py-0.5 rounded border border-blue-500/30 hover:bg-blue-500/30 font-semibold">
+                  Zalo
+                </a>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-white">${o.productTitle}</td>
+            <td class="py-3 px-3 font-bold text-slate-200">${formatMoney(o.price)}</td>
+            <td class="py-3 px-3">
+              <select onchange="updateOrderStatusFromAdmin('${o.id}', this.value)" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-bold text-white focus:outline-none focus:border-blue-500">
+                <option value="PENDING_CONTACT" ${o.status === 'PENDING_CONTACT' ? 'selected' : ''}>⏳ Chờ liên hệ</option>
+                <option value="PROCESSING" ${o.status === 'PROCESSING' ? 'selected' : ''}>⚙️ Đang xử lý</option>
+                <option value="COMPLETED" ${o.status === 'COMPLETED' ? 'selected' : ''}>✅ Đã bàn giao</option>
+                <option value="CANCELLED" ${o.status === 'CANCELLED' ? 'selected' : ''}>❌ Hủy đơn</option>
+              </select>
+            </td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="updateOrderStatusFromAdmin('${o.id}', 'COMPLETED')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[11px] font-bold transition shadow">
+                  ✓ Xong
+                </button>
+                <button onclick="deleteOrderFromDB('${o.id}')" class="px-2 py-1 bg-rose-950/60 hover:bg-rose-900 text-rose-300 rounded-lg text-[11px] font-bold transition border border-rose-800/40" title="Xóa đơn">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // UPDATE ORDER STATUS IN DB
+    async function updateOrderStatusFromAdmin(orderId, newStatus) {
+      showToast("Đang cập nhật trạng thái đơn hàng...");
+      const order = leadOrders.find(o => o.id === orderId);
+      const updateData = { status: newStatus };
+
+      if (newStatus === 'COMPLETED') {
+        const now = new Date();
+        updateData.completed_at = now.toISOString();
+
+        // Calculate warranty days: from order or product title
+        let days = (order && order.warrantyDays) ? order.warrantyDays : 30;
+        if (order && !order.warrantyDays) {
+          const t = (order.productTitle || '').toLowerCase();
+          if (t.includes('năm') || t.includes('1y') || t.includes('12 tháng')) days = 365;
+          else if (t.includes('6 tháng')) days = 180;
+          else if (t.includes('3 tháng')) days = 90;
+          else days = 30;
+        }
+        updateData.warranty_days = days;
+        const end = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+        updateData.warranty_end_at = end.toISOString();
+      }
+
+      await dbRequest(`orders?id=eq.${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify(updateData)
+      });
+      await dbLoadAdminOrders();
+      showToast("Đã lưu trạng thái đơn hàng và kích hoạt thời hạn bảo hành!");
+    }
+
+    // DELETE ORDER FROM DB
+    async function deleteOrderFromDB(orderId) {
+      if (!confirm("Bạn có chắc muốn xóa vĩnh viễn đơn hàng này?")) return;
+      showToast("Đang xóa đơn hàng...");
+      await dbRequest(`orders?id=eq.${orderId}`, { method: 'DELETE' });
+      await dbLoadAdminOrders();
+      showToast("Đã xóa đơn hàng thành công!");
+    }
+
+    // RENDER ADMIN PRODUCTS TABLE
+    function renderAdminProducts() {
+      const container = document.getElementById('admin-products-table');
+      const totalCard = document.getElementById('admin-total-prods-card');
+      if (totalCard) totalCard.innerText = PRODUCTS.length;
+
+      const pCount = document.getElementById('admin-prods-count');
+      if (pCount) pCount.innerText = PRODUCTS.length;
+
+      if (!container) return;
+
+      container.innerHTML = PRODUCTS.map(p => {
+        const totalStock = p.variants.reduce((a, b) => a + (b.stock || 0), 0);
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-700/60 p-1 flex items-center justify-center shadow-inner">
+                  ${getProductLogo(p)}
+                </div>
+                <div>
+                  <span class="font-bold text-white block">${p.name}</span>
+                  <span class="text-[10px] text-blue-400 font-semibold">${p.badge}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-slate-400 font-medium">${getProductCategoryName(p)}</td>
+            <td class="py-3 px-3">
+              <div class="space-y-0.5">
+                ${p.variants.map(v => `<span class="inline-block bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-[10px] mr-1">${v.title}: <strong>${formatMoney(v.price)}</strong> (Kho: ${v.stock})</span>`).join('')}
+              </div>
+            </td>
+            <td class="py-3 px-3">
+              <span class="font-bold text-blue-400">${totalStock}</span> acc
+            </td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openEditProductModal('${p.id}')" class="text-blue-400 hover:text-white font-bold text-xs px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg transition border border-slate-700">
+                  ✏️ Sửa
+                </button>
+                <button onclick="deleteProductFromDB('${p.id}')" class="text-rose-400 hover:text-white font-bold text-xs px-2 py-1 bg-slate-800 hover:bg-rose-600 rounded-lg transition border border-slate-700">
+                  🗑️ Xóa
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // MODAL EDIT / ADD PRODUCT HANDLERS
+    function openEditProductModal(productId) {
+      if (currentRole !== 'ADMIN') {
+        showToast("Chỉ tài khoản Admin mới có quyền chỉnh sửa!");
+        return;
+      }
+
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if (!prod) return;
+
+      document.getElementById('edit-modal-title').innerText = `Chỉnh Sửa Sản Phẩm: ${prod.name}`;
+      document.getElementById('edit-product-id').value = prod.id;
+      document.getElementById('edit-product-name').value = prod.name;
+      updateCategorySelectOptions(prod.categoryId || prod.category);
+      document.getElementById('edit-product-badge').value = prod.badge;
+      document.getElementById('edit-product-brandkey').value = prod.brandKey || '';
+      document.getElementById('edit-product-logo-url').value = prod.logoUrl || '';
+      document.getElementById('edit-product-short-desc').value = prod.shortDesc;
+      document.getElementById('edit-product-long-desc').value = prod.longDesc;
+      document.getElementById('edit-product-warranty').value = (prod.warrantyPolicy || []).join('\n');
+
+      updateLogoPreview(prod);
+      renderEditVariantsList(prod.variants);
+
+      const modal = document.getElementById('product-edit-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function openAddProductModal() {
+      if (currentRole !== 'ADMIN') {
+        showToast("Chỉ tài khoản Admin mới có quyền thêm sản phẩm!");
+        return;
+      }
+
+      document.getElementById('edit-modal-title').innerText = "Thêm Sản Phẩm Mới";
+      document.getElementById('edit-product-id').value = "";
+      document.getElementById('edit-product-name').value = "";
+      updateCategorySelectOptions(CATEGORIES[0]?.id);
+      document.getElementById('edit-product-badge').value = "MỚI";
+      document.getElementById('edit-product-brandkey').value = "cursor";
+      document.getElementById('edit-product-logo-url').value = "";
+      document.getElementById('edit-product-short-desc').value = "";
+      document.getElementById('edit-product-long-desc').value = "";
+      document.getElementById('edit-product-warranty').value = "Bảo hành trọn thời hạn sử dụng.\nHỗ trợ kỹ thuật 24/7.";
+
+      updateLogoPreview({ brandKey: 'cursor' });
+      renderEditVariantsList([
+        { id: 'v1', title: 'Gói 1 Tháng', price: 150000, oldPrice: 200000, stock: 10 }
+      ]);
+
+      const modal = document.getElementById('product-edit-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeProductEditModal() {
+      const modal = document.getElementById('product-edit-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // LOGO PREVIEW & UPLOAD HANDLING
+    function updateLogoPreview(prodOrUrl) {
+      const container = document.getElementById('edit-logo-preview');
+      if (!container) return;
+      let dummyProd = {};
+      if (typeof prodOrUrl === 'string') {
+        dummyProd = { logoUrl: prodOrUrl, name: 'Sample' };
+      } else {
+        dummyProd = prodOrUrl || {};
+      }
+      container.innerHTML = getProductLogo(dummyProd);
+    }
+
+    function updateLogoPreviewFromInput() {
+      const url = document.getElementById('edit-product-logo-url').value.trim();
+      const brandKey = document.getElementById('edit-product-brandkey').value.trim();
+      updateLogoPreview({ logoUrl: url, brandKey: brandKey, name: 'Sample' });
+    }
+
+    function setPresetBrand(key) {
+      document.getElementById('edit-product-brandkey').value = key;
+      document.getElementById('edit-product-logo-url').value = '';
+      updateLogoPreview({ brandKey: key, name: key });
+    }
+
+    function handleLogoFileSelected(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        document.getElementById('edit-product-logo-url').value = dataUrl;
+        updateLogoPreview(dataUrl);
+        showToast("Đã tải ảnh logo thành công!");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // DYNAMIC VARIANTS MANAGEMENT (SỬA GIÁ & TỒN KHO)
+    function renderEditVariantsList(variants) {
+      const container = document.getElementById('edit-variants-list');
+      if (!container) return;
+
+      container.innerHTML = (variants || []).map((v, i) => `
+        <div class="variant-edit-row bg-slate-950 p-2.5 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
+          <div class="sm:col-span-4">
+            <span class="text-[10px] text-slate-400 block mb-0.5">Tên gói</span>
+            <input type="text" class="v-title w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white" value="${v.title || ''}">
+          </div>
+          <div class="sm:col-span-3">
+            <span class="text-[10px] text-slate-400 block mb-0.5">Giá bán (đ)</span>
+            <input type="number" class="v-price w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-bold" value="${v.price || 0}">
+          </div>
+          <div class="sm:col-span-2">
+            <span class="text-[10px] text-slate-400 block mb-0.5">Tồn kho</span>
+            <input type="number" class="v-stock w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-blue-400 font-bold" value="${v.stock || 10}">
+          </div>
+          <div class="sm:col-span-2">
+            <span class="text-[10px] text-amber-300 font-bold block mb-0.5">BH (ngày)</span>
+            <input type="number" class="v-warranty w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-xs text-amber-300 font-bold" value="${v.warrantyDays || 30}" placeholder="30">
+          </div>
+          <div class="sm:col-span-1 flex justify-end pt-3 sm:pt-0">
+            <button type="button" onclick="removeVariantRow(this)" class="px-2 py-1 bg-rose-950 hover:bg-rose-900 text-rose-300 rounded-lg text-xs font-bold border border-rose-800/40" title="Xóa gói">
+              ✕
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addNewVariantRow() {
+      const container = document.getElementById('edit-variants-list');
+      if (!container) return;
+
+      const div = document.createElement('div');
+      div.className = "variant-edit-row bg-slate-950 p-2.5 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-12 gap-2 items-center";
+      div.innerHTML = `
+        <div class="sm:col-span-4">
+          <span class="text-[10px] text-slate-400 block mb-0.5">Tên gói</span>
+          <input type="text" class="v-title w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white" value="Gói 1 Tháng">
+        </div>
+        <div class="sm:col-span-3">
+          <span class="text-[10px] text-slate-400 block mb-0.5">Giá bán (đ)</span>
+          <input type="number" class="v-price w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-bold" value="150000">
+        </div>
+        <div class="sm:col-span-2">
+          <span class="text-[10px] text-slate-400 block mb-0.5">Tồn kho</span>
+          <input type="number" class="v-stock w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-blue-400 font-bold" value="10">
+        </div>
+        <div class="sm:col-span-2">
+          <span class="text-[10px] text-amber-300 font-bold block mb-0.5">BH (ngày)</span>
+          <input type="number" class="v-warranty w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-xs text-amber-300 font-bold" value="30" placeholder="30">
+        </div>
+        <div class="sm:col-span-1 flex justify-end pt-3 sm:pt-0">
+          <button type="button" onclick="removeVariantRow(this)" class="px-2 py-1 bg-rose-950 hover:bg-rose-900 text-rose-300 rounded-lg text-xs font-bold border border-rose-800/40" title="Xóa gói">
+            ✕
+          </button>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeVariantRow(btn) {
+      const rows = document.querySelectorAll('.variant-edit-row');
+      if (rows.length <= 1) {
+        showToast("Sản phẩm phải có ít nhất 1 gói dịch vụ!");
+        return;
+      }
+      btn.closest('.variant-edit-row').remove();
+    }
+
+    // SAVE PRODUCT (EDIT OR ADD)
+    async function handleSaveProduct(event) {
+      if (event) event.preventDefault();
+      const id = document.getElementById('edit-product-id').value;
+      const name = document.getElementById('edit-product-name').value.trim();
+      const category = document.getElementById('edit-product-category').value;
+      const badge = document.getElementById('edit-product-badge').value.trim() || 'PRO';
+      const brandKey = document.getElementById('edit-product-brandkey').value.trim().toLowerCase();
+      const logoUrl = document.getElementById('edit-product-logo-url').value.trim();
+      const shortDesc = document.getElementById('edit-product-short-desc').value.trim();
+      const longDesc = document.getElementById('edit-product-long-desc').value.trim();
+      const warranty = document.getElementById('edit-product-warranty').value.split('\n').filter(s => s.trim().length > 0);
+
+      // Collect variants
+      const rows = document.querySelectorAll('.variant-edit-row');
+      const variants = Array.from(rows).map((row, idx) => ({
+        title: row.querySelector('.v-title').value.trim() || `Gói ${idx + 1}`,
+        price: Number(row.querySelector('.v-price').value) || 0,
+        oldPrice: 0,
+        stock: Number(row.querySelector('.v-stock').value) || 10,
+        warrantyDays: Number(row.querySelector('.v-warranty')?.value) || 30,
+        isContact: Number(row.querySelector('.v-price').value) === 0
+      }));
+
+      showToast("Đang lưu thông tin sản phẩm...");
+
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+      if (isUUID) {
+        // 1. UPDATE EXISTING PRODUCT IN DB
+        await dbRequest(`products?id=eq.${id}`, {
+          method: 'PATCH',
+          headers: { 'Prefer': 'return=representation' },
+          body: JSON.stringify({
+            name: name,
+            category_id: (CATEGORIES.find(c => c.id === category || c.slug === category)?.id) || category || '11111111-1111-1111-1111-111111111111',
+            badge: badge,
+            brand_key: brandKey || 'cursor',
+            logo_url: logoUrl || null,
+            short_desc: shortDesc,
+            long_desc: longDesc,
+            warranty_policy: warranty.join('\n')
+          })
+        });
+
+        // 2. SYNC VARIANTS IN DB
+        await dbRequest(`product_variants?product_id=eq.${id}`, { method: 'DELETE' });
+        const varInserts = variants.map(v => ({
+          product_id: id,
+          title: v.title,
+          price: v.price,
+          old_price: 0,
+          stock: v.stock,
+          warranty_days: v.warrantyDays || 30,
+          is_contact: v.isContact
+        }));
+        await dbRequest('product_variants', {
+          method: 'POST',
+          body: JSON.stringify(varInserts)
+        });
+
+        showToast(`Đã lưu sản phẩm "${name}" thành công!`);
+      } else {
+        // 1. INSERT NEW PRODUCT IN DB
+        const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-') + '-' + Math.floor(100 + Math.random() * 900);
+        const inserted = await dbRequest('products', {
+          method: 'POST',
+          headers: { 'Prefer': 'return=representation' },
+          body: JSON.stringify({
+            name: name,
+            slug: slug,
+            category_id: (CATEGORIES.find(c => c.id === category || c.slug === category)?.id) || category || '11111111-1111-1111-1111-111111111111',
+            badge: badge,
+            brand_key: brandKey || 'cursor',
+            logo_url: logoUrl || null,
+            short_desc: shortDesc,
+            long_desc: longDesc,
+            warranty_policy: warranty.join('\n'),
+            is_active: true
+          })
+        });
+
+        if (inserted && inserted[0]) {
+          const newId = inserted[0].id;
+          const varInserts = variants.map(v => ({
+            product_id: newId,
+            title: v.title,
+            price: v.price,
+            old_price: 0,
+            stock: v.stock,
+            is_contact: v.isContact
+          }));
+          await dbRequest('product_variants', {
+            method: 'POST',
+            body: JSON.stringify(varInserts)
+          });
+        }
+
+        showToast(`Đã thêm mới sản phẩm "${name}" thành công!`);
+      }
+
+      closeProductEditModal();
+      await dbLoadProductsFromSupabase();
+    }
+
+    // DELETE PRODUCT FROM DB
+    async function deleteProductFromDB(productId) {
+      const prod = PRODUCTS.find(p => p.id === productId);
+      const name = prod ? prod.name : productId;
+      if (!confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${name}"?`)) return;
+
+      showToast("Đang xóa sản phẩm...");
+      await dbRequest(`products?id=eq.${productId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ is_active: false })
+      });
+
+      await dbLoadProductsFromSupabase();
+      showToast(`Đã xóa "${name}" thành công!`);
+    }
+
+    function setAdminTab(tabName) {
+      const tabs = ['orders', 'warranty', 'products', 'categories'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`admin-${t}-panel`);
+        const btn = document.getElementById(`tab-btn-admin-${t}`);
+        if (panel) {
+          if (t === tabName) panel.classList.remove('hidden');
+          else panel.classList.add('hidden');
+        }
+        if (btn) {
+          if (t === tabName) {
+            btn.classList.add('bg-blue-600', 'text-white', 'shadow');
+            btn.classList.remove('bg-slate-900', 'text-slate-400');
+          } else {
+            btn.classList.remove('bg-blue-600', 'text-white', 'shadow');
+            btn.classList.add('bg-slate-900', 'text-slate-400');
+          }
+        }
+      });
+
+      if (tabName === 'warranty') {
+        renderAdminWarrantyTable();
+      } else if (tabName === 'categories') {
+        renderAdminCategories();
+      } else if (tabName === 'products') {
+        renderAdminProducts();
+      } else if (tabName === 'orders') {
+        renderAdminOrders();
+      }
+    }
+
+
+    // ==========================================
+    // 1. DYNAMIC CATEGORIES MANAGEMENT
+    // ==========================================
+    async function dbLoadCategories() {
+      try {
+        const data = await dbRequest('categories?order=created_at.asc&select=*');
+        if (data && Array.isArray(data) && data.length > 0) {
+          CATEGORIES = data;
+        }
+      } catch (err) {
+        console.warn('Failed to load categories:', err);
+      }
+      renderCategoryPills();
+      updateCategorySelectOptions();
+      renderAdminCategories();
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById('category-pills');
+      if (!container) return;
+
+      const totalProds = PRODUCTS.length;
+      let html = `
+        <button onclick="setCategory('ALL', this)" class="cat-pill ${currentCategory === 'ALL' ? 'active bg-blue-600 text-white shadow-md' : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'} px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap">
+          Tất cả danh mục (<span id="cat-count-all">${totalProds}</span>)
+        </button>
+      `;
+
+      CATEGORIES.forEach(c => {
+        const count = PRODUCTS.filter(p => p.categoryId === c.id || p.category === c.id || p.category === c.slug).length;
+        const isActive = (currentCategory === c.id || currentCategory === c.slug);
+        html += `
+          <button onclick="setCategory('${c.id}', this)" class="cat-pill ${isActive ? 'active bg-blue-600 text-white shadow-md' : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'} px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap">
+            ${c.name} (${count})
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function updateCategorySelectOptions(selectedId = null) {
+      const select = document.getElementById('edit-product-category');
+      if (!select) return;
+
+      select.innerHTML = CATEGORIES.map(c => `
+        <option value="${c.id}" ${selectedId === c.id || selectedId === c.slug ? 'selected' : ''}>
+          ${c.name}
+        </option>
+      `).join('');
+    }
+
+    function renderAdminCategories() {
+      const table = document.getElementById('admin-categories-table');
+      const countBadge = document.getElementById('admin-categories-count');
+      if (countBadge) countBadge.innerText = CATEGORIES.length;
+
+      if (!table) return;
+
+      table.innerHTML = CATEGORIES.map(c => {
+        const prodCount = PRODUCTS.filter(p => p.categoryId === c.id || p.category === c.id || p.category === c.slug).length;
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-3">
+              <strong class="text-white text-xs block">${c.name}</strong>
+            </td>
+            <td class="py-3 px-3 font-mono text-[11px] text-blue-400">${c.slug || ''}</td>
+            <td class="py-3 px-3 font-bold text-slate-300">${prodCount} sản phẩm</td>
+            <td class="py-3 px-3 text-right">
+              <button onclick="deleteCategoryFromDB('${c.id}', '${c.name}')" class="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900 text-rose-300 rounded-lg text-[11px] font-bold border border-rose-800/40">
+                Xóa
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function promptAddNewCategory() {
+      const name = prompt("Nhập tên danh mục mới (ví dụ: Tài Khoản Học Tập, Bản Quyền Windows & Office, Marketing & SEO...):");
+      if (!name || !name.trim()) return;
+
+      const cleanName = name.trim();
+      const slug = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-') + '-' + Math.floor(100 + Math.random() * 900);
+
+      showToast("Đang tạo danh mục mới...");
+      const res = await dbRequest('categories', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({ name: cleanName, slug: slug })
+      });
+
+      if (res && res[0]) {
+        await dbLoadCategories();
+        updateCategorySelectOptions(res[0].id);
+        showToast(`Đã thêm danh mục "${cleanName}" thành công!`);
+      } else {
+        showToast("Có lỗi khi thêm danh mục, vui lòng thử lại!");
+      }
+    }
+
+    async function deleteCategoryFromDB(catId, catName) {
+      if (!confirm(`Bạn có chắc muốn xóa danh mục "${catName}"?`)) return;
+      showToast("Đang xóa danh mục...");
+      await dbRequest(`categories?id=eq.${catId}`, { method: 'DELETE' });
+      await dbLoadCategories();
+      showToast("Đã xóa danh mục thành công!");
+    }
+
+    // ==========================================
+    // 2. WARRANTY TRACKING & CRM MANAGEMENT
+    // ==========================================
+    function getWarrantyStatus(order) {
+      const now = new Date();
+      const startDate = new Date(order.completedAt || order.createdAtRaw || now);
+      
+      let endDate;
+      if (order.warrantyEndAt) {
+        endDate = new Date(order.warrantyEndAt);
+      } else {
+        const days = order.warrantyDays || 30;
+        endDate = new Date(startDate.getTime() + (days * 24 * 60 * 60 * 1000));
+      }
+
+      const diffMs = endDate.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffDays <= 0) {
+        return {
+          status: 'EXPIRED',
+          label: 'Đã hết hạn',
+          daysLeft: diffDays,
+          badgeClass: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+          dotClass: 'bg-rose-400'
+        };
+      } else if (diffDays <= 5) {
+        return {
+          status: 'EXPIRING',
+          label: `Sắp hết (${diffDays} ngày)`,
+          daysLeft: diffDays,
+          badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+          dotClass: 'bg-amber-400 animate-pulse'
+        };
+      } else {
+        return {
+          status: 'ACTIVE',
+          label: `Còn ${diffDays} ngày`,
+          daysLeft: diffDays,
+          badgeClass: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
+          dotClass: 'bg-emerald-400'
+        };
+      }
+    }
+
+    function setWarrantyFilter(filterName, btn) {
+      currentWarrantyFilter = filterName;
+      document.querySelectorAll('.warranty-filter-btn').forEach(el => {
+        el.classList.remove('active', 'bg-blue-600', 'text-white');
+        el.classList.add('text-slate-400');
+      });
+      if (btn) {
+        btn.classList.add('active', 'bg-blue-600', 'text-white');
+        btn.classList.remove('text-slate-400');
+      }
+      renderAdminWarrantyTable();
+    }
+
+    function filterWarrantyList(keyword) {
+      warrantySearchQuery = (keyword || '').toLowerCase().trim();
+      renderAdminWarrantyTable();
+    }
+
+    function renderAdminWarrantyTable() {
+      const container = document.getElementById('admin-warranty-table');
+      const totalBadge = document.getElementById('warranty-total-badge');
+      const tabBadge = document.getElementById('admin-warranty-count');
+
+      // Filter all orders that are completed or processed
+      const eligibleOrders = leadOrders.filter(o => o.status === 'COMPLETED' || o.completedAt || o.warrantyEndAt);
+      
+      if (tabBadge) tabBadge.innerText = eligibleOrders.length;
+      if (totalBadge) totalBadge.innerText = `${eligibleOrders.length} gói`;
+
+      // Calculate counts for filter badges
+      let countActive = 0, countExpiring = 0, countExpired = 0;
+      eligibleOrders.forEach(o => {
+        const info = getWarrantyStatus(o);
+        if (info.status === 'ACTIVE') countActive++;
+        else if (info.status === 'EXPIRING') countExpiring++;
+        else if (info.status === 'EXPIRED') countExpired++;
+      });
+
+      const elAll = document.getElementById('wf-count-all');
+      const elAct = document.getElementById('wf-count-active');
+      const elExp = document.getElementById('wf-count-expiring');
+      const elDie = document.getElementById('wf-count-expired');
+      if (elAll) elAll.innerText = eligibleOrders.length;
+      if (elAct) elAct.innerText = countActive;
+      if (elExp) elExp.innerText = countExpiring;
+      if (elDie) elDie.innerText = countExpired;
+
+      if (!container) return;
+
+      let filtered = eligibleOrders;
+      if (currentWarrantyFilter === 'ACTIVE') {
+        filtered = filtered.filter(o => getWarrantyStatus(o).status === 'ACTIVE');
+      } else if (currentWarrantyFilter === 'EXPIRING') {
+        filtered = filtered.filter(o => getWarrantyStatus(o).status === 'EXPIRING');
+      } else if (currentWarrantyFilter === 'EXPIRED') {
+        filtered = filtered.filter(o => getWarrantyStatus(o).status === 'EXPIRED');
+      }
+
+      if (warrantySearchQuery) {
+        filtered = filtered.filter(o => 
+          (o.code && o.code.toLowerCase().includes(warrantySearchQuery)) ||
+          (o.customerName && o.customerName.toLowerCase().includes(warrantySearchQuery)) ||
+          (o.phone && o.phone.includes(warrantySearchQuery)) ||
+          (o.email && o.email.toLowerCase().includes(warrantySearchQuery)) ||
+          (o.productTitle && o.productTitle.toLowerCase().includes(warrantySearchQuery))
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-8 text-center text-slate-500 text-xs">
+              <span class="text-xl block mb-1">🛡️</span>
+              Không có gói bảo hành nào phù hợp bộ lọc.<br>
+              <span class="text-[11px] text-slate-600 block mt-1">Khi bạn bấm "✓ Xong" hoặc chọn "Đã bàn giao" ở tab Khách Chờ Gọi Điện, gói bản quyền sẽ tự động được lưu và kích hoạt bảo hành tại đây.</span>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(o => {
+        const info = getWarrantyStatus(o);
+        const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-3">
+              <span class="font-mono font-bold text-blue-400 block">${o.code}</span>
+              <span class="text-[10px] text-slate-400">Mua ngày: <strong class="text-slate-300">${o.completedStr || o.createdAt}</strong></span>
+            </td>
+            <td class="py-3 px-3">
+              <strong class="text-white block">${o.customerName}</strong>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <a href="tel:${cleanPhone}" class="text-[11px] text-emerald-400 font-mono hover:underline">${o.phone}</a>
+                <a href="https://zalo.me/${cleanPhone}" target="_blank" class="text-[9px] px-1 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-semibold">Zalo</a>
+              </div>
+              ${o.email ? `<span class="text-[10px] text-slate-500 block truncate max-w-[150px]">${o.email}</span>` : ''}
+            </td>
+            <td class="py-3 px-3">
+              <span class="text-white font-medium block">${o.productTitle}</span>
+              <span class="text-[10px] text-emerald-400 font-semibold">${formatMoney(o.price)}</span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="text-xs text-amber-300 font-semibold block">${o.warrantyDays} ngày (${o.warrantyDays >= 365 ? '1 Năm' : (o.warrantyDays >= 180 ? '6 Tháng' : '1 Tháng')})</span>
+              <span class="text-[10px] text-slate-400">Hết hạn: <strong class="text-slate-200">${o.endStr || 'Chưa xác định'}</strong></span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold ${info.badgeClass}">
+                <span class="w-1.5 h-1.5 rounded-full ${info.dotClass}"></span>
+                ${info.label}
+              </span>
+            </td>
+            <td class="py-3 px-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[11px] text-slate-300 truncate max-w-[140px] font-mono bg-slate-950 px-2 py-1 rounded border border-slate-800" title="${o.licenseInfo || 'Chưa nhập tài khoản'}">
+                  ${o.licenseInfo || '<span class="text-slate-500 italic">Chưa cấp tk</span>'}
+                </span>
+                <button onclick="editLicenseInfo('${o.id}')" class="p-1 text-slate-400 hover:text-blue-400 bg-slate-800 rounded" title="Sửa thông tin tài khoản">
+                  ✏️
+                </button>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="quickExtendWarranty('${o.id}', 30)" class="px-2.5 py-1 bg-emerald-600/30 hover:bg-emerald-600/60 text-emerald-300 rounded-lg text-[10px] font-bold border border-emerald-500/30 transition" title="Gia hạn thêm 30 ngày">
+                  +30 ngày
+                </button>
+                <button onclick="editWarrantyExpiry('${o.id}')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[10px] font-bold border border-slate-700" title="Chỉnh sửa ngày hết hạn">
+                  Sửa ngày
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function quickExtendWarranty(orderId, daysToAdd = 30) {
+      const order = leadOrders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const currentEnd = order.warrantyEndAt ? new Date(order.warrantyEndAt) : new Date();
+      const newEnd = new Date(Math.max(currentEnd.getTime(), Date.now()) + (daysToAdd * 24 * 60 * 60 * 1000));
+      const newDays = (order.warrantyDays || 30) + daysToAdd;
+
+      showToast(`Đang gia hạn thêm ${daysToAdd} ngày bảo hành...`);
+      await dbRequest(`orders?id=eq.${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({
+          warranty_days: newDays,
+          warranty_end_at: newEnd.toISOString()
+        })
+      });
+
+      await dbLoadAdminOrders();
+      showToast(`Đã gia hạn thành công! Hạn mới đến ngày ${newEnd.getDate()}/${newEnd.getMonth() + 1}/${newEnd.getFullYear()}`);
+    }
+
+    async function editWarrantyExpiry(orderId) {
+      const order = leadOrders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const currentDays = order.warrantyDays || 30;
+      const input = prompt("Nhập tổng số ngày bảo hành kể từ ngày mua (ví dụ: 30, 60, 90, 180, 365...):", currentDays);
+      if (input === null) return;
+      const days = parseInt(input, 10);
+      if (isNaN(days) || days <= 0) {
+        alert("Số ngày bảo hành không hợp lệ!");
+        return;
+      }
+
+      const startDate = new Date(order.completedAt || order.createdAtRaw || new Date());
+      const newEnd = new Date(startDate.getTime() + (days * 24 * 60 * 60 * 1000));
+
+      showToast("Đang cập nhật thời hạn bảo hành...");
+      await dbRequest(`orders?id=eq.${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({
+          warranty_days: days,
+          warranty_end_at: newEnd.toISOString()
+        })
+      });
+
+      await dbLoadAdminOrders();
+      showToast(`Đã cập nhật: ${days} ngày bảo hành (Đến ngày ${newEnd.getDate()}/${newEnd.getMonth() + 1}/${newEnd.getFullYear()})`);
+    }
+
+    async function editLicenseInfo(orderId) {
+      const order = leadOrders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const currentInfo = order.licenseInfo || '';
+      const input = prompt("Nhập thông tin tài khoản / mật khẩu / key cấp cho khách:", currentInfo);
+      if (input === null) return;
+
+      showToast("Đang lưu thông tin tài khoản bàn giao...");
+      await dbRequest(`orders?id=eq.${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({ license_info: input.trim() })
+      });
+
+      await dbLoadAdminOrders();
+      showToast("Đã lưu thông tin tài khoản cấp cho khách!");
+    }
+
+    function switchView(viewName) {
+      if (viewName === 'admin' && currentRole !== 'ADMIN') {
+        showToast("Bạn cần đăng nhập bằng tài khoản Quản trị viên (Admin)!");
+        return;
+      }
+
+      ['store', 'policy', 'orders', 'admin'].forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
+      });
+
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) target.classList.remove('hidden');
+
+      // Update active nav button
+      ['store', 'policy', 'orders', 'admin'].forEach(v => {
+        const btn = document.getElementById(`nav-${v}`);
+        if (btn) {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('text-slate-400', 'hover:text-white');
+        }
+      });
+      const activeNav = document.getElementById(`nav-${viewName}`);
+      if (activeNav) {
+        activeNav.classList.add('bg-blue-600', 'text-white');
+        activeNav.classList.remove('text-slate-400', 'hover:text-white');
+      }
+
+      // If switched to admin, refresh live data
+      if (viewName === 'admin') {
+        dbLoadCategories();
+        dbLoadAdminOrders();
+        dbLoadProductsFromSupabase();
+      }
+
+      // If switched to orders, refresh customer orders
+      if (viewName === 'orders') {
+        dbLookupCustomerOrders();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

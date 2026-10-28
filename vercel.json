@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/api/auth/login",
+      "dest": "/api/supabase.js?action=login"
+    },
+    {
+      "src": "/api/supabase/(.*)",
+      "dest": "/api/supabase.js?path=$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}

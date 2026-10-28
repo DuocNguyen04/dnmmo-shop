@@ -1,0 +1,22 @@
+{
+  "name": "duocnguyen-shop",
+  "version": "1.0.0",
+  "description": "Kho tài khoản bản quyền & phần mềm chính hãng DUOCNGUYEN PRO",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "duocnguyen",
+    "software-store",
+    "chatgpt",
+    "canva",
+    "capcut",
+    "youtube-premium",
+    "gemini",
+    "claude"
+  ],
+  "author": "DUOCNGUYEN",
+  "license": "MIT"
+}
