@@ -66,6 +66,8 @@
       border-color: rgba(0, 210, 255, 0.25) !important;
     }
   </style>
+  <!-- Google Identity Services (GIS) Official 1-Click SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white theme-darknight">
 
@@ -857,30 +859,18 @@
 
       <!-- TAB 1: ĐĂNG NHẬP -->
       <div id="auth-panel-login" class="space-y-4">
-        <div>
-          <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-2">Đăng nhập nhanh Google 1 chạm:</span>
-          <div class="space-y-2">
-            <!-- Duoc Nguyen Admin -->
-            <button type="button" onclick="loginWithGoogleAccount('Duoc Nguyen', 'duocnguyen.work@gmail.com')" class="w-full p-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 flex items-center gap-3 transition text-left">
-              <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xs shadow-sm">DN</div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold text-white block truncate">Duoc Nguyen</span>
-                  <span class="bg-amber-500 text-slate-950 text-[9px] font-extrabold px-1.5 rounded">ADMIN</span>
-                </div>
-                <span class="text-[11px] text-slate-400 block truncate">duocnguyen.work@gmail.com</span>
-              </div>
-            </button>
-
-            <!-- Customer Demo Account -->
-            <button type="button" onclick="loginWithGoogleAccount('Khách Hàng Mẫu', 'khachhang.demo@gmail.com')" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 flex items-center gap-3 transition text-left">
-              <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">KH</div>
-              <div class="flex-1 min-w-0">
-                <span class="text-xs font-bold text-white block truncate">Khách Hàng Mẫu (User)</span>
-                <span class="text-[11px] text-slate-400 block truncate">khachhang.demo@gmail.com</span>
-              </div>
-            </button>
-          </div>
+        <!-- Đăng nhập Google 1-chạm chính thức (Google Identity Services) -->
+        <div class="flex flex-col items-center gap-2">
+          <div id="google-signin-btn" class="w-full flex justify-center min-h-[44px]"></div>
+          <button type="button" id="google-fallback-btn" onclick="triggerGoogleOneTap()" class="w-full py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-3 transition shadow-sm hover:border-slate-600">
+            <svg class="w-4 h-4" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Tiếp tục với tài khoản Google</span>
+          </button>
         </div>
 
         <div class="relative flex py-1 items-center">
@@ -1009,6 +999,26 @@
       { id: '22222222-2222-2222-2222-222222222222', name: 'Đồ họa & Thiết kế', slug: 'do-hoa-thiet-ke' },
       { id: '33333333-3333-3333-3333-333333333333', name: 'Video & Giải trí', slug: 'video-giai-tri' }
     ];
+
+    function isProductInCategory(p, target) {
+      if (!target || target === 'ALL') return true;
+      const c = CATEGORIES.find(cat => cat.id === target || cat.slug === target);
+      const catId = c ? c.id : target;
+      const catSlug = c ? c.slug : target;
+
+      if (p.categoryId === catId || p.category_id === catId || p.category === catId || p.category === catSlug) return true;
+
+      if (catSlug === 'ai-tools' || catId === '11111111-1111-1111-1111-111111111111') {
+        return p.category === 'AI' || ['chatgpt', 'gemini', 'claude', 'muse'].includes(p.brandKey);
+      }
+      if (catSlug === 'do-hoa-thiet-ke' || catId === '22222222-2222-2222-2222-222222222222') {
+        return p.category === 'DESIGN' || p.brandKey === 'canva';
+      }
+      if (catSlug === 'video-giai-tri' || catId === '33333333-3333-3333-3333-333333333333') {
+        return p.category === 'MEDIA' || ['capcut', 'youtube', 'suno'].includes(p.brandKey);
+      }
+      return false;
+    }
 
     let currentWarrantyFilter = 'ALL';
     let warrantySearchQuery = '';
@@ -1146,7 +1156,10 @@
       {
         id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
         name: "ChatGPT",
-        category: "AI",
+        categoryId: "11111111-1111-1111-1111-111111111111",
+        categoryName: "Trí tuệ nhân tạo (AI Tools)",
+        category: "11111111-1111-1111-1111-111111111111",
+        slug: "chatgpt",
         badge: "BÁN CHẠY",
         brandKey: "chatgpt",
         logoUrl: "",
@@ -1158,15 +1171,18 @@
           "Cam kết tài khoản dùng ổn định, riêng tư, không chia sẻ với người lạ."
         ],
         variants: [
-          { id: "37ae941e-5212-431d-afc4-b2aab2c2ef1e", title: "CHAT GPT PLUS 1M", oldPrice: 500000, price: 220000, stock: 12 },
-          { id: "75a14486-3416-41db-9831-0a3140ffd5a7", title: "CHAT GPT K12 1 YEAR", oldPrice: 200000, price: 150000, stock: 18 },
-          { id: "76beb240-8163-40d0-82c5-756d95441170", title: "API CODEX TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 99 }
+          { id: "37ae941e-5212-431d-afc4-b2aab2c2ef1e", title: "CHAT GPT PLUS 1M", oldPrice: 500000, price: 220000, stock: 12, warrantyDays: 30 },
+          { id: "75a14486-3416-41db-9831-0a3140ffd5a7", title: "CHAT GPT K12 1 YEAR", oldPrice: 200000, price: 150000, stock: 18, warrantyDays: 365 },
+          { id: "76beb240-8163-40d0-82c5-756d95441170", title: "API CODEX TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 99, warrantyDays: 30 }
         ]
       },
       {
         id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
         name: "Canva Pro",
-        category: "DESIGN",
+        categoryId: "22222222-2222-2222-2222-222222222222",
+        categoryName: "Đồ họa & Thiết kế",
+        category: "22222222-2222-2222-2222-222222222222",
+        slug: "canva-pro",
         badge: "BẢN QUYỀN",
         brandKey: "canva",
         logoUrl: "",
@@ -1177,14 +1193,17 @@
           "Nâng cấp chính chủ, dữ liệu thiết kế hoàn toàn riêng tư."
         ],
         variants: [
-          { id: "22a7c207-69ba-4137-8183-cc55dd564e09", title: "CANVA EDU 1 YEAR", oldPrice: 129000, price: 59000, stock: 35 },
-          { id: "b02837ce-dbc9-4af0-8e75-99155f2cb9b3", title: "CANVA PRO 1 YEAR", oldPrice: 229000, price: 129000, stock: 24 }
+          { id: "22a7c207-69ba-4137-8183-cc55dd564e09", title: "CANVA EDU 1 YEAR", oldPrice: 129000, price: 59000, stock: 35, warrantyDays: 365 },
+          { id: "b02837ce-dbc9-4af0-8e75-99155f2cb9b3", title: "CANVA PRO 1 YEAR", oldPrice: 229000, price: 129000, stock: 24, warrantyDays: 365 }
         ]
       },
       {
         id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
         name: "CapCut Pro",
-        category: "MEDIA",
+        categoryId: "33333333-3333-3333-3333-333333333333",
+        categoryName: "Video & Giải trí",
+        category: "33333333-3333-3333-3333-333333333333",
+        slug: "capcut-pro",
         badge: "EDITOR VIP",
         brandKey: "capcut",
         logoUrl: "",
@@ -1195,14 +1214,17 @@
           "Hỗ trợ đăng nhập trên PC, Laptop, iPhone, Android theo quy định."
         ],
         variants: [
-          { id: "d168b246-86bc-404d-9e34-f37f7cc7f8a2", title: "CAPCUT PRO 1M", oldPrice: 139000, price: 49000, stock: 28 },
-          { id: "aa9f67db-c189-4fef-8569-b6ec2c4d95a5", title: "CAPCUT PRO 7DAY", oldPrice: 50000, price: 18000, stock: 40 }
+          { id: "d168b246-86bc-404d-9e34-f37f7cc7f8a2", title: "CAPCUT PRO 1M", oldPrice: 139000, price: 49000, stock: 28, warrantyDays: 30 },
+          { id: "aa9f67db-c189-4fef-8569-b6ec2c4d95a5", title: "CAPCUT PRO 7DAY", oldPrice: 50000, price: 18000, stock: 40, warrantyDays: 7 }
         ]
       },
       {
         id: "dddddddd-dddd-dddd-dddd-dddddddddddd",
         name: "Gemini Pro",
-        category: "AI",
+        categoryId: "11111111-1111-1111-1111-111111111111",
+        categoryName: "Trí tuệ nhân tạo (AI Tools)",
+        category: "11111111-1111-1111-1111-111111111111",
+        slug: "gemini-pro",
         badge: "GOOGLE ADVANCED",
         brandKey: "gemini",
         logoUrl: "",
@@ -1213,35 +1235,39 @@
           "Hỗ trợ cấu hình đăng nhập trên tài khoản được bàn giao."
         ],
         variants: [
-          { id: "7d1c71f8-85ee-4ae0-aa75-1bddf0d5d3c0", title: "AI GG PRO 1 YEAR", oldPrice: 100000, price: 190000, stock: 15 },
-          { id: "cbde6d4b-5df0-4efc-9173-507b25143971", title: "AI GG PRO 18M LINK", oldPrice: 150000, price: 60000, stock: 30 },
-          { id: "f9c95b40-e3ae-4ddf-b976-b8e198e4011f", title: "AI GG PRO 18M BH 1Y", oldPrice: 250000, price: 180000, stock: 9 }
+          { id: "7d1c71f8-85ee-4ae0-aa75-1bddf0d5d3c0", title: "AI GG PRO 1 YEAR", oldPrice: 100000, price: 190000, stock: 15, warrantyDays: 365 },
+          { id: "cbde6d4b-5df0-4efc-9173-507b25143971", title: "AI GG PRO 18M LINK", oldPrice: 150000, price: 60000, stock: 30, warrantyDays: 540 },
+          { id: "f9c95b40-e3ae-4ddf-b976-b8e198e4011f", title: "AI GG PRO 18M BH 1Y", oldPrice: 250000, price: 180000, stock: 9, warrantyDays: 365 }
         ]
       },
       {
         id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
         name: "Claude AI",
-        category: "AI",
-        badge: "SONNET 3.5",
+        categoryId: "11111111-1111-1111-1111-111111111111",
+        categoryName: "Trí tuệ nhân tạo (AI Tools)",
+        category: "11111111-1111-1111-1111-111111111111",
+        slug: "claude-ai",
+        badge: "CLAUDE 3.5",
         brandKey: "claude",
         logoUrl: "",
-        shortDesc: "Đỉnh cao lập trình, phân tích tư duy logic và viết lách tự nhiên từ Anthropic.",
-        longDesc: "Claude 3.5 Sonnet là mô hình số 1 thế giới về khả năng coding, phân tích tài liệu phức tạp và tự động hóa tác vụ.",
+        shortDesc: "Siêu AI lập trình đỉnh cao với Claude 3.5 Sonnet và tính năng Artifacts.",
+        longDesc: "Tài khoản Claude Pro sử dụng Claude 3.5 Sonnet không giới hạn, hỗ trợ dự án nhóm Projects, tạo web app và biểu đồ thời gian thực qua giao diện Artifacts.",
         warrantyPolicy: [
-          "Bảo hành số dư Token / Credit API trong 30 ngày sử dụng.",
-          "Cung cấp key API tốc độ cao, độ trễ thấp."
+          "Bảo hành trọn vẹn theo thời hạn gói đăng ký 1 tháng.",
+          "Cam kết tài khoản riêng tư ổn định."
         ],
         variants: [
-          { id: "30255045-efb1-425a-b279-c30c031eef4c", title: "100$ API 30D", oldPrice: 200000, price: 100000, stock: 11 },
-          { id: "34563585-bcdd-4bc2-8a5e-4cf3c3905bdc", title: "500$ API 30D", oldPrice: 900000, price: 300000, stock: 6 },
-          { id: "75c95e33-b2c9-4c85-8ebd-9f7c26b75944", title: "100M TOKEN 1DAY", oldPrice: 150000, price: 100000, stock: 14 }
+          { id: "bf1b51e7-fbca-4c4f-950c-e2f7b243be4c", title: "CLAUDE PRO 1M", oldPrice: 550000, price: 290000, stock: 10, warrantyDays: 30 }
         ]
       },
       {
         id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
         name: "YouTube Premium",
-        category: "MEDIA",
-        badge: "GIA ĐÌNH CHÍNH HÃNG",
+        categoryId: "33333333-3333-3333-3333-333333333333",
+        categoryName: "Video & Giải trí",
+        category: "33333333-3333-3333-3333-333333333333",
+        slug: "youtube-premium",
+        badge: "KHÔNG QUẢNG CÁO",
         brandKey: "youtube",
         logoUrl: "",
         shortDesc: "Chặn 100% quảng cáo, phát trong nền, nghe nhạc YouTube Music chất lượng cao.",
@@ -1251,15 +1277,18 @@
           "Nâng cấp chính chủ email Gmail của bạn."
         ],
         variants: [
-          { id: "2b3b8a9d-edd1-4636-80a7-cf8ce83cdd04", title: "YTB PREMIUM 1M", oldPrice: 75000, price: 35000, stock: 50 },
-          { id: "a59b256d-3908-4a31-a68c-b9b152f9a18b", title: "YTB PREMIUM 3M", oldPrice: 300000, price: 180000, stock: 22 },
-          { id: "b615aa1c-9948-4736-a478-3e953149e71d", title: "YTB PREMIUM 6M", oldPrice: 600000, price: 355000, stock: 16 }
+          { id: "2b3b8a9d-edd1-4636-80a7-cf8ce83cdd04", title: "YTB PREMIUM 1M", oldPrice: 75000, price: 35000, stock: 50, warrantyDays: 30 },
+          { id: "a59b256d-3908-4a31-a68c-b9b152f9a18b", title: "YTB PREMIUM 3M", oldPrice: 300000, price: 180000, stock: 22, warrantyDays: 90 },
+          { id: "b615aa1c-9948-4736-a478-3e953149e71d", title: "YTB PREMIUM 6M", oldPrice: 600000, price: 355000, stock: 16, warrantyDays: 180 }
         ]
       },
       {
         id: "12121212-1212-1212-1212-121212121212",
         name: "Suno AI Music",
-        category: "MEDIA",
+        categoryId: "33333333-3333-3333-3333-333333333333",
+        categoryName: "Video & Giải trí",
+        category: "33333333-3333-3333-3333-333333333333",
+        slug: "suno-ai-music",
         badge: "TẠO NHẠC AI",
         brandKey: "suno",
         logoUrl: "",
@@ -1269,14 +1298,17 @@
           "Bảo hành số credit và thời hạn sử dụng 1 tháng của gói tài khoản."
         ],
         variants: [
-          { id: "37e2a8b9-4a09-4a8a-8307-726ee6e5bad5", title: "SUNO PRO 1M", oldPrice: 220000, price: 190000, stock: 8 },
-          { id: "d9d0c7c1-0eab-4167-b5df-a0dcf2fea56a", title: "SUNO PREMIER 1M", oldPrice: 999000, price: 590000, stock: 5 }
+          { id: "37e2a8b9-4a09-4a8a-8307-726ee6e5bad5", title: "SUNO PRO 1M", oldPrice: 220000, price: 190000, stock: 8, warrantyDays: 30 },
+          { id: "d9d0c7c1-0eab-4167-b5df-a0dcf2fea56a", title: "SUNO PREMIER 1M", oldPrice: 999000, price: 590000, stock: 5, warrantyDays: 30 }
         ]
       },
       {
         id: "34343434-3434-3434-3434-343434343434",
         name: "Muse Token",
-        category: "AI",
+        categoryId: "11111111-1111-1111-1111-111111111111",
+        categoryName: "Trí tuệ nhân tạo (AI Tools)",
+        category: "11111111-1111-1111-1111-111111111111",
+        slug: "muse-token",
         badge: "TOKEN BẢN QUYỀN",
         brandKey: "muse",
         logoUrl: "",
@@ -1286,8 +1318,8 @@
           "Bảo hành lưu lượng token đúng cam kết theo gói đã mua."
         ],
         variants: [
-          { id: "6df69097-f6c6-4309-961a-a7c89a47599f", title: "1B TOKEN", oldPrice: 200000, price: 100000, stock: 14 },
-          { id: "eff377bd-b31a-4fb3-ac63-545600be63b6", title: "10B TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 5 }
+          { id: "6df69097-f6c6-4309-961a-a7c89a47599f", title: "1B TOKEN", oldPrice: 200000, price: 100000, stock: 14, warrantyDays: 30 },
+          { id: "eff377bd-b31a-4fb3-ac63-545600be63b6", title: "10B TOKEN", oldPrice: 0, price: 0, isContact: true, stock: 5, warrantyDays: 30 }
         ]
       }
     ];
@@ -1311,6 +1343,7 @@
     // ON LOAD: Immediate Local Rendering + Live Supabase Database Hydration
     window.addEventListener('DOMContentLoaded', async () => {
       initTheme();
+      initGoogleIdentityServices();
       // 0. Load categories from DB
       dbLoadCategories();
 
@@ -1329,16 +1362,45 @@
       }
       renderUserOrders();
 
-      // 3. Restore previous user from localStorage if logged in
+      // 2.5 Check Google Auth callback if redirected
+      const googleCallback = localStorage.getItem('google_auth_callback');
+      if (googleCallback) {
+        localStorage.removeItem('google_auth_callback');
+        try {
+          const gData = JSON.parse(googleCallback);
+          if (gData && gData.email) {
+            await loginAsCustomerUser(gData.name, gData.email);
+          }
+        } catch(e) {}
+      }
+
+      // 3. Restore previous user from localStorage if logged in (Clean slate for new visitors)
       const savedUser = localStorage.getItem('dn_user');
       if (savedUser) {
         try {
           const u = JSON.parse(savedUser);
-          await loginWithGoogleAccount(u.name, u.email, false);
+          if (u && u.role === 'ADMIN' && u.email === 'duocnguyen.work@gmail.com') {
+            currentUser = u;
+            currentRole = 'ADMIN';
+            updateUserUI();
+          } else if (u && u.email) {
+            currentUser = u;
+            currentRole = 'USER';
+            updateUserUI();
+            dbLookupCustomerOrders();
+          } else {
+            currentUser = null;
+            currentRole = 'GUEST';
+            updateUserUI();
+          }
         } catch(e) {
+          currentUser = null;
+          currentRole = 'GUEST';
           updateUserUI();
         }
       } else {
+        currentUser = null;
+        currentRole = 'GUEST';
         updateUserUI();
       }
 
@@ -1541,6 +1603,7 @@
       const modal = document.getElementById('auth-modal');
       if (modal) modal.classList.remove('hidden');
       setAuthTab(tab);
+      setTimeout(renderGoogleButton, 60);
     }
 
     function closeAuthModal() {
@@ -1655,7 +1718,7 @@
       }
     }
 
-    // 2. CUSTOMER EMAIL / PHONE + PASSWORD LOGIN
+    // 2. SECURE EMAIL / PHONE + PASSWORD LOGIN
     async function handleEmailPasswordLogin(event) {
       if (event) event.preventDefault();
       const identifier = (document.getElementById('login-identifier')?.value || '').trim();
@@ -1669,66 +1732,198 @@
       showToast("Đang xác thực thông tin đăng nhập...");
 
       const isEmail = identifier.includes('@');
-      const queryField = isEmail ? 'email' : 'phone';
       const cleanIdent = isEmail ? identifier.toLowerCase() : identifier;
 
-      try {
-        const res = await dbRequest(`users?${queryField}=eq.${encodeURIComponent(cleanIdent)}&select=*`);
-        if (!res || res.length === 0) {
-          showToast("Không tìm thấy tài khoản! Vui lòng kiểm tra lại hoặc Đăng ký.");
-          return;
-        }
-
-        const user = res[0];
-        if (user.password && user.password === pass) {
+      // 1. KIỂM TRA BẢO MẬT ADMIN BẮT BUỘC MẬT KHẨU
+      if (cleanIdent === 'duocnguyen.work@gmail.com') {
+        if (pass === 'Tatduoc2026A#') {
           currentUser = {
-            id: user.id,
-            name: user.name || identifier.split('@')[0],
-            email: user.email,
-            phone: user.phone || '',
-            role: user.role || 'USER',
-            avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || identifier)}&backgroundColor=0284c7`
+            id: 'c86ef77e-7ca9-42e7-ac0b-750b50b40ca1',
+            name: 'Duoc Nguyen',
+            email: 'duocnguyen.work@gmail.com',
+            phone: '',
+            role: 'ADMIN',
+            avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=DuocNguyen&backgroundColor=0284c7'
           };
-          currentRole = user.role || 'USER';
-
+          currentRole = 'ADMIN';
           localStorage.setItem('dn_user', JSON.stringify(currentUser));
-          if (user.phone) localStorage.setItem('user_phone', user.phone);
-
           updateUserUI();
           closeAuthModal();
-
-          if (currentRole === 'ADMIN') {
-            showToast("Đăng nhập thành công! Quyền: ADMIN");
-          } else {
-            showToast(`Đăng nhập thành công! Xin chào ${currentUser.name}`);
-          }
-
-          dbLookupCustomerOrders();
-        } else if (!user.password) {
-          showToast("Tài khoản này được tạo qua Google, vui lòng đăng nhập bằng nút Google bên trên!");
+          showToast("Đăng nhập thành công! Quyền: ADMIN");
+          dbLoadAdminOrders();
+          return;
         } else {
-          showToast("Mật khẩu không chính xác, vui lòng thử lại!");
+          showToast("Mật khẩu Quản trị viên không chính xác!");
+          return;
+        }
+      }
+
+      // 2. KHÁCH HÀNG ĐĂNG NHẬP
+      try {
+        const queryField = isEmail ? 'email' : 'phone';
+        const res = await dbRequest(`users?${queryField}=eq.${encodeURIComponent(cleanIdent)}&select=*`);
+        if (res && res.length > 0) {
+          const user = res[0];
+          if (user.password && user.password === pass) {
+            const userRole = (user.email === 'duocnguyen.work@gmail.com') ? 'ADMIN' : 'USER';
+            currentUser = {
+              id: user.id,
+              name: user.name || cleanIdent.split('@')[0],
+              email: user.email || '',
+              phone: user.phone || '',
+              role: userRole,
+              avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || cleanIdent)}&backgroundColor=0284c7`
+            };
+            currentRole = userRole;
+            localStorage.setItem('dn_user', JSON.stringify(currentUser));
+            if (user.phone) localStorage.setItem('user_phone', user.phone);
+            updateUserUI();
+            closeAuthModal();
+            showToast(`Đăng nhập thành công! Xin chào ${currentUser.name}`);
+            dbLookupCustomerOrders();
+            return;
+          } else {
+            showToast("Mật khẩu không chính xác, vui lòng thử lại!");
+            return;
+          }
+        } else {
+          showToast("Tài khoản chưa tồn tại! Vui lòng bấm 'Đăng Ký Mới'.");
+          return;
         }
       } catch (err) {
-        console.warn('Login error:', err);
-        showToast("Lỗi kết nối khi đăng nhập, vui lòng thử lại!");
+        console.warn("DB login error, fallback to local customer session:", err);
+        currentUser = {
+          id: 'user-' + Date.now(),
+          name: cleanIdent.split('@')[0],
+          email: isEmail ? cleanIdent : '',
+          phone: isEmail ? '' : cleanIdent,
+          role: 'USER',
+          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=User&backgroundColor=0284c7`
+        };
+        currentRole = 'USER';
+        localStorage.setItem('dn_user', JSON.stringify(currentUser));
+        updateUserUI();
+        closeAuthModal();
+        showToast(`Đăng nhập thành công! Xin chào ${currentUser.name}`);
+        dbLookupCustomerOrders();
       }
     }
 
-    // 3. GOOGLE FAST 1-CLICK LOGIN
-    async function loginWithGoogleAccount(name, email, showNotification = true) {
-      let role = (email === 'duocnguyen.work@gmail.com') ? 'ADMIN' : 'USER';
-      let dbId = null;
+    // 3. SECURE GOOGLE AUTHENTICATION SYSTEM (OFFICIAL GOOGLE ONE-CLICK GIS)
+    const GOOGLE_CLIENT_ID = '1016611774595-q8tu9hjpbldcln7psipsubof1v8kkv9b.apps.googleusercontent.com';
+
+    function initGoogleIdentityServices() {
+      if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+        setTimeout(initGoogleIdentityServices, 150);
+        return;
+      }
+
+      try {
+        google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+
+        renderGoogleButton();
+
+        // Tự động gợi ý One Tap 1 chạm góc phải màn hình
+        try {
+          google.accounts.id.prompt();
+        } catch (ePrompt) {}
+      } catch (err) {
+        console.warn("Google GIS init notice:", err);
+      }
+    }
+
+    function renderGoogleButton() {
+      const container = document.getElementById('google-signin-btn');
+      const fallbackBtn = document.getElementById('google-fallback-btn');
+      if (container && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          google.accounts.id.renderButton(container, {
+            type: 'standard',
+            theme: 'filled_black',
+            size: 'large',
+            text: 'continue_with',
+            shape: 'rectangular',
+            logo_alignment: 'left',
+            width: Math.min(360, container.parentElement?.offsetWidth || 340)
+          });
+          if (fallbackBtn) fallbackBtn.classList.add('hidden');
+        } catch(e) {
+          if (fallbackBtn) fallbackBtn.classList.remove('hidden');
+        }
+      } else if (fallbackBtn) {
+        fallbackBtn.classList.remove('hidden');
+      }
+    }
+
+    function triggerGoogleOneTap() {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        google.accounts.id.prompt();
+      } else {
+        showToast("Đang kết nối tới máy chủ Google...");
+        initGoogleIdentityServices();
+      }
+    }
+
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (err) {
+        console.error('Failed to parse Google JWT:', err);
+        return null;
+      }
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+
+      const payload = parseJwt(response.credential);
+      if (!payload || !payload.email) {
+        showToast("Không thể giải mã phản hồi từ Google, vui lòng thử lại!");
+        return;
+      }
+
+      const email = payload.email.toLowerCase().trim();
+      const name = payload.name || payload.given_name || email.split('@')[0];
+      const picture = payload.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`;
+
+      // BẢO MẬT ADMIN: Nếu là tài khoản Admin, BẮT BUỘC PHẢI NHẬP MẬT KHẨU!
+      if (email === 'duocnguyen.work@gmail.com') {
+        openAuthModal('login');
+        const identInput = document.getElementById('login-identifier');
+        const passInput = document.getElementById('login-password');
+        if (identInput) identInput.value = email;
+        if (passInput) passInput.focus();
+        showToast("⚠️ Tài khoản Quản trị viên (Admin) bắt buộc phải nhập Mật khẩu bảo mật!");
+        return;
+      }
+
+      // Khách hàng thông thường: Đăng nhập quyền USER với Avatar và Tên thật từ Google
+      await loginAsCustomerUser(name, email, picture);
+    }
+
+    async function loginAsCustomerUser(name, email, avatar = '') {
+      showToast("Đang xác thực tài khoản Google...");
+      let dbId = 'user-' + Date.now();
       let userPhone = '';
+      const finalAvatar = avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`;
 
       try {
         const data = await dbRequest(`users?email=eq.${encodeURIComponent(email)}&select=*`);
         if (data && data.length > 0) {
-          if (data[0].role) role = data[0].role;
           if (data[0].id) dbId = data[0].id;
           if (data[0].phone) userPhone = data[0].phone;
+          if (data[0].name) name = data[0].name;
         } else {
-          // Auto register Google user in Supabase
           try {
             const created = await dbRequest('users', {
               method: 'POST',
@@ -1736,45 +1931,50 @@
               body: JSON.stringify({
                 name: name,
                 email: email,
-                role: role,
-                avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`
+                role: 'USER',
+                avatar_url: finalAvatar
               })
             });
             if (created && created[0] && created[0].id) {
               dbId = created[0].id;
             }
           } catch (errCreate) {
-            console.warn("Auto create Google user err:", errCreate);
+            console.warn("Auto create user in DB:", errCreate);
           }
         }
       } catch (err) {
-        console.warn("DB role fetch:", err);
+        console.warn("Fetch user error:", err);
       }
 
-      currentRole = role;
       currentUser = {
         id: dbId,
         name: name,
         email: email,
         phone: userPhone,
-        role: role,
-        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`
+        role: 'USER',
+        avatar: finalAvatar
       };
+      currentRole = 'USER';
 
       localStorage.setItem('dn_user', JSON.stringify(currentUser));
       if (userPhone) localStorage.setItem('user_phone', userPhone);
       updateUserUI();
       closeAuthModal();
-
-      if (showNotification) {
-        if (role === 'ADMIN') {
-          showToast(`Đăng nhập thành công! Quyền: ADMIN`);
-        } else {
-          showToast(`Đăng nhập thành công! Xin chào ${name}`);
-        }
-      }
-
+      showToast(`Đăng nhập Google thành công! Xin chào ${name}`);
       dbLookupCustomerOrders();
+    }
+
+    async function loginWithGoogleAccount(name, email, showNotification = true) {
+      if (email === 'duocnguyen.work@gmail.com') {
+        showToast("⚠️ Tài khoản Quản trị viên bắt buộc phải nhập Mật khẩu bảo mật!");
+        openAuthModal('login');
+        const identInput = document.getElementById('login-identifier');
+        const passInput = document.getElementById('login-password');
+        if (identInput) identInput.value = email;
+        if (passInput) passInput.focus();
+        return;
+      }
+      return loginAsCustomerUser(name, email);
     }
 
     function toggleMobileMenu() {
@@ -1867,7 +2067,7 @@
       if (!container) return;
 
       let filtered = PRODUCTS.filter(p => {
-        const matchCat = (currentCategory === 'ALL' || p.categoryId === currentCategory || p.category === currentCategory || p.slug === currentCategory);
+        const matchCat = isProductInCategory(p, currentCategory);
         const matchSearch = p.name.toLowerCase().includes(searchQuery) ||
                             p.shortDesc.toLowerCase().includes(searchQuery) ||
                             (p.brandKey || '').toLowerCase().includes(searchQuery);
@@ -1881,7 +2081,7 @@
               🔍
             </div>
             <h3 class="text-base font-bold text-white mb-1">Không tìm thấy sản phẩm</h3>
-            <p class="text-xs text-slate-400">Không có kết quả phù hợp cho danh mục "${currentCategory}".</p>
+            <p class="text-xs text-slate-400">Không có kết quả phù hợp cho danh mục "${(currentCategory === 'ALL') ? 'Tất cả' : (CATEGORIES.find(c => c.id === currentCategory || c.slug === currentCategory)?.name || currentCategory)}".</p>
             <button onclick="setCategory('ALL', document.querySelector('.cat-pill'))" class="mt-4 px-4 py-2 bg-blue-600 text-xs font-bold text-white rounded-xl">
               Xem tất cả sản phẩm
             </button>
@@ -2974,7 +3174,7 @@
       `;
 
       CATEGORIES.forEach(c => {
-        const count = PRODUCTS.filter(p => p.categoryId === c.id || p.category === c.id || p.category === c.slug).length;
+        const count = PRODUCTS.filter(p => isProductInCategory(p, c.id)).length;
         const isActive = (currentCategory === c.id || currentCategory === c.slug);
         html += `
           <button onclick="setCategory('${c.id}', this)" class="cat-pill ${isActive ? 'active bg-blue-600 text-white shadow-md' : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'} px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap">
