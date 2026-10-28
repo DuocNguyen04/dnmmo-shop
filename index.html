@@ -991,7 +991,8 @@
     // SUPABASE CONFIGURATION
     // SUPABASE CLIENT CONFIG (Bảo mật: Mọi yêu cầu được proxy qua backend an toàn, không lộ secret key)
     const SUPABASE_CONFIG = {
-      url: '/api/supabase'
+      url: 'https://kouiopupaneychjnhfwd.supabase.co',
+      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvdWlvcHVwYW5leWNoam5oZndkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMzg5NzksImV4cCI6MjEwODcxNDk3OX0.LGnyNKQSf1nJaLs0hv2wSgCnIDZu8OVuhePpujM3xEI'
     };
 
     let CATEGORIES = [
@@ -1023,29 +1024,52 @@
     let currentWarrantyFilter = 'ALL';
     let warrantySearchQuery = '';
 
-    // Generic REST API client for Supabase (Proxied via backend on web, direct on file://)
+    // Generic REST API client for Supabase: Direct connection with proxy fallback
     async function dbRequest(endpoint, options = {}) {
-      const url = `/api/supabase/${endpoint}`;
-      const headers = {
+      const cleanEndpoint = endpoint.replace(/^\//, '');
+      const directUrl = `${SUPABASE_CONFIG.url}/rest/v1/${cleanEndpoint}`;
+      const directHeaders = {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
         'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
         ...(options.headers || {})
       };
+
+      // 1. Kết nối trực tiếp Supabase Database (Không bao giờ bị lỗi 404 Vercel)
       try {
-        const res = await fetch(url, { ...options, headers });
-        if (!res.ok) {
-          const errText = await res.text();
-          console.warn(`API error [${endpoint}] ${res.status}:`, errText);
-          return null;
+        const res = await fetch(directUrl, { ...options, headers: directHeaders });
+        if (res.ok) {
+          const ct = res.headers.get('content-type') || '';
+          if (ct && ct.includes('application/json')) {
+            return await res.json();
+          }
+          return true;
         }
-        const ct = res.headers.get('content-type') || '';
-        if (ct && ct.includes('application/json')) {
-          return await res.json();
-        }
-        return true;
+        const errText = await res.text();
+        console.warn(`Direct DB API [${cleanEndpoint}] ${res.status}:`, errText);
       } catch (err) {
-        console.warn(`Network error querying [${endpoint}]:`, err);
-        return null;
+        console.warn(`Direct DB connection error [${cleanEndpoint}], trying proxy fallback:`, err);
       }
+
+      // 2. Fallback sang proxy backend nếu cần
+      try {
+        const proxyUrl = `/api/supabase/${cleanEndpoint}`;
+        const proxyHeaders = {
+          'Content-Type': 'application/json',
+          ...(options.headers || {})
+        };
+        const proxyRes = await fetch(proxyUrl, { ...options, headers: proxyHeaders });
+        if (proxyRes.ok) {
+          const ct = proxyRes.headers.get('content-type') || '';
+          if (ct && ct.includes('application/json')) {
+            return await proxyRes.json();
+          }
+          return true;
+        }
+      } catch (proxyErr) {}
+
+      return null;
     }
 
     // TOAST NOTIFICATION
