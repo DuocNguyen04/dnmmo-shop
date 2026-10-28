@@ -10,16 +10,60 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const ip = getClientIp(req);
-  // Rate limit: max 15 lookups per 10 minutes per IP
   if (isRateLimited(ip, 15, 10 * 60 * 1000)) {
     return res.status(429).json({ error: 'Bạn đã tra cứu quá nhiều lần. Vui lòng thử lại sau 10 phút!' });
   }
 
   const code = (req.method === 'GET' ? req.query.code : req.body?.code) || '';
   const phone = (req.method === 'GET' ? req.query.phone : req.body?.phone) || '';
+  const email = (req.method === 'GET' ? req.query.email : req.body?.email) || '';
 
   const cleanCode = code.trim().toUpperCase();
   const cleanPhone = phone.replace(/[\s.-]/g, '');
+  const cleanEmail = email.trim().toLowerCase();
+
+  if (!cleanCode && (cleanPhone || cleanEmail)) {
+    try {
+      const historyRes = await query(`
+        SELECT 
+          o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email,
+          o.created_at, o.paid_at, o.delivered_at, o.warranty_until,
+          p.name as plan_name, p.duration_days, p.account_type,
+          pr.name as product_name
+        FROM public.orders o
+        LEFT JOIN public.plans p ON p.id = o.plan_id
+        LEFT JOIN public.products pr ON pr.id = p.product_id
+        WHERE ($1 != '' AND (o.contact_phone = $1 OR o.customer_phone = $1))
+           OR ($2 != '' AND (o.contact_email = $2 OR o.customer_email = $2))
+        ORDER BY o.created_at DESC
+        LIMIT 50;
+      `, [cleanPhone, cleanEmail]);
+
+      const now = new Date();
+      const ordersWithWarranty = historyRes.rows.map(o => {
+        let daysLeft = 0;
+        let warrantyStatus = 'PENDING';
+        if (o.warranty_until) {
+          const diffMs = new Date(o.warranty_until) - now;
+          daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+          warrantyStatus = daysLeft > 0 ? (daysLeft <= 7 ? 'EXPIRING_SOON' : 'ACTIVE') : 'EXPIRED';
+        }
+        return {
+          ...o,
+          warranty_days_left: daysLeft,
+          warranty_status: warrantyStatus
+        };
+      });
+
+      return res.status(200).json({
+        success: true,
+        orders: ordersWithWarranty
+      });
+    } catch (err) {
+      console.error('Error fetching order history:', err);
+      return res.status(500).json({ error: 'Lỗi tra cứu lịch sử đơn hàng' });
+    }
+  }
 
   if (!cleanCode || !cleanPhone) {
     return res.status(400).json({ error: 'Vui lòng nhập cả Mã đơn hàng và Số điện thoại đặt hàng!' });
@@ -47,7 +91,6 @@ module.exports = async (req, res) => {
 
     const order = orderRes.rows[0];
 
-    // If order is delivered, look up credentials from deliveries table
     let deliveredCredentials = null;
     if (order.status === 'delivered') {
       const delivRes = await query(`
@@ -60,12 +103,10 @@ module.exports = async (req, res) => {
       if (delivRes.rows.length > 0) {
         deliveredCredentials = decrypt(delivRes.rows[0].credentials_encrypted);
       } else if (order.license_info) {
-        // Fallback for legacy plain text delivery
         deliveredCredentials = order.license_info;
       }
     }
 
-    // Calculate warranty status
     let warrantyStatus = 'NONE';
     let daysLeft = 0;
     if (order.warranty_until) {

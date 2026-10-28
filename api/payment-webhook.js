@@ -11,17 +11,17 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // 1. Verify Webhook Secret / Signature
-  const expectedSecret = process.env.PAYMENT_WEBHOOK_SECRET || process.env.SEPAY_API_KEY || 'DNMMO_WEBHOOK_SECRET_DEFAULT';
+  // 1. Verify Webhook Secret / Signature (Must match server configured secret)
+  const expectedSecret = process.env.PAYMENT_WEBHOOK_SECRET || process.env.SEPAY_API_KEY;
   const authHeader = req.headers['authorization'] || '';
   const apiKeyHeader = req.headers['x-api-key'] || req.headers['secure-token'] || '';
   const querySecret = req.query?.secret || '';
 
   const incomingSecret = authHeader.replace(/^Apikey\s+/i, '').replace(/^Bearer\s+/i, '').trim() || apiKeyHeader || querySecret;
 
-  if (expectedSecret && incomingSecret !== expectedSecret) {
+  if (!expectedSecret || !incomingSecret || incomingSecret !== expectedSecret) {
     console.warn('[Webhook] Unauthorized webhook attempt from IP:', req.headers['x-forwarded-for'] || req.socket?.remoteAddress);
-    return res.status(401).json({ error: 'Unauthorized: Invalid webhook secret' });
+    return res.status(401).json({ error: 'Unauthorized: Invalid or missing webhook secret' });
   }
 
   try {

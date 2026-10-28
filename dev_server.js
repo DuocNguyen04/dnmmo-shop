@@ -45,6 +45,8 @@ const createOrderHandler = require('./api/create-order');
 const lookupOrderHandler = require('./api/lookup-order');
 const paymentWebhookHandler = require('./api/payment-webhook');
 const adminApiHandler = require('./api/admin-api');
+const customerAuthHandler = require('./api/customer-auth');
+const catalogHandler = require('./api/catalog');
 
 // Express-like mock wrapper for standard Node http req/res
 function wrapResponse(res) {
@@ -64,6 +66,7 @@ function wrapResponse(res) {
 
 const server = http.createServer(async (req, res) => {
   wrapResponse(res);
+  console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
 
   // Set default CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -116,7 +119,28 @@ const server = http.createServer(async (req, res) => {
     return adminApiHandler(req, res);
   }
 
-  // 5. ROUTE: /admin -> admin.html
+  // 4.5 API: CUSTOMER AUTH (REGISTER / LOGIN)
+  if (pathname === '/api/customer-auth') {
+    await parseJsonBody();
+    return customerAuthHandler(req, res);
+  }
+
+  // 4.6 API: CATALOG (CATEGORIES & PRODUCTS)
+  if (pathname === '/api/catalog') {
+    return catalogHandler(req, res);
+  }
+
+  // 5. API: SUPABASE PROXY (/api/supabase/...)
+  if (pathname.startsWith('/api/supabase')) {
+    await parseJsonBody();
+    const subPath = pathname.replace(/^\/api\/supabase\/?/, '');
+    const searchPart = parsedUrl.search ? parsedUrl.search : '';
+    req.query.path = subPath + searchPart;
+    const supabaseHandler = require('./api/supabase');
+    return supabaseHandler(req, res);
+  }
+
+  // 6. ROUTE: /admin -> admin.html
   if (pathname === '/admin' || pathname === '/admin/') {
     const adminPath = path.join(PUBLIC_DIR, 'admin.html');
     if (fs.existsSync(adminPath)) {
@@ -125,9 +149,39 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 6. STATIC FILE SERVING
+  // 7. STATIC FILE SERVING WITH STRICT SECURITY CONTROLS
+  // Prevent directory traversal
+  if (pathname.includes('..') || pathname.includes('%00') || pathname.includes('\\')) {
+    return res.status(403).json({ error: 'Forbidden: Invalid path' });
+  }
+
+  // Strictly block sensitive files & extensions (prevent leak of .env, sql, code, configs)
+  const blockedPatterns = [
+    /^\/\./,           // Dotfiles like /.env, /.git
+    /\.env/i,          // Any .env variant
+    /\.sql$/i,         // Database init scripts / schemas
+    /\.prisma$/i,      // Prisma models
+    /\.json$/i,        // package.json, vercel.json
+    /\.md$/i,          // Internal documentation
+    /\.log$/i,         // Log files
+    /^\/api\//i,       // Direct file access to server-side api/
+    /dev_server\.js$/i // Server script itself
+  ];
+
+  for (const pattern of blockedPatterns) {
+    if (pattern.test(pathname)) {
+      return res.status(403).json({ error: 'Forbidden: Access to this resource is denied for security reasons.' });
+    }
+  }
+
   let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
   const ext = path.extname(filePath).toLowerCase();
+
+  // Whitelist permitted public file extensions
+  const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp', '.woff', '.woff2', '.ttf']);
+  if (ext && !ALLOWED_EXTENSIONS.has(ext)) {
+    return res.status(403).json({ error: 'Forbidden: File type not permitted.' });
+  }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {

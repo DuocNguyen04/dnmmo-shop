@@ -26,8 +26,12 @@
       "destination": "/api/admin-api.js"
     },
     {
-      "source": "/api/supabase/(.*)",
-      "destination": "/api/supabase.js?path=$1"
+      "source": "/api/catalog",
+      "destination": "/api/catalog.js"
+    },
+    {
+      "source": "/api/customer-auth",
+      "destination": "/api/customer-auth.js"
     }
   ],
   "headers": [

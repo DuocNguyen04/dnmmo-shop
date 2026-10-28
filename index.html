@@ -6,6 +6,15 @@
   <link rel="icon" type="image/png" href="logo.png">
   <title>DNMMO - Hệ Thống Cung Cấp Tài Khoản Bản Quyền & Phần Mềm Uy Tín</title>
   <meta name="description" content="Chuyên cung cấp gói tài khoản phần mềm và công cụ AI: ChatGPT Plus, Canva Pro, CapCut Pro, YouTube Premium, Gemini Advanced, Claude AI uy tín, hỗ trợ kích hoạt tận tình qua Zalo.">
+  <script>
+    (function(){
+      const origWarn = console.warn;
+      console.warn = function(...args) {
+        if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+        origWarn.apply(console, args);
+      };
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Dark Night OLED Theme */
@@ -40,12 +49,10 @@
       }
     }
   </style>
-  <!-- Google Identity Services (GIS) Official 1-Click SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
-  <!-- 1. Top Announcement Bar -->
   <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 py-1 sm:py-1.5 px-3 sm:px-4 text-[11px] sm:text-xs font-medium text-slate-300 border-b border-cyan-500/20">
     <div class="container mx-auto max-w-7xl flex items-center justify-between gap-2 sm:gap-3">
       <div class="flex items-center gap-1.5 sm:gap-2 truncate">
@@ -62,10 +69,8 @@
     </div>
   </div>
 
-  <!-- 2. Navbar -->
   <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-cyan-500/20 shadow-lg">
     <div class="container mx-auto max-w-7xl px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
-      <!-- Left: Logo & Brand -->
       <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
         <img src="logo.png" alt="DNMMO" class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform border border-cyan-500/40 bg-black flex-shrink-0">
         <div class="flex flex-col">
@@ -74,7 +79,6 @@
         </div>
       </a>
 
-      <!-- Center: Desktop Navigation Links -->
       <nav class="hidden lg:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs sm:text-sm">
         <button onclick="switchView('store')" id="nav-store" class="px-3.5 py-1.5 rounded-lg font-bold text-white bg-blue-600 shadow transition whitespace-nowrap">
           Sản phẩm & Bảng giá
@@ -94,9 +98,7 @@
         </button>
       </nav>
 
-      <!-- Right: User Auth & Mobile Menu Trigger -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-        <!-- Logged Out Button -->
         <div id="auth-logged-out" class="flex items-center">
           <button onclick="openAuthModal('login')" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-xl transition border border-cyan-500/30 shadow-sm whitespace-nowrap active:scale-95">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
@@ -105,11 +107,11 @@
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
             </svg>
-            <span class="hidden sm:inline">Đăng nhập</span>
+            <span class="hidden sm:inline">Đăng nhập / Đăng ký</span>
+            <span class="sm:hidden">Tài khoản</span>
           </button>
         </div>
 
-        <!-- Logged In User Pill -->
         <div id="auth-logged-in" class="hidden flex items-center gap-1.5 sm:gap-2 bg-slate-900 border border-slate-700 rounded-xl px-2 sm:px-2.5 py-1 shadow-sm">
           <img id="user-avatar" src="" alt="Avatar" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-cyan-400/50 object-cover flex-shrink-0">
           <div class="text-left min-w-0 max-w-[80px] sm:max-w-[130px]">
@@ -121,15 +123,21 @@
           </button>
         </div>
 
-        <!-- Mobile Drawer Toggle -->
+        <a href="/admin" id="nav-admin-link" class="hidden px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+          <span>⚙️ Admin</span>
+        </a>
+
         <button onclick="toggleMobileMenu()" class="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900 border border-slate-700" aria-label="Mở Menu">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-md px-4 py-3 space-y-2">
+      <a href="/admin" id="mob-admin-link" class="hidden w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-950/40 border border-amber-800/40 flex items-center justify-between">
+        <span>⚙️ Trang Quản trị Admin</span>
+        <span>&rarr;</span>
+      </a>
       <button onclick="switchView('store'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600/30 border border-blue-500/30 flex items-center justify-between">
         <span>📦 Sản phẩm & Bảng giá</span>
         <span>&rarr;</span>
@@ -153,12 +161,9 @@
     </div>
   </header>
 
-  <!-- 3. MAIN CONTENT -->
   <main class="flex-1 pb-24 sm:pb-10">
 
-    <!-- VIEW 1: STOREFRONT -->
     <div id="view-store" class="block">
-      <!-- Hero Section -->
       <section class="relative pt-8 pb-10 sm:pt-12 sm:pb-14 px-3 sm:px-4 overflow-hidden border-b border-cyan-500/20">
         <div class="absolute inset-0 glow-bg pointer-events-none"></div>
         <div class="container mx-auto max-w-5xl text-center relative z-10">
@@ -189,19 +194,16 @@
         </div>
       </section>
 
-      <!-- Category Filter Pills -->
       <section class="py-3.5 sm:py-4 bg-slate-950 border-b border-slate-900 sticky top-14 sm:top-16 z-30 backdrop-blur-md bg-slate-950/90">
         <div class="container mx-auto max-w-6xl px-3 sm:px-4">
           <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x touch-pan-x" id="category-pills">
             <button onclick="setCategory('ALL', this)" class="cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95">
               Tất cả danh mục (<span id="cat-count-all">0</span>)
             </button>
-            <!-- Categories rendered dynamically -->
           </div>
         </div>
       </section>
 
-      <!-- Products Grid -->
       <section class="py-6 sm:py-10 px-3 sm:px-4">
         <div class="container mx-auto max-w-6xl">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 sm:mb-6">
@@ -219,13 +221,11 @@
           </div>
 
           <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            <!-- Rendered dynamically -->
           </div>
         </div>
       </section>
     </div>
 
-    <!-- VIEW 2: ORDER LOOKUP (TRA CỨU ĐƠN BẰNG MÃ ĐƠN + SĐT) -->
     <div id="view-lookup" class="hidden py-8 sm:py-12 px-3 sm:px-4">
       <div class="container mx-auto max-w-xl">
         <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl">
@@ -255,15 +255,12 @@
             </button>
           </form>
 
-          <!-- Lookup Result Container -->
           <div id="lookup-result" class="hidden mt-6 pt-6 border-t border-slate-800 space-y-4">
-            <!-- Rendered dynamically -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- VIEW 3: USER ORDERS LIST (ĐƠN CỦA TÔI) -->
     <div id="view-orders" class="hidden py-8 sm:py-10 px-3 sm:px-4">
       <div class="container mx-auto max-w-4xl">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
@@ -277,12 +274,10 @@
         </div>
 
         <div id="orders-content" class="space-y-4">
-          <!-- Rendered dynamically -->
         </div>
       </div>
     </div>
 
-    <!-- VIEW 4: WARRANTY POLICY -->
     <div id="view-policy" class="hidden py-8 sm:py-12 px-3 sm:px-4">
       <div class="container mx-auto max-w-4xl">
         <div class="mb-8">
@@ -320,7 +315,6 @@
       </div>
     </div>
 
-    <!-- VIEW 5: TERMS & PRIVACY (THEO NGHỊ ĐỊNH 13/2023) -->
     <div id="view-terms" class="hidden py-8 sm:py-12 px-3 sm:px-4">
       <div class="container mx-auto max-w-4xl space-y-6">
         <div>
@@ -349,20 +343,17 @@
 
   </main>
 
-  <!-- 4. MODAL: PRODUCT DETAIL & 3-STEP CHECKOUT -->
   <div id="modal-product" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 shadow-2xl relative">
       <button onclick="closeProductModal()" class="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 active:scale-95 transition">
         ✕
       </button>
 
-      <!-- Step Header -->
       <div id="checkout-step-header" class="flex items-center gap-2 mb-4 text-xs font-bold text-cyan-400">
         <span class="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/40 text-[11px]">1</span>
         <span>CHỌN GÓI DỊCH VỤ & XÁC NHẬN</span>
       </div>
 
-      <!-- Step 1: Product & Plan Details -->
       <div id="checkout-step-1" class="space-y-4">
         <div class="flex items-start gap-3 sm:gap-4 pr-6">
           <div id="modal-prod-logo" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-950 border border-slate-700 p-2 flex items-center justify-center text-white shadow font-bold text-lg flex-shrink-0">
@@ -376,7 +367,6 @@
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Chọn gói bạn muốn mua:</label>
           <div id="modal-plans-list" class="space-y-2">
-            <!-- Rendered dynamically -->
           </div>
         </div>
 
@@ -390,7 +380,6 @@
           <p id="modal-prod-warranty" class="text-slate-300 leading-relaxed"></p>
         </div>
 
-        <!-- Sticky Footer CTA for Step 1 -->
         <div class="sticky -bottom-4 -mx-4 p-4 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 flex items-center justify-between gap-3 sm:static sm:m-0 sm:p-0 sm:pt-3">
           <div>
             <span class="text-[10px] text-slate-400 block">Giá thanh toán:</span>
@@ -402,7 +391,6 @@
         </div>
       </div>
 
-      <!-- Step 2: Customer Contact Information -->
       <div id="checkout-step-2" class="hidden space-y-4">
         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
           <div class="flex justify-between">
@@ -446,105 +434,178 @@
               class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
           </div>
 
+          <div id="checkout-error-box" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2.5">
+            <svg class="w-4 h-4 text-rose-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span id="checkout-error-msg" class="font-medium"></span>
+          </div>
+
           <div class="flex gap-2 pt-2">
             <button type="button" onclick="goToCheckoutStep1()" class="px-4 py-2.5 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">
               &larr; Quay lại
             </button>
             <button type="submit" id="btn-submit-order" class="flex-1 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-xs rounded-xl shadow-lg transition active:scale-95">
-              Xác Nhận & Lấy Mã VietQR &rarr;
+              Xác Nhận Đặt Mua Ngay &rarr;
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Step 3: VietQR Payment & Realtime Status -->
       <div id="checkout-step-3" class="hidden space-y-4 text-center">
-        <div class="w-12 h-12 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto text-xl">
-          💳
+        <div class="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-3xl border border-emerald-500/40 shadow-lg shadow-emerald-500/20">
+          ✓
         </div>
-        <h3 class="text-lg font-black text-white">Quét Mã VietQR Để Nhận Tài Khoản</h3>
-        <p class="text-xs text-slate-300">
-          Mã đơn hàng: <strong id="qr-order-code" class="text-amber-400 font-mono text-sm"></strong>
-        </p>
-
-        <!-- VietQR Image with 15-minute countdown -->
-        <div class="bg-white p-3 rounded-2xl max-w-[240px] mx-auto shadow-xl">
-          <img id="qr-image" src="" alt="VietQR" class="w-full h-auto object-contain mx-auto">
+        <div>
+          <h3 class="text-xl font-black text-white tracking-tight">Đặt Hàng Thành Công!</h3>
+          <p class="text-xs text-slate-300 mt-1">Đơn hàng của bạn đã được tiếp nhận vào hệ thống</p>
         </div>
 
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
-          <span>⏳ Thời gian giữ đơn:</span>
-          <strong id="qr-countdown" class="font-mono font-bold">15:00</strong>
-        </div>
-
-        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-left space-y-1.5">
-          <div class="flex justify-between">
-            <span class="text-slate-400">Ngân hàng:</span>
-            <span class="text-white font-bold" id="qr-bank-name">MB Bank</span>
+        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs text-left space-y-2">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+            <span class="text-slate-400">Mã đơn hàng:</span>
+            <div class="flex items-center gap-1.5">
+              <strong id="success-order-code" class="text-amber-400 font-mono text-sm font-black"></strong>
+              <button onclick="navigator.clipboard.writeText(document.getElementById('success-order-code').textContent); showToast('Đã sao chép mã đơn!');"
+                class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white text-[10px]" title="Sao chép mã">Copy</button>
+            </div>
           </div>
-          <div class="flex justify-between">
-            <span class="text-slate-400">Số tài khoản:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="qr-account-no">0865899763</span>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Gói sản phẩm:</span>
+            <span id="success-plan-name" class="text-white font-bold"></span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-slate-400">Tên thụ hưởng:</span>
-            <span class="text-white font-bold" id="qr-account-name">NGUYEN TAT DUOC</span>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Tổng thanh toán:</span>
+            <span id="success-amount" class="text-emerald-400 font-mono font-bold text-sm"></span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-slate-400">Số tiền:</span>
-            <span class="text-emerald-400 font-bold" id="qr-amount"></span>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Khách hàng:</span>
+            <span id="success-customer-info" class="text-slate-200"></span>
           </div>
-          <div class="flex justify-between pt-1 border-t border-slate-800">
-            <span class="text-slate-400">Nội dung chuyển khoản (bắt buộc):</span>
-            <span class="text-amber-400 font-mono font-bold text-sm" id="qr-content"></span>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-800/60">
+            <span class="text-slate-400">Trạng thái:</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">🟢 Đã tiếp nhận & Chờ kích hoạt</span>
           </div>
         </div>
 
-        <!-- Realtime status listener -->
-        <div id="qr-status-indicator" class="p-3 rounded-xl bg-blue-950/60 border border-cyan-500/30 text-xs text-cyan-300 flex items-center justify-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-          <span>Đang đợi hệ thống ngân hàng xác nhận giao dịch...</span>
-        </div>
-
-        <div class="flex gap-2">
-          <a href="https://zalo.me/0865899763" target="_blank" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition">
-            Nhắn Zalo Đã Chuyển Khoản
+        <div class="space-y-2 pt-1">
+          <a id="btn-success-zalo" href="https://zalo.me/0865899763" target="_blank"
+            class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition active:scale-95">
+            <span>💬 Nhắn Zalo Nhận Tài Khoản Ngay (0865 899 763)</span>
           </a>
-          <button onclick="closeProductModal()" class="px-4 py-2.5 bg-slate-800 text-slate-300 rounded-xl text-xs">
-            Đóng
+
+          <button onclick="closeProductModal(); switchView('orders');"
+            class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+            <span>📋 Xem Đơn Hàng Trong Tab "Đơn Của Tôi" &rarr;</span>
+          </button>
+        </div>
+
+        <button onclick="closeProductModal()" class="w-full py-2 text-slate-500 hover:text-slate-300 text-xs transition">
+          Đóng cửa sổ này
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-auth" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="glass-card max-w-md w-full p-6 sm:p-7 rounded-3xl border border-slate-700 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl bg-slate-800">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="flex items-center gap-2 p-1 bg-slate-950 rounded-2xl mb-5 border border-slate-800">
+        <button id="auth-tab-login-btn" type="button" onclick="setAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-blue-600 text-white transition shadow">
+          🔑 Đăng Nhập
+        </button>
+        <button id="auth-tab-register-btn" type="button" onclick="setAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition">
+          ✨ Đăng Ký Mới
+        </button>
+      </div>
+
+      <div id="auth-panel-login" class="space-y-4">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-2 text-center">Đăng nhập bằng tài khoản Google:</span>
+          <div id="google-signin-btn" class="w-full flex justify-center min-h-[44px]">
+            <button type="button" onclick="triggerGoogleSignIn()" class="w-full max-w-[360px] py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs rounded-xl border border-slate-700 shadow flex items-center justify-center gap-2.5 transition active:scale-[0.98]">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Tiếp tục với Google</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-800"></div>
+          <span class="flex-shrink mx-2 text-slate-500 text-[10px] uppercase font-bold">hoặc đăng nhập bằng Email / Mật khẩu</span>
+          <div class="flex-grow border-t border-slate-800"></div>
+        </div>
+
+        <form onsubmit="handleCustomerLogin(event)" class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Email hoặc Số điện thoại</label>
+            <input id="login-identifier" type="text" required placeholder="name@example.com hoặc 0988..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Mật khẩu</label>
+            <input id="login-password" type="password" required placeholder="Nhập mật khẩu của bạn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <button type="submit" id="btn-login-cust-submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-1.5">
+            Đăng Nhập
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-slate-400">
+          Chưa có tài khoản? 
+          <button type="button" onclick="setAuthTab('register')" class="text-cyan-400 hover:underline font-bold">
+            Đăng ký tài khoản mới &rarr;
+          </button>
+        </div>
+      </div>
+
+      <div id="auth-panel-register" class="hidden space-y-3">
+        <div class="text-center mb-2">
+          <p class="text-xs text-slate-300">Tạo tài khoản khách hàng để nhận tài khoản phần mềm và quản lý đơn hàng</p>
+        </div>
+
+        <form onsubmit="handleCustomerRegisterSubmit(event)" class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Họ và tên <span class="text-rose-400">*</span></label>
+            <input id="reg-name" type="text" required placeholder="Ví dụ: Nguyễn Văn An" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Số điện thoại (Zalo nhận bảo hành) <span class="text-rose-400">*</span></label>
+            <input id="reg-phone" type="tel" required placeholder="Ví dụ: 0988 123 456" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Địa chỉ Email <span class="text-rose-400">*</span></label>
+            <input id="reg-email" type="email" required placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Mật khẩu <span class="text-rose-400">*</span></label>
+            <input id="reg-password" type="password" required minlength="6" placeholder="Tối thiểu 6 ký tự" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 font-semibold block mb-1">Xác nhận mật khẩu <span class="text-rose-400">*</span></label>
+            <input id="reg-confirm-password" type="password" required minlength="6" placeholder="Nhập lại mật khẩu" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+
+          <button type="submit" id="btn-reg-cust-submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-1.5 mt-2">
+            ✓ Hoàn Tất Đăng Ký Tài Khoản
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-slate-400">
+          Đã có tài khoản? 
+          <button type="button" onclick="setAuthTab('login')" class="text-cyan-400 hover:underline font-bold">
+            Đăng nhập ngay &rarr;
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 5. MODAL: AUTH (CUSTOMER LOGIN / REGISTER) -->
-  <div id="modal-auth" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl max-w-md w-full p-6 text-white shadow-2xl relative">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
-      
-      <div class="text-center mb-5">
-        <h3 class="text-xl font-bold text-white">Đăng Nhập Khách Hàng</h3>
-        <p class="text-xs text-slate-400 mt-1">Quản lý và theo dõi các đơn hàng phần mềm của bạn</p>
-      </div>
-
-      <div class="flex flex-col items-center gap-2 mb-4">
-        <div id="google-signin-btn" class="w-full flex justify-center min-h-[44px]"></div>
-      </div>
-
-      <div class="relative flex py-2 items-center">
-        <div class="flex-grow border-t border-slate-800"></div>
-        <span class="flex-shrink mx-2 text-slate-500 text-[10px] uppercase font-bold">hoặc tra cứu nhanh</span>
-        <div class="flex-grow border-t border-slate-800"></div>
-      </div>
-
-      <button onclick="closeAuthModal(); switchView('lookup');" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-        <span>🔍 Tra cứu đơn bằng Mã Đơn + SĐT (Không cần mật khẩu)</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- 6. Footer -->
   <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-8 sm:py-10 text-slate-400 text-xs">
     <div class="container mx-auto max-w-6xl px-4 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
       <div>
@@ -580,21 +641,17 @@
     </div>
   </footer>
 
-  <!-- 7. MOBILE APP BOTTOM NAVIGATION BAR -->
   <nav id="mobile-app-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-cyan-500/20 shadow-[0_-8px_30px_rgba(0,0,0,0.85)] px-2 py-1.5 flex items-center justify-around select-none">
-    <!-- Tab 1: Cửa hàng -->
     <button onclick="switchView('store')" id="mob-nav-store" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-cyan-400 font-black scale-105 transition-all group">
       <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
       <span class="text-[10px] tracking-tight">Cửa hàng</span>
     </button>
 
-    <!-- Tab 2: Tra cứu đơn -->
     <button onclick="switchView('lookup')" id="mob-nav-lookup" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group">
       <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
       <span class="text-[10px] tracking-tight">Tra cứu</span>
     </button>
 
-    <!-- Center Floating Action: Zalo 1-Chạm -->
     <a href="https://zalo.me/0865899763" target="_blank" class="flex flex-col items-center justify-center px-2 -mt-5 group" title="Nhắn Zalo tư vấn ngay">
       <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/40 border-2 border-slate-950 group-active:scale-95 group-hover:scale-105 transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -602,7 +659,6 @@
       <span class="text-[9px] font-black text-cyan-300 mt-0.5 tracking-tight uppercase">Zalo 1-Chạm</span>
     </a>
 
-    <!-- Tab 3: Đơn của tôi -->
     <button onclick="switchView('orders')" id="mob-nav-orders" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group">
       <div class="relative">
         <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -611,26 +667,20 @@
       <span class="text-[10px] tracking-tight">Đơn của tôi</span>
     </button>
 
-    <!-- Tab 4: Bảo hành -->
     <button onclick="switchView('policy')" id="mob-nav-policy" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group">
       <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
       <span class="text-[10px] tracking-tight">Bảo hành</span>
     </button>
   </nav>
 
-  <!-- 8. TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 bg-slate-900 border border-cyan-500/40 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 transform translate-y-28 opacity-0 transition-all duration-300">
-    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-    <span id="toast-msg" class="text-xs font-medium">Thông báo</span>
+  <div id="toast" class="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 max-w-sm bg-slate-900/95 backdrop-blur-md border border-cyan-500/40 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-28 opacity-0 transition-all duration-300">
+    <div id="toast-icon-wrap" class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-cyan-500/20 text-cyan-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <span id="toast-msg" class="text-xs font-semibold leading-relaxed">Thông báo</span>
   </div>
 
   <script>
-    // SUPABASE ANON CLIENT (CHỈ DÙNG ANON KEY Ở CLIENT, ĐƯỢC BẢO VỆ BẰNG RLS)
-    const SUPABASE_CONFIG = {
-      url: 'https://kouiopupaneychjnhfwd.supabase.co',
-      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvdWlvcHVwYW5leWNoam5oZndkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMzg5NzksImV4cCI6MjEwODcxNDk3OX0.LGnyNKQSf1nJaLs0hv2wSgCnIDZu8OVuhePpujM3xEI'
-    };
-
     let CATEGORIES = [];
     let PRODUCTS = [];
     let currentCategory = 'ALL';
@@ -644,13 +694,48 @@
     let pollInterval = null;
     let countdownInterval = null;
 
-    function showToast(msg) {
+    let toastTimer = null;
+    function showToast(msg, type = 'info') {
       const t = document.getElementById('toast');
       const m = document.getElementById('toast-msg');
+      const iconWrap = document.getElementById('toast-icon-wrap');
       if (!t || !m) return;
+
+      clearTimeout(toastTimer);
       m.textContent = msg;
+
+      t.className = 'fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 max-w-sm bg-slate-900/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 border';
+
+      if (type === 'error') {
+        t.classList.add('border-rose-500/60', 'shadow-rose-950/40');
+        if (iconWrap) {
+          iconWrap.className = 'w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-rose-500/20 text-rose-400';
+          iconWrap.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+        }
+      } else if (type === 'success') {
+        t.classList.add('border-emerald-500/60', 'shadow-emerald-950/40');
+        if (iconWrap) {
+          iconWrap.className = 'w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-emerald-500/20 text-emerald-400';
+          iconWrap.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+        }
+      } else if (type === 'warning') {
+        t.classList.add('border-amber-500/60', 'shadow-amber-950/40');
+        if (iconWrap) {
+          iconWrap.className = 'w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-amber-500/20 text-amber-400';
+          iconWrap.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+        }
+      } else { // info
+        t.classList.add('border-cyan-500/60', 'shadow-cyan-950/40');
+        if (iconWrap) {
+          iconWrap.className = 'w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-cyan-500/20 text-cyan-400';
+          iconWrap.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        }
+      }
+
       t.classList.remove('translate-y-28', 'opacity-0');
-      setTimeout(() => t.classList.add('translate-y-28', 'opacity-0'), 3500);
+      toastTimer = setTimeout(() => {
+        t.classList.add('translate-y-28', 'opacity-0');
+      }, 4000);
     }
 
     function toggleMobileMenu() {
@@ -664,7 +749,6 @@
         if (el) el.classList.toggle('hidden', v !== viewName);
       });
 
-      // Desktop active nav
       ['store', 'lookup', 'orders', 'policy', 'terms'].forEach(v => {
         const btn = document.getElementById(`nav-${v}`);
         if (btn) {
@@ -676,7 +760,6 @@
         }
       });
 
-      // Mobile bottom bar active
       ['store', 'lookup', 'orders', 'policy'].forEach(v => {
         const mobBtn = document.getElementById(`mob-nav-${v}`);
         if (mobBtn) {
@@ -694,26 +777,14 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 1. DATA INITIALIZATION FROM SUPABASE (PUBLIC RLS READ)
     async function loadCatalog() {
       try {
-        const headers = {
-          'apikey': SUPABASE_CONFIG.anonKey,
-          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
-          'Accept': 'application/json'
-        };
-
-        // Load Categories
-        const catRes = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/categories?select=*`, { headers });
-        if (catRes.ok) {
-          CATEGORIES = await catRes.json();
+        const res = await fetch('/api/catalog');
+        const data = await res.json();
+        if (res.ok && data.success) {
+          CATEGORIES = data.categories || [];
+          PRODUCTS = data.products || [];
           renderCategoryPills();
-        }
-
-        // Load Products & Plans
-        const prodRes = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?is_active=eq.true&select=*,plans(*)&order=name.asc`, { headers });
-        if (prodRes.ok) {
-          PRODUCTS = await prodRes.json();
           renderProducts();
         }
       } catch (err) {
@@ -724,16 +795,27 @@
     function renderCategoryPills() {
       const container = document.getElementById('category-pills');
       if (!container) return;
-      document.getElementById('cat-count-all').textContent = PRODUCTS.length;
 
-      const dynamicPills = CATEGORIES.map(c => `
-        <button onclick="setCategory('${c.id}', this)" class="cat-pill snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap active:scale-95">
-          ${escapeHtml(c.name)}
-        </button>
-      `).join('');
+      const dynamicPills = CATEGORIES.map(c => {
+        const count = PRODUCTS.filter(p => p.category_id === c.id).length;
+        const isActive = currentCategory === String(c.id);
+        const cls = isActive
+          ? 'cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95'
+          : 'cat-pill snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap active:scale-95';
+        return `
+          <button onclick="setCategory('${c.id}', this)" class="${cls}">
+            ${escapeHtml(c.name)} <span class="text-[11px] opacity-75">(${count})</span>
+          </button>
+        `;
+      }).join('');
+
+      const isAllActive = currentCategory === 'ALL';
+      const allCls = isAllActive
+        ? 'cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95'
+        : 'cat-pill snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap active:scale-95';
 
       container.innerHTML = `
-        <button onclick="setCategory('ALL', this)" class="cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95">
+        <button onclick="setCategory('ALL', this)" class="${allCls}">
           Tất cả danh mục (<span id="cat-count-all">${PRODUCTS.length}</span>)
         </button>
         ${dynamicPills}
@@ -741,13 +823,8 @@
     }
 
     function setCategory(catId, btn) {
-      currentCategory = catId;
-      document.querySelectorAll('.cat-pill').forEach(b => {
-        b.className = 'cat-pill snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap active:scale-95';
-      });
-      if (btn) {
-        btn.className = 'cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95';
-      }
+      currentCategory = String(catId);
+      renderCategoryPills();
       renderProducts();
     }
 
@@ -789,8 +866,8 @@
           <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between border border-cyan-500/20">
             <div class="p-4 sm:p-5">
               <div class="flex items-start justify-between mb-3">
-                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 p-2 flex items-center justify-center font-bold text-white shadow-inner">
-                  ${p.logo_url ? `<img src="${escapeHtml(p.logo_url)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain">` : escapeHtml(p.name.substring(0, 2).toUpperCase())}
+                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-1.5 flex items-center justify-center font-bold text-white shadow-inner flex-shrink-0 overflow-hidden">
+                  ${p.logo_url ? `<img src="${escapeHtml(p.logo_url)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain drop-shadow" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'text-xs font-bold text-slate-300\\'>${escapeHtml(p.name.substring(0, 2).toUpperCase())}</span>'">` : escapeHtml(p.name.substring(0, 2).toUpperCase())}
                 </div>
                 ${p.badge ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 border border-cyan-500/30">${escapeHtml(p.badge)}</span>` : ''}
               </div>
@@ -829,7 +906,6 @@
       }).join('');
     }
 
-    // 2. CHECKOUT MODAL LOGIC (3 STEPS)
     function openProductModal(productId) {
       activeProduct = PRODUCTS.find(p => p.id === productId);
       if (!activeProduct) return;
@@ -867,15 +943,15 @@
 
       container.innerHTML = plans.map(pl => {
         const isSelected = selectedPlan && selectedPlan.id === pl.id;
-        const typeBadge = pl.account_type === 'shared' ? 'Dùng chung' : 'Dùng riêng tư';
+        const typeBadge = pl.badge || (pl.account_type === 'shared' ? 'Dùng chung' : 'Dùng riêng tư');
         return `
           <div onclick="selectModalPlan('${pl.id}')" class="p-3 rounded-xl border cursor-pointer transition flex items-center justify-between ${isSelected ? 'bg-blue-600/20 border-cyan-400 shadow-md' : 'bg-slate-950 border-slate-800 hover:border-slate-700'}">
             <div>
               <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-white">${escapeHtml(pl.name)}</span>
-                <span class="text-[9px] px-1.5 py-0.2 rounded font-bold ${pl.account_type === 'shared' ? 'bg-amber-500/20 text-amber-300' : 'bg-cyan-500/20 text-cyan-300'}">${typeBadge}</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${pl.account_type === 'shared' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'}">${escapeHtml(typeBadge)}</span>
               </div>
-              <span class="text-[10px] text-slate-400">Hạn sử dụng: ${pl.duration_days} ngày bảo hành</span>
+              <span class="text-[10px] text-slate-400">Bảo hành: <strong class="text-amber-300 font-semibold">${pl.duration_days || 30} ngày</strong></span>
             </div>
             <strong class="text-sm font-black text-emerald-400">${(pl.price || 0).toLocaleString('vi-VN')} đ</strong>
           </div>
@@ -914,7 +990,10 @@
     }
 
     function goToCheckoutStep2() {
-      if (!selectedPlan) return alert('Vui lòng chọn một gói dịch vụ!');
+      if (!selectedPlan) return showToast('Vui lòng chọn một gói dịch vụ!', 'warning');
+      const errBox = document.getElementById('checkout-error-box');
+      if (errBox) errBox.classList.add('hidden');
+
       document.getElementById('checkout-step-1').classList.add('hidden');
       document.getElementById('checkout-step-2').classList.remove('hidden');
       document.getElementById('checkout-step-3').classList.add('hidden');
@@ -927,17 +1006,19 @@
       document.getElementById('step2-account-type').textContent = selectedPlan.account_type === 'shared' ? 'Tài khoản dùng chung' : 'Tài khoản dùng riêng tư';
       document.getElementById('step2-price').textContent = (selectedPlan.price || 0).toLocaleString('vi-VN') + ' đ';
 
-      // Autofill phone if stored
       const savedPhone = localStorage.getItem('dnmmo_customer_phone');
       if (savedPhone && !document.getElementById('order-phone').value) {
         document.getElementById('order-phone').value = savedPhone;
       }
     }
 
-    // SUBMIT ORDER TO SERVER
     async function handleOrderSubmit(e) {
       e.preventDefault();
-      if (!selectedPlan) return alert('Vui lòng chọn gói dịch vụ!');
+      if (!selectedPlan) return showToast('Vui lòng chọn gói dịch vụ!', 'warning');
+
+      const errBox = document.getElementById('checkout-error-box');
+      const errMsg = document.getElementById('checkout-error-msg');
+      if (errBox) errBox.classList.add('hidden');
 
       const phone = document.getElementById('order-phone').value.trim();
       const name = document.getElementById('order-name').value.trim();
@@ -964,14 +1045,17 @@
 
         const data = await res.json();
         if (!res.ok || !data.success) {
-          alert(data.error || 'Không thể tạo đơn hàng. Vui lòng thử lại!');
+          const errText = data.error || 'Không thể tạo đơn hàng. Vui lòng kiểm tra lại thông tin!';
+          if (errBox && errMsg) {
+            errMsg.textContent = errText;
+            errBox.classList.remove('hidden');
+          }
+          showToast(errText, 'error');
           return;
         }
 
-        // Save customer phone for auto-fill and lookup
         localStorage.setItem('dnmmo_customer_phone', phone);
 
-        // Save order in local storage list
         const orderSummary = {
           code: data.order.code,
           phone: data.order.contact_phone,
@@ -985,70 +1069,40 @@
         localStorage.setItem('dnmmo_customer_orders', JSON.stringify(userOrders));
         updateOrderBadges();
 
-        // Switch to Step 3: VietQR Payment
-        displayVietQRStep(data.order, data.vietqr);
+        displaySuccessStep(data.order, data.vietqr);
 
       } catch (err) {
-        alert(err.message || 'Lỗi mạng khi tạo đơn hàng');
+        const errText = err.message || 'Lỗi mạng khi tạo đơn hàng. Vui lòng thử lại!';
+        if (errBox && errMsg) {
+          errMsg.textContent = errText;
+          errBox.classList.remove('hidden');
+        }
+        showToast(errText, 'error');
       } finally {
         btn.disabled = false;
-        btn.innerText = 'Xác Nhận & Lấy Mã VietQR →';
+        btn.innerText = 'Xác Nhận Đặt Mua Ngay →';
       }
     }
 
-    function displayVietQRStep(order, vietqr) {
+    function displaySuccessStep(order, vietqr) {
       document.getElementById('checkout-step-1').classList.add('hidden');
       document.getElementById('checkout-step-2').classList.add('hidden');
       document.getElementById('checkout-step-3').classList.remove('hidden');
       document.getElementById('checkout-step-header').innerHTML = `
-        <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 text-[11px]">3</span>
-        <span>QUÉT MÃ VIETQR THANH TOÁN TỰ ĐỘNG</span>
+        <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 text-[11px]">✓</span>
+        <span>XÁC NHẬN ĐẶT HÀNG THÀNH CÔNG</span>
       `;
 
-      document.getElementById('qr-order-code').textContent = order.code;
-      document.getElementById('qr-image').src = vietqr.qr_url;
-      document.getElementById('qr-bank-name').textContent = vietqr.bank_id;
-      document.getElementById('qr-account-no').textContent = vietqr.account_no;
-      document.getElementById('qr-account-name').textContent = vietqr.account_name;
-      document.getElementById('qr-amount').textContent = (order.amount || 0).toLocaleString('vi-VN') + ' đ';
-      document.getElementById('qr-content').textContent = order.code;
+      document.getElementById('success-order-code').textContent = order.code;
+      document.getElementById('success-plan-name').textContent = `${order.product_name ? `${order.product_name} - ` : ''}${order.plan_name}`;
+      document.getElementById('success-amount').textContent = (order.amount || 0).toLocaleString('vi-VN') + ' đ';
+      document.getElementById('success-customer-info').textContent = `${order.contact_name || 'Khách'} (${order.contact_phone})`;
 
-      // Start 15-minute countdown
-      let secondsLeft = 15 * 60;
-      const countEl = document.getElementById('qr-countdown');
-      if (countdownInterval) clearInterval(countdownInterval);
-      countdownInterval = setInterval(() => {
-        secondsLeft--;
-        if (secondsLeft <= 0) {
-          clearInterval(countdownInterval);
-          countEl.textContent = 'HẾT HẠN';
-          return;
-        }
-        const m = Math.floor(secondsLeft / 60);
-        const s = secondsLeft % 60;
-        countEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-      }, 1000);
+      const zaloText = encodeURIComponent(`Chào shop, tôi vừa đặt đơn hàng ${order.code} (${order.plan_name}). Kích hoạt tài khoản giúp tôi nhé!`);
+      const zaloBtn = document.getElementById('btn-success-zalo');
+      if (zaloBtn) zaloBtn.href = `https://zalo.me/0865899763?text=${zaloText}`;
 
-      // Start Polling order status every 3 seconds
-      currentPollingOrderId = order.code;
-      if (pollInterval) clearInterval(pollInterval);
-      pollInterval = setInterval(async () => {
-        try {
-          const res = await fetch(`/api/lookup-order?code=${order.code}&phone=${encodeURIComponent(order.contact_phone)}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success && data.order) {
-              if (data.order.status === 'paid' || data.order.status === 'delivered') {
-                clearInterval(pollInterval);
-                clearInterval(countdownInterval);
-                showPaymentSuccess(data.order);
-              }
-            }
-          }
-        } catch (e) {
-          // silent polling error
-        }
-      }, 3000);
+      showToast(`🎉 Đặt hàng thành công! Mã đơn: ${order.code}`, 'success');
     }
 
     function showPaymentSuccess(order) {
@@ -1087,7 +1141,6 @@
       `;
     }
 
-    // 3. ORDER LOOKUP TAB
     async function handleLookupOrder(e) {
       e.preventDefault();
       const code = document.getElementById('lookup-code').value.trim();
@@ -1127,8 +1180,9 @@
               <div>Gói đặt mua: <strong class="text-white">${escapeHtml(o.plan_name || o.product_name)}</strong></div>
               <div>Số tiền: <strong class="text-emerald-400">${(o.amount || 0).toLocaleString('vi-VN')} đ</strong></div>
               <div>Thời gian đặt: <span class="text-slate-400">${new Date(o.created_at).toLocaleString('vi-VN')}</span></div>
-              ${o.warranty_until ? `<div>Hạn bảo hành đến: <strong class="text-cyan-300">${new Date(o.warranty_until).toLocaleDateString('vi-VN')}</strong> (${o.warranty_days_left > 0 ? `Còn ${o.warranty_days_left} ngày` : 'Đã hết hạn'})</div>` : ''}
             </div>
+
+            ${renderWarrantyBlock(o)}
 
             ${o.credentials ? `
               <div class="pt-2 border-t border-slate-800 space-y-1.5">
@@ -1150,47 +1204,226 @@
       }
     }
 
-    // 4. CUSTOMER ORDERS TAB
+    async function loadCustomerOrdersFromServer(phone = '', email = '') {
+      const qPhone = phone || (currentUser?.phone) || localStorage.getItem('dnmmo_customer_phone') || '';
+      const qEmail = email || (currentUser?.email) || '';
+
+      if (!qPhone && !qEmail) return;
+
+      try {
+        const queryParams = new URLSearchParams();
+        if (qPhone) queryParams.append('phone', qPhone);
+        if (qEmail) queryParams.append('email', qEmail);
+
+        const res = await fetch(`/api/lookup-order?${queryParams.toString()}`);
+        const data = await res.json();
+        if (res.ok && data.success && Array.isArray(data.orders)) {
+          userOrders = data.orders.map(o => ({
+            code: o.code,
+            phone: o.contact_phone || qPhone,
+            plan_name: o.plan_name,
+            product_name: o.product_name,
+            amount: o.amount,
+            status: o.status,
+            created_at: o.created_at,
+            delivered_at: o.delivered_at,
+            warranty_until: o.warranty_until,
+            duration_days: o.duration_days
+          }));
+          localStorage.setItem('dnmmo_customer_orders', JSON.stringify(userOrders));
+          updateOrderBadges();
+          renderCustomerOrdersView();
+        }
+      } catch (e) {
+        console.warn('Cannot fetch customer orders:', e);
+      }
+    }
+
+    function getPlanDurationDays(o) {
+      if (o && o.duration_days && Number(o.duration_days) > 0) return Number(o.duration_days);
+      const name = ((o && (o.plan_name || o.product_name)) || '').toUpperCase();
+      if (name.includes('1 YEAR') || name.includes('1Y') || name.includes('1 NĂM')) return 365;
+      if (name.includes('18M')) return 540;
+      if (name.includes('6M') || name.includes('6 THÁNG')) return 180;
+      if (name.includes('3M') || name.includes('3 THÁNG')) return 90;
+      if (name.includes('7DAY') || name.includes('7 NGÀY')) return 7;
+      if (name.includes('1DAY') || name.includes('1 NGÀY')) return 1;
+      return 30;
+    }
+
+    function renderWarrantyBlock(o) {
+      if (!o) return '';
+
+      // Trường hợp 1: Đơn đã bàn giao tài khoản
+      const isDelivered = ['delivered', 'completed'].includes(String(o.status || '').toLowerCase());
+      if (isDelivered) {
+        let expDate = null;
+        const durDays = getPlanDurationDays(o);
+        if (o.warranty_until) {
+          expDate = new Date(o.warranty_until);
+        } else if (o.delivered_at) {
+          expDate = new Date(new Date(o.delivered_at).getTime() + durDays * 86400000);
+        } else if (o.paid_at) {
+          expDate = new Date(new Date(o.paid_at).getTime() + durDays * 86400000);
+        } else if (o.created_at) {
+          expDate = new Date(new Date(o.created_at).getTime() + durDays * 86400000);
+        }
+
+        if (expDate && !isNaN(expDate.getTime())) {
+          const now = new Date();
+          const diffMs = expDate.getTime() - now.getTime();
+          const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+          const expStr = expDate.toLocaleDateString('vi-VN');
+
+          let badge = '';
+          if (diffDays > 0) {
+            badge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🟢 Còn lại: ${diffDays} ngày</span>`;
+          } else {
+            badge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">🔴 Đã hết hạn bảo hành</span>`;
+          }
+
+          return `
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-2xl bg-slate-900/90 border border-emerald-500/30 text-xs flex flex-wrap items-center justify-between gap-2 shadow-sm">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl flex-shrink-0">🛡️</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 block font-medium">Thời hạn bảo hành (${durDays} ngày):</span>
+                  <strong class="text-white font-mono text-xs">Đến ngày ${expStr}</strong>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[11px] text-slate-400 hidden sm:inline">Thời gian còn lại:</span>
+                ${badge}
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="mt-2.5 p-2.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs flex items-center justify-between">
+              <span class="text-slate-300 flex items-center gap-1.5">🛡️ <span>Chế độ bảo hành:</span></span>
+              <span class="font-bold text-emerald-400">🟢 Đang áp dụng bảo hành uy tín</span>
+            </div>
+          `;
+        }
+      }
+
+      // Trường hợp 2: Đơn đang chờ xử lý / chuẩn bị bàn giao
+      const days = getPlanDurationDays(o);
+      return `
+        <div class="mt-2.5 p-2.5 sm:p-3 rounded-2xl bg-amber-950/20 border border-amber-500/30 text-xs flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-base flex-shrink-0">⏳</span>
+            <div>
+              <span class="text-[11px] text-amber-200/80 block">Thời gian bảo hành của gói:</span>
+              <strong class="text-amber-300 font-bold">${days} ngày (kích hoạt tính khi bàn giao acc)</strong>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            Chờ kích hoạt
+          </span>
+        </div>
+      `;
+    }
+
     function renderCustomerOrdersView() {
       const container = document.getElementById('orders-content');
       if (!container) return;
 
+      const userDisplayName = currentUser ? (currentUser.name || currentUser.phone || currentUser.email) : '';
+
       if (userOrders.length === 0) {
         container.innerHTML = `
-          <div class="glass-card rounded-2xl p-8 text-center text-slate-400 text-xs">
-            <span class="text-3xl block mb-2">📋</span>
-            Bạn chưa lưu đơn hàng nào trên thiết bị này.<br>
-            <button onclick="switchView('lookup')" class="mt-3 px-4 py-2 bg-blue-600/30 hover:bg-blue-600/50 text-cyan-300 rounded-xl font-bold transition">
-              Tra Cứu Đơn Hàng Ngay &rarr;
-            </button>
+          <div class="glass-card rounded-2xl p-6 sm:p-8 text-center text-slate-400 text-xs space-y-4">
+            <span class="text-4xl block">📋</span>
+            <div class="text-sm font-bold text-white">Chưa có đơn hàng nào hiển thị</div>
+            <p class="max-w-md mx-auto text-slate-400">Nếu bạn đã từng đặt mua, hãy nhập Số điện thoại hoặc Email đã dùng khi đặt hàng để hệ thống tự động tải lại toàn bộ đơn:</p>
+            
+            <form onsubmit="handleQuickOrdersSearch(event)" class="max-w-md mx-auto flex gap-2">
+              <input type="text" id="quick-orders-input" required placeholder="Nhập số điện thoại (VD: 0988 123 456)..."
+                class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+              <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow transition">
+                Tìm Đơn
+              </button>
+            </form>
+
+            <div class="pt-2 flex items-center justify-center gap-3">
+              <button onclick="openAuthModal()" class="text-cyan-400 hover:underline font-semibold">
+                Đăng nhập bằng Google
+              </button>
+              <span class="text-slate-600">•</span>
+              <button onclick="switchView('store')" class="text-slate-400 hover:text-white">
+                Khám phá sản phẩm
+              </button>
+            </div>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = userOrders.map(o => `
-        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-2">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-white text-sm">${escapeHtml(o.plan_name || o.product_name)}</span>
-              <span class="text-xs font-mono font-bold text-amber-400">${escapeHtml(o.code)}</span>
-            </div>
-            ${renderStatusBadge(o.status)}
-          </div>
-          <div class="flex items-center justify-between text-xs text-slate-400">
-            <span>Giá: <strong class="text-emerald-400 font-mono">${(o.amount || 0).toLocaleString('vi-VN')} đ</strong></span>
-            <button onclick="quickLookup('${escapeHtml(o.code)}', '${escapeHtml(o.phone)}')" class="text-cyan-400 hover:underline font-semibold">
-              Xem chi tiết / Lấy tài khoản &rarr;
-            </button>
-          </div>
+      container.innerHTML = `
+        <div class="flex items-center justify-between pb-2 mb-2 text-xs text-slate-400">
+          <span>${userDisplayName ? `Đơn hàng của: <strong class="text-white">${escapeHtml(userDisplayName)}</strong>` : `Tổng số đơn: <strong class="text-white">${userOrders.length}</strong>`}</span>
+          <button onclick="refreshOrders()" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
+            🔄 Làm mới danh sách
+          </button>
         </div>
-      `).join('');
+        <div class="space-y-3">
+          ${userOrders.map(o => `
+            <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-3 hover:border-cyan-500/40 transition">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-xs font-black text-cyan-400">
+                    ${(o.product_name || o.plan_name || 'DN').substring(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <span class="font-extrabold text-white text-sm block">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</span>
+                    <span class="text-[11px] font-mono text-amber-400 font-bold">Mã đơn: ${escapeHtml(o.code)}</span>
+                  </div>
+                </div>
+                <div>${renderStatusBadge(o.status)}</div>
+              </div>
+
+              ${renderWarrantyBlock(o)}
+
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/80 text-xs">
+                <div class="space-x-3 text-slate-400">
+                  <span>Giá: <strong class="text-emerald-400 font-mono text-sm">${(o.amount || 0).toLocaleString('vi-VN')} đ</strong></span>
+                  ${o.created_at ? `<span class="hidden sm:inline text-slate-500">• ${new Date(o.created_at).toLocaleDateString('vi-VN')}</span>` : ''}
+                </div>
+                <button onclick="quickLookup('${escapeHtml(o.code)}', '${escapeHtml(o.phone || localStorage.getItem('dnmmo_customer_phone') || '')}')"
+                  class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl text-xs font-bold transition shadow active:scale-95 flex items-center gap-1">
+                  <span>🔍 Xem chi tiết & Lấy tài khoản</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function refreshOrders() {
+      showToast('Đang cập nhật danh sách đơn hàng...');
+      loadCustomerOrdersFromServer();
+    }
+
+    function handleQuickOrdersSearch(e) {
+      e.preventDefault();
+      const val = document.getElementById('quick-orders-input').value.trim();
+      if (!val) return;
+      if (val.includes('@')) {
+        loadCustomerOrdersFromServer('', val);
+      } else {
+        localStorage.setItem('dnmmo_customer_phone', val);
+        loadCustomerOrdersFromServer(val, '');
+      }
     }
 
     function quickLookup(code, phone) {
       switchView('lookup');
       document.getElementById('lookup-code').value = code;
-      document.getElementById('lookup-phone').value = phone;
+      const phoneInput = document.getElementById('lookup-phone');
+      if (phone) phoneInput.value = phone;
       document.getElementById('btn-lookup-submit').click();
     }
 
@@ -1204,30 +1437,324 @@
       if (b3) b3.textContent = count;
     }
 
-    // 5. AUTH (LOGIN / GIS)
-    function openAuthModal() {
-      document.getElementById('modal-auth').classList.remove('hidden');
+    const GOOGLE_CLIENT_ID = '1016611774595-q8tu9hjpbldcln7psipsubof1v8kkv9b.apps.googleusercontent.com';
+
+    function initGoogleIdentityServices() {
+      if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+        setTimeout(initGoogleIdentityServices, 300);
+        return;
+      }
+
+      try {
+        google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true,
+          use_fedcm_for_prompt: false
+        });
+
+        renderGoogleButton();
+      } catch (err) {
+        console.warn('GIS Init notice:', err);
+      }
+    }
+
+    function renderGoogleButton() {
+      const container = document.getElementById('google-signin-btn');
+      if (container && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          const wrapper = document.createElement('div');
+          google.accounts.id.renderButton(wrapper, {
+            type: 'standard',
+            theme: 'filled_black',
+            size: 'large',
+            text: 'continue_with',
+            shape: 'rectangular',
+            logo_alignment: 'left',
+            width: Math.min(360, container.parentElement?.offsetWidth || 320)
+          });
+          if (wrapper.children.length > 0) {
+            container.innerHTML = '';
+            container.appendChild(wrapper);
+          }
+        } catch (e) {}
+      }
+    }
+
+    function triggerGoogleSignIn() {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          google.accounts.id.prompt(notification => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+              const reason = notification.getNotDisplayedReason() || notification.getSkippedReason();
+              if (reason === 'opt_out_or_no_session' || reason === 'suppressed_by_user') {
+                showToast('Vui lòng đăng nhập tài khoản Google trên trình duyệt hoặc dùng Email/Mật khẩu bên dưới!', 'info');
+              } else {
+                showToast(`Tên miền (${window.location.origin}) chưa được thêm vào Google Cloud Console. Bạn có thể đăng ký & đăng nhập bằng Email/Mật khẩu ngay bên dưới!`, 'warning');
+              }
+            }
+          });
+        } catch (err) {
+          showToast(`Tên miền (${window.location.origin}) chưa được cấp phép Google OAuth. Vui lòng đăng nhập bằng Email/Mật khẩu bên dưới!`, 'info');
+        }
+      } else {
+        showToast('Đang kết nối dịch vụ Google. Vui lòng thử lại sau vài giây hoặc dùng Email bên dưới!', 'info');
+      }
+    }
+
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (err) {
+        console.error('Failed to parse Google JWT:', err);
+        return null;
+      }
+    }
+
+    function openAuthModal(tab = 'login') {
+      const modal = document.getElementById('modal-auth');
+      if (modal) modal.classList.remove('hidden');
+      setAuthTab(tab);
+      setTimeout(renderGoogleButton, 100);
     }
 
     function closeAuthModal() {
-      document.getElementById('modal-auth').classList.add('hidden');
+      const modal = document.getElementById('modal-auth');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function setAuthTab(tab) {
+      const pLogin = document.getElementById('auth-panel-login');
+      const pReg = document.getElementById('auth-panel-register');
+      const btnL = document.getElementById('auth-tab-login-btn');
+      const btnR = document.getElementById('auth-tab-register-btn');
+
+      if (tab === 'register') {
+        if (pLogin) pLogin.classList.add('hidden');
+        if (pReg) pReg.classList.remove('hidden');
+        if (btnR) btnR.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-emerald-600 text-white transition shadow';
+        if (btnL) btnL.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition';
+      } else {
+        if (pReg) pReg.classList.add('hidden');
+        if (pLogin) pLogin.classList.remove('hidden');
+        if (btnL) btnL.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-blue-600 text-white transition shadow';
+        if (btnR) btnR.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition';
+      }
+    }
+
+    async function handleCustomerLogin(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('login-identifier')?.value.trim();
+      const password = document.getElementById('login-password')?.value.trim();
+      const btn = document.getElementById('btn-login-cust-submit');
+
+      if (!identifier || !password) {
+        showToast('Vui lòng nhập Email/SĐT và Mật khẩu!');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Đang đăng nhập...';
+
+      try {
+        const res = await fetch('/api/customer-auth?action=login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier, password })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          showToast(data.error || 'Đăng nhập không thành công!', 'error');
+          return;
+        }
+
+        const u = data.user;
+        currentUser = {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          phone: u.phone,
+          role: u.role,
+          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(u.name)}&backgroundColor=0284c7`
+        };
+
+        if (data.token) localStorage.setItem('dnmmo_customer_token', data.token);
+        localStorage.setItem('dnmmo_customer_user', JSON.stringify(currentUser));
+        if (u.phone) localStorage.setItem('dnmmo_customer_phone', u.phone);
+
+        updateUserUI();
+        closeAuthModal();
+
+        if (u.role === 'admin' || u.email === 'duocnguyen.work@gmail.com') {
+          showToast(`Xin chào Quản trị viên: ${u.name}`, 'success');
+          if (confirm('Tài khoản này là Quản Trị Viên (Admin). Bạn có muốn mở Trang Quản Trị (/admin) không?')) {
+            window.location.href = '/admin';
+            return;
+          }
+        } else {
+          showToast(`Đăng nhập thành công! Xin chào ${u.name}`, 'success');
+          if (u.phone || u.email) {
+            await loadCustomerOrdersFromServer(u.phone, u.email);
+            switchView('orders');
+          }
+        }
+      } catch (err) {
+        showToast(err.message || 'Lỗi mạng khi kết nối máy chủ', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Đăng Nhập';
+      }
+    }
+
+    async function handleCustomerRegisterSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name')?.value.trim();
+      const phone = document.getElementById('reg-phone')?.value.trim();
+      const email = document.getElementById('reg-email')?.value.trim().toLowerCase();
+      const password = document.getElementById('reg-password')?.value.trim();
+      const confirmPassword = document.getElementById('reg-confirm-password')?.value.trim();
+      const btn = document.getElementById('btn-reg-cust-submit');
+
+      if (!name || !phone || !email || !password) {
+        showToast('Vui lòng điền đầy đủ các trường thông tin!', 'warning');
+        return;
+      }
+      if (password !== confirmPassword) {
+        showToast('Mật khẩu xác nhận không trùng khớp!', 'warning');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Đang tạo tài khoản...';
+
+      try {
+        const res = await fetch('/api/customer-auth?action=register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, email, password })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          showToast(data.error || 'Đăng ký không thành công!', 'error');
+          return;
+        }
+
+        const u = data.user;
+        currentUser = {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          phone: u.phone,
+          role: 'customer',
+          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(u.name)}&backgroundColor=0284c7`
+        };
+
+        localStorage.setItem('dnmmo_customer_user', JSON.stringify(currentUser));
+        if (u.phone) localStorage.setItem('dnmmo_customer_phone', u.phone);
+
+        updateUserUI();
+        closeAuthModal();
+        showToast(`Đăng ký thành công! Xin chào ${u.name}`, 'success');
+        switchView('store');
+      } catch (err) {
+        showToast(err.message || 'Lỗi mạng khi kết nối máy chủ', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '✓ Hoàn Tất Đăng Ký Tài Khoản';
+      }
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+
+      const payload = parseJwt(response.credential);
+      if (!payload || !payload.email) {
+        showToast('Không thể xác thực tài khoản Google. Vui lòng thử lại!', 'error');
+        return;
+      }
+
+      const email = payload.email.toLowerCase().trim();
+      const name = payload.name || payload.given_name || email.split('@')[0];
+      const picture = payload.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`;
+      const isAdmin = (email === 'duocnguyen.work@gmail.com');
+
+      currentUser = {
+        name,
+        email,
+        avatar: picture,
+        role: isAdmin ? 'admin' : 'customer'
+      };
+
+      localStorage.setItem('dnmmo_customer_user', JSON.stringify(currentUser));
+      updateUserUI();
+      closeAuthModal();
+
+      if (isAdmin) {
+        showToast(`Xin chào Quản trị viên: ${name}!`);
+        if (confirm('Bạn đã đăng nhập tài khoản Quản trị viên. Bạn có muốn mở Trang Quản Trị (/admin) không?')) {
+          window.location.href = '/admin';
+          return;
+        }
+      } else {
+        showToast(`Đăng nhập Google thành công! Xin chào ${name}`);
+        await loadCustomerOrdersFromServer('', email);
+        switchView('orders');
+      }
+    }
+
+    function updateUserUI() {
+      const loggedInDiv = document.getElementById('auth-logged-in');
+      const loggedOutDiv = document.getElementById('auth-logged-out');
+      const adminLink = document.getElementById('nav-admin-link');
+      const mobAdminLink = document.getElementById('mob-admin-link');
+
+      if (currentUser) {
+        if (loggedInDiv) loggedInDiv.classList.remove('hidden');
+        if (loggedOutDiv) loggedOutDiv.classList.add('hidden');
+
+        const avatarEl = document.getElementById('user-avatar');
+        const nameEl = document.getElementById('user-name');
+        const emailEl = document.getElementById('user-email');
+
+        if (avatarEl) avatarEl.src = currentUser.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser.name || 'User')}`;
+        if (nameEl) nameEl.textContent = currentUser.name || currentUser.phone || 'Khách hàng';
+        if (emailEl) emailEl.textContent = currentUser.email || currentUser.phone || '';
+
+        const isAdmin = currentUser.role === 'admin' || currentUser.email === 'duocnguyen.work@gmail.com';
+        if (adminLink) adminLink.classList.toggle('hidden', !isAdmin);
+        if (mobAdminLink) mobAdminLink.classList.toggle('hidden', !isAdmin);
+
+        const orderEmailEl = document.getElementById('order-email');
+        const orderNameEl = document.getElementById('order-name');
+        if (orderEmailEl && !orderEmailEl.value && currentUser.email) orderEmailEl.value = currentUser.email;
+        if (orderNameEl && !orderNameEl.value && currentUser.name) orderNameEl.value = currentUser.name;
+      } else {
+        if (loggedInDiv) loggedInDiv.classList.add('hidden');
+        if (loggedOutDiv) loggedOutDiv.classList.remove('hidden');
+        if (adminLink) adminLink.classList.add('hidden');
+        if (mobAdminLink) mobAdminLink.classList.add('hidden');
+      }
     }
 
     function handleLogout() {
       currentUser = null;
       localStorage.removeItem('dnmmo_customer_user');
-      document.getElementById('auth-logged-in').classList.add('hidden');
-      document.getElementById('auth-logged-out').classList.remove('hidden');
+      updateUserUI();
       showToast('Đã đăng xuất tài khoản!');
     }
 
-    // HELPERS
     function renderStatusBadge(status) {
       const map = {
-        'pending': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">⏳ Chờ thanh toán</span>',
-        'paid': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">💳 Đã nhận tiền</span>',
-        'delivered': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✅ Đã bàn giao</span>',
-        'cancelled': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">❌ Đã hủy</span>'
+        'pending': '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">⏳ Chờ thanh toán</span>',
+        'paid': '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">💳 Đã nhận tiền</span>',
+        'delivered': '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✅ Đã bàn giao</span>',
+        'cancelled': '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">❌ Đã hủy</span>'
       };
       return map[status] || `<span class="px-2 py-0.5 rounded text-[10px]">${escapeHtml(status)}</span>`;
     }
@@ -1247,9 +1774,13 @@
       return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
     }
 
-    // Initialize
+    updateUserUI();
     updateOrderBadges();
     loadCatalog();
+    initGoogleIdentityServices();
+    if (currentUser?.phone || currentUser?.email || localStorage.getItem('dnmmo_customer_phone')) {
+      loadCustomerOrdersFromServer();
+    }
   </script>
 </body>
 </html>

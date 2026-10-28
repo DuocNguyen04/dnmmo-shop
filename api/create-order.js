@@ -2,7 +2,6 @@ const { query } = require('./lib/db');
 const { isRateLimited, getClientIp } = require('./lib/rate-limit');
 const crypto = require('crypto');
 
-// Generate cryptographically secure random order code: DN + 6 alphanumeric chars
 function generateOrderCode() {
   const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // exclude confusing 0, 1, I, O
   let code = 'DN';
@@ -14,7 +13,6 @@ function generateOrderCode() {
 }
 
 module.exports = async (req, res) => {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -30,39 +28,46 @@ module.exports = async (req, res) => {
   try {
     const ip = getClientIp(req);
 
-    // Rate limiting: max 5 orders per hour per IP
-    if (isRateLimited(ip, 5, 60 * 60 * 1000)) {
+    if (isRateLimited(ip, 200, 60 * 60 * 1000)) {
       return res.status(429).json({ 
-        error: 'Bạn đã tạo quá nhiều đơn hàng trong thời gian ngắn. Vui lòng thử lại sau 1 giờ!' 
+        error: 'Bạn đã tạo quá nhiều đơn hàng trong thời gian ngắn. Vui lòng thử lại sau!' 
       });
     }
 
     const { plan_id, name, phone, email, note, captcha_token, user_id } = req.body || {};
 
-    // 1. Validate phone
     const cleanPhone = (phone || '').replace(/[\s.-]/g, '');
-    const phoneRegex = /^(0|\+84)\d{9}$/;
+    const phoneRegex = /^(\+84|0)\d{7,11}$/;
     if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
       return res.status(400).json({ 
-        error: 'Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam (10 chữ số)!' 
+        error: 'Số điện thoại không hợp lệ. Vui lòng nhập đúng số điện thoại (từ 8 đến 11 chữ số)!' 
       });
     }
 
-    // 2. Validate note
+    let validUserId = null;
+    if (user_id) {
+      try {
+        const uCheck = await query('SELECT id FROM public.users WHERE id = $1', [user_id]);
+        if (uCheck.rows.length > 0) {
+          validUserId = user_id;
+        }
+      } catch (e) {
+        validUserId = null;
+      }
+    }
+
     if (note && note.length > 300) {
       return res.status(400).json({ 
         error: 'Ghi chú không được vượt quá 300 ký tự!' 
       });
     }
 
-    // 3. Validate email if present
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ 
         error: 'Địa chỉ email không hợp lệ!' 
       });
     }
 
-    // 4. Validate Captcha if TURNSTILE_SECRET_KEY is configured
     if (process.env.TURNSTILE_SECRET_KEY && captcha_token) {
       try {
         const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
@@ -83,7 +88,6 @@ module.exports = async (req, res) => {
       }
     }
 
-    // 5. Look up plan in Database (SERVER DECIDES PRICE & DURATION)
     if (!plan_id) {
       return res.status(400).json({ error: 'Vui lòng chọn một gói dịch vụ để đặt hàng!' });
     }
@@ -106,7 +110,6 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Gói dịch vụ này hiện đang tạm ngưng phục vụ!' });
     }
 
-    // Check inventory count
     const stockRes = await query(`
       SELECT COUNT(*)::int as available_count
       FROM public.inventory_items
@@ -114,9 +117,7 @@ module.exports = async (req, res) => {
     `, [plan_id]);
     const availableStock = stockRes.rows[0].available_count;
 
-    // 6. Generate unguessable Order Code
     let code = generateOrderCode();
-    // Guarantee uniqueness
     let attempts = 0;
     while (attempts < 5) {
       const exists = await query(`SELECT 1 FROM public.orders WHERE code = $1`, [code]);
@@ -125,7 +126,6 @@ module.exports = async (req, res) => {
       attempts++;
     }
 
-    // 7. Insert order into DB with server price
     const insertRes = await query(`
       INSERT INTO public.orders (
         code, user_id, plan_id, variant_id, amount, price, 
@@ -138,7 +138,7 @@ module.exports = async (req, res) => {
       RETURNING id, code, amount, status, contact_name, contact_phone, contact_email, created_at;
     `, [
       code,
-      user_id || null,
+      validUserId,
       plan.plan_id,
       plan.price,
       (name || '').trim().substring(0, 100),
@@ -149,7 +149,6 @@ module.exports = async (req, res) => {
 
     const order = insertRes.rows[0];
 
-    // 8. Generate VietQR configuration
     const bankId = process.env.VIETQR_BANK_ID || 'MB'; // MBBank default
     const accountNo = process.env.VIETQR_ACCOUNT_NO || '0865899763';
     const accountName = process.env.VIETQR_ACCOUNT_NAME || 'NGUYEN TAT DUOC';
