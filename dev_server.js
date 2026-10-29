@@ -37,16 +37,20 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.ico': 'image/x-icon'
 };
 
-// Route handlers
-const createOrderHandler = require('./api/create-order');
-const lookupOrderHandler = require('./api/lookup-order');
-const paymentWebhookHandler = require('./api/payment-webhook');
-const adminApiHandler = require('./api/admin-api');
-const customerAuthHandler = require('./api/customer-auth');
-const catalogHandler = require('./api/catalog');
+// Dynamic Route handler loader (ensures instant reload on changes)
+function getHandler(modulePath) {
+  try {
+    const resolved = require.resolve(modulePath);
+    delete require.cache[resolved];
+    return require(resolved);
+  } catch (e) {
+    return require(modulePath);
+  }
+}
 
 // Express-like mock wrapper for standard Node http req/res
 function wrapResponse(res) {
@@ -68,10 +72,15 @@ const server = http.createServer(async (req, res) => {
   wrapResponse(res);
   console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
 
-  // Set default CORS
+  // Set default CORS and Security Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
   if (req.method === 'OPTIONS') {
     return res.status(204).end();
@@ -98,36 +107,37 @@ const server = http.createServer(async (req, res) => {
   // 1. API: CREATE ORDER
   if (pathname === '/api/create-order') {
     await parseJsonBody();
-    return createOrderHandler(req, res);
+    return getHandler('./api/create-order')(req, res);
   }
 
   // 2. API: LOOKUP ORDER
   if (pathname === '/api/lookup-order') {
     await parseJsonBody();
-    return lookupOrderHandler(req, res);
+    return getHandler('./api/lookup-order')(req, res);
   }
 
   // 3. API: PAYMENT WEBHOOK
   if (pathname === '/api/payment-webhook') {
     await parseJsonBody();
-    return paymentWebhookHandler(req, res);
+    return getHandler('./api/payment-webhook')(req, res);
   }
 
   // 4. API: ADMIN API
   if (pathname === '/api/admin-api') {
     await parseJsonBody();
-    return adminApiHandler(req, res);
+    return getHandler('./api/admin-api')(req, res);
   }
 
   // 4.5 API: CUSTOMER AUTH (REGISTER / LOGIN)
   if (pathname === '/api/customer-auth') {
     await parseJsonBody();
-    return customerAuthHandler(req, res);
+    return getHandler('./api/customer-auth')(req, res);
   }
 
   // 4.6 API: CATALOG (CATEGORIES & PRODUCTS)
   if (pathname === '/api/catalog') {
-    return catalogHandler(req, res);
+    await parseJsonBody();
+    return getHandler('./api/catalog')(req, res);
   }
 
   // 5. API: SUPABASE PROXY (/api/supabase/...)

@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
         SELECT 
           o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email,
           o.created_at, o.paid_at, o.delivered_at, o.warranty_until,
-          p.name as plan_name, p.duration_days, p.account_type,
-          pr.name as product_name
+          p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
+          pr.id as product_id, pr.name as product_name
         FROM public.orders o
         LEFT JOIN public.plans p ON p.id = o.plan_id
         LEFT JOIN public.products pr ON pr.id = p.product_id
@@ -48,8 +48,17 @@ module.exports = async (req, res) => {
           daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
           warrantyStatus = daysLeft > 0 ? (daysLeft <= 7 ? 'EXPIRING_SOON' : 'ACTIVE') : 'EXPIRED';
         }
+        // Mask customer phone & email for privacy compliance (Decree 13/2023/ND-CP)
+        const rawPhone = o.contact_phone || '';
+        const maskedPhone = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '***' + rawPhone.slice(-3) : '***';
+        const rawEmail = o.contact_email || '';
+        const maskedEmail = rawEmail.includes('@') ? rawEmail.replace(/^([^@]{2})[^@]+(@.+)$/, '$1***$2') : '';
         return {
           ...o,
+          contact_phone: maskedPhone,
+          contact_email: maskedEmail,
+          customer_phone: maskedPhone,
+          customer_email: maskedEmail,
           warranty_days_left: daysLeft,
           warranty_status: warrantyStatus
         };
@@ -65,27 +74,43 @@ module.exports = async (req, res) => {
     }
   }
 
-  if (!cleanCode || !cleanPhone) {
-    return res.status(400).json({ error: 'Vui lòng nhập cả Mã đơn hàng và Số điện thoại đặt hàng!' });
+  if (!cleanCode) {
+    return res.status(400).json({ error: 'Vui lòng nhập Mã đơn hàng, Số điện thoại hoặc Email để tìm kiếm!' });
   }
 
   try {
-    const orderRes = await query(`
-      SELECT 
-        o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
-        o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.license_info,
-        p.name as plan_name, p.duration_days, p.account_type,
-        pr.name as product_name, pr.warranty_policy
-      FROM public.orders o
-      LEFT JOIN public.plans p ON p.id = o.plan_id
-      LEFT JOIN public.products pr ON pr.id = p.product_id
-      WHERE o.code = $1 AND (o.contact_phone = $2 OR o.customer_phone = $2)
-      LIMIT 1;
-    `, [cleanCode, cleanPhone]);
+    let orderRes;
+    if (cleanPhone || cleanEmail) {
+      orderRes = await query(`
+        SELECT 
+          o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
+          o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.license_info,
+          p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
+          pr.id as product_id, pr.name as product_name, pr.warranty_policy
+        FROM public.orders o
+        LEFT JOIN public.plans p ON p.id = o.plan_id
+        LEFT JOIN public.products pr ON pr.id = p.product_id
+        WHERE o.code = $1 AND (($2 != '' AND (o.contact_phone = $2 OR o.customer_phone = $2)) OR ($3 != '' AND (o.contact_email = $3 OR o.customer_email = $3)))
+        LIMIT 1;
+      `, [cleanCode, cleanPhone, cleanEmail]);
+    } else {
+      orderRes = await query(`
+        SELECT 
+          o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
+          o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.license_info,
+          p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
+          pr.id as product_id, pr.name as product_name, pr.warranty_policy
+        FROM public.orders o
+        LEFT JOIN public.plans p ON p.id = o.plan_id
+        LEFT JOIN public.products pr ON pr.id = p.product_id
+        WHERE o.code = $1
+        LIMIT 1;
+      `, [cleanCode]);
+    }
 
     if (orderRes.rows.length === 0) {
       return res.status(404).json({ 
-        error: 'Không tìm thấy đơn hàng phù hợp với mã đơn và số điện thoại đã nhập. Vui lòng kiểm tra lại!' 
+        error: 'Không tìm thấy đơn hàng phù hợp. Vui lòng kiểm tra lại Mã đơn hoặc Số điện thoại/Email!' 
       });
     }
 
@@ -128,6 +153,7 @@ module.exports = async (req, res) => {
         status: order.status,
         contact_name: order.contact_name,
         contact_phone: order.contact_phone,
+        product_id: order.product_id,
         plan_name: order.plan_name,
         product_name: order.product_name,
         duration_days: order.duration_days,

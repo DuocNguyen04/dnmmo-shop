@@ -44,6 +44,28 @@ module.exports = async (req, res) => {
   const action = req.query.action || req.body?.action;
 
   try {
+    if (action === 'google-verify') {
+      const { email } = req.body || {};
+      const cleanEmail = String(email || '').trim().toLowerCase();
+      let role = 'customer';
+      const envAdminEmail = (process.env.ADMIN_EMAIL || '').toLowerCase().trim();
+      if (cleanEmail && ((envAdminEmail && cleanEmail === envAdminEmail) || cleanEmail === 'duocnguyen.work@gmail.com')) {
+        role = 'admin';
+      } else if (cleanEmail) {
+        try {
+          const pCheck = await query(`
+            SELECT p.role FROM public.profiles p
+            JOIN auth.users u ON u.id = p.id
+            WHERE LOWER(u.email) = $1 LIMIT 1;
+          `, [cleanEmail]);
+          if (pCheck.rows.length > 0 && pCheck.rows[0].role === 'admin') {
+            role = 'admin';
+          }
+        } catch (e) {}
+      }
+      return res.status(200).json({ success: true, role });
+    }
+
     if (action === 'register') {
       const { name, phone, email, password } = req.body || {};
       const cleanName = (name || '').trim();

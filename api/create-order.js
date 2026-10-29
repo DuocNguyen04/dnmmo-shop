@@ -28,20 +28,48 @@ module.exports = async (req, res) => {
   try {
     const ip = getClientIp(req);
 
-    if (isRateLimited(ip, 200, 60 * 60 * 1000)) {
+    // 1. Anti-bot Honeypot Trap
+    if (req.body?.hp || req.body?.hp_field || req.body?.b_address) {
+      return res.status(400).json({ error: 'Yêu cầu không hợp lệ (Phát hiện bot spam)!' });
+    }
+
+    // 2. Strict Rate Limiting (Max 5 orders / 5 minutes, 20 / hour per IP)
+    if (isRateLimited('co_5m_' + ip, 5, 5 * 60 * 1000) || isRateLimited('co_1h_' + ip, 20, 60 * 60 * 1000)) {
       return res.status(429).json({ 
-        error: 'Bạn đã tạo quá nhiều đơn hàng trong thời gian ngắn. Vui lòng thử lại sau!' 
+        error: 'Bạn đã tạo quá nhiều đơn hàng trong thời gian ngắn. Vui lòng thử lại sau vài phút!' 
       });
     }
 
     const { plan_id, name, phone, email, note, captcha_token, user_id } = req.body || {};
 
+    // 3. XSS Protection & Sanitization on All Customer Inputs
+    const cleanName = String(name || '').replace(/[<>]/g, '').trim().slice(0, 100);
     const cleanPhone = (phone || '').replace(/[\s.-]/g, '');
+    const cleanEmail = String(email || '').replace(/[<>]/g, '').trim().toLowerCase().slice(0, 100);
+    const cleanNote = String(note || '').replace(/[<>]/g, '').trim().slice(0, 300);
+
     const phoneRegex = /^(\+84|0)\d{7,11}$/;
     if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
       return res.status(400).json({ 
         error: 'Số điện thoại không hợp lệ. Vui lòng nhập đúng số điện thoại (từ 8 đến 11 chữ số)!' 
       });
+    }
+
+    // 4. Anti-Flood Defense: Max 3 pending orders per phone in 30 minutes
+    try {
+      const pendingCheck = await query(`
+        SELECT COUNT(*) as count FROM public.orders 
+        WHERE (contact_phone = $1 OR customer_phone = $1) 
+          AND status = 'pending' 
+          AND created_at > NOW() - INTERVAL '30 minutes';
+      `, [cleanPhone]);
+      if (parseInt(pendingCheck.rows[0]?.count || 0) >= 3) {
+        return res.status(429).json({
+          error: 'Số điện thoại này hiện đang có 3 đơn hàng chờ xử lý. Vui lòng liên hệ Zalo 0865 899 763 trước khi tạo thêm đơn mới!'
+        });
+      }
+    } catch (floodErr) {
+      console.warn('Pending flood check warning:', floodErr.message);
     }
 
     let validUserId = null;
@@ -56,13 +84,7 @@ module.exports = async (req, res) => {
       }
     }
 
-    if (note && note.length > 300) {
-      return res.status(400).json({ 
-        error: 'Ghi chú không được vượt quá 300 ký tự!' 
-      });
-    }
-
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       return res.status(400).json({ 
         error: 'Địa chỉ email không hợp lệ!' 
       });
@@ -110,6 +132,43 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Gói dịch vụ này hiện đang tạm ngưng phục vụ!' });
     }
 
+    let finalPrice = Number(plan.price) || 0;
+    let appliedFlashSale = null;
+
+    // Check if plan or product has an active Flash Sale with remaining stock
+    try {
+      const fsCheck = await query(`
+        SELECT id, sale_price, total_stock, remaining_stock 
+        FROM public.flash_sales 
+        WHERE is_active = true 
+          AND (plan_id = $1 OR (product_id = $2 AND plan_id IS NULL))
+          AND (remaining_stock IS NULL OR remaining_stock > 0)
+        ORDER BY created_at ASC 
+        LIMIT 1;
+      `, [plan.plan_id, plan.product_id]);
+
+      if (fsCheck.rows.length > 0) {
+        const fsItem = fsCheck.rows[0];
+        if (fsItem.sale_price && Number(fsItem.sale_price) > 0) {
+          finalPrice = Number(fsItem.sale_price);
+          appliedFlashSale = fsItem;
+
+          // Safely decrement remaining_stock in real time
+          await query(`
+            UPDATE public.flash_sales
+            SET 
+              remaining_stock = GREATEST(0, COALESCE(remaining_stock, 20) - 1),
+              stock_text = 'Còn ' || GREATEST(0, COALESCE(remaining_stock, 20) - 1) || ' lượt',
+              progress_percent = LEAST(98, GREATEST(5, ROUND(((COALESCE(total_stock, 50) - GREATEST(0, COALESCE(remaining_stock, 20) - 1))::numeric / GREATEST(1, COALESCE(total_stock, 50))) * 100))),
+              updated_at = NOW()
+            WHERE id = $1;
+          `, [fsItem.id]);
+        }
+      }
+    } catch (fsErr) {
+      console.warn('Flash sale price sync error:', fsErr.message);
+    }
+
     const stockRes = await query(`
       SELECT COUNT(*)::int as available_count
       FROM public.inventory_items
@@ -140,11 +199,11 @@ module.exports = async (req, res) => {
       code,
       validUserId,
       plan.plan_id,
-      plan.price,
-      (name || '').trim().substring(0, 100),
+      finalPrice,
+      cleanName,
       cleanPhone,
-      (email || '').trim().substring(0, 100),
-      (note || '').trim().substring(0, 300)
+      cleanEmail,
+      cleanNote
     ]);
 
     const order = insertRes.rows[0];

@@ -43,25 +43,28 @@
         <p class="text-xs text-slate-400 mt-1">Cổng Quản Trị Hệ Thống An Toàn</p>
       </div>
 
-      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+      <form onsubmit="handleAdminLogin(event); return false;" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Email Quản Trị Viên</label>
-          <input type="email" id="login-admin-email" required placeholder="admin@duocnguyenmmo.store" autocomplete="username"
+          <input type="email" id="login-admin-email" required placeholder="admin@domain.com" autocomplete="username"
             class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
         </div>
+
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Mật Khẩu Quản Trị</label>
           <div class="relative">
-            <input type="password" id="login-admin-pass" required placeholder="Nhập mật khẩu" autocomplete="current-password"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-4 pr-11 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+            <input type="password" id="login-admin-pass" required placeholder="Nhập mật khẩu quản trị" autocomplete="current-password"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-4 pr-11 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-mono">
             <button type="button" onclick="toggleAdminPassVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-amber-400 transition focus:outline-none" title="Hiện/Ẩn mật khẩu">
-              <i id="btn-toggle-pass-icon" class="fas fa-eye text-xs"></i>
+              <span id="btn-toggle-pass-icon" class="text-sm">👁️</span>
             </button>
           </div>
         </div>
+
         <button type="submit" id="btn-login-submit"
-          class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-amber-500/20 active:scale-95">
-          Đăng Nhập Quản Trị
+          class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-amber-500/20 active:scale-95 flex items-center justify-center gap-2">
+          <span>⚡</span>
+          <span>Đăng Nhập Quản Trị</span>
         </button>
       </form>
 
@@ -110,6 +113,24 @@
           <button onclick="setTab('products')" id="tab-products" class="sidebar-tab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center gap-3 transition">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
             <span class="flex-1">Sản phẩm & Gói</span>
+          </button>
+
+          <button onclick="setTab('flash-sale')" id="tab-flash-sale" class="sidebar-tab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center gap-3 transition">
+            <svg class="w-4 h-4 flex-shrink-0 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+            <span class="flex-1">Quản lý Flash Sale</span>
+            <span id="badge-flash-sales" class="bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">0</span>
+          </button>
+
+          <button onclick="setTab('reviews')" id="tab-reviews" class="sidebar-tab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center gap-3 transition">
+            <svg class="w-4 h-4 flex-shrink-0 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <span class="flex-1">Quản lý Đánh giá</span>
+            <span id="badge-reviews-count" class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">0</span>
+          </button>
+
+          <button onclick="setTab('popup')" id="tab-popup" class="sidebar-tab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center gap-3 transition">
+            <svg class="w-4 h-4 flex-shrink-0 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+            <span class="flex-1">Popup Banner</span>
+            <span id="badge-popup-status" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">BẬT</span>
           </button>
 
           <button onclick="setTab('warranties')" id="tab-warranties" class="sidebar-tab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center gap-3 transition">
@@ -397,6 +418,29 @@
         </div>
       </div>
 
+      <!-- Panel Flash Sale -->
+      <div id="panel-flash-sale" class="hidden space-y-6">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>⚡ Quản Lý Chiến Dịch Flash Sale</span>
+                <span id="flash-sale-count-badge" class="px-2 py-0.5 rounded-full text-[10px] bg-rose-500/20 text-rose-300 font-bold">0 mục</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Cấu hình các deal Flash Sale hiển thị nổi bật trên trang chủ, số lượng và % giảm giá</p>
+            </div>
+            <button onclick="openFlashSaleModal()" class="px-4 py-2.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-rose-500/20 transition flex items-center justify-center gap-1.5 active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>+ Thêm Mục Flash Sale</span>
+            </button>
+          </div>
+
+          <div id="flash-sales-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Rendered by loadFlashSales() -->
+          </div>
+        </div>
+      </div>
+
       <div id="panel-warranties" class="hidden space-y-4">
         <div class="glass-card rounded-2xl p-5 border border-slate-800">
           <h3 class="text-sm font-bold text-white mb-1">Sổ Theo Dõi Hạn Bảo Hành</h3>
@@ -438,6 +482,227 @@
               <tbody id="audit-table-body" class="divide-y divide-slate-800/60 text-slate-300">
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-reviews" class="hidden space-y-5">
+        <!-- Review KPI Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="glass-card p-4 rounded-2xl border border-slate-800">
+            <span class="text-[11px] text-slate-400 block mb-1">Tổng lượt đánh giá</span>
+            <span id="rev-kpi-total" class="text-2xl font-black text-white">0</span>
+            <span class="text-[10px] text-slate-500 block mt-0.5">Từ khách hàng đã nhận acc</span>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-amber-500/30 bg-amber-950/20">
+            <span class="text-[11px] text-amber-300 block mb-1">Điểm đánh giá TB</span>
+            <span id="rev-kpi-avg" class="text-2xl font-black text-amber-400">5.0 ⭐</span>
+            <span class="text-[10px] text-amber-300/80 block mt-0.5">Uy tín chất lượng</span>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-emerald-500/30 bg-emerald-950/20">
+            <span class="text-[11px] text-emerald-300 block mb-1">Đánh giá 5 sao</span>
+            <span id="rev-kpi-5star" class="text-2xl font-black text-emerald-400">0</span>
+            <span class="text-[10px] text-emerald-300/80 block mt-0.5">Khách hài lòng tuyệt đối</span>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-slate-800">
+            <span class="text-[11px] text-slate-400 block mb-1">Đang hiển thị</span>
+            <span id="rev-kpi-approved" class="text-2xl font-black text-cyan-400">0</span>
+            <span class="text-[10px] text-slate-500 block mt-0.5">Hiển thị trên trang chủ</span>
+          </div>
+        </div>
+
+        <!-- Reviews Table -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white">Danh Sách Đánh Giá Từ Khách Hàng</h3>
+              <p class="text-xs text-slate-400">Xem phản hồi, duyệt hiển thị và gửi câu trả lời của Admin đến khách hàng</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-xl p-1">
+                <button type="button" onclick="setReviewFilter('all')" id="rev-filter-all" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white transition">Tất cả</button>
+                <button type="button" onclick="setReviewFilter('unreplied')" id="rev-filter-unreplied" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Chưa phản hồi (<span id="count-unreplied">0</span>)</button>
+                <button type="button" onclick="setReviewFilter('replied')" id="rev-filter-replied" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Đã phản hồi (<span id="count-replied">0</span>)</button>
+              </div>
+              <button onclick="loadReviews()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                <span>🔄 Làm mới</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Khách hàng</th>
+                  <th class="py-2.5 px-3">Mã đơn & Sản phẩm</th>
+                  <th class="py-2.5 px-3">Số sao</th>
+                  <th class="py-2.5 px-3">Nội dung nhận xét</th>
+                  <th class="py-2.5 px-3">Phản hồi của Admin</th>
+                  <th class="py-2.5 px-3 text-center">Trạng thái</th>
+                  <th class="py-2.5 px-3 text-right">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="reviews-table-body" class="divide-y divide-slate-800/60 text-slate-200">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup & Banner Management Panel -->
+      <div id="panel-popup" class="hidden space-y-5">
+        <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800 mb-5">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>📢 Cấu Hình Popup Banner Sự Kiện Trang Chủ</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Tạo popup banner khuyến mãi, thông báo bảo trì hoặc sự kiện với kích thước tùy chỉnh</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="popup-is-active" onchange="handlePopupToggle(this.checked)" class="sr-only peer">
+                <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                <span class="ml-2.5 text-xs font-bold text-slate-200" id="popup-status-label">Bật Popup</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Form Settings -->
+            <form onsubmit="handlePopupSave(event)" class="lg:col-span-7 space-y-4">
+              <input type="hidden" id="popup-id">
+              
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề sự kiện / Popup *</label>
+                <input type="text" id="popup-title" required oninput="updatePopupPreview()" placeholder="VD: 🔥 SIÊU SALE BÙNG NỔ - GIẢM ĐẾN 50%"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-fuchsia-500 font-bold">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Mô tả ngắn / Thông điệp nổi bật</label>
+                <textarea id="popup-subtitle" rows="2" oninput="updatePopupPreview()" placeholder="VD: Nâng cấp ChatGPT Plus, Canva Pro chính chủ với giá siêu hời hôm nay..."
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-300 focus:outline-none focus:border-fuchsia-500 leading-relaxed"></textarea>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-xs font-semibold text-slate-300">Đường dẫn ảnh Banner hoặc Tải lên từ máy *</label>
+                  <span class="text-[10px] text-fuchsia-400 font-medium">Hỗ trợ PNG, JPG, WebP, GIF</span>
+                </div>
+                <div class="flex gap-2">
+                  <input type="text" id="popup-image-url" required oninput="updatePopupPreview()" placeholder="https://domain.com/banner.jpg hoặc tải ảnh từ máy..."
+                    class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-fuchsia-500 font-mono">
+                  <label for="popup-image-file" class="cursor-pointer px-3.5 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600/30 to-indigo-600/30 hover:from-fuchsia-600/40 hover:to-indigo-600/40 border border-fuchsia-500/50 text-fuchsia-300 hover:text-white text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap active:scale-95 shadow-sm">
+                    <svg class="w-4 h-4 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span>📁 Tải ảnh lên</span>
+                    <input type="file" id="popup-image-file" accept="image/*" class="hidden" onchange="handlePopupImageFile(this)">
+                  </label>
+                </div>
+
+                <div id="popup-upload-status" class="hidden text-[11px] font-medium mt-1.5 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 animate-spin hidden text-cyan-400" id="popup-upload-spinner" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                  <span id="popup-upload-status-text"></span>
+                </div>
+                
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="text-[10px] text-slate-400 self-center">Hoặc chọn mẫu sẵn:</span>
+                  <button type="button" onclick="setQuickBannerPreset('sale')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-fuchsia-300 text-[10px] font-semibold border border-slate-700">🎨 Siêu Sale Gradient</button>
+                  <button type="button" onclick="setQuickBannerPreset('ai')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] font-semibold border border-slate-700">🤖 Công Cụ AI</button>
+                  <button type="button" onclick="setQuickBannerPreset('flash')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-rose-300 text-[10px] font-semibold border border-slate-700">⚡ Flash Deal Hot</button>
+                </div>
+              </div>
+
+              <!-- Banner Dimensions Customization -->
+              <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <label class="block text-xs font-bold text-white">
+                    📐 Tùy Chỉnh Kích Thước Banner
+                  </label>
+                  <span class="text-xs font-mono font-bold text-amber-400" id="popup-width-value">580 px</span>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-[11px] text-slate-400">Chiều rộng:</span>
+                    <input type="range" id="popup-width-slider" min="400" max="800" step="20" value="580" oninput="handleWidthSliderChange(this.value)" class="flex-1 accent-fuchsia-500">
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-500 px-1 mt-1">
+                    <span>Nhỏ (400px)</span>
+                    <span>Tiêu chuẩn (580px)</span>
+                    <span>Lớn (800px)</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="text-[10px] text-slate-400 self-center">Chọn nhanh:</span>
+                  <button type="button" onclick="setPopupWidthPreset(480)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Nhỏ 480px</button>
+                  <button type="button" onclick="setPopupWidthPreset(580)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Chuẩn 580px</button>
+                  <button type="button" onclick="setPopupWidthPreset(680)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Lớn 680px</button>
+                  <button type="button" onclick="setPopupWidthPreset(760)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Rộng 760px</button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Liên kết khi click Banner (URL)</label>
+                  <input type="text" id="popup-target-url" oninput="updatePopupPreview()" placeholder="VD: #flash-sale hoặc link Zalo"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-fuchsia-500 font-mono">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Văn bản nút bấm (CTA)</label>
+                  <input type="text" id="popup-cta-text" oninput="updatePopupPreview()" placeholder="VD: Khám Phá Ngay ⚡"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-fuchsia-500 font-semibold">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Tần suất hiển thị cho khách hàng</label>
+                <select id="popup-frequency" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-fuchsia-500">
+                  <option value="once_per_client">Chỉ hiển thị 1 lần duy nhất cho mỗi khách / IP (Khuyên dùng)</option>
+                  <option value="once_per_session">Chỉ hiển thị 1 lần mỗi phiên duyệt web</option>
+                  <option value="once_per_day">Chỉ hiển thị 1 lần mỗi ngày cho mỗi khách (tránh làm phiền)</option>
+                  <option value="always">Luôn hiển thị mỗi khi vào website (dành cho thông báo khẩn)</option>
+                </select>
+              </div>
+
+              <div class="pt-2 flex items-center justify-end gap-3">
+                <button type="submit" id="btn-save-popup" class="px-6 py-2.5 bg-gradient-to-r from-fuchsia-600 to-indigo-600 hover:from-fuchsia-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-fuchsia-600/30 transition flex items-center gap-1.5">
+                  ✓ Lưu Cấu Hình Popup Banner
+                </button>
+              </div>
+            </form>
+
+            <!-- Live Preview -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+              <div class="w-full flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  👁️ Xem trước hiển thị trên Web (Live Preview)
+                </span>
+                <span class="text-[10px] text-fuchsia-400 font-mono">Mô phỏng 1:1</span>
+              </div>
+
+              <div class="w-full bg-slate-950/80 rounded-2xl border border-slate-800 p-4 flex items-center justify-center min-h-[380px] shadow-inner relative overflow-hidden">
+                <!-- Mock Popup Box -->
+                <div id="preview-popup-box" class="w-full rounded-2xl overflow-hidden border border-slate-700 bg-slate-900 shadow-2xl relative transition-all duration-300" style="max-width: 320px;">
+                  <div class="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center text-xs backdrop-blur-sm cursor-pointer hover:bg-black/90">
+                    ✕
+                  </div>
+                  <div class="w-full bg-slate-950 overflow-hidden relative" style="aspect-ratio: 16/9;">
+                    <img id="preview-popup-img" src="" alt="Banner" class="w-full h-full object-cover">
+                  </div>
+                  <div class="p-3.5 space-y-1.5">
+                    <h4 id="preview-popup-title" class="text-xs font-black text-white leading-tight">Tiêu đề sự kiện</h4>
+                    <p id="preview-popup-subtitle" class="text-[10px] text-slate-300 line-clamp-2 leading-relaxed">Mô tả sự kiện hiển thị ở đây...</p>
+                    <button type="button" id="preview-popup-btn" class="mt-2 w-full py-1.5 bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-bold text-[10px] rounded-lg shadow">
+                      Xem Ngay
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-500 mt-2 text-center">Khách hàng sẽ nhìn thấy popup này khi truy cập vào trang chủ</span>
+            </div>
           </div>
         </div>
       </div>
@@ -679,6 +944,141 @@
     </div>
   </div>
 
+  <!-- Modal Flash Sale (Add / Edit) -->
+  <div id="modal-flash-sale" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="modal-flash-sale-title" class="text-base font-bold text-white flex items-center gap-2">
+          <span>⚡ Cấu Hình Flash Sale</span>
+        </h3>
+        <button onclick="closeFlashSaleModal()" class="text-slate-400 hover:text-white text-lg font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleSaveFlashSale(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="fs-id">
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Tiêu đề hiển thị Flash Sale *</label>
+          <input type="text" id="fs-title" required placeholder="VD: ChatGPT Plus 1 Tháng"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Liên kết Sản phẩm</label>
+            <select id="fs-product-id" onchange="handleFsProductChange()"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+              <option value="">-- Chọn sản phẩm --</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Gói dịch vụ liên kết</label>
+            <select id="fs-plan-id" onchange="handleFsPlanChange()"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+              <option value="">-- Chọn gói --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Giá gốc (đ)</label>
+            <input type="number" id="fs-original-price" required placeholder="VD: 440000"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Giá Flash Sale (đ) *</label>
+            <input type="number" id="fs-sale-price" required placeholder="VD: 220000"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold text-rose-400 focus:outline-none focus:border-rose-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Badge giảm giá</label>
+            <input type="text" id="fs-badge" placeholder="VD: -50%"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-amber-300 mb-1">Tổng suất phát hành</label>
+            <input type="number" id="fs-total-stock" oninput="syncStockDisplay()" min="1" placeholder="VD: 50"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="block font-semibold text-emerald-400 mb-1">Còn lại (Realtime) *</label>
+            <input type="number" id="fs-remaining-stock" oninput="syncStockDisplay()" min="0" placeholder="VD: 20"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold text-emerald-400 focus:outline-none focus:border-emerald-400">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Văn bản số lượng còn</label>
+            <input type="text" id="fs-stock" placeholder="VD: Còn 18 lượt"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Thanh tiến độ đã bán (%)</label>
+            <input type="number" id="fs-progress" min="5" max="100" placeholder="VD: 75"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Thứ tự hiển thị</label>
+          <input type="number" id="fs-order" placeholder="VD: 1"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="checkbox" id="fs-active" checked class="w-4 h-4 accent-rose-600 rounded">
+          <label for="fs-active" class="font-medium text-slate-300 cursor-pointer">Kích hoạt hiển thị mục Flash Sale này trên trang chủ</label>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeFlashSaleModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition">
+            Hủy
+          </button>
+          <button type="submit" id="btn-save-fs" class="px-5 py-2 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl shadow-lg transition">
+            Lưu Flash Sale
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Reply Review -->
+  <div id="modal-reply-review" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 rounded-3xl border border-slate-800 shadow-2xl relative">
+      <button onclick="closeReplyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
+      <h3 class="text-lg font-bold text-white mb-1">💬 Phản Hồi Đánh Giá Của Khách Hàng</h3>
+      <p class="text-xs text-slate-400 mb-3">Đơn hàng: <strong id="reply-review-order-code" class="text-amber-400"></strong> - Khách hàng: <span id="reply-review-customer" class="text-slate-300 font-semibold"></span></p>
+
+      <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 mb-3 text-xs">
+        <div class="flex items-center gap-2 mb-1">
+          <span id="reply-review-stars" class="text-amber-400 font-bold">⭐⭐⭐⭐⭐</span>
+          <span id="reply-review-product" class="text-cyan-400 font-semibold"></span>
+        </div>
+        <p id="reply-review-comment" class="text-slate-300 italic"></p>
+      </div>
+
+      <form onsubmit="handleReplySubmit(event)" class="space-y-3">
+        <input type="hidden" id="reply-review-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Nội dung phản hồi của Admin *</label>
+          <textarea id="reply-review-text" required rows="3" placeholder="Cảm ơn bạn đã tin tưởng ủng hộ shop! Chúc bạn có trải nghiệm tuyệt vời..."
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeReplyModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">Hủy</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-blue-600/30">
+            ✓ Lưu Phản Hồi
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="toast" class="fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900/95 backdrop-blur-md border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
     <div id="toast-icon-wrap" class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-500/20 text-blue-400">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -758,21 +1158,15 @@
       if (!passInput) return;
       if (passInput.type === 'password') {
         passInput.type = 'text';
-        if (passIcon) {
-          passIcon.classList.remove('fa-eye');
-          passIcon.classList.add('fa-eye-slash');
-        }
+        if (passIcon) passIcon.textContent = '🙈';
       } else {
         passInput.type = 'password';
-        if (passIcon) {
-          passIcon.classList.remove('fa-eye-slash');
-          passIcon.classList.add('fa-eye');
-        }
+        if (passIcon) passIcon.textContent = '👁️';
       }
     }
 
     async function handleAdminLogin(e) {
-      e.preventDefault();
+      if (e && e.preventDefault) e.preventDefault();
       const emailInput = document.getElementById('login-admin-email');
       const passInput = document.getElementById('login-admin-pass');
       const email = (emailInput?.value || '').trim().toLowerCase();
@@ -864,13 +1258,16 @@
 
     function setTab(tab) {
       currentTab = tab;
-      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'warranties', 'audit'];
+      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'warranties', 'audit'];
       
       const titles = {
         'dashboard': 'Tổng Quan Bảng Điều Khiển & Doanh Thu',
         'orders': 'Quản Lý Đơn Hàng & Bàn Giao',
         'inventory': 'Quản Lý Kho Hàng & Nhập Kho',
         'products': 'Quản Lý Sản Phẩm & Gói Dịch Vụ',
+        'flash-sale': 'Quản Lý Chiến Dịch Flash Sale',
+        'reviews': 'Quản Lý Đánh Giá & Phản Hồi Khách Hàng',
+        'popup': 'Quản Lý Popup Banner Sự Kiện Trang Chủ',
         'warranties': 'Sổ Bảo Hành & Hạn Dịch Vụ',
         'audit': 'Nhật Ký Bảo Mật (Audit Logs)'
       };
@@ -904,6 +1301,9 @@
       if (currentTab === 'orders') loadOrders();
       if (currentTab === 'inventory') loadInventory();
       if (currentTab === 'products') loadProducts();
+      if (currentTab === 'flash-sale') loadFlashSales();
+      if (currentTab === 'reviews') loadReviews();
+      if (currentTab === 'popup') loadPopupBanner();
       if (currentTab === 'warranties') loadWarranties();
       if (currentTab === 'audit') loadAuditLogs();
     }
@@ -993,6 +1393,10 @@
           allOrders = oRes.orders;
           renderDashboardRecentOrders(allOrders.slice(0, 5));
         }
+
+        // Preload review count & flash sales badge
+        loadReviews();
+        loadFlashSales();
       } catch (err) {
         console.error(err);
       }
@@ -1852,6 +2256,714 @@
       } catch (err) {
         showToast(err.message, 'error');
       }
+    }
+
+    let allFlashSales = [];
+
+    async function loadFlashSales() {
+      try {
+        const res = await adminApi('flash-sales');
+        const container = document.getElementById('flash-sales-list');
+        const badge = document.getElementById('flash-sale-count-badge');
+        const sideBadge = document.getElementById('badge-flash-sales');
+
+        if (res.success && Array.isArray(res.flash_sales)) {
+          allFlashSales = res.flash_sales;
+          const activeCount = allFlashSales.filter(f => f.is_active).length;
+          if (badge) badge.textContent = `${activeCount} đang chạy / ${allFlashSales.length} tổng`;
+          if (sideBadge) sideBadge.textContent = activeCount;
+
+          if (!container) return;
+          if (allFlashSales.length === 0) {
+            container.innerHTML = `
+              <div class="col-span-full p-8 text-center text-slate-500 text-xs">
+                Chưa có deal Flash Sale nào. Hãy bấm "+ Thêm Mục Flash Sale" để tạo!
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = allFlashSales.map(item => `
+            <div class="rounded-2xl p-4 border ${item.is_active ? 'border-rose-500/40 bg-slate-900/90' : 'border-slate-800 bg-slate-950/60 opacity-70'} flex flex-col justify-between space-y-3 transition hover:border-rose-400">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-700/80 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <img src="${escapeHtml(item.product_logo || item.logo_url || '')}" class="w-full h-full object-contain" onerror="this.parentElement.textContent='VIP'">
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500 text-white">${escapeHtml(item.badge || '-50%')}</span>
+                      <span class="text-[10px] font-mono text-slate-400">#${item.sort_order || 0}</span>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-white mt-1">${escapeHtml(item.title)}</h4>
+                    <p class="text-[11px] text-slate-400">${escapeHtml(item.product_name || 'Tự do')} • ${escapeHtml(item.plan_name || 'Gói mặc định')}</p>
+                  </div>
+                </div>
+                <div>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.is_active ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+                    ${item.is_active ? 'Đang chạy' : 'Tạm dừng'}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5 text-xs">
+                <div class="flex items-baseline justify-between">
+                  <span class="text-rose-400 font-extrabold text-base font-mono">${(Number(item.sale_price) || 0).toLocaleString('vi-VN')} đ</span>
+                  <span class="text-slate-500 line-through text-xs font-mono">${(Number(item.original_price) || 0).toLocaleString('vi-VN')} đ</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-gradient-to-r from-amber-500 to-rose-500 h-1.5 rounded-full" style="width: ${item.progress_percent || 70}%"></div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400">
+                  <span class="font-semibold text-emerald-400">🔥 ${escapeHtml(item.stock_text || `Còn ${item.remaining_stock ?? 20} lượt`)} <span class="text-slate-400 font-mono">(${item.remaining_stock ?? 20}/${item.total_stock ?? 50})</span></span>
+                  <span>Đã bán: ${item.progress_percent || 70}%</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-1.5 pt-2 border-t border-slate-800 text-xs">
+                <button onclick="toggleFlashSale('${item.id}', ${item.is_active})" class="px-2.5 py-1 rounded-lg ${item.is_active ? 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-300' : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300'} font-bold transition">
+                  ${item.is_active ? 'Tạm Dừng' : 'Kích Hoạt'}
+                </button>
+                <button onclick="openFlashSaleModal('${item.id}')" class="px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 font-bold transition">
+                  Sửa
+                </button>
+                <button onclick="deleteFlashSale('${item.id}', '${escapeJs(item.title)}')" class="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 font-bold transition">
+                  Xóa
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('loadFlashSales error:', err);
+      }
+    }
+
+    function syncStockDisplay() {
+      const total = Number(document.getElementById('fs-total-stock').value) || 50;
+      const rem = Number(document.getElementById('fs-remaining-stock').value) || 0;
+      document.getElementById('fs-stock').value = `Còn ${rem} lượt`;
+      const pct = Math.min(98, Math.max(5, Math.round(((total - rem) / Math.max(1, total)) * 100)));
+      document.getElementById('fs-progress').value = pct;
+    }
+
+    async function openFlashSaleModal(fsId = null) {
+      if (allProducts.length === 0) {
+        try {
+          const res = await adminApi('products-plans');
+          if (res.success) {
+            allProducts = res.products || [];
+            allPlans = res.plans || [];
+          }
+        } catch (e) {}
+      }
+
+      // Populate products select
+      const prodSelect = document.getElementById('fs-product-id');
+      if (prodSelect) {
+        prodSelect.innerHTML = '<option value="">-- Chọn sản phẩm liên kết --</option>' +
+          allProducts.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+      }
+
+      const modal = document.getElementById('modal-flash-sale');
+      const titleEl = document.getElementById('modal-flash-sale-title');
+
+      if (fsId) {
+        const item = allFlashSales.find(f => f.id === fsId);
+        if (!item) return;
+        if (titleEl) titleEl.innerHTML = `<span>⚡ Sửa Flash Sale: ${escapeHtml(item.title)}</span>`;
+        document.getElementById('fs-id').value = item.id;
+        document.getElementById('fs-title').value = item.title;
+        document.getElementById('fs-product-id').value = item.product_id || '';
+        handleFsProductChange(item.plan_id);
+        document.getElementById('fs-original-price').value = item.original_price || '';
+        document.getElementById('fs-sale-price').value = item.sale_price || '';
+        document.getElementById('fs-badge').value = item.badge || '-50%';
+        document.getElementById('fs-total-stock').value = item.total_stock || 50;
+        document.getElementById('fs-remaining-stock').value = item.remaining_stock !== undefined ? item.remaining_stock : 20;
+        document.getElementById('fs-stock').value = item.stock_text || `Còn ${item.remaining_stock ?? 20} lượt`;
+        document.getElementById('fs-progress').value = item.progress_percent || 70;
+        document.getElementById('fs-order').value = item.sort_order || 0;
+        document.getElementById('fs-active').checked = item.is_active !== false;
+      } else {
+        if (titleEl) titleEl.innerHTML = `<span>⚡ Thêm Mới Flash Sale</span>`;
+        document.getElementById('fs-id').value = '';
+        document.getElementById('fs-title').value = '';
+        document.getElementById('fs-product-id').value = '';
+        handleFsProductChange();
+        document.getElementById('fs-original-price').value = '';
+        document.getElementById('fs-sale-price').value = '';
+        document.getElementById('fs-badge').value = '-50%';
+        document.getElementById('fs-total-stock').value = 50;
+        document.getElementById('fs-remaining-stock').value = 20;
+        document.getElementById('fs-stock').value = 'Còn 20 lượt';
+        document.getElementById('fs-progress').value = 60;
+        document.getElementById('fs-order').value = allFlashSales.length + 1;
+        document.getElementById('fs-active').checked = true;
+      }
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeFlashSaleModal() {
+      const modal = document.getElementById('modal-flash-sale');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleFsProductChange(selectedPlanId = null) {
+      const prodId = document.getElementById('fs-product-id').value;
+      const planSelect = document.getElementById('fs-plan-id');
+      if (!planSelect) return;
+
+      const filteredPlans = allPlans.filter(pl => pl.product_id === prodId);
+      planSelect.innerHTML = '<option value="">-- Chọn gói giá liên kết --</option>' +
+        filteredPlans.map(pl => `<option value="${pl.id}" data-price="${pl.price}">${escapeHtml(pl.name)} (${(pl.price || 0).toLocaleString('vi-VN')} đ)</option>`).join('');
+
+      if (selectedPlanId) {
+        planSelect.value = selectedPlanId;
+      }
+    }
+
+    function handleFsPlanChange() {
+      const planSelect = document.getElementById('fs-plan-id');
+      const selectedOption = planSelect.options[planSelect.selectedIndex];
+      if (selectedOption && selectedOption.dataset.price) {
+        const curPrice = Number(selectedOption.dataset.price);
+        const origPriceInput = document.getElementById('fs-original-price');
+        const salePriceInput = document.getElementById('fs-sale-price');
+        if (!origPriceInput.value) origPriceInput.value = curPrice;
+        if (!salePriceInput.value) salePriceInput.value = Math.round(curPrice * 0.7);
+      }
+    }
+
+    async function handleSaveFlashSale(e) {
+      e.preventDefault();
+      const id = document.getElementById('fs-id').value;
+      const title = document.getElementById('fs-title').value.trim();
+      const product_id = document.getElementById('fs-product-id').value || null;
+      const plan_id = document.getElementById('fs-plan-id').value || null;
+      const original_price = Number(document.getElementById('fs-original-price').value) || 0;
+      const sale_price = Number(document.getElementById('fs-sale-price').value) || 0;
+      const badge = document.getElementById('fs-badge').value.trim() || '-50%';
+      const total_stock = Number(document.getElementById('fs-total-stock').value) || 50;
+      const remaining_stock = Number(document.getElementById('fs-remaining-stock').value) || 0;
+      const stock_text = document.getElementById('fs-stock').value.trim() || `Còn ${remaining_stock} lượt`;
+      const progress_percent = Number(document.getElementById('fs-progress').value) || 70;
+      const sort_order = Number(document.getElementById('fs-order').value) || 0;
+      const is_active = document.getElementById('fs-active').checked;
+
+      const btn = document.getElementById('btn-save-fs');
+      if (btn) btn.disabled = true;
+
+      try {
+        const res = await adminApi('save-flash-sale', 'POST', {
+          id: id || undefined,
+          product_id,
+          plan_id,
+          title,
+          original_price,
+          sale_price,
+          badge,
+          total_stock,
+          remaining_stock,
+          stock_text,
+          progress_percent,
+          sort_order,
+          is_active
+        });
+
+        if (res.success) {
+          showToast(res.message || 'Đã lưu Flash Sale thành công!', 'success');
+          closeFlashSaleModal();
+          loadFlashSales();
+        } else {
+          showToast(res.error || 'Không thể lưu Flash Sale!', 'error');
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function toggleFlashSale(id, currentStatus) {
+      try {
+        const res = await adminApi('toggle-flash-sale', 'POST', { id, is_active: !currentStatus });
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadFlashSales();
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function deleteFlashSale(id, title) {
+      if (!confirm(`Bạn có chắc muốn xóa mục Flash Sale: "${title}" không?`)) return;
+      try {
+        const res = await adminApi('delete-flash-sale', 'POST', { id });
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadFlashSales();
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    // ==========================================
+    // REVIEWS MANAGEMENT
+    // ==========================================
+    let allReviews = [];
+    let currentReviewFilter = 'all';
+
+    async function loadReviews() {
+      try {
+        const res = await adminApi('list-reviews');
+        if (res.success && Array.isArray(res.reviews)) {
+          allReviews = res.reviews;
+          renderReviewsKPI(allReviews);
+
+          const unrepliedCount = allReviews.filter(r => !r.admin_reply).length;
+          const repliedCount = allReviews.filter(r => r.admin_reply).length;
+          const unEl = document.getElementById('count-unreplied');
+          const reEl = document.getElementById('count-replied');
+          if (unEl) unEl.textContent = unrepliedCount;
+          if (reEl) reEl.textContent = repliedCount;
+
+          setReviewFilter(currentReviewFilter);
+          const badge = document.getElementById('badge-reviews-count');
+          if (badge) badge.textContent = allReviews.length;
+        }
+      } catch (err) {
+        showToast(err.message || 'Không thể tải danh sách đánh giá', 'error');
+      }
+    }
+
+    function setReviewFilter(filter) {
+      currentReviewFilter = filter;
+      ['all', 'unreplied', 'replied'].forEach(f => {
+        const btn = document.getElementById(`rev-filter-${f}`);
+        if (btn) {
+          if (f === filter) {
+            btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white transition';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition';
+          }
+        }
+      });
+
+      let filtered = allReviews;
+      if (filter === 'unreplied') filtered = allReviews.filter(r => !r.admin_reply);
+      if (filter === 'replied') filtered = allReviews.filter(r => r.admin_reply);
+
+      renderReviewsTable(filtered);
+    }
+
+    function renderReviewsKPI(reviews) {
+      const total = reviews.length;
+      const approved = reviews.filter(r => r.is_approved).length;
+      const stars5 = reviews.filter(r => Number(r.rating) === 5).length;
+      const sumStars = reviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
+      const avg = total > 0 ? (sumStars / total).toFixed(1) : '5.0';
+
+      const elTotal = document.getElementById('rev-kpi-total');
+      const elAvg = document.getElementById('rev-kpi-avg');
+      const el5star = document.getElementById('rev-kpi-5star');
+      const elApproved = document.getElementById('rev-kpi-approved');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elAvg) elAvg.textContent = `${avg} ⭐`;
+      if (el5star) el5star.textContent = stars5;
+      if (elApproved) elApproved.textContent = approved;
+    }
+
+    function renderReviewsTable(reviews) {
+      const tbody = document.getElementById('reviews-table-body');
+      if (!tbody) return;
+
+      if (reviews.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-8 text-center text-slate-500 italic">
+              Chưa có đánh giá nào phù hợp với bộ lọc.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = reviews.map(r => {
+        const stars = '⭐'.repeat(Math.max(1, Math.min(5, Number(r.rating) || 5)));
+        const isApproved = Boolean(r.is_approved);
+        const hasReply = Boolean(r.admin_reply);
+        const replyText = hasReply ? escapeHtml(r.admin_reply) : '<span class="text-slate-500 italic">Chưa phản hồi</span>';
+
+        return `
+          <tr class="hover:bg-slate-900/60 transition group">
+            <td class="py-3 px-3">
+              <strong class="text-white font-semibold block">${escapeHtml(r.customer_name || 'Khách hàng')}</strong>
+              <span class="text-[10px] text-slate-400 font-mono block">${escapeHtml(r.customer_phone || r.customer_email || 'Ẩn liên hệ')}</span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="font-mono text-amber-400 font-bold block">${escapeHtml(r.order_code || '---')}</span>
+              <span class="text-[11px] text-cyan-300 block truncate max-w-[150px]">${escapeHtml(r.product_name || r.plan_name || 'Gói bản quyền')}</span>
+            </td>
+            <td class="py-3 px-3 whitespace-nowrap">
+              <span class="text-sm font-bold text-amber-400">${stars}</span>
+              <span class="text-[10px] text-slate-400 block">${r.rating}/5 sao</span>
+            </td>
+            <td class="py-3 px-3 max-w-[220px]">
+              <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed" title="${escapeHtml(r.comment || '')}">
+                ${escapeHtml(r.comment || 'Không có bình luận')}
+              </p>
+              <span class="text-[9px] text-slate-500 block mt-1">${r.created_at ? new Date(r.created_at).toLocaleString('vi-VN') : ''}</span>
+            </td>
+            <td class="py-3 px-3 max-w-[200px]">
+              <div class="text-[11px] leading-relaxed p-2 rounded-lg border ${hasReply ? 'text-emerald-300 bg-emerald-950/20 border-emerald-800/40' : 'text-slate-400 bg-slate-900/80 border-slate-800'} line-clamp-2">
+                ${replyText}
+              </div>
+            </td>
+            <td class="py-3 px-3 text-center">
+              <button onclick="toggleReviewStatus('${r.id}', ${isApproved})"
+                class="px-2.5 py-1 rounded-full text-[10px] font-bold transition border ${isApproved ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/30' : 'bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700'}">
+                ${isApproved ? '✓ Đang hiển thị' : '✕ Đang ẩn'}
+              </button>
+            </td>
+            <td class="py-3 px-3 text-right whitespace-nowrap">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openReplyModal('${r.id}')"
+                  class="px-2.5 py-1 ${hasReply ? 'bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border-emerald-500/30' : 'bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 border-blue-500/30'} rounded-lg text-[11px] font-semibold border transition flex items-center gap-1">
+                  ${hasReply ? '✏️ Sửa phản hồi' : '💬 Phản hồi'}
+                </button>
+                <button onclick="deleteReview('${r.id}', '${escapeJs(r.customer_name)}')"
+                  class="p-1 text-slate-500 hover:text-rose-400 hover:bg-rose-950/30 rounded-lg transition" title="Xóa đánh giá">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleReviewStatus(id, currentApproved) {
+      try {
+        const res = await adminApi('toggle-review', 'POST', { id, is_approved: !currentApproved });
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadReviews();
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    function openReplyModal(id) {
+      const r = allReviews.find(item => item.id === id);
+      if (!r) return;
+
+      document.getElementById('reply-review-id').value = r.id;
+      document.getElementById('reply-review-order-code').textContent = r.order_code || '---';
+      document.getElementById('reply-review-customer').textContent = r.customer_name || 'Khách hàng';
+      document.getElementById('reply-review-stars').textContent = '⭐'.repeat(Math.max(1, Math.min(5, Number(r.rating) || 5)));
+      document.getElementById('reply-review-product').textContent = r.product_name ? `• ${r.product_name}` : '';
+      document.getElementById('reply-review-comment').textContent = `"${r.comment || ''}"`;
+      document.getElementById('reply-review-text').value = r.admin_reply || '';
+
+      document.getElementById('modal-reply-review').classList.remove('hidden');
+    }
+
+    function closeReplyModal() {
+      document.getElementById('modal-reply-review').classList.add('hidden');
+    }
+
+    async function handleReplySubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('reply-review-id').value;
+      const reply = document.getElementById('reply-review-text').value.trim();
+      if (!id) return;
+
+      try {
+        const res = await adminApi('reply-review', 'POST', { id, reply });
+        if (res.success) {
+          showToast(res.message || 'Đã lưu phản hồi thành công!', 'success');
+          closeReplyModal();
+          await loadReviews();
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function deleteReview(id, customer) {
+      if (!confirm(`Bạn có chắc muốn xóa đánh giá của khách hàng "${customer}" không?`)) return;
+      try {
+        const res = await adminApi('delete-review', 'POST', { id });
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadReviews();
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    // ==========================================
+    // POPUP & BANNER MANAGEMENT
+    // ==========================================
+    let currentPopup = null;
+
+    async function handlePopupImageFile(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+
+      // Tối đa 5MB
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('Kích thước ảnh quá lớn, vui lòng chọn file dưới 5MB', 'error');
+        input.value = '';
+        return;
+      }
+
+      const statusEl = document.getElementById('popup-upload-status');
+      const statusText = document.getElementById('popup-upload-status-text');
+      const spinner = document.getElementById('popup-upload-spinner');
+
+      if (statusEl) {
+        statusEl.classList.remove('hidden');
+        statusEl.className = 'text-[11px] text-cyan-400 font-medium mt-1.5 flex items-center gap-1.5';
+      }
+      if (spinner) spinner.classList.remove('hidden');
+      if (statusText) statusText.textContent = `Đang tải ảnh "${file.name}" (${Math.round(file.size / 1024)} KB)...`;
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const base64Data = e.target.result;
+        const urlInput = document.getElementById('popup-image-url');
+        if (urlInput) urlInput.value = base64Data;
+        updatePopupPreview();
+
+        try {
+          const res = await adminApi('upload-image', 'POST', {
+            data_url: base64Data,
+            filename: file.name
+          });
+
+          if (res.success && res.url) {
+            if (urlInput) urlInput.value = res.url;
+            updatePopupPreview();
+            if (statusEl) {
+              statusEl.className = 'text-[11px] text-emerald-400 font-medium mt-1.5 flex items-center gap-1.5';
+            }
+            if (spinner) spinner.classList.add('hidden');
+            if (statusText) statusText.textContent = `✓ Đã tải ảnh lên: ${res.url}`;
+            showToast('Tải ảnh banner lên thành công!', 'success');
+          } else {
+            throw new Error(res.error || 'Lỗi khi lưu ảnh');
+          }
+        } catch (err) {
+          console.warn('Lưu ảnh server không thành công, giữ dữ liệu trực tiếp:', err);
+          if (statusEl) {
+            statusEl.className = 'text-[11px] text-amber-400 font-medium mt-1.5 flex items-center gap-1.5';
+          }
+          if (spinner) spinner.classList.add('hidden');
+          if (statusText) statusText.textContent = `Đã nạp ảnh trực tiếp (${Math.round(file.size / 1024)} KB)`;
+          showToast('Đã nạp ảnh từ máy tính!', 'success');
+        } finally {
+          input.value = '';
+        }
+      };
+
+      reader.onerror = function() {
+        showToast('Lỗi khi đọc file ảnh', 'error');
+        if (statusEl) statusEl.classList.add('hidden');
+        input.value = '';
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    async function loadPopupBanner() {
+      try {
+        const res = await adminApi('get-popup');
+        if (res.success && res.popup) {
+          currentPopup = res.popup;
+          populatePopupForm(currentPopup);
+        } else {
+          currentPopup = {
+            title: '🔥 SIÊU SALE BÙNG NỔ - GIẢM ĐẾN 50%',
+            subtitle: 'Nâng cấp ChatGPT Plus, Canva Pro chính chủ với giá siêu hời hôm nay!',
+            image_url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80',
+            target_url: '#flash-sale',
+            cta_text: 'Khám Phá Ngay ⚡',
+            banner_width: 580,
+            is_active: false,
+            display_frequency: 'once_per_client'
+          };
+          populatePopupForm(currentPopup);
+        }
+      } catch (err) {
+        showToast(err.message || 'Không thể tải cấu hình Popup', 'error');
+      }
+    }
+
+    function populatePopupForm(p) {
+      document.getElementById('popup-id').value = p.id || '';
+      document.getElementById('popup-title').value = p.title || '';
+      document.getElementById('popup-subtitle').value = p.subtitle || '';
+      document.getElementById('popup-image-url').value = p.image_url || '';
+      document.getElementById('popup-target-url').value = p.target_url || '';
+      document.getElementById('popup-cta-text').value = p.cta_text || 'Khám Phá Ngay ⚡';
+      document.getElementById('popup-frequency').value = p.display_frequency || 'once_per_client';
+
+      const width = p.banner_width || 580;
+      setPopupWidthPreset(width);
+
+      const chk = document.getElementById('popup-is-active');
+      if (chk) {
+        chk.checked = Boolean(p.is_active);
+        updatePopupStatusUI(p.is_active);
+      }
+
+      updatePopupPreview();
+    }
+
+    function updatePopupStatusUI(isActive) {
+      const lbl = document.getElementById('popup-status-label');
+      if (lbl) {
+        lbl.textContent = isActive ? 'Popup Đang BẬT' : 'Popup Đang TẮT';
+        lbl.className = `ml-2.5 text-xs font-bold ${isActive ? 'text-emerald-400' : 'text-slate-400'}`;
+      }
+      const badge = document.getElementById('badge-popup-status');
+      if (badge) {
+        badge.textContent = isActive ? 'BẬT' : 'TẮT';
+        badge.className = isActive
+          ? 'bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto'
+          : 'bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto';
+      }
+    }
+
+    async function handlePopupToggle(checked) {
+      const id = document.getElementById('popup-id').value;
+      updatePopupStatusUI(checked);
+      try {
+        const res = await adminApi('toggle-popup', 'POST', { id, is_active: checked });
+        if (res.success) {
+          showToast(res.message, 'success');
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    function handleWidthSliderChange(val) {
+      setPopupWidthPreset(Number(val));
+    }
+
+    function setPopupWidthPreset(width) {
+      const slider = document.getElementById('popup-width-slider');
+      const valLabel = document.getElementById('popup-width-value');
+      if (slider) slider.value = width;
+      if (valLabel) valLabel.textContent = `${width} px`;
+
+      const box = document.getElementById('preview-popup-box');
+      if (box) {
+        const scaleWidth = Math.min(380, Math.round(width * 0.58));
+        box.style.maxWidth = `${scaleWidth}px`;
+      }
+    }
+
+    function setQuickBannerPreset(key) {
+      const presets = {
+        'sale': {
+          title: '🔥 ĐẠI TIỆC SIÊU SALE - ƯU ĐÃI ĐẾN 50%',
+          subtitle: 'Giảm giá cực sốc toàn bộ tài khoản ChatGPT Plus, Canva Pro, CapCut Pro VIP duy nhất tuần này!',
+          image_url: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80',
+          target_url: '#flash-sale',
+          cta_text: 'Săn Deal Ngay ⚡',
+          width: 580
+        },
+        'ai': {
+          title: '🤖 NÂNG CẤP BỘ CÔNG CỤ AI BẢN QUYỀN 2026',
+          subtitle: 'Mở khóa Claude 3.5 Sonnet, ChatGPT Plus, Gemini Advanced, Midjourney phục vụ công việc và học tập đỉnh cao.',
+          image_url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80',
+          target_url: '#products-grid',
+          cta_text: 'Xem Bảng Giá AI &rarr;',
+          width: 600
+        },
+        'flash': {
+          title: '⚡ FLASH SALE CHỚP NHOÁNG - CHỈ CÒN VÀI SUẤT',
+          subtitle: 'Số lượng tài khoản ưu đãi có hạn và sẽ tự động đóng khi hết suất. Đặt đơn ngay kẻo lỡ!',
+          image_url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&q=80',
+          target_url: '#flash-sale',
+          cta_text: 'Mua Ngay Kẻo Lỡ',
+          width: 560
+        }
+      };
+
+      const p = presets[key];
+      if (!p) return;
+      document.getElementById('popup-title').value = p.title;
+      document.getElementById('popup-subtitle').value = p.subtitle;
+      document.getElementById('popup-image-url').value = p.image_url;
+      document.getElementById('popup-target-url').value = p.target_url;
+      document.getElementById('popup-cta-text').value = p.cta_text;
+      setPopupWidthPreset(p.width);
+      updatePopupPreview();
+    }
+
+    function updatePopupPreview() {
+      const title = document.getElementById('popup-title')?.value || 'Tiêu đề sự kiện';
+      const subtitle = document.getElementById('popup-subtitle')?.value || 'Mô tả sự kiện hiển thị ở đây...';
+      const imgUrl = document.getElementById('popup-image-url')?.value || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80';
+      const cta = document.getElementById('popup-cta-text')?.value || 'Khám Phá Ngay ⚡';
+
+      const pTitle = document.getElementById('preview-popup-title');
+      const pSub = document.getElementById('preview-popup-subtitle');
+      const pImg = document.getElementById('preview-popup-img');
+      const pBtn = document.getElementById('preview-popup-btn');
+
+      if (pTitle) pTitle.textContent = title;
+      if (pSub) pSub.textContent = subtitle;
+      if (pImg) pImg.src = imgUrl;
+      if (pBtn) pBtn.textContent = cta;
+    }
+
+    async function handlePopupSave(e) {
+      e.preventDefault();
+      const id = document.getElementById('popup-id').value;
+      const title = document.getElementById('popup-title').value.trim();
+      const subtitle = document.getElementById('popup-subtitle').value.trim();
+      const image_url = document.getElementById('popup-image-url').value.trim();
+      const target_url = document.getElementById('popup-target-url').value.trim();
+      const cta_text = document.getElementById('popup-cta-text').value.trim();
+      const banner_width = parseInt(document.getElementById('popup-width-slider').value, 10) || 580;
+      const display_frequency = document.getElementById('popup-frequency').value;
+      const is_active = document.getElementById('popup-is-active').checked;
+
+      const btn = document.getElementById('btn-save-popup');
+      if (btn) btn.disabled = true;
+
+      try {
+        const res = await adminApi('save-popup', 'POST', {
+          id, title, subtitle, image_url, target_url, cta_text, banner_width, is_active, display_frequency
+        });
+        if (res.success) {
+          showToast(res.message || 'Đã lưu cấu hình Popup thành công!', 'success');
+          loadPopupBanner();
+        } else {
+          showToast(res.error || 'Không thể lưu Popup', 'error');
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
     }
 
     function renderStatusBadge(status) {
