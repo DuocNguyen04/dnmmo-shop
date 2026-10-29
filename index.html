@@ -469,30 +469,88 @@
       color: #2563eb !important;
     }
 
-    /* Mobile Drawer & User Account Dropdown in Light Mode */
-    body.theme-light #mobile-nav-drawer {
-      background-color: rgba(255, 255, 255, 0.98) !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12) !important;
+    /* ====================================================
+       GLOBAL MOBILE OVERFLOW CONTROL
+       ==================================================== */
+    html, body {
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      width: 100% !important;
+      position: relative !important;
     }
-    body.theme-light #mobile-nav-drawer .drawer-nav-btn {
-      background-color: #f8fafc !important;
-      border-color: #e2e8f0 !important;
-      color: #1e293b !important;
+
+    /* ====================================================
+       USER ACCOUNT DROPDOWN - SOLID THEME STYLING
+       ==================================================== */
+    /* Base Dark Mode Styling (Default) */
+    #user-account-dropdown {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.5rem;
+      width: 17rem; /* 272px */
+      background-color: #0b1120 !important; /* 100% solid dark slate, NEVER transparent */
+      border: 1px solid #1e293b !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+      z-index: 60 !important;
     }
-    body.theme-light #mobile-nav-drawer .drawer-nav-btn:hover {
-      background-color: #eff6ff !important;
-      border-color: #bfdbfe !important;
-      color: #1d4ed8 !important;
+    #user-account-dropdown .user-dropdown-info-card {
+      background-color: #0f172a !important;
+      border: 1px solid #1e293b !important;
     }
+    #user-dropdown-name {
+      color: #f8fafc !important;
+    }
+    #user-dropdown-email {
+      color: #94a3b8 !important;
+    }
+    #user-account-dropdown button,
+    #user-account-dropdown a {
+      color: #cbd5e1 !important;
+    }
+    #user-account-dropdown button:hover,
+    #user-account-dropdown a:hover {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+    }
+    #user-account-dropdown .user-dropdown-divider {
+      border-color: #1e293b !important;
+    }
+
+    /* Mobile Responsive Positioning (< 640px) */
+    @media (max-width: 639px) {
+      #user-account-dropdown {
+        position: fixed !important;
+        top: 60px !important;
+        right: 10px !important;
+        left: auto !important;
+        width: calc(100vw - 20px) !important;
+        max-width: 310px !important;
+        margin-top: 0 !important;
+      }
+    }
+
+    /* Light Mode Styling */
     body.theme-light #user-account-dropdown {
       background-color: #ffffff !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.15) !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
     }
     body.theme-light #user-account-dropdown .user-dropdown-info-card {
       background-color: #f8fafc !important;
-      border-color: #e2e8f0 !important;
+      border: 1px solid #e2e8f0 !important;
+    }
+    body.theme-light #user-dropdown-name {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+    body.theme-light #user-dropdown-email {
+      color: #64748b !important;
+    }
+    body.theme-light #user-dropdown-role-badge {
+      background-color: #e0f2fe !important;
+      border-color: #bae6fd !important;
+      color: #0369a1 !important;
     }
     body.theme-light #user-account-dropdown button,
     body.theme-light #user-account-dropdown a {
@@ -501,6 +559,10 @@
     body.theme-light #user-account-dropdown button:hover,
     body.theme-light #user-account-dropdown a:hover {
       background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #user-account-dropdown .user-dropdown-divider {
+      border-color: #e2e8f0 !important;
     }
     body.theme-light #user-profile-btn {
       background-color: #ffffff !important;
@@ -514,6 +576,39 @@
       background-color: #ffffff !important;
       border-color: #cbd5e1 !important;
       color: #0f172a !important;
+    }
+
+    /* Mobile Drawer Base (Dark Mode) */
+    #mobile-nav-drawer {
+      background-color: #0b1120 !important;
+      border-top: 1px solid #1e293b !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;
+    }
+    #mobile-nav-drawer .drawer-nav-btn {
+      background-color: #0f172a !important;
+      border: 1px solid #1e293b !important;
+      color: #e2e8f0 !important;
+    }
+    #mobile-nav-drawer .drawer-nav-btn:hover {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+    }
+
+    /* Mobile Drawer (Light Mode) */
+    body.theme-light #mobile-nav-drawer {
+      background-color: #ffffff !important;
+      border-top: 1px solid #e2e8f0 !important;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12) !important;
+    }
+    body.theme-light #mobile-nav-drawer .drawer-nav-btn {
+      background-color: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+    body.theme-light #mobile-nav-drawer .drawer-nav-btn:hover {
+      background-color: #eff6ff !important;
+      border-color: #bfdbfe !important;
+      color: #1d4ed8 !important;
     }
 
     .scrollbar-none::-webkit-scrollbar { display: none; }
@@ -534,7 +629,7 @@
 </head>
 <body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white pb-20 lg:pb-0">
 
-  <div class="top-announcement-bar bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 py-1 sm:py-1.5 px-3 sm:px-4 text-[11px] sm:text-xs font-medium text-slate-300 border-b border-cyan-500/20">
+  <div class="top-announcement-bar bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 py-1 sm:py-1.5 px-3 sm:px-4 text-[11px] sm:text-xs font-medium text-slate-300 border-b border-cyan-500/20 overflow-hidden w-full">
     <div class="container mx-auto max-w-7xl flex items-center justify-between gap-2 sm:gap-3">
       <div class="flex items-center gap-1.5 sm:gap-2 truncate">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
@@ -550,13 +645,13 @@
     </div>
   </div>
 
-  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-cyan-500/20 shadow-lg">
-    <div class="container mx-auto max-w-7xl px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
-      <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
-        <img src="logo.png" alt="DNMMO" class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform border border-cyan-500/40 bg-black flex-shrink-0">
-        <div class="flex flex-col">
-          <span class="site-brand-text font-black text-base sm:text-xl tracking-tight block leading-tight">DNMMO</span>
-          <span class="site-brand-sub text-[8px] sm:text-[10px] font-bold uppercase tracking-wider block leading-tight">Dịch Vụ Phần Mềm & AI</span>
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-cyan-500/20 shadow-lg w-full">
+    <div class="container mx-auto max-w-7xl px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-4">
+      <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2 sm:gap-2.5 group min-w-0 flex-shrink">
+        <img src="logo.png" alt="DNMMO" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-contain shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform border border-cyan-500/40 bg-black flex-shrink-0">
+        <div class="flex flex-col min-w-0">
+          <span class="site-brand-text font-black text-base sm:text-lg tracking-tight block leading-tight truncate">DNMMO</span>
+          <span class="site-brand-sub text-[8px] sm:text-[9px] font-bold uppercase tracking-wider block leading-tight truncate hidden xs:block">Dịch Vụ Phần Mềm & AI</span>
         </div>
       </a>
 
@@ -576,20 +671,20 @@
         </button>
       </nav>
 
-      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-        <div id="theme-toggle-btn" onclick="toggleTheme()" role="button" tabindex="0" class="theme-toggle-pill cursor-pointer inline-flex items-center p-0.5 rounded-full border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 transition shadow-sm whitespace-nowrap select-none active:scale-95" title="Bấm để chuyển đổi Giao diện Sáng / Tối">
-          <span id="theme-pill-light" class="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-full text-xs font-bold transition">
+      <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+        <div id="theme-toggle-btn" onclick="toggleTheme()" role="button" tabindex="0" class="theme-toggle-pill cursor-pointer inline-flex items-center p-0.5 rounded-full border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 transition shadow-sm whitespace-nowrap select-none active:scale-95 flex-shrink-0" title="Bấm để chuyển đổi Giao diện Sáng / Tối">
+          <span id="theme-pill-light" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-bold transition">
             <span>☀️</span>
-            <span class="hidden sm:inline">Sáng</span>
+            <span class="hidden md:inline">Sáng</span>
           </span>
-          <span id="theme-pill-dark" class="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-full text-xs font-bold transition">
+          <span id="theme-pill-dark" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-bold transition">
             <span>🌙</span>
-            <span class="hidden sm:inline">Tối</span>
+            <span class="hidden md:inline">Tối</span>
           </span>
         </div>
 
         <div id="auth-logged-out" class="flex items-center">
-          <button onclick="openAuthModal('login')" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-xl transition border border-cyan-500/30 shadow-sm whitespace-nowrap active:scale-95">
+          <button onclick="openAuthModal('login')" class="flex items-center gap-1 sm:gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-2 sm:px-2.5 py-1.5 rounded-xl transition border border-cyan-500/30 shadow-sm whitespace-nowrap active:scale-95">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -603,33 +698,33 @@
 
         <!-- Logged-in Account Pill with Dropdown Container -->
         <div id="auth-logged-in-container" class="relative hidden">
-          <button id="user-profile-btn" onclick="toggleUserDropdown(event)" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/40 rounded-xl px-2 sm:px-2.5 py-1 transition shadow-sm select-none active:scale-95" aria-label="Tài khoản của bạn" title="Bấm để mở menu tài khoản">
-            <div id="user-avatar-wrap" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/50 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden select-none relative">
+          <button id="user-profile-btn" onclick="toggleUserDropdown(event)" class="flex items-center gap-1 sm:gap-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/40 rounded-xl px-1.5 sm:px-2 py-1 transition shadow-sm select-none active:scale-95 flex-shrink-0" aria-label="Tài khoản của bạn" title="Bấm để mở menu tài khoản">
+            <div id="user-avatar-wrap" class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/50 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden select-none relative">
               <span id="user-avatar-text">U</span>
               <img id="user-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.classList.add('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.remove('hidden');" onload="this.style.display='block'; this.classList.remove('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.add('hidden');">
             </div>
-            <span id="user-name" class="text-xs font-bold text-white truncate max-w-[65px] sm:max-w-[120px] text-left"></span>
-            <svg id="user-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <span id="user-name" class="text-xs font-bold text-white truncate max-w-[45px] sm:max-w-[110px] text-left"></span>
+            <svg id="user-chevron" class="w-3 h-3 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
 
           <!-- User Account Dropdown -->
-          <div id="user-account-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 sm:w-72 bg-slate-950/98 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl z-50 transition-all">
-            <div class="user-dropdown-info-card flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/80 mb-2">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/40 text-white font-black text-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden select-none">
+          <div id="user-account-dropdown" class="hidden rounded-2xl p-3 shadow-2xl z-50 transition-all">
+            <div class="user-dropdown-info-card flex items-center gap-2.5 p-2.5 rounded-xl mb-2">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/40 text-white font-black text-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden select-none">
                 <span id="user-dropdown-avatar-text">U</span>
                 <img id="user-dropdown-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer">
               </div>
               <div class="min-w-0 flex-1">
                 <div class="flex items-center justify-between gap-1 mb-0.5">
-                  <span id="user-dropdown-name" class="text-xs font-black text-white truncate">Khách hàng</span>
+                  <span id="user-dropdown-name" class="text-xs font-black truncate">Khách hàng</span>
                   <span id="user-dropdown-role-badge" class="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">THÀNH VIÊN</span>
                 </div>
-                <div id="user-dropdown-email" class="text-[11px] text-slate-400 truncate">user@gmail.com</div>
+                <div id="user-dropdown-email" class="text-[11px] truncate">user@gmail.com</div>
               </div>
             </div>
 
             <div class="space-y-1 text-xs">
-              <button onclick="switchView('orders'); closeUserDropdown()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-slate-900 transition text-left">
+              <button onclick="switchView('orders'); closeUserDropdown()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl transition text-left">
                 <span class="flex items-center gap-2 font-semibold">
                   <span>📋</span>
                   <span>Đơn hàng của tôi</span>
@@ -637,7 +732,7 @@
                 <span id="user-dropdown-orders-badge" class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full">0</span>
               </button>
 
-              <a href="/admin" id="user-dropdown-admin-link" class="hidden w-full flex items-center justify-between px-3 py-2 rounded-xl text-amber-300 bg-amber-950/30 hover:bg-amber-950/60 border border-amber-600/30 font-bold transition">
+              <a href="/admin" id="user-dropdown-admin-link" class="hidden w-full flex items-center justify-between px-3 py-2 rounded-xl text-amber-300 bg-amber-950/40 hover:bg-amber-950/70 border border-amber-600/30 font-bold transition">
                 <span class="flex items-center gap-2">
                   <span>⚙️</span>
                   <span>Trang Quản Trị Admin</span>
@@ -645,18 +740,18 @@
                 <span class="text-xs">&rarr;</span>
               </a>
 
-              <button onclick="switchView('policy'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 transition text-left">
+              <button onclick="switchView('policy'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl transition text-left">
                 <span>🛡️</span>
                 <span>Chính sách bảo hành</span>
               </button>
 
-              <button onclick="switchView('terms'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 transition text-left">
+              <button onclick="switchView('terms'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl transition text-left">
                 <span>📜</span>
                 <span>Điều khoản & Bảo mật</span>
               </button>
             </div>
 
-            <div class="border-t border-slate-800/80 mt-2 pt-2">
+            <div class="user-dropdown-divider border-t mt-2 pt-2">
               <button onclick="handleLogout(); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition text-left font-semibold text-xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 <span>Đăng xuất tài khoản</span>
@@ -666,7 +761,7 @@
         </div>
 
         <!-- Mobile Hamburger Toggle Button (lg:hidden) -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 transition active:scale-95" aria-label="Mở menu tiện ích">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 transition active:scale-95 flex-shrink-0" aria-label="Mở menu tiện ích">
           <svg id="mobile-menu-icon-bars" class="w-4 h-4 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
