@@ -469,6 +469,53 @@
       color: #2563eb !important;
     }
 
+    /* Mobile Drawer & User Account Dropdown in Light Mode */
+    body.theme-light #mobile-nav-drawer {
+      background-color: rgba(255, 255, 255, 0.98) !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12) !important;
+    }
+    body.theme-light #mobile-nav-drawer .drawer-nav-btn {
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+    body.theme-light #mobile-nav-drawer .drawer-nav-btn:hover {
+      background-color: #eff6ff !important;
+      border-color: #bfdbfe !important;
+      color: #1d4ed8 !important;
+    }
+    body.theme-light #user-account-dropdown {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.theme-light #user-account-dropdown .user-dropdown-info-card {
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.theme-light #user-account-dropdown button,
+    body.theme-light #user-account-dropdown a {
+      color: #1e293b !important;
+    }
+    body.theme-light #user-account-dropdown button:hover,
+    body.theme-light #user-account-dropdown a:hover {
+      background-color: #f1f5f9 !important;
+    }
+    body.theme-light #user-profile-btn {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
+    }
+    body.theme-light #user-profile-btn #user-name {
+      color: #0f172a !important;
+    }
+    body.theme-light #mobile-menu-btn {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+
     .scrollbar-none::-webkit-scrollbar { display: none; }
     .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -554,59 +601,148 @@
           </button>
         </div>
 
-        <div id="auth-logged-in" class="hidden flex items-center gap-1 sm:gap-2 bg-slate-900 border border-slate-700 rounded-xl px-1.5 sm:px-2.5 py-1 shadow-sm">
-          <div id="user-avatar-wrap" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/50 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden select-none relative">
-            <span id="user-avatar-text">U</span>
-            <img id="user-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.classList.add('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.remove('hidden');" onload="this.style.display='block'; this.classList.remove('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.add('hidden');">
-          </div>
-          <div class="text-left min-w-0 max-w-[65px] sm:max-w-[130px]">
-            <span id="user-name" class="text-xs font-bold text-white truncate block leading-tight"></span>
-            <span id="user-email" class="hidden sm:block text-[10px] text-slate-400 truncate leading-tight"></span>
-          </div>
-          <button onclick="handleLogout()" title="Đăng xuất" class="text-slate-400 hover:text-rose-400 p-1 hover:bg-rose-500/10 rounded-lg transition flex-shrink-0">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        <!-- Logged-in Account Pill with Dropdown Container -->
+        <div id="auth-logged-in-container" class="relative hidden">
+          <button id="user-profile-btn" onclick="toggleUserDropdown(event)" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/40 rounded-xl px-2 sm:px-2.5 py-1 transition shadow-sm select-none active:scale-95" aria-label="Tài khoản của bạn" title="Bấm để mở menu tài khoản">
+            <div id="user-avatar-wrap" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/50 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden select-none relative">
+              <span id="user-avatar-text">U</span>
+              <img id="user-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.classList.add('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.remove('hidden');" onload="this.style.display='block'; this.classList.remove('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.add('hidden');">
+            </div>
+            <span id="user-name" class="text-xs font-bold text-white truncate max-w-[65px] sm:max-w-[120px] text-left"></span>
+            <svg id="user-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
+
+          <!-- User Account Dropdown -->
+          <div id="user-account-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 sm:w-72 bg-slate-950/98 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl z-50 transition-all">
+            <div class="user-dropdown-info-card flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/80 mb-2">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 border border-cyan-400/40 text-white font-black text-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden select-none">
+                <span id="user-dropdown-avatar-text">U</span>
+                <img id="user-dropdown-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer">
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-1 mb-0.5">
+                  <span id="user-dropdown-name" class="text-xs font-black text-white truncate">Khách hàng</span>
+                  <span id="user-dropdown-role-badge" class="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">THÀNH VIÊN</span>
+                </div>
+                <div id="user-dropdown-email" class="text-[11px] text-slate-400 truncate">user@gmail.com</div>
+              </div>
+            </div>
+
+            <div class="space-y-1 text-xs">
+              <button onclick="switchView('orders'); closeUserDropdown()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-slate-900 transition text-left">
+                <span class="flex items-center gap-2 font-semibold">
+                  <span>📋</span>
+                  <span>Đơn hàng của tôi</span>
+                </span>
+                <span id="user-dropdown-orders-badge" class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full">0</span>
+              </button>
+
+              <a href="/admin" id="user-dropdown-admin-link" class="hidden w-full flex items-center justify-between px-3 py-2 rounded-xl text-amber-300 bg-amber-950/30 hover:bg-amber-950/60 border border-amber-600/30 font-bold transition">
+                <span class="flex items-center gap-2">
+                  <span>⚙️</span>
+                  <span>Trang Quản Trị Admin</span>
+                </span>
+                <span class="text-xs">&rarr;</span>
+              </a>
+
+              <button onclick="switchView('policy'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 transition text-left">
+                <span>🛡️</span>
+                <span>Chính sách bảo hành</span>
+              </button>
+
+              <button onclick="switchView('terms'); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 transition text-left">
+                <span>📜</span>
+                <span>Điều khoản & Bảo mật</span>
+              </button>
+            </div>
+
+            <div class="border-t border-slate-800/80 mt-2 pt-2">
+              <button onclick="handleLogout(); closeUserDropdown()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition text-left font-semibold text-xs">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                <span>Đăng xuất tài khoản</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <a href="/admin" id="nav-admin-link" class="hidden px-2 sm:px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs transition flex items-center gap-1 shadow-sm whitespace-nowrap">
-          <span>⚙️</span>
-          <span class="hidden sm:inline">Admin</span>
-        </a>
-
-        <button onclick="toggleMobileMenu()" class="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900 border border-slate-700" aria-label="Mở Menu">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <!-- Mobile Hamburger Toggle Button (lg:hidden) -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 transition active:scale-95" aria-label="Mở menu tiện ích">
+          <svg id="mobile-menu-icon-bars" class="w-4 h-4 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="mobile-menu-icon-close" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
         </button>
       </div>
     </div>
 
-    <div id="mobile-nav-drawer" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-md px-4 py-3 space-y-2">
-      <button onclick="toggleTheme()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 flex items-center justify-between">
-        <span class="flex items-center gap-2">
-          <span id="mob-theme-icon">☀️</span>
-          <span id="mob-theme-text">Chế độ hiển thị</span>
-        </span>
-        <span id="mob-theme-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 border border-slate-700">☀️ Sáng</span>
-      </button>
-      <a href="/admin" id="mob-admin-link" class="hidden w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-950/40 border border-amber-800/40 flex items-center justify-between">
-        <span>⚙️ Trang Quản trị Admin</span>
-        <span>&rarr;</span>
-      </a>
-      <button onclick="switchView('store'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600/30 border border-blue-500/30 flex items-center justify-between">
-        <span>📦 Sản phẩm & Bảng giá</span>
-        <span>&rarr;</span>
-      </button>
-      <button onclick="switchView('orders'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 flex items-center justify-between">
-        <span>📋 Đơn hàng & Tra cứu</span>
-        <span id="mobile-orders-badge" class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full text-[10px] font-bold">0</span>
-      </button>
-      <button onclick="switchView('policy'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 flex items-center justify-between">
-        <span>🛡️ Quy định bảo hành</span>
-        <span>&rarr;</span>
-      </button>
-      <button onclick="switchView('terms'); toggleMobileMenu()" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 flex items-center justify-between">
-        <span>📜 Điều khoản & Chính sách bảo mật</span>
-        <span>&rarr;</span>
-      </button>
+    <!-- Mobile Navigation Drawer Overlay Backdrop -->
+    <div id="mobile-nav-backdrop" onclick="closeMobileMenu()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-30 lg:hidden hidden transition-opacity"></div>
+
+    <!-- Mobile Navigation Drawer Content -->
+    <div id="mobile-nav-drawer" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/98 backdrop-blur-xl px-4 py-4 space-y-3 z-40 relative shadow-2xl">
+      <div class="space-y-1.5">
+        <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 px-1 mb-1">Tiện Ích & Điều Hướng</div>
+        
+        <button onclick="scrollToStore(); closeMobileMenu()" class="drawer-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-blue-500/40 flex items-center justify-between">
+          <span class="flex items-center gap-2.5">
+            <span class="text-sm">⚡</span>
+            <span>Flash Sale Giảm Sốc</span>
+          </span>
+          <span class="text-[10px] bg-rose-500 text-white font-black px-2 py-0.5 rounded-full uppercase">HOT</span>
+        </button>
+
+        <button onclick="switchView('orders'); closeMobileMenu()" class="drawer-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <span class="flex items-center gap-2.5">
+            <span class="text-sm">🔍</span>
+            <span>Tra cứu & Lịch sử đơn hàng</span>
+          </span>
+          <span id="mob-drawer-orders-badge" class="bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded-full text-[10px]">0</span>
+        </button>
+
+        <button onclick="switchView('policy'); closeMobileMenu()" class="drawer-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <span class="flex items-center gap-2.5">
+            <span class="text-sm">🛡️</span>
+            <span>Chính sách bảo hành 1-Đổi-1</span>
+          </span>
+          <span class="text-slate-500 text-xs">&rarr;</span>
+        </button>
+
+        <button onclick="switchView('terms'); closeMobileMenu()" class="drawer-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <span class="flex items-center gap-2.5">
+            <span class="text-sm">📜</span>
+            <span>Điều khoản dịch vụ & Bảo mật (NĐ 13)</span>
+          </span>
+          <span class="text-slate-500 text-xs">&rarr;</span>
+        </button>
+      </div>
+
+      <!-- Admin Fast Link (Visible if Admin) -->
+      <div id="mob-drawer-admin-wrap" class="hidden pt-1">
+        <a href="/admin" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-950/40 border border-amber-500/40 hover:bg-amber-950/60 flex items-center justify-between shadow-sm">
+          <span class="flex items-center gap-2">
+            <span>⚙️</span>
+            <span>Trang Quản Trị Hệ Thống (Admin)</span>
+          </span>
+          <span class="text-xs">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- Support & Hotline Section -->
+      <div class="border-t border-slate-800/80 pt-3">
+        <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 px-1 mb-2">Hỗ Trợ Kỹ Thuật 24/7</div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <a href="https://zalo.me/0865899763" target="_blank" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-bold hover:bg-cyan-950/70 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <span>Box Zalo</span>
+          </a>
+          <a href="tel:0865899763" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 font-bold hover:bg-slate-800 transition">
+            <span>📞</span>
+            <span>0865 899 763</span>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -745,7 +881,6 @@
                 <h2 class="text-base sm:text-lg font-black text-rose-700 dark:text-rose-400 tracking-tight leading-tight flex items-center gap-1.5">
                   Flash Sale đang diễn ra
                 </h2>
-                <p class="text-xs text-rose-500/90 dark:text-rose-300 leading-tight">Một giá cho mọi vai trò · số lượng có hạn · kích hoạt tự động</p>
               </div>
             </div>
             <div>
@@ -1710,12 +1845,80 @@
       }, 4000);
     }
 
-    function toggleMobileMenu() {
-      const d = document.getElementById('mobile-nav-drawer');
-      if (d) d.classList.toggle('hidden');
+    function toggleUserDropdown(e) {
+      if (e) e.stopPropagation();
+      const dropdown = document.getElementById('user-account-dropdown');
+      const chevron = document.getElementById('user-chevron');
+      if (!dropdown) return;
+      const isHidden = dropdown.classList.contains('hidden');
+      if (isHidden) {
+        dropdown.classList.remove('hidden');
+        if (chevron) chevron.classList.add('rotate-180');
+        closeMobileMenu();
+      } else {
+        dropdown.classList.add('hidden');
+        if (chevron) chevron.classList.remove('rotate-180');
+      }
     }
 
+    function closeUserDropdown() {
+      const dropdown = document.getElementById('user-account-dropdown');
+      const chevron = document.getElementById('user-chevron');
+      if (dropdown) dropdown.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-nav-backdrop');
+      const barsIcon = document.getElementById('mobile-menu-icon-bars');
+      const closeIcon = document.getElementById('mobile-menu-icon-close');
+      if (!drawer) return;
+
+      const isHidden = drawer.classList.contains('hidden');
+      if (isHidden) {
+        drawer.classList.remove('hidden');
+        if (backdrop) backdrop.classList.remove('hidden');
+        if (barsIcon) barsIcon.classList.add('hidden');
+        if (closeIcon) closeIcon.classList.remove('hidden');
+        closeUserDropdown();
+      } else {
+        closeMobileMenu();
+      }
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-nav-backdrop');
+      const barsIcon = document.getElementById('mobile-menu-icon-bars');
+      const closeIcon = document.getElementById('mobile-menu-icon-close');
+      if (drawer) drawer.classList.add('hidden');
+      if (backdrop) backdrop.classList.add('hidden');
+      if (barsIcon) barsIcon.classList.remove('hidden');
+      if (closeIcon) closeIcon.classList.add('hidden');
+    }
+
+    // Global listener to close dropdowns when tapping outside or pressing Escape
+    document.addEventListener('click', (e) => {
+      const userDropdown = document.getElementById('user-account-dropdown');
+      const userBtn = document.getElementById('user-profile-btn');
+      if (userDropdown && !userDropdown.classList.contains('hidden')) {
+        if (!userDropdown.contains(e.target) && !userBtn?.contains(e.target)) {
+          closeUserDropdown();
+        }
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeUserDropdown();
+        closeMobileMenu();
+      }
+    });
+
     function switchView(viewName) {
+      closeMobileMenu();
+      closeUserDropdown();
       if (viewName === 'lookup') viewName = 'orders';
       ['store', 'orders', 'policy', 'terms'].forEach(v => {
         const el = document.getElementById(`view-${v}`);
@@ -3069,10 +3272,16 @@
       const b1 = document.getElementById('user-orders-badge');
       const b2 = document.getElementById('mobile-orders-badge');
       const b3 = document.getElementById('mob-orders-badge');
-      [b1, b2, b3].forEach(b => {
+      const b4 = document.getElementById('user-dropdown-orders-badge');
+      const b5 = document.getElementById('mob-drawer-orders-badge');
+      [b1, b2, b3, b4, b5].forEach(b => {
         if (b) {
           b.textContent = count;
-          b.style.display = (currentUser && count > 0) ? 'inline-flex' : 'none';
+          if (b.id === 'user-dropdown-orders-badge' || b.id === 'mob-drawer-orders-badge') {
+            b.style.display = 'inline-flex';
+          } else {
+            b.style.display = (currentUser && count > 0) ? 'inline-flex' : 'none';
+          }
         }
       });
     }
@@ -3517,13 +3726,13 @@
     }
 
     function updateUserUI() {
-      const loggedInDiv = document.getElementById('auth-logged-in');
+      const loggedInContainer = document.getElementById('auth-logged-in-container');
       const loggedOutDiv = document.getElementById('auth-logged-out');
-      const adminLink = document.getElementById('nav-admin-link');
-      const mobAdminLink = document.getElementById('mob-admin-link');
+      const dropdownAdminLink = document.getElementById('user-dropdown-admin-link');
+      const mobDrawerAdminWrap = document.getElementById('mob-drawer-admin-wrap');
 
       if (currentUser) {
-        if (loggedInDiv) loggedInDiv.classList.remove('hidden');
+        if (loggedInContainer) loggedInContainer.classList.remove('hidden');
         if (loggedOutDiv) loggedOutDiv.classList.add('hidden');
 
         const name = currentUser.name || currentUser.phone || 'Khách hàng';
@@ -3531,7 +3740,6 @@
         const avatarText = document.getElementById('user-avatar-text');
         const avatarImg = document.getElementById('user-avatar-img');
         const nameEl = document.getElementById('user-name');
-        const emailEl = document.getElementById('user-email');
 
         if (avatarText) {
           avatarText.textContent = initial;
@@ -3540,27 +3748,68 @@
         if (avatarImg) {
           if (currentUser.avatar && (currentUser.avatar.startsWith('http') || currentUser.avatar.startsWith('data:'))) {
             avatarImg.src = currentUser.avatar;
+            avatarImg.classList.remove('hidden');
+            if (avatarText) avatarText.classList.add('hidden');
           } else {
             avatarImg.removeAttribute('src');
             avatarImg.classList.add('hidden');
+            if (avatarText) avatarText.classList.remove('hidden');
           }
         }
         if (nameEl) nameEl.textContent = name;
-        if (emailEl) emailEl.textContent = currentUser.email || currentUser.phone || '';
+
+        // Account Dropdown Elements
+        const dropAvatarText = document.getElementById('user-dropdown-avatar-text');
+        const dropAvatarImg = document.getElementById('user-dropdown-avatar-img');
+        const dropName = document.getElementById('user-dropdown-name');
+        const dropEmail = document.getElementById('user-dropdown-email');
+        const dropRole = document.getElementById('user-dropdown-role-badge');
+        const dropOrdersBadge = document.getElementById('user-dropdown-orders-badge');
+        const mobDrawerOrdersBadge = document.getElementById('mob-drawer-orders-badge');
+
+        if (dropAvatarText) dropAvatarText.textContent = initial;
+        if (dropAvatarImg) {
+          if (currentUser.avatar && (currentUser.avatar.startsWith('http') || currentUser.avatar.startsWith('data:'))) {
+            dropAvatarImg.src = currentUser.avatar;
+            dropAvatarImg.classList.remove('hidden');
+            if (dropAvatarText) dropAvatarText.classList.add('hidden');
+          } else {
+            dropAvatarImg.removeAttribute('src');
+            dropAvatarImg.classList.add('hidden');
+            if (dropAvatarText) dropAvatarText.classList.remove('hidden');
+          }
+        }
+        if (dropName) dropName.textContent = name;
+        if (dropEmail) dropEmail.textContent = currentUser.email || currentUser.phone || 'Đã đăng nhập';
 
         const isAdmin = currentUser.role === 'admin';
-        if (adminLink) adminLink.classList.toggle('hidden', !isAdmin);
-        if (mobAdminLink) mobAdminLink.classList.toggle('hidden', !isAdmin);
+        if (dropRole) {
+          if (isAdmin) {
+            dropRole.textContent = '👑 ADMIN';
+            dropRole.className = 'text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase';
+          } else {
+            dropRole.textContent = 'THÀNH VIÊN';
+            dropRole.className = 'text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase';
+          }
+        }
+
+        if (dropdownAdminLink) dropdownAdminLink.classList.toggle('hidden', !isAdmin);
+        if (mobDrawerAdminWrap) mobDrawerAdminWrap.classList.toggle('hidden', !isAdmin);
+
+        const ordersCount = Array.isArray(userOrders) ? userOrders.length : 0;
+        if (dropOrdersBadge) dropOrdersBadge.textContent = ordersCount;
+        if (mobDrawerOrdersBadge) mobDrawerOrdersBadge.textContent = ordersCount;
 
         const orderEmailEl = document.getElementById('order-email');
         const orderNameEl = document.getElementById('order-name');
         if (orderEmailEl && !orderEmailEl.value && currentUser.email) orderEmailEl.value = currentUser.email;
         if (orderNameEl && !orderNameEl.value && currentUser.name) orderNameEl.value = currentUser.name;
       } else {
-        if (loggedInDiv) loggedInDiv.classList.add('hidden');
+        if (loggedInContainer) loggedInContainer.classList.add('hidden');
         if (loggedOutDiv) loggedOutDiv.classList.remove('hidden');
-        if (adminLink) adminLink.classList.add('hidden');
-        if (mobAdminLink) mobAdminLink.classList.add('hidden');
+        if (dropdownAdminLink) dropdownAdminLink.classList.add('hidden');
+        if (mobDrawerAdminWrap) mobDrawerAdminWrap.classList.add('hidden');
+        closeUserDropdown();
       }
       const heroAuthBtn = document.getElementById('hero-auth-btn');
       if (heroAuthBtn) {
@@ -3583,6 +3832,8 @@
       localStorage.removeItem('dnmmo_customer_token');
       localStorage.removeItem('dnmmo_customer_orders');
       localStorage.removeItem('dnmmo_customer_phone');
+      closeUserDropdown();
+      closeMobileMenu();
       updateUserUI();
       updateOrderBadges();
       renderCustomerOrdersView();
