@@ -463,6 +463,10 @@ module.exports = async (req, res) => {
         }
       }
 
+      if (insertedCount > 0) {
+        await query(`UPDATE public.plans SET stock = COALESCE(stock, 0) + $1 WHERE id = $2;`, [insertedCount, plan_id]);
+      }
+
       await query(`
         INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail)
         VALUES ($1, 'inventory_batch_add', 'plan', $2, $3);
@@ -494,6 +498,8 @@ module.exports = async (req, res) => {
           VALUES ($1, $2, 'available');
         `, [plan_id, enc]);
       }
+
+      await query(`UPDATE public.plans SET stock = COALESCE(stock, 0) + $1 WHERE id = $2;`, [qty, plan_id]);
 
       await query(`
         INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail)
@@ -528,7 +534,7 @@ module.exports = async (req, res) => {
 
       const plansRes = await query(`
         SELECT 
-          id, product_id, name, price, duration_days, account_type, badge, is_active,
+          id, product_id, name, price, duration_days, account_type, badge, is_active, stock,
           (SELECT COUNT(*)::int FROM public.inventory_items i WHERE i.plan_id = plans.id AND i.status = 'available') as available_stock
         FROM public.plans
         ORDER BY price ASC;
@@ -604,7 +610,7 @@ module.exports = async (req, res) => {
     }
 
     if (action === 'save-plan') {
-      const { id, product_id, name, price, duration_days, account_type, badge, is_active } = req.body || {};
+      const { id, product_id, name, price, duration_days, account_type, badge, is_active, stock } = req.body || {};
       if (!product_id || !name) return res.status(400).json({ error: 'Vui lòng điền tên gói và chọn sản phẩm!' });
 
       const pPrice = Number(price) || 0;
@@ -612,6 +618,7 @@ module.exports = async (req, res) => {
       const pType = account_type === 'shared' ? 'shared' : 'private';
       const pBadge = (badge || '').trim() || (pType === 'shared' ? 'Dùng chung' : 'Dùng riêng tư');
       const active = is_active !== false;
+      const pStock = (stock !== undefined && stock !== null && stock !== '') ? Math.max(0, parseInt(stock, 10)) : 20;
 
       if (id) {
         await query(`
@@ -622,26 +629,39 @@ module.exports = async (req, res) => {
             duration_days = $4,
             account_type = $5,
             badge = $6,
-            is_active = $7
-          WHERE id = $8;
-        `, [product_id, name, pPrice, pDuration, pType, pBadge, active, id]);
+            is_active = $7,
+            stock = $8
+          WHERE id = $9;
+        `, [product_id, name, pPrice, pDuration, pType, pBadge, active, pStock, id]);
 
         await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'update_plan', 'plan', $2, $3);", [
-          auth.actorId, id, JSON.stringify({ name, price: pPrice })
+          auth.actorId, id, JSON.stringify({ name, price: pPrice, stock: pStock })
         ]);
         return res.status(200).json({ success: true, message: 'Đã cập nhật gói dịch vụ thành công!' });
       } else {
         const insRes = await query(`
-          INSERT INTO public.plans (product_id, name, price, duration_days, account_type, badge, is_active)
-          VALUES ($1, $2, $3, $4, $5, $6, $7)
+          INSERT INTO public.plans (product_id, name, price, duration_days, account_type, badge, is_active, stock)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
           RETURNING id;
-        `, [product_id, name, pPrice, pDuration, pType, pBadge, active]);
+        `, [product_id, name, pPrice, pDuration, pType, pBadge, active, pStock]);
 
         await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'create_plan', 'plan', $2, $3);", [
-          auth.actorId, insRes.rows[0].id, JSON.stringify({ name, price: pPrice })
+          auth.actorId, insRes.rows[0].id, JSON.stringify({ name, price: pPrice, stock: pStock })
         ]);
         return res.status(201).json({ success: true, id: insRes.rows[0].id, message: 'Đã tạo gói dịch vụ mới thành công!' });
       }
+    }
+
+    if (action === 'update-plan-stock') {
+      const { plan_id, stock } = req.body || {};
+      if (!plan_id) return res.status(400).json({ error: 'Thiếu plan_id' });
+      const newStock = Math.max(0, parseInt(stock, 10) || 0);
+
+      await query(`UPDATE public.plans SET stock = $1 WHERE id = $2;`, [newStock, plan_id]);
+      await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'update_plan_stock', 'plan', $2, $3);", [
+        auth.actorId, plan_id, JSON.stringify({ new_stock: newStock })
+      ]);
+      return res.status(200).json({ success: true, message: `Đã cập nhật tồn kho thành ${newStock}!` });
     }
 
     if (action === 'delete-plan') {
@@ -678,10 +698,10 @@ module.exports = async (req, res) => {
       const origPrice = Number(original_price) || 0;
       const sPrice = Number(sale_price) || 0;
       const sBadge = (badge || '-50%').trim();
-      const sTotalStock = Number(total_stock) || 50;
-      const sRemainingStock = (remaining_stock !== undefined && remaining_stock !== null && remaining_stock !== '') ? Number(remaining_stock) : 20;
-      const sStock = (stock_text || `Còn ${sRemainingStock} lượt`).trim();
-      const sProgress = progress_percent ? Number(progress_percent) : Math.min(98, Math.max(5, Math.round(((sTotalStock - sRemainingStock) / Math.max(1, sTotalStock)) * 100)));
+      const sTotalStock = Math.max(1, Number(total_stock) || 50);
+      const sRemainingStock = (remaining_stock !== undefined && remaining_stock !== null && remaining_stock !== '') ? Math.max(0, Number(remaining_stock)) : 20;
+      const sStock = (stock_text && !/^Còn\s+\d+\s+(lượt|suất)/i.test(stock_text.trim())) ? stock_text.trim() : `Còn ${sRemainingStock} suất`;
+      const sProgress = progress_percent ? Number(progress_percent) : Math.min(100, Math.max(5, Math.round(((sTotalStock - sRemainingStock) / sTotalStock) * 100)));
       const sActive = is_active !== false;
       const sOrder = Number(sort_order) || 0;
 

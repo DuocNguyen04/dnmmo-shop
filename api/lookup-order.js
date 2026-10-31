@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
           daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
           warrantyStatus = daysLeft > 0 ? (daysLeft <= 7 ? 'EXPIRING_SOON' : 'ACTIVE') : 'EXPIRED';
         }
-        // Mask customer phone & email for privacy compliance (Decree 13/2023/ND-CP)
+        // Mask customer phone & email for customer privacy protection
         const rawPhone = o.contact_phone || '';
         const maskedPhone = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '***' + rawPhone.slice(-3) : '***';
         const rawEmail = o.contact_email || '';
@@ -152,7 +152,9 @@ module.exports = async (req, res) => {
         amount: order.amount,
         status: order.status,
         contact_name: order.contact_name,
-        contact_phone: order.contact_phone,
+        contact_phone: (order.contact_phone && order.contact_phone.length > 5)
+          ? order.contact_phone.slice(0, 3) + '***' + order.contact_phone.slice(-3)
+          : '***',
         product_id: order.product_id,
         plan_name: order.plan_name,
         product_name: order.product_name,

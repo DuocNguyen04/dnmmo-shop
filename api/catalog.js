@@ -353,8 +353,9 @@ module.exports = async (req, res) => {
         const orig = Number(r.original_price) || 0;
         const sale = Number(r.sale_price) || 0;
         const total = Math.max(1, Number(r.total_stock) || 50);
-        const rem = Math.max(0, Number(r.live_stock !== null && r.live_stock !== undefined ? r.live_stock : r.remaining_stock) || 0);
-        const progress = Math.min(100, Math.max(10, Math.round(((total - rem) / total) * 100)));
+        // Priority: Use the configured remaining_stock set by Admin in Flash Sale
+        const rem = Math.max(0, Number(r.remaining_stock !== null && r.remaining_stock !== undefined ? r.remaining_stock : (r.live_stock !== null && r.live_stock !== undefined ? r.live_stock : 20)));
+        const progress = r.progress_percent ? `${r.progress_percent}%` : `${Math.min(100, Math.max(10, Math.round(((total - rem) / total) * 100)))}%`;
 
         return {
           ...r,
@@ -362,8 +363,8 @@ module.exports = async (req, res) => {
           sale_price: sale,
           total_stock: total,
           remaining_stock: rem,
-          stock: rem > 0 ? `Còn ${rem} lượt` : 'Đã cháy hàng',
-          progress: progress + '%'
+          stock: rem > 0 ? `Còn ${rem} suất` : 'Đã cháy hàng',
+          progress: progress
         };
       });
     }
@@ -402,11 +403,7 @@ module.exports = async (req, res) => {
               'account_type', pl.account_type,
               'badge', COALESCE(NULLIF(pl.badge, ''), CASE WHEN pl.account_type = 'shared' THEN 'Dùng chung' ELSE 'Dùng riêng tư' END),
               'is_active', pl.is_active,
-              'stock', CASE 
-                WHEN (SELECT COUNT(*)::int FROM public.inventory_items ii WHERE ii.plan_id = pl.id) > 0
-                THEN (SELECT COUNT(*)::int FROM public.inventory_items ii WHERE ii.plan_id = pl.id AND ii.status = 'available')
-                ELSE COALESCE(pl.stock, 20)
-              END,
+              'stock', COALESCE(pl.stock, 20),
               'sold_count', COALESCE(
                 (SELECT COUNT(*)::int FROM public.orders o WHERE o.plan_id = pl.id AND LOWER(o.status) IN ('delivered', 'completed', 'paid')),
                 0

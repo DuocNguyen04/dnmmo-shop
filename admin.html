@@ -74,9 +74,9 @@
     </div>
   </div>
 
-  <div id="admin-main-screen" class="hidden flex-1 flex flex-col md:flex-row min-h-screen">
+  <div id="admin-main-screen" class="hidden flex-1 flex flex-col md:flex-row min-h-screen relative">
     
-    <aside class="w-full md:w-64 bg-slate-950 border-b md:border-b-0 md:border-r border-slate-800 p-3 sm:p-4 flex flex-col justify-between flex-shrink-0">
+    <aside class="w-full md:w-64 sticky top-0 z-40 md:h-screen md:overflow-y-auto bg-slate-950/95 backdrop-blur-md border-b md:border-b-0 md:border-r border-slate-800 p-3 sm:p-4 flex flex-col justify-between flex-shrink-0">
       <div>
         <div class="flex items-center justify-between md:justify-start gap-3 px-2 sm:px-3 py-2 sm:py-3 mb-3 md:mb-6 border-b border-slate-800">
           <div class="flex items-center gap-3">
@@ -921,12 +921,19 @@
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Loại tài khoản *</label>
-          <select id="plan-account-type" onchange="autoSyncPlanBadge(this.value)" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-            <option value="private">Tài khoản riêng tư (Private - Cấp email riêng hoặc nâng chính chủ)</option>
-            <option value="shared">Tài khoản dùng chung (Shared slot)</option>
-          </select>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-amber-300 mb-1">Số lượng tồn kho (SKU) *</label>
+            <input type="number" id="plan-stock" required min="0" placeholder="20"
+              class="w-full bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-2 text-xs font-mono font-bold text-amber-400 focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Loại tài khoản *</label>
+            <select id="plan-account-type" onchange="autoSyncPlanBadge(this.value)" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+              <option value="private">Tài khoản riêng tư (Private - Cấp riêng / Chính chủ)</option>
+              <option value="shared">Tài khoản dùng chung (Shared slot)</option>
+            </select>
+          </div>
         </div>
 
         <div class="flex items-center gap-2 pt-1">
@@ -1258,6 +1265,10 @@
 
     function setTab(tab) {
       currentTab = tab;
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+
       const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'warranties', 'audit'];
       
       const titles = {
@@ -1731,10 +1742,18 @@
                           </div>
 
                           <div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-[11px]">
-                            <span class="text-[10px] ${pl.available_stock > 0 ? 'text-cyan-300 font-bold' : 'text-rose-400 font-semibold'}">
-                              📦 Kho: ${pl.available_stock || 0} acc
-                            </span>
+                            <div class="flex items-center gap-2">
+                              <span class="text-[10px] ${pl.available_stock > 0 ? 'text-cyan-300 font-bold' : 'text-slate-400 font-semibold'}" title="Tài khoản sẵn trong kho">
+                                🔑 Kho: ${pl.available_stock || 0}
+                              </span>
+                              <span class="text-[10px] ${Number(pl.stock) <= 0 ? 'text-rose-400 font-bold' : 'text-amber-400 font-bold'}" title="Số lượng tồn kho SKU bán lẻ">
+                                📦 Tồn SKU: <strong>${pl.stock !== undefined ? pl.stock : 20}</strong>
+                              </span>
+                            </div>
                             <div class="flex items-center gap-1">
+                              <button onclick="quickEditPlanStock('${pl.id}', '${escapeHtml(pl.name)}', ${pl.stock !== undefined ? pl.stock : 20})" class="px-2 py-0.5 rounded bg-amber-950/60 hover:bg-amber-900 text-amber-300 border border-amber-800/50 text-[10px] font-bold" title="Sửa nhanh số lượng tồn kho SKU">
+                                ✏️ Sửa tồn
+                              </button>
                               <button onclick="promptAddQuantity('${pl.id}', '${escapeHtml(pl.name)}')" class="px-2 py-0.5 rounded bg-cyan-950/60 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/50 text-[10px] font-bold" title="Nhập tay số lượng">
                                 + Số lượng
                               </button>
@@ -2000,6 +2019,7 @@
       const badgeInput = document.getElementById('plan-badge');
       const priceInput = document.getElementById('plan-price');
       const durInput = document.getElementById('plan-duration');
+      const stockInput = document.getElementById('plan-stock');
       const typeSelect = document.getElementById('plan-account-type');
       const activeInput = document.getElementById('plan-active');
 
@@ -2016,6 +2036,7 @@
         nameInput.value = pl.name || '';
         priceInput.value = pl.price || 0;
         durInput.value = pl.duration_days || 30;
+        if (stockInput) stockInput.value = (pl.stock !== undefined && pl.stock !== null) ? pl.stock : 20;
         typeSelect.value = pl.account_type || 'private';
         if (badgeInput) badgeInput.value = pl.badge || (pl.account_type === 'shared' ? 'Dùng chung' : 'Dùng riêng tư');
         activeInput.checked = pl.is_active !== false;
@@ -2025,6 +2046,7 @@
         nameInput.value = '';
         priceInput.value = 99000;
         durInput.value = 30;
+        if (stockInput) stockInput.value = 20;
         typeSelect.value = 'private';
         if (badgeInput) badgeInput.value = 'Dùng riêng tư';
         activeInput.checked = true;
@@ -2045,6 +2067,7 @@
       const badge = (document.getElementById('plan-badge')?.value || '').trim();
       const price = Number(document.getElementById('plan-price').value) || 0;
       const duration_days = Number(document.getElementById('plan-duration').value) || 30;
+      const stock = parseInt(document.getElementById('plan-stock')?.value, 10) || 0;
       const account_type = document.getElementById('plan-account-type').value;
       const is_active = document.getElementById('plan-active').checked;
 
@@ -2060,6 +2083,7 @@
           badge,
           price,
           duration_days,
+          stock,
           account_type,
           is_active
         });
@@ -2088,6 +2112,27 @@
           loadProducts();
         } else {
           showToast(res.error, 'error');
+        }
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function quickEditPlanStock(planId, planName, currentStock) {
+      const valStr = prompt(`Cập nhật số lượng tồn kho (SKU) cho gói "${planName}":\n(Nhập số nguyên không âm, ví dụ: 0, 10, 35, 100)`, String(currentStock !== undefined ? currentStock : 20));
+      if (valStr === null) return;
+      const newStock = parseInt(valStr.trim(), 10);
+      if (isNaN(newStock) || newStock < 0) {
+        return showToast('Số lượng tồn kho phải là số nguyên không âm (>= 0)!', 'warning');
+      }
+
+      try {
+        const res = await adminApi('update-plan-stock', 'POST', { plan_id: planId, stock: newStock });
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadProducts();
+        } else {
+          showToast(res.error || 'Lỗi cập nhật tồn kho', 'error');
         }
       } catch (err) {
         showToast(err.message, 'error');
@@ -2342,8 +2387,8 @@
     function syncStockDisplay() {
       const total = Number(document.getElementById('fs-total-stock').value) || 50;
       const rem = Number(document.getElementById('fs-remaining-stock').value) || 0;
-      document.getElementById('fs-stock').value = `Còn ${rem} lượt`;
-      const pct = Math.min(98, Math.max(5, Math.round(((total - rem) / Math.max(1, total)) * 100)));
+      document.getElementById('fs-stock').value = `Còn ${rem} suất`;
+      const pct = Math.min(100, Math.max(5, Math.round(((total - rem) / Math.max(1, total)) * 100)));
       document.getElementById('fs-progress').value = pct;
     }
 

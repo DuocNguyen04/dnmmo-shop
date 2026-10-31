@@ -116,7 +116,7 @@ module.exports = async (req, res) => {
 
     const planRes = await query(`
       SELECT 
-        p.id as plan_id, p.name as plan_name, p.price, p.duration_days, p.account_type, p.is_active as plan_active,
+        p.id as plan_id, p.name as plan_name, p.price, p.duration_days, p.account_type, p.is_active as plan_active, p.stock,
         pr.id as product_id, pr.name as product_name, pr.is_active as product_active
       FROM public.plans p
       JOIN public.products pr ON pr.id = p.product_id
@@ -130,6 +130,19 @@ module.exports = async (req, res) => {
     const plan = planRes.rows[0];
     if (!plan.plan_active || !plan.product_active) {
       return res.status(400).json({ error: 'Gói dịch vụ này hiện đang tạm ngưng phục vụ!' });
+    }
+
+    const stockRes = await query(`
+      SELECT COUNT(*)::int as available_count
+      FROM public.inventory_items
+      WHERE plan_id = $1 AND status = 'available';
+    `, [plan_id]);
+    const availableStock = stockRes.rows[0].available_count;
+    const currentPlanStock = (plan.stock !== null && plan.stock !== undefined) ? Number(plan.stock) : 20;
+
+    // Reject if out of stock
+    if (availableStock <= 0 && currentPlanStock <= 0) {
+      return res.status(400).json({ error: 'Gói dịch vụ này hiện đã tạm thời hết hàng, vui lòng chọn gói khác hoặc liên hệ CSKH!' });
     }
 
     let finalPrice = Number(plan.price) || 0;
@@ -169,13 +182,6 @@ module.exports = async (req, res) => {
       console.warn('Flash sale price sync error:', fsErr.message);
     }
 
-    const stockRes = await query(`
-      SELECT COUNT(*)::int as available_count
-      FROM public.inventory_items
-      WHERE plan_id = $1 AND status = 'available';
-    `, [plan_id]);
-    const availableStock = stockRes.rows[0].available_count;
-
     let code = generateOrderCode();
     let attempts = 0;
     while (attempts < 5) {
@@ -208,6 +214,17 @@ module.exports = async (req, res) => {
 
     const order = insertRes.rows[0];
 
+    // Decrement plan SKU stock in real time
+    try {
+      await query(`
+        UPDATE public.plans
+        SET stock = GREATEST(0, COALESCE(stock, 20) - 1)
+        WHERE id = $1;
+      `, [plan.plan_id]);
+    } catch (stockErr) {
+      console.warn('Notice: Could not decrement plan stock:', stockErr.message);
+    }
+
     const bankId = process.env.VIETQR_BANK_ID || 'MB'; // MBBank default
     const accountNo = process.env.VIETQR_ACCOUNT_NO || '0865899763';
     const accountName = process.env.VIETQR_ACCOUNT_NAME || 'NGUYEN TAT DUOC';
@@ -229,7 +246,8 @@ module.exports = async (req, res) => {
         duration_days: plan.duration_days,
         account_type: plan.account_type,
         created_at: order.created_at,
-        available_stock: availableStock
+        available_stock: availableStock,
+        remaining_sku_stock: Math.max(0, currentPlanStock - 1)
       },
       vietqr: {
         qr_url: qrUrl,
