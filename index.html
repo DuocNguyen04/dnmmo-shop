@@ -1082,7 +1082,7 @@
 
 
     <!-- DEDICATED FULL PRODUCT DETAIL PAGE (Transformed from modal popup to full page) -->
-    <div id="view-product" class="hidden py-4 sm:py-8 px-3 sm:px-4">
+    <div id="view-product" class="hidden py-4 sm:py-8 px-3 sm:px-4 pb-28 sm:pb-16">
       <div id="checkout-step-header" class="hidden"></div>
       <div class="container mx-auto max-w-6xl space-y-4 sm:space-y-6">
 
@@ -1339,7 +1339,7 @@
         </div>
 
         <!-- STEP 3: Order Success Screen -->
-        <div id="checkout-step-3" class="hidden max-w-xl mx-auto glass-card rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/95 shadow-2xl text-center space-y-4">
+        <div id="checkout-step-3" class="hidden max-w-xl mx-auto glass-card rounded-3xl p-5 sm:p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/95 shadow-2xl text-center space-y-4 mb-20 sm:mb-8 pb-4">
           <div class="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto text-3xl border border-emerald-300 dark:border-emerald-500/40 shadow-lg shadow-emerald-500/20">
             ✓
           </div>
@@ -1377,14 +1377,14 @@
 
           <div class="space-y-2.5 pt-2">
             <a id="btn-success-zalo" href="https://zalo.me/0865899763" target="_blank"
-              class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm rounded-2xl shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2 transition active:scale-[0.98]">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              class="w-full py-3.5 sm:py-4 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm rounded-2xl shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2 transition active:scale-[0.98]">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
               <span>Nhắn Zalo Nhận Tài Khoản Ngay (0865 899 763)</span>
             </a>
 
             <button onclick="switchView('orders');"
-              class="w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-blue-600 dark:text-cyan-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
-              <span>📋 Xem Đơn Hàng Trong Tab "Đơn Của Tôi" &rarr;</span>
+              class="w-full py-3 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-blue-600 dark:text-cyan-300 text-xs sm:text-sm font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98]">
+              <span>📋 Xem đơn hàng của tôi &rarr;</span>
             </button>
 
             <button onclick="switchView('store')"
@@ -1607,9 +1607,9 @@
 
 
 
-  <!-- Floating Support Button (Bottom Right) -->
+  <!-- Floating Support Button (Bottom Right - Desktop/Tablet only; Mobile has Zalo 1-Chạm in bottom bar) -->
   <a href="https://zalo.me/0865899763" target="_blank" id="floating-support-btn" 
-     class="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 px-3.5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-xl shadow-blue-600/30 flex items-center gap-2 transition-all hover:scale-105 active:scale-95 border border-white/20 select-none"
+     class="hidden md:flex fixed bottom-6 right-6 z-40 px-3.5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-xl shadow-blue-600/30 items-center gap-2 transition-all hover:scale-105 active:scale-95 border border-white/20 select-none"
      title="Nhắn Zalo hỗ trợ ngay: 0865 899 763">
     <span class="relative flex h-2.5 w-2.5">
       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -2562,6 +2562,11 @@
           <span>CHỌN GÓI DỊCH VỤ & XÁC NHẬN</span>
         `;
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        const vp = document.getElementById('view-product');
+        if (vp) vp.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 30);
     }
 
     function goToCheckoutStep2() {
@@ -2594,6 +2599,13 @@
         `;
         hdr2.classList.remove('hidden');
       }
+
+      // Smooth scroll directly to the top of step 2 form (avoids landing at footer)
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        const s2 = document.getElementById('checkout-step-2');
+        if (s2) s2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
 
       const fs = getFlashSaleForPlan(selectedPlan.id, activeProduct ? activeProduct.id : null);
       const step2Price = (fs && fs.sale_price) ? Number(fs.sale_price) : Number(selectedPlan.price || 0);
@@ -2684,6 +2696,8 @@
           phone: data.order.contact_phone,
           plan_name: data.order.plan_name,
           product_name: data.order.product_name,
+          product_id: data.order.product_id || (activeProduct ? activeProduct.id : ''),
+          product_logo_url: data.order.product_logo_url || (activeProduct ? activeProduct.logo_url : ''),
           amount: data.order.amount,
           status: data.order.status,
           created_at: data.order.created_at
@@ -2728,6 +2742,13 @@
       const zaloText = encodeURIComponent(`Chào shop, tôi vừa đặt đơn hàng ${order.code} (${order.plan_name}). Kích hoạt tài khoản giúp tôi nhé!`);
       const zaloBtn = document.getElementById('btn-success-zalo');
       if (zaloBtn) zaloBtn.href = `https://zalo.me/0865899763?text=${zaloText}`;
+
+      // Smooth scroll directly to the top of step 3 success card
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        const s3 = document.getElementById('checkout-step-3');
+        if (s3) s3.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
 
       showToast(`🎉 Đặt hàng thành công! Mã đơn: ${order.code}`, 'success');
     }
@@ -2925,13 +2946,22 @@
             `;
           }
 
+          const detLogoUrl = getOrderProductLogo(o);
+          const detInitials = (o.product_name || o.plan_name || 'DN').substring(0, 2).toUpperCase();
+          const detLogoHtml = detLogoUrl
+            ? `<div class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center flex-shrink-0 p-1.5 shadow-sm"><img src="${escapeHtml(detLogoUrl)}" alt="${escapeHtml(o.product_name || 'Sản phẩm')}" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-sm font-black text-blue-600 dark:text-cyan-400\\'>${escapeJs(detInitials)}</span>';"></div>`
+            : `<div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 flex items-center justify-center flex-shrink-0 text-sm font-black text-blue-600 dark:text-cyan-400">${detInitials}</div>`;
+
           body.innerHTML = `
             <div class="space-y-3.5">
-              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <span class="text-xs text-slate-500 dark:text-slate-400 block font-medium">Gói dịch vụ:</span>
-                  <strong class="text-sm font-black text-slate-900 dark:text-white">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</strong>
-                  <div class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">${(o.amount || 0).toLocaleString('vi-VN')} đ</div>
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  ${detLogoHtml}
+                  <div>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block font-medium">Gói dịch vụ:</span>
+                    <strong class="text-sm font-black text-slate-900 dark:text-white">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</strong>
+                    <div class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">${(o.amount || 0).toLocaleString('vi-VN')} đ</div>
+                  </div>
                 </div>
                 <div>${renderStatusBadge(o.status)}</div>
               </div>
@@ -3252,6 +3282,8 @@
             phone: o.contact_phone || qPhone,
             plan_name: o.plan_name,
             product_name: o.product_name,
+            product_id: o.product_id || '',
+            product_logo_url: o.product_logo_url || o.logo_url || '',
             amount: o.amount,
             status: o.status,
             created_at: o.created_at,
@@ -3266,6 +3298,35 @@
       } catch (e) {
         console.warn('Cannot fetch customer orders:', e);
       }
+    }
+
+    function getOrderProductLogo(o) {
+      if (!o) return '';
+      if (o.product_logo_url) return o.product_logo_url;
+      if (o.logo_url) return o.logo_url;
+      if (Array.isArray(PRODUCTS) && PRODUCTS.length > 0) {
+        if (o.product_id) {
+          const p = PRODUCTS.find(prod => String(prod.id) === String(o.product_id));
+          if (p && p.logo_url) return p.logo_url;
+        }
+        const pName = (o.product_name || '').trim().toLowerCase();
+        const plName = (o.plan_name || '').trim().toLowerCase();
+        if (pName) {
+          const p = PRODUCTS.find(prod => {
+            const curName = (prod.name || '').trim().toLowerCase();
+            return curName === pName || pName.includes(curName) || curName.includes(pName);
+          });
+          if (p && p.logo_url) return p.logo_url;
+        }
+        if (plName) {
+          const p = PRODUCTS.find(prod => {
+            const curName = (prod.name || '').trim().toLowerCase();
+            return plName.includes(curName);
+          });
+          if (p && p.logo_url) return p.logo_url;
+        }
+      }
+      return '';
     }
 
     function getPlanDurationDays(o) {
@@ -3356,12 +3417,18 @@
 
     function renderOrderCardHtml(o) {
       const isDelivered = ['delivered', 'completed'].includes(String(o.status || '').toLowerCase());
+      const logoUrl = getOrderProductLogo(o);
+      const initials = (o.product_name || o.plan_name || 'DN').substring(0, 2).toUpperCase();
+      const avatarHtml = logoUrl
+        ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(o.product_name || 'Sản phẩm')}" class="w-full h-full object-contain p-1 rounded-xl" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'order-avatar-initials text-xs font-black text-blue-600 dark:text-cyan-400\\'>${escapeJs(initials)}</span>';">`
+        : `<span class="order-avatar-initials text-xs font-black text-blue-600 dark:text-cyan-400">${initials}</span>`;
+
       return `
         <div class="glass-card order-card rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-sm space-y-3 hover:border-blue-400 dark:hover:border-cyan-500/40 transition">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div class="flex items-center gap-2.5">
-              <div class="order-avatar-box w-9 h-9 rounded-xl bg-blue-50 dark:bg-slate-900 border border-blue-200 dark:border-slate-700 flex items-center justify-center text-xs font-black text-blue-600 dark:text-cyan-400 flex-shrink-0">
-                ${(o.product_name || o.plan_name || 'DN').substring(0, 2).toUpperCase()}
+              <div class="order-avatar-box w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-xs">
+                ${avatarHtml}
               </div>
               <div>
                 <span class="order-title font-extrabold text-slate-900 dark:text-white text-sm block">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</span>
