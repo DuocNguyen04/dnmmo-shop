@@ -193,13 +193,13 @@ module.exports = async (req, res) => {
 
     const insertRes = await query(`
       INSERT INTO public.orders (
-        code, user_id, plan_id, variant_id, amount, price, 
+        code, user_id, plan_id, amount, price, 
         contact_name, customer_name, 
         contact_phone, customer_phone, 
         contact_email, customer_email, 
         note, customer_note, status
       )
-      VALUES ($1, $2, $3, $3, $4::int, $4::numeric, $5, $5, $6, $6, $7, $7, $8, $8, 'pending')
+      VALUES ($1, $2, $3, $4::int, $4::numeric, $5, $5, $6, $6, $7, $7, $8, $8, 'pending')
       RETURNING id, code, amount, status, contact_name, contact_phone, contact_email, created_at;
     `, [
       code,
