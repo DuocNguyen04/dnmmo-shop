@@ -2127,6 +2127,9 @@
             ALL_REVIEWS = data.reviews;
             renderHomepageReviews(ALL_REVIEWS);
           }
+          if (typeof renderCustomerOrdersView === 'function') {
+            renderCustomerOrdersView();
+          }
 
           // Real-time synchronization for active product page
           const prodView = document.getElementById('view-product');
@@ -3326,6 +3329,19 @@
           if (p && p.logo_url) return p.logo_url;
         }
       }
+
+      // Instant high-res brand logo fallback
+      const fullText = `${o.product_name || ''} ${o.plan_name || ''}`.toLowerCase();
+      if (fullText.includes('capcut')) return 'https://i.pinimg.com/474x/e7/7a/00/e77a00979cfb814f4aff1acffb4f0c64.jpg';
+      if (fullText.includes('youtube') || fullText.includes('ytb')) return 'https://tse1.mm.bing.net/th/id/OIP.VksUQQXkJT5tvq48pNZJEwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
+      if (fullText.includes('canva')) return 'https://freepnglogo.com/images/all_img/1691829322canva-app-logo-png.png';
+      if (fullText.includes('chatgpt') || fullText.includes('gpt')) return 'https://static.vecteezy.com/system/resources/previews/029/463/358/non_2x/chatgpt-logo-open-ai-logotype-ai-chatbot-chat-gpt-app-ai-artificial-intelligence-chatbot-services-logo-company-stock-free-vector.jpg';
+      if (fullText.includes('gemini')) return 'https://tse4.mm.bing.net/th/id/OIP.umfUzNjKLT1bMF25L3QPoAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
+      if (fullText.includes('duolingo')) return 'https://seeklogo.com/images/D/duolingo-logo-DB18C5E638-seeklogo.com.png';
+      if (fullText.includes('claude')) return 'https://i.pinimg.com/736x/7b/78/e9/7b78e99546e7ad98a3e20a4d52eeb979.jpg';
+      if (fullText.includes('suno')) return 'https://tse4.mm.bing.net/th/id/OIP.P8HlL_iiQJy6rzzuFwJt7gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
+      if (fullText.includes('muse')) return 'https://muse.ai/images/landing/brand/muse-logo.svg';
+
       return '';
     }
 
@@ -3425,17 +3441,17 @@
 
       return `
         <div class="glass-card order-card rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-sm space-y-3 hover:border-blue-400 dark:hover:border-cyan-500/40 transition">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">
               <div class="order-avatar-box w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-xs">
                 ${avatarHtml}
               </div>
-              <div>
-                <span class="order-title font-extrabold text-slate-900 dark:text-white text-sm block">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</span>
+              <div class="min-w-0 flex-1">
+                <span class="order-title font-extrabold text-slate-900 dark:text-white text-sm block leading-snug break-words">${escapeHtml(o.product_name ? `${o.product_name} - ${o.plan_name}` : o.plan_name)}</span>
                 <span class="order-code text-[11px] font-mono font-bold text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-500/20 inline-block mt-0.5">Mã đơn: <span class="font-black tracking-wide">${escapeHtml(o.code)}</span></span>
               </div>
             </div>
-            <div>${renderStatusBadge(o.status)}</div>
+            <div class="flex-shrink-0 self-start sm:self-center ml-auto sm:ml-0">${renderStatusBadge(o.status)}</div>
           </div>
 
           ${renderWarrantyBlock(o)}
@@ -4158,12 +4174,12 @@
 
     function renderStatusBadge(status) {
       const map = {
-        'pending': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/40 shadow-xs">⏳ Chờ thanh toán</span>',
-        'paid': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-900 border border-blue-300 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/40 shadow-xs">💳 Đã nhận tiền</span>',
-        'delivered': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/40 shadow-xs">✅ Đã bàn giao</span>',
-        'cancelled': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-900 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/40 shadow-xs">❌ Đã hủy</span>'
+        'pending': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/40 shadow-xs whitespace-nowrap inline-flex items-center gap-1 flex-shrink-0 select-none">⏳ Chờ thanh toán</span>',
+        'paid': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-900 border border-blue-300 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/40 shadow-xs whitespace-nowrap inline-flex items-center gap-1 flex-shrink-0 select-none">💳 Đã nhận tiền</span>',
+        'delivered': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/40 shadow-xs whitespace-nowrap inline-flex items-center gap-1 flex-shrink-0 select-none">✅ Đã bàn giao</span>',
+        'cancelled': '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-900 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/40 shadow-xs whitespace-nowrap inline-flex items-center gap-1 flex-shrink-0 select-none">❌ Đã hủy</span>'
       };
-      return map[status] || `<span class="px-2 py-0.5 rounded text-[10px] font-medium text-slate-700 dark:text-slate-300">${escapeHtml(status)}</span>`;
+      return map[status] || `<span class="px-2.5 py-0.5 rounded text-[10px] font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap inline-flex items-center flex-shrink-0 select-none">${escapeHtml(status)}</span>`;
     }
 
     function escapeHtml(str) {
