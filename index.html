@@ -755,68 +755,70 @@
   <main class="flex-1 pb-24 sm:pb-10">
 
     <div id="view-store" class="block">
-      <!-- Radiant Hero Banner Section (Inspired by chungsudigi.com) -->
+      <!-- Radiant Hero Banner Section -->
       <section class="container mx-auto max-w-6xl px-3 sm:px-4 pt-4 sm:pt-6">
-        <div class="relative rounded-3xl p-5 sm:p-8 overflow-hidden shadow-2xl text-white" 
-             style="background: linear-gradient(135deg, #1e3a8a 0%, #312e81 25%, #4338ca 50%, #701a75 75%, #be185d 100%);">
-          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.18),_transparent_60%)] pointer-events-none"></div>
+        <div class="relative rounded-3xl p-5 sm:p-8 overflow-hidden shadow-2xl text-white border border-white/10" 
+             style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 30%, #312e81 60%, #4c1d95 85%, #831843 100%);">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(56,189,248,0.22),_transparent_60%)] pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
 
           <!-- Top Action Pills inside Hero -->
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-6 relative z-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5 relative z-10">
             <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
-              <button onclick="scrollToStore()" class="px-4 py-2 rounded-full bg-white text-blue-700 hover:bg-slate-100 font-black text-xs sm:text-sm shadow-md transition active:scale-95 flex items-center gap-1.5">
-                <span class="text-base font-bold leading-none">+</span>
-                <span>Mua ngay</span>
+              <button onclick="scrollToStore()" class="px-4 py-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/25 transition active:scale-95 flex items-center gap-1.5">
+                <span>⚡</span>
+                <span>Khám phá Kho Tài Khoản</span>
               </button>
               <button onclick="handleHeroAuthClick()" id="hero-auth-btn" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5">
                 <span>✨ Tạo tài khoản</span>
               </button>
               <a href="https://zalo.me/0865899763" target="_blank" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                <span>Box Zalo</span>
+                <svg class="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                <span>Hỗ trợ Zalo 24/7</span>
               </a>
             </div>
 
             <!-- Right Feature Badges in Hero -->
             <div class="hidden md:flex items-center gap-2.5 text-xs">
-              <div class="bg-white/15 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-2xl flex items-center gap-2">
+              <div class="bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-2xl flex items-center gap-2">
                 <span class="text-emerald-300 font-bold text-sm">🛡️</span>
                 <div>
-                  <strong class="block text-white font-bold leading-tight">Bảo hành minh bạch 100%</strong>
-                  <span class="text-[10px] text-white/80 leading-tight">Hỗ trợ kỹ thuật 24/7 qua Zalo</span>
+                  <strong class="block text-white font-bold leading-tight">Bảo hành 1 đổi 1</strong>
+                  <span class="text-[10px] text-white/80 leading-tight">Cam kết suốt thời hạn gói</span>
                 </div>
               </div>
-              <div class="bg-white/15 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-2xl flex items-center gap-2">
+              <div class="bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-2xl flex items-center gap-2">
                 <span class="text-amber-300 font-bold text-sm">⚡</span>
                 <div>
-                  <strong class="block text-white font-bold leading-tight">30 giây</strong>
-                  <span class="text-[10px] text-white/80 leading-tight">Thời gian xử lý dự kiến</span>
+                  <strong class="block text-white font-bold leading-tight">Giao ngay 30 giây</strong>
+                  <span class="text-[10px] text-white/80 leading-tight">Tự động lưu mã đơn & bảo hành</span>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Visitor Counter Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 border border-white/20 text-white/90 text-[11px] sm:text-xs font-semibold mb-4 backdrop-blur-sm relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/35 border border-white/20 text-white/95 text-[11px] sm:text-xs font-semibold mb-3.5 backdrop-blur-sm relative z-10">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             <span>👁</span>
-            <span id="hero-visitor-count">13.439</span>
-            <span>lượt truy cập hôm nay</span>
+            <span id="hero-visitor-count" class="font-bold text-cyan-300">13.439</span>
+            <span>lượt truy cập & mua sắm hôm nay</span>
           </div>
 
           <!-- Main Hero Headline -->
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-snug mb-2 sm:mb-3 relative z-10">
-            Hệ Thống Cung Cấp Tài Khoản Phần Mềm & AI Bản Quyền
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-snug mb-2 relative z-10">
+            Siêu Thị Tài Khoản Phần Mềm & AI Bản Quyền Giá Tốt
           </h1>
-          <p class="text-white/90 text-xs sm:text-sm max-w-2xl leading-relaxed mb-6 relative z-10">
-            ChatGPT Plus, Canva Pro, CapCut Pro, YouTube Premium, Gemini Advanced, Claude AI. Đặt hàng trực tuyến, thanh toán quét mã QR tự động nhận tài khoản ngay.
+          <p class="text-white/85 text-xs sm:text-sm max-w-2xl leading-relaxed mb-5 relative z-10">
+            Cung cấp tài khoản <strong class="text-cyan-300">ChatGPT Plus, Canva Pro, CapCut Pro, YouTube Premium, Duolingo Super, Gemini Advanced</strong> chính hãng. Chọn gói rõ ràng, đặt mua 1 chạm, bảo hành uy tín trọn thời hạn.
           </p>
 
           <!-- Search & Fast Contact Bar -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 max-w-2xl mb-7 relative z-10">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 max-w-2xl mb-3.5 relative z-10">
             <div class="relative flex-1">
-              <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Tìm kiếm ChatGPT, Canva, Capcut, Gemini, Youtube..." 
-                class="w-full bg-white/15 backdrop-blur-md border border-white/30 text-base sm:text-sm rounded-2xl px-4 py-3 pl-11 text-white placeholder-white/70 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/40 transition shadow-inner">
-              <svg class="w-5 h-5 text-white/70 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="search-input" oninput="syncSearchInputs(this.value)" placeholder="Tìm nhanh: ChatGPT, Canva, CapCut, YouTube, Duolingo..." 
+                class="w-full bg-white/15 backdrop-blur-md border border-white/35 text-base sm:text-sm rounded-2xl px-4 py-3 pl-11 text-white placeholder-white/75 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/40 transition shadow-inner">
+              <svg class="w-5 h-5 text-white/80 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
             <a href="https://zalo.me/0865899763" target="_blank" class="px-5 py-3 rounded-2xl bg-white text-blue-700 hover:bg-slate-100 font-extrabold text-xs sm:text-sm shadow-xl transition whitespace-nowrap flex items-center justify-center gap-2 active:scale-95">
               <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -824,7 +826,19 @@
             </a>
           </div>
 
-          <!-- 4 Stat Boxes (Crisp White in Light Mode, Dark Glass in Dark Mode) -->
+          <!-- Quick Brand Filter Chips inside Hero -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-5 scrollbar-none relative z-10 text-[11px]">
+            <span class="text-white/75 font-semibold flex-shrink-0 mr-1">🔥 Phổ biến:</span>
+            <button type="button" onclick="quickFilterKeyword('')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-bold border border-white/20 transition whitespace-nowrap">Tất cả</button>
+            <button type="button" onclick="quickFilterKeyword('ChatGPT')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">🤖 ChatGPT Plus</button>
+            <button type="button" onclick="quickFilterKeyword('Canva')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">🎨 Canva Pro</button>
+            <button type="button" onclick="quickFilterKeyword('CapCut')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">🎬 CapCut Pro</button>
+            <button type="button" onclick="quickFilterKeyword('YouTube')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">▶️ YouTube</button>
+            <button type="button" onclick="quickFilterKeyword('Duolingo')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">🦉 Duolingo</button>
+            <button type="button" onclick="quickFilterKeyword('Gemini')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white font-semibold border border-white/20 transition whitespace-nowrap">✨ Gemini AI</button>
+          </div>
+
+          <!-- 4 Stat Boxes -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 relative z-10">
             <div class="stat-box rounded-2xl p-3 sm:p-4 text-center transition shadow-md">
               <div id="hero-stat-completed" class="text-xl sm:text-2xl font-black tracking-tight text-blue-600 dark:text-cyan-400">0+</div>
@@ -838,59 +852,83 @@
 
             <div class="stat-box rounded-2xl p-3 sm:p-4 text-center transition shadow-md">
               <div id="hero-stat-members" class="text-xl sm:text-2xl font-black tracking-tight text-indigo-600 dark:text-indigo-400">0+</div>
-              <div class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Thành viên</div>
+              <div class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Khách hàng tin dùng</div>
             </div>
 
             <div class="stat-box rounded-2xl p-3 sm:p-4 text-center transition shadow-md">
               <div id="hero-stat-speed" class="text-xl sm:text-2xl font-black tracking-tight text-amber-600 dark:text-amber-400">30 giây</div>
-              <div class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Xử lý dự kiến</div>
+              <div class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Tốc độ bàn giao</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Ticker Announcement Pills Row (Matching screenshot) -->
+      <!-- Value Proposition Pills Row (Adaptive Light/Dark Mode) -->
       <section class="container mx-auto max-w-6xl px-3 sm:px-4 py-3 sm:py-4">
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x text-xs font-semibold whitespace-nowrap">
-          <div class="ticker-pill px-3 py-1.5 rounded-xl border flex items-center gap-1.5 flex-shrink-0"
-               style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">
-            <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-            <span>Tiếp nhận đơn trực tuyến</span>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs font-semibold">
+          <div class="px-3.5 py-2.5 rounded-2xl border bg-sky-50/90 dark:bg-sky-950/40 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-800/60 flex items-center gap-2.5 shadow-xs">
+            <span class="w-7 h-7 rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 flex items-center justify-center flex-shrink-0 text-sm">⚡</span>
+            <div class="min-w-0">
+              <div class="font-extrabold truncate">Đặt đơn 1 chạm</div>
+              <div class="text-[10px] text-sky-600/80 dark:text-sky-400/80 truncate">Nhận tài khoản sau 30 giây</div>
+            </div>
           </div>
-          <div class="ticker-pill px-3 py-1.5 rounded-xl border flex items-center gap-1.5 flex-shrink-0"
-               style="background: #ffedd5; color: #c2410c; border-color: #fed7aa;">
-            <span>⚡</span>
-            <span>Thời gian xử lý dự kiến 30 giây</span>
+          <div class="px-3.5 py-2.5 rounded-2xl border bg-emerald-50/90 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60 flex items-center gap-2.5 shadow-xs">
+            <span class="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 text-sm">🛡️</span>
+            <div class="min-w-0">
+              <div class="font-extrabold truncate">Bảo hành 1 đổi 1</div>
+              <div class="text-[10px] text-emerald-600/80 dark:text-emerald-400/80 truncate">Suốt toàn bộ thời hạn gói</div>
+            </div>
           </div>
-          <div class="ticker-pill px-3 py-1.5 rounded-xl border flex items-center gap-1.5 flex-shrink-0"
-               style="background: #ede9fe; color: #6d28d9; border-color: #ddd6fe;">
-            <span>🔍</span>
-            <span>Theo dõi trạng thái đơn hàng</span>
+          <div class="px-3.5 py-2.5 rounded-2xl border bg-violet-50/90 dark:bg-violet-950/40 text-violet-800 dark:text-violet-300 border-violet-200 dark:border-violet-800/60 flex items-center gap-2.5 shadow-xs">
+            <span class="w-7 h-7 rounded-xl bg-violet-500/15 text-violet-600 dark:text-violet-400 flex items-center justify-center flex-shrink-0 text-sm">🔍</span>
+            <div class="min-w-0">
+              <div class="font-extrabold truncate">Quản lý đơn dễ dàng</div>
+              <div class="text-[10px] text-violet-600/80 dark:text-violet-400/80 truncate">Lấy acc & xem hạn tự động</div>
+            </div>
           </div>
-          <div class="ticker-pill px-3 py-1.5 rounded-xl border flex items-center gap-1.5 flex-shrink-0"
-               style="background: #fef3c7; color: #b45309; border-color: #fde68a;">
-            <span>🛡️</span>
-            <span>Hỗ trợ kích hoạt & bảo hành tận tâm</span>
+          <div class="px-3.5 py-2.5 rounded-2xl border bg-amber-50/90 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800/60 flex items-center gap-2.5 shadow-xs">
+            <span class="w-7 h-7 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 text-sm">💬</span>
+            <div class="min-w-0">
+              <div class="font-extrabold truncate">CSKH Zalo 24/7</div>
+              <div class="text-[10px] text-amber-600/80 dark:text-amber-400/80 truncate">Hỗ trợ cài đặt & đăng nhập</div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Flash Sale Section (Modern Slider Carousel with 2-Side Navigation) -->
+      <!-- Flash Sale Section (Modern Slider Carousel with Live Countdown & 2-Side Navigation) -->
       <section class="container mx-auto max-w-6xl px-3 sm:px-4 py-2 sm:py-3">
-        <div class="flash-sale-box rounded-3xl p-4 sm:p-6 transition relative">
-          <div class="flex items-center justify-between gap-2 mb-4">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-2xl bg-rose-500/15 text-rose-600 flex items-center justify-center text-lg flex-shrink-0 shadow-sm font-bold">
-                🔥
+        <div class="flash-sale-box rounded-3xl p-4 sm:p-6 transition relative overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+            <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white flex items-center justify-center text-lg flex-shrink-0 shadow-md shadow-rose-500/25 font-bold">
+                ⚡
               </div>
               <div>
-                <h2 class="text-base sm:text-lg font-black text-rose-700 dark:text-rose-400 tracking-tight leading-tight flex items-center gap-1.5">
-                  Flash Sale đang diễn ra
-                </h2>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h2 class="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400 tracking-tight leading-tight uppercase">
+                    GIỜ VÀNG GIÁ SỐC
+                  </h2>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30 animate-pulse">
+                    SỐ LƯỢNG CÓ HẠN
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Săn deal bản quyền giảm sâu tới 60% • Tự động áp giá khi bấm mua</p>
               </div>
             </div>
-            <div>
-              <button onclick="scrollToStore()" class="inline-flex text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline items-center gap-1">
+
+            <!-- Live Countdown Timer + View All -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1.5 bg-slate-900/90 dark:bg-slate-950 px-3 py-1.5 rounded-xl border border-rose-500/30 text-white text-xs font-bold shadow-sm">
+                <span class="text-rose-400 text-[11px]">⏱️ Kết thúc:</span>
+                <span id="fs-timer-h" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">03</span>
+                <span class="text-rose-400 font-black">:</span>
+                <span id="fs-timer-m" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">45</span>
+                <span class="text-rose-400 font-black">:</span>
+                <span id="fs-timer-s" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">18</span>
+              </div>
+              <button onclick="scrollToStore()" class="hidden sm:inline-flex text-xs font-extrabold text-rose-600 dark:text-rose-400 hover:underline items-center gap-1 whitespace-nowrap">
                 <span>Xem tất cả &rarr;</span>
               </button>
             </div>
@@ -898,21 +936,18 @@
 
           <!-- Flash Sale Carousel Track with 2-Side Floating Navigation Arrows -->
           <div class="relative group">
-            <!-- Left Navigation Button (Hidden on touch mobile for clean swiping, visible on tablet/desktop) -->
             <button onclick="scrollFlashSale(-1)" title="Trượt sang trái"
-              class="hidden sm:flex absolute -left-2.5 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-slate-900/95 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-xl items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+              class="hidden sm:flex absolute -left-2.5 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-slate-900/95 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-xl items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
               aria-label="Trượt sang trái">
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <!-- Scrollable Track -->
             <div class="flex items-stretch gap-3.5 sm:gap-4 overflow-x-auto pb-2 px-1 scrollbar-none snap-x snap-mandatory scroll-smooth touch-pan-x" id="flash-sale-items">
               <!-- Dynamic Flash Sale Items injected by JavaScript -->
             </div>
 
-            <!-- Right Navigation Button (Hidden on touch mobile for clean swiping, visible on tablet/desktop) -->
             <button onclick="scrollFlashSale(1)" title="Trượt sang phải"
-              class="hidden sm:flex absolute -right-2.5 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-slate-900/95 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-xl items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+              class="hidden sm:flex absolute -right-2.5 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-slate-900/95 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-xl items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
               aria-label="Trượt sang phải">
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
             </button>
@@ -920,34 +955,94 @@
         </div>
       </section>
 
-      <!-- Category Filter Sticky Bar -->
-      <section class="category-bar py-3.5 sm:py-4 bg-slate-950 border-b border-slate-900 sticky top-14 sm:top-16 z-30 backdrop-blur-md">
+      <!-- Sticky Category + Search + Sort Bar -->
+      <section id="catalog-filter-bar" class="category-bar py-2 sm:py-3 bg-slate-950/95 border-b border-slate-800/80 sticky top-14 sm:top-16 z-30 backdrop-blur-md shadow-sm">
         <div class="container mx-auto max-w-6xl px-3 sm:px-4">
-          <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x touch-pan-x" id="category-pills">
-            <button onclick="setCategory('ALL', this)" class="cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95">
-              Tất cả danh mục (<span id="cat-count-all">0</span>)
-            </button>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <!-- Category Pills -->
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-0.5 md:pb-0 scrollbar-none snap-x touch-pan-x flex-1" id="category-pills">
+              <button onclick="setCategory('ALL', this)" class="cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95">
+                Tất cả danh mục (<span id="cat-count-all">0</span>)
+              </button>
+            </div>
+
+            <!-- Sticky Quick Search & Price Sort Controls -->
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+              <div class="relative flex-1 sm:w-52">
+                <input type="text" id="sticky-search-input" oninput="syncSearchInputs(this.value)" placeholder="Lọc nhanh tên gói..."
+                  class="w-full bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-1.5 pl-8 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <select id="sort-select" onchange="setProductSort(this.value)" aria-label="Sắp xếp sản phẩm"
+                class="bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-200 focus:outline-none focus:border-blue-500 cursor-pointer transition flex-shrink-0">
+                <option value="popular">🔥 Phổ biến</option>
+                <option value="price-asc">💰 Giá tăng dần</option>
+                <option value="price-desc">💎 Giá giảm dần</option>
+                <option value="rating">⭐ Đánh giá cao</option>
+              </select>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="py-6 sm:py-10 px-3 sm:px-4">
+      <!-- Main Products Catalog Grid -->
+      <section class="py-6 sm:py-9 px-3 sm:px-4">
         <div class="container mx-auto max-w-6xl">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 sm:mb-6">
             <div>
               <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                <span class="w-2 sm:w-2.5 h-5 sm:h-6 bg-blue-600 rounded-full inline-block"></span>
-                BẢNG GIÁ & DANH MỤC DỊCH VỤ
+                <span class="w-2 sm:w-2.5 h-5 sm:h-6 bg-gradient-to-b from-blue-500 to-cyan-400 rounded-full inline-block"></span>
+                <span>KHO TÀI KHOẢN & BẢNG GIÁ DỊCH VỤ</span>
               </h2>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Thông tin gói, thời hạn bảo hành và giá chốt rõ ràng từ hệ thống</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Bấm trực tiếp vào gói bạn muốn mua để xem chi tiết cấu hình hoặc đặt mua ngay trong 30 giây</p>
             </div>
-            <div class="text-xs text-slate-400 flex items-center gap-2">
-              <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
-              Kho hàng: <strong class="text-white">Sẵn sàng kích hoạt</strong>
+            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full self-start sm:self-auto">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Trạng thái kho: <strong class="text-emerald-600 dark:text-emerald-400">Sẵn hàng giao ngay</strong></span>
             </div>
           </div>
 
-          <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step Fast Purchase Process Section (Helps Customers Understand & Buy with Confidence) -->
+      <section class="py-6 sm:py-8 px-3 sm:px-4 border-t border-slate-200 dark:border-slate-900/80">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center max-w-xl mx-auto mb-6">
+            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-cyan-400 border border-blue-500/20">Đơn giản • Nhanh chóng • Tự động</span>
+            <h2 class="text-base sm:text-xl font-black text-slate-900 dark:text-white mt-2">Quy Trình Mua & Nhận Tài Khoản Trong 30 Giây</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+            <div class="glass-card rounded-2xl p-4 border border-slate-200 dark:border-slate-800 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black text-sm flex items-center justify-center flex-shrink-0 shadow-md shadow-blue-600/25">1</div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mb-1">Chọn gói dịch vụ</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">Chọn sản phẩm và thời hạn gói (1 tháng, 3 tháng, 1 năm) phù hợp nhu cầu của bạn.</p>
+              </div>
+            </div>
+            <div class="glass-card rounded-2xl p-4 border border-slate-200 dark:border-slate-800 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-black text-sm flex items-center justify-center flex-shrink-0 shadow-md shadow-indigo-600/25">2</div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mb-1">Điền SĐT / Email</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">Nhập số điện thoại Zalo hoặc Email để hệ thống gắn quyền lợi bảo hành theo SĐT.</p>
+              </div>
+            </div>
+            <div class="glass-card rounded-2xl p-4 border border-slate-200 dark:border-slate-800 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-amber-500 text-white font-black text-sm flex items-center justify-center flex-shrink-0 shadow-md shadow-amber-500/25">3</div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mb-1">Xác nhận đơn hàng</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">Hệ thống cấp mã đơn ngay lập tức. Nhắn Zalo 1 chạm hoặc thanh toán để kích hoạt.</p>
+              </div>
+            </div>
+            <div class="glass-card rounded-2xl p-4 border border-slate-200 dark:border-slate-800 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center flex-shrink-0 shadow-md shadow-emerald-600/25">4</div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mb-1">Nhận Acc & Bảo hành</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">Nhận thông tin đăng nhập trực tiếp tại mục "Đơn của tôi" và được bảo hành 1 đổi 1.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1081,13 +1176,12 @@
     </div>
 
 
-    <!-- DEDICATED FULL PRODUCT DETAIL PAGE (Transformed from modal popup to full page) -->
+    <!-- DEDICATED FULL PRODUCT DETAIL PAGE -->
     <div id="view-product" class="hidden py-4 sm:py-8 px-3 sm:px-4 pb-28 sm:pb-16">
-      <div id="checkout-step-header" class="hidden"></div>
-      <div class="container mx-auto max-w-6xl space-y-4 sm:space-y-6">
+      <div class="container mx-auto max-w-6xl space-y-4 sm:space-y-5">
 
-        <!-- Breadcrumbs Navigation Bar (Matching Reference Image) -->
-        <nav class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 py-1.5 overflow-x-auto whitespace-nowrap">
+        <!-- Breadcrumbs Navigation Bar -->
+        <nav class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 py-1 overflow-x-auto whitespace-nowrap">
           <div class="flex items-center gap-1.5 sm:gap-2">
             <a href="javascript:void(0)" onclick="switchView('store')" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Trang chủ</a>
             <span>/</span>
@@ -1101,6 +1195,10 @@
           </button>
         </nav>
 
+        <!-- 3-Step Visual Progress Bar -->
+        <div id="checkout-step-header" class="glass-card rounded-2xl p-3 sm:p-3.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 flex items-center justify-between gap-2 text-xs font-bold shadow-xs">
+        </div>
+
         <!-- STEP 1: Product Showcase, Price, Specs & Plan Selection -->
         <div id="checkout-step-1" class="space-y-4 sm:space-y-6">
           
@@ -1108,14 +1206,14 @@
           <div class="glass-card rounded-3xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-lg">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
               
-              <!-- Column Left: Product Image & Quick Contact Cards (Matching Reference Screenshot) -->
+              <!-- Column Left: Product Image & Quick Contact Cards -->
               <div class="md:col-span-5 lg:col-span-4 flex flex-col items-center">
-                <div id="modal-prod-logo-large" class="w-full max-w-[340px] aspect-square rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-slate-700/80 p-6 flex items-center justify-center shadow-xl relative overflow-hidden group">
+                <div id="modal-prod-logo-large" class="w-36 h-36 sm:w-52 sm:h-52 md:w-full md:max-w-[320px] aspect-square rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-slate-700/80 p-4 sm:p-6 flex items-center justify-center shadow-xl relative overflow-hidden group">
                   <!-- Product Image Injected dynamically -->
                 </div>
 
-                <!-- 3 Contact Cards Below Image (Matching Reference Screenshot) -->
-                <div class="grid grid-cols-3 gap-2 w-full max-w-[340px] mt-4">
+                <!-- 3 Contact Cards Below Image -->
+                <div class="grid grid-cols-3 gap-2 w-full max-w-[320px] mt-4">
                   <a href="https://zalo.me/0865899763" target="_blank" class="flex flex-col items-center text-center p-2.5 rounded-2xl bg-blue-50 dark:bg-slate-950/80 border border-blue-200 dark:border-blue-900/40 hover:border-blue-500 transition shadow-xs group">
                     <div class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
@@ -1166,46 +1264,45 @@
                   <p id="modal-prod-short" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4"></p>
 
                   <!-- Price Box -->
-                  <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 mb-4">
-                    <div class="flex items-baseline gap-2.5 flex-wrap">
-                      <div id="modal-selected-price" class="flex items-baseline flex-wrap"></div>
-                      <span class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
-                        <span>✓</span>
-                        <span>Bảo hành uy tín trọn thời hạn gói</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Yellow Warning Callout Box (Matching Reference Screenshot) -->
-                  <div class="flex items-start gap-2.5 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-700/60 mb-5">
-                    <span class="text-amber-600 dark:text-amber-400 text-base font-bold flex-shrink-0 mt-0.5">⚠️</span>
-                    <div class="text-xs text-amber-900 dark:text-amber-200 leading-relaxed flex-1">
-                      <strong class="font-extrabold uppercase">LƯU Ý:</strong>
-                      <span>Vui lòng kéo xuống đọc kĩ thông tin gói bạn đã chọn trước khi mua !!!</span>
-                    </div>
-                    <a href="#modal-plans-section" class="text-[11px] font-bold text-amber-700 dark:text-amber-400 hover:underline whitespace-nowrap self-center hidden sm:inline">
-                      Xem chi tiết &darr;
-                    </a>
+                  <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 mb-4 flex items-center justify-between flex-wrap gap-2">
+                    <div id="modal-selected-price" class="flex items-baseline flex-wrap"></div>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20 flex items-center gap-1">
+                      <span>✓</span>
+                      <span>Bảo hành 1 đổi 1 trọn gói</span>
+                    </span>
                   </div>
 
                   <!-- Plan Selector Cards -->
-                  <div id="modal-plans-section" class="space-y-2 mb-5">
-                    <label class="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                      Chọn gói thời hạn & cấu hình:
-                    </label>
-                    <div id="modal-plans-list" class="space-y-2"></div>
+                  <div id="modal-plans-section" class="space-y-2.5 mb-5">
+                    <div class="flex items-center justify-between">
+                      <label class="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                        <span>👇</span>
+                        <span>BƯỚC 1: CHỌN GÓI THỜI HẠN & CẤU HÌNH</span>
+                      </label>
+                      <span class="text-[11px] text-blue-600 dark:text-cyan-400 font-semibold">Bấm để chọn gói</span>
+                    </div>
+                    <div id="modal-plans-list" class="space-y-2.5"></div>
+                  </div>
+
+                  <!-- Yellow Warning Callout Box -->
+                  <div class="flex items-start gap-2.5 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-700/60 mb-5">
+                    <span class="text-amber-600 dark:text-amber-400 text-base font-bold flex-shrink-0 mt-0.5">💡</span>
+                    <div class="text-xs text-amber-900 dark:text-amber-200 leading-relaxed flex-1">
+                      <strong class="font-extrabold">MẸO MUA NHANH:</strong>
+                      <span>Sau khi chọn gói bên trên, bấm nút <strong>MUA NGAY</strong> bên dưới để điền SĐT nhận tài khoản tự động.</span>
+                    </div>
                   </div>
 
                   <!-- Action Buttons -->
-                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                    <button onclick="goToCheckoutStep2()" id="btn-next-step2" class="flex-1 py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-sm sm:text-base shadow-xl shadow-orange-500/25 transition active:scale-[0.98] flex items-center justify-center gap-2">
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+                    <button onclick="goToCheckoutStep2()" id="btn-next-step2" class="flex-1 py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:to-rose-500 text-white font-black text-sm sm:text-base shadow-xl shadow-orange-500/25 transition active:scale-[0.98] flex items-center justify-center gap-2">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                      <span>⚡ MUA NGAY</span>
+                      <span id="btn-next-step2-text">⚡ MUA NGAY</span>
                     </button>
 
                     <a href="https://zalo.me/0865899763" target="_blank" class="py-3.5 sm:py-4 px-5 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-sky-500/25 transition active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                      <span>Nhắn Zalo</span>
+                      <span>Tư vấn Zalo</span>
                     </a>
 
                     <button onclick="switchView('store')" class="py-3.5 sm:py-4 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs sm:text-sm border border-slate-300 dark:border-slate-700 transition active:scale-[0.98] flex items-center justify-center gap-1.5 whitespace-nowrap">
@@ -1218,23 +1315,23 @@
             </div>
           </div>
 
-          <!-- Bottom Card: Thông Số Kỹ Thuật (Matching Reference Screenshot) -->
+          <!-- Bottom Card: Thông Số Kỹ Thuật -->
           <div class="glass-card rounded-3xl p-5 sm:p-7 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-md">
             <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <span class="text-blue-600 dark:text-cyan-400">⚙️</span>
-              <span>Thông Số Kỹ Thuật</span>
+              <span>Thông Số Kỹ Thuật Gói Đang Chọn</span>
             </h3>
             <div id="modal-specs-table" class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50"></div>
           </div>
 
-          <!-- Description & Warranty Detail Card -->
+          <!-- Description & Warranty Detail Card (With whitespace-pre-line for clean multi-line formatting) -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div class="glass-card rounded-3xl p-5 sm:p-7 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-md">
               <h3 class="text-sm font-black text-slate-900 dark:text-white mb-3 uppercase tracking-wider flex items-center gap-2">
                 <span>📖</span>
-                <span>Giới thiệu gói & Quyền lợi</span>
+                <span>Chi tiết tính năng & Quyền lợi</span>
               </h3>
-              <p id="modal-prod-desc" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800"></p>
+              <div id="modal-prod-desc" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800"></div>
             </div>
 
             <div class="glass-card rounded-3xl p-5 sm:p-7 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-md">
@@ -1242,7 +1339,7 @@
                 <span>🛡️</span>
                 <span>Chính sách bảo hành & Hỗ trợ</span>
               </h3>
-              <p id="modal-prod-warranty" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-amber-50/50 dark:bg-slate-950 p-4 rounded-2xl border border-amber-200 dark:border-slate-800"></p>
+              <div id="modal-prod-warranty" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line bg-amber-50/50 dark:bg-slate-950 p-4 rounded-2xl border border-amber-200 dark:border-slate-800"></div>
             </div>
           </div>
 
@@ -1276,18 +1373,18 @@
           </div>
 
           <!-- Plan summary box -->
-          <div class="modal-summary-box bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-slate-500 dark:text-slate-400">Gói đã chọn:</span>
-              <strong id="step2-plan-title" class="text-slate-900 dark:text-white font-bold text-right"></strong>
+          <div class="modal-summary-box bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm space-y-2.5">
+            <div class="flex justify-between items-start gap-3">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Gói đã chọn:</span>
+              <strong id="step2-plan-title" class="text-slate-900 dark:text-white font-bold text-right break-words"></strong>
             </div>
-            <div class="flex justify-between items-center">
-              <span class="text-slate-500 dark:text-slate-400">Hình thức:</span>
-              <span id="step2-account-type" class="text-blue-600 dark:text-cyan-400 font-semibold"></span>
+            <div class="flex justify-between items-center gap-3">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Hình thức:</span>
+              <span id="step2-account-type" class="text-blue-600 dark:text-cyan-400 font-semibold text-right"></span>
             </div>
-            <div class="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
-              <span class="text-slate-700 dark:text-slate-300 font-bold">Tổng thanh toán:</span>
-              <span id="step2-price" class="text-lg sm:text-xl font-black text-emerald-600 dark:text-emerald-400 font-mono"></span>
+            <div class="flex justify-between items-center gap-3 pt-2 border-t border-slate-200 dark:border-slate-800">
+              <span class="text-slate-700 dark:text-slate-300 font-bold flex-shrink-0 whitespace-nowrap">Tổng thanh toán:</span>
+              <span id="step2-price" class="text-lg sm:text-xl font-black text-emerald-600 dark:text-emerald-400 font-mono text-right"></span>
             </div>
           </div>
 
@@ -1349,29 +1446,29 @@
           </div>
 
           <div class="order-success-card bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-left space-y-2.5">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
-              <span class="text-slate-500 dark:text-slate-400">Mã đơn hàng:</span>
+            <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Mã đơn hàng:</span>
               <div class="flex items-center gap-2">
                 <strong id="success-order-code" class="text-amber-500 dark:text-amber-400 font-mono text-base font-black"></strong>
                 <button onclick="navigator.clipboard.writeText(document.getElementById('success-order-code').textContent); showToast('Đã sao chép mã đơn hàng!', 'success');"
                   class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 text-xs font-bold" title="Sao chép mã">Copy</button>
               </div>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 dark:text-slate-400">Gói sản phẩm:</span>
-              <span id="success-plan-name" class="text-slate-900 dark:text-white font-bold"></span>
+            <div class="flex items-start justify-between gap-3">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Gói sản phẩm:</span>
+              <span id="success-plan-name" class="text-slate-900 dark:text-white font-bold text-right break-words"></span>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 dark:text-slate-400">Tổng thanh toán:</span>
-              <span id="success-amount" class="text-emerald-600 dark:text-emerald-400 font-mono font-black text-base"></span>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Tổng thanh toán:</span>
+              <span id="success-amount" class="text-emerald-600 dark:text-emerald-400 font-mono font-black text-base text-right"></span>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 dark:text-slate-400">Khách hàng:</span>
-              <span id="success-customer-info" class="text-slate-800 dark:text-slate-200 font-medium"></span>
+            <div class="flex items-start justify-between gap-3">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Khách hàng:</span>
+              <span id="success-customer-info" class="text-slate-800 dark:text-slate-200 font-medium text-right break-words"></span>
             </div>
-            <div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
-              <span class="text-slate-500 dark:text-slate-400">Trạng thái:</span>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30">🟢 Tiếp nhận & Chờ kích hoạt</span>
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400 flex-shrink-0 whitespace-nowrap">Trạng thái:</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30 whitespace-nowrap flex-shrink-0">🟢 Tiếp nhận & Chờ kích hoạt</span>
             </div>
           </div>
 
@@ -1877,69 +1974,83 @@
       container.innerHTML = itemsToRender.map(it => {
         const origPrice = Number(it.original_price) || 0;
         const salePrice = Number(it.sale_price) || 0;
+        const savedAmount = origPrice > salePrice ? (origPrice - salePrice) : 0;
         const totalStock = Number(it.total_stock) || 50;
         const remCount = (it.remaining_stock !== undefined && it.remaining_stock !== null) ? Number(it.remaining_stock) : 0;
         const isSoldOut = remCount <= 0;
-        const remText = isSoldOut ? 'Đã cháy hàng' : `Còn ${remCount} suất`;
-        const pct = Math.min(100, Math.max(5, Math.round(((totalStock - remCount) / Math.max(1, totalStock)) * 100)));
+        const remText = isSoldOut ? 'Đã cháy hàng' : `Còn ${remCount}/${totalStock} suất`;
+        const pct = Math.min(100, Math.max(12, Math.round(((totalStock - remCount) / Math.max(1, totalStock)) * 100)));
         const progressWidth = `${pct}%`;
         const priceHtml = (origPrice > salePrice)
-          ? `<span class="text-base sm:text-lg font-black text-rose-600 dark:text-rose-400">${salePrice.toLocaleString('vi-VN')} đ</span><span class="text-xs text-slate-400 line-through">${origPrice.toLocaleString('vi-VN')} đ</span>`
-          : `<span class="text-base sm:text-lg font-black text-rose-600 dark:text-rose-400">${salePrice.toLocaleString('vi-VN')} đ</span>`;
+          ? `<span class="text-lg sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono">${salePrice.toLocaleString('vi-VN')} đ</span><span class="text-xs text-slate-400 line-through font-mono">${origPrice.toLocaleString('vi-VN')} đ</span>`
+          : `<span class="text-lg sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono">${salePrice.toLocaleString('vi-VN')} đ</span>`;
 
         return `
-        <div class="snap-start flex-shrink-0 w-[270px] sm:w-[310px] flash-sale-card rounded-2xl p-3.5 sm:p-4 border transition flex flex-col justify-between">
-          <div class="flex items-start gap-3 mb-2.5">
-            <div class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700/60 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm">
-              <img src="${escapeHtml(it.logo_url)}" alt="${escapeHtml(it.name)}" class="w-full h-full object-contain" onerror="this.parentElement.textContent='VIP'">
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-1.5 mb-1">
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white shadow-sm">${escapeHtml(it.badge || '-50%')}</span>
-                <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded-md">HOT DEAL</span>
+        <div onclick="${isSoldOut ? '' : `handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')`}"
+          class="snap-start flex-shrink-0 w-[275px] sm:w-[305px] flash-sale-card rounded-2xl p-4 border transition-all duration-200 flex flex-col justify-between ${isSoldOut ? 'opacity-60' : 'cursor-pointer hover:-translate-y-1 hover:border-rose-500/60 hover:shadow-xl'}">
+          <div>
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-slate-900 border border-slate-700/70 p-1.5 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md">
+                <img src="${escapeHtml(it.logo_url)}" alt="${escapeHtml(it.name)}" class="w-full h-full object-contain" onerror="this.parentElement.textContent='VIP'">
               </div>
-              <h3 class="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white truncate">${escapeHtml(it.name)}</h3>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 mb-1 flex-wrap">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-xs">${escapeHtml(it.badge || '-50%')}</span>
+                  ${savedAmount > 0 ? `<span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-md">Tiết kiệm ${savedAmount.toLocaleString('vi-VN')}đ</span>` : `<span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded-md">GIÁ SỐC</span>`}
+                </div>
+                <h3 class="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(it.name)}</h3>
+              </div>
             </div>
           </div>
 
-          <div class="my-1.5">
-            <div class="flex items-baseline gap-2 mb-1.5">
-              ${priceHtml}
+          <div class="pt-2 border-t border-slate-200/70 dark:border-slate-800/80">
+            <div class="flex items-baseline justify-between gap-2 mb-2">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                ${priceHtml}
+              </div>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-              <div class="bg-gradient-to-r from-amber-500 to-rose-500 h-1.5 rounded-full" style="width: ${progressWidth}"></div>
+            <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden relative">
+              <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 h-2 rounded-full transition-all duration-500" style="width: ${progressWidth}"></div>
             </div>
-            <div class="text-[10px] font-semibold mt-1 flex items-center justify-between">
-              <span class="${isSoldOut ? 'text-rose-500 font-bold' : 'text-slate-500 dark:text-slate-400'}">🔥 ${escapeHtml(remText)}</span>
-              ${totalStock ? `<span class="text-[9px] text-slate-400">Suất: ${totalStock}</span>` : ''}
+            <div class="text-[10px] font-semibold mt-1.5 flex items-center justify-between">
+              <span class="${isSoldOut ? 'text-rose-500 font-bold' : 'text-rose-600 dark:text-amber-300 font-bold'}">🔥 ${escapeHtml(remText)}</span>
+              <span class="text-[10px] text-slate-400">Giao tự động 30s</span>
             </div>
-          </div>
 
-          ${isSoldOut ? `
-            <button disabled class="mt-2 w-full py-2 sm:py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-extrabold text-xs rounded-xl cursor-not-allowed flex items-center justify-center">
-              <span>ĐÃ CHÁY HÀNG</span>
-            </button>
-          ` : `
-            <button onclick="handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')" class="mt-2 w-full py-2 sm:py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-extrabold text-xs rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-1.5">
-              <span>Mua ngay &rarr;</span>
-            </button>
-          `}
+            ${isSoldOut ? `
+              <button disabled class="mt-2.5 w-full py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-extrabold text-xs rounded-xl cursor-not-allowed flex items-center justify-center">
+                <span>ĐÃ CHÁY HÀNG</span>
+              </button>
+            ` : `
+              <button type="button" onclick="event.stopPropagation(); handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')" class="mt-2.5 w-full py-2.5 bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 transition active:scale-95 flex items-center justify-center gap-1.5">
+                <span>⚡ Săn Deal Ngay &rarr;</span>
+              </button>
+            `}
+          </div>
         </div>
       `;
       }).join('');
     }
 
+    // Live countdown timer for Flash Sale urgency
+    (function initFlashSaleTimer() {
+      let remainingSec = (3 * 3600) + (45 * 60) + 18;
+      setInterval(() => {
+        remainingSec = remainingSec > 0 ? remainingSec - 1 : (4 * 3600);
+        const h = String(Math.floor(remainingSec / 3600)).padStart(2, '0');
+        const m = String(Math.floor((remainingSec % 3600) / 60)).padStart(2, '0');
+        const s = String(remainingSec % 60).padStart(2, '0');
+        const elH = document.getElementById('fs-timer-h');
+        const elM = document.getElementById('fs-timer-m');
+        const elS = document.getElementById('fs-timer-s');
+        if (elH) elH.textContent = h;
+        if (elM) elM.textContent = m;
+        if (elS) elS.textContent = s;
+      }, 1000);
+    })();
+
     function handleFlashSaleBuy(productId, planId) {
-      if (!currentUser) {
-        sessionStorage.setItem('pending_checkout_prod', productId);
-        sessionStorage.setItem('pending_checkout_plan', planId || '');
-        showToast('Vui lòng đăng nhập hoặc tạo tài khoản để mua hàng!', 'warning');
-        openAuthModal('login');
-        return;
-      }
-      openProductModal(productId);
-      if (planId) selectModalPlan(planId);
-      goToCheckoutStep2();
+      openProductModal(productId, planId);
     }
 
     let toastTimer = null;
@@ -2240,15 +2351,50 @@
       `;
     }
 
+    let currentSort = 'popular';
+
     function setCategory(catId, btn) {
       currentCategory = String(catId);
       renderCategoryPills();
       renderProducts();
     }
 
-    function filterProducts() {
-      searchQuery = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+    function syncSearchInputs(val) {
+      const heroInput = document.getElementById('search-input');
+      const stickyInput = document.getElementById('sticky-search-input');
+      if (heroInput && heroInput.value !== val) heroInput.value = val;
+      if (stickyInput && stickyInput.value !== val) stickyInput.value = val;
+      searchQuery = (val || '').toLowerCase().trim();
       renderProducts();
+    }
+
+    function quickFilterKeyword(kw) {
+      currentCategory = 'ALL';
+      renderCategoryPills();
+      syncSearchInputs(kw);
+      const gridEl = document.getElementById('catalog-filter-bar') || document.getElementById('products-grid');
+      if (gridEl && kw) {
+        gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function setProductSort(sortVal) {
+      currentSort = sortVal || 'popular';
+      renderProducts();
+    }
+
+    function filterProducts() {
+      const val = document.getElementById('search-input')?.value || document.getElementById('sticky-search-input')?.value || '';
+      syncSearchInputs(val);
+    }
+
+    function getProductMinPrice(p) {
+      const activePlans = (p.plans || []).filter(pl => pl.is_active);
+      const prices = activePlans.map(pl => {
+        const fs = getFlashSaleForPlan(pl.id, p.id);
+        return (fs && fs.sale_price) ? Number(fs.sale_price) : Number(pl.price);
+      }).filter(pr => pr > 0);
+      return prices.length > 0 ? Math.min(...prices) : 999999999;
     }
 
     function renderProducts() {
@@ -2256,18 +2402,30 @@
       if (!container) return;
 
       const filtered = PRODUCTS.filter(p => {
-        const matchCat = (currentCategory === 'ALL') || (p.category_id === currentCategory);
+        const matchCat = (currentCategory === 'ALL') || (String(p.category_id) === String(currentCategory));
         const matchSearch = !searchQuery || 
           p.name.toLowerCase().includes(searchQuery) ||
-          (p.short_desc || '').toLowerCase().includes(searchQuery);
+          (p.short_desc || '').toLowerCase().includes(searchQuery) ||
+          (p.plans || []).some(pl => (pl.name || '').toLowerCase().includes(searchQuery));
         return matchCat && matchSearch;
+      });
+
+      filtered.sort((a, b) => {
+        if (currentSort === 'price-asc') return getProductMinPrice(a) - getProductMinPrice(b);
+        if (currentSort === 'price-desc') return getProductMinPrice(b) - getProductMinPrice(a);
+        if (currentSort === 'rating') return (Number(b.rating_avg || 5) - Number(a.rating_avg || 5)) || ((b.total_sold || 0) - (a.total_sold || 0));
+        return (Number(b.total_sold || 0) - Number(a.total_sold || 0));
       });
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full py-12 text-center text-slate-400">
-            <span class="text-3xl block mb-2">🔍</span>
-            <p class="text-sm font-semibold text-slate-800 dark:text-white">Không tìm thấy sản phẩm phù hợp</p>
+          <div class="col-span-full py-14 px-4 text-center glass-card rounded-3xl border border-slate-200 dark:border-slate-800">
+            <span class="text-4xl block mb-3">🔍</span>
+            <p class="text-base font-extrabold text-slate-800 dark:text-white mb-1">Không tìm thấy sản phẩm phù hợp</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Thử tìm với từ khóa khác hoặc xem toàn bộ danh mục của cửa hàng</p>
+            <button onclick="quickFilterKeyword('')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition">
+              Xem tất cả sản phẩm
+            </button>
           </div>
         `;
         return;
@@ -2276,6 +2434,7 @@
       container.innerHTML = filtered.map(p => {
         const plans = p.plans || [];
         const activePlans = plans.filter(pl => pl.is_active);
+        const totalStock = activePlans.reduce((acc, pl) => acc + (Number(pl.stock) > 0 ? Number(pl.stock) : 0), 0);
 
         // Check if product or its plans have an active Flash Sale deal
         const prodFlashDeal = getFlashSaleForProduct(p.id) || (FLASH_SALES || []).find(fs => 
@@ -2289,74 +2448,93 @@
         }).filter(pr => pr > 0);
 
         const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
-        let priceDisplay = minPrice > 0 ? `Từ ${minPrice.toLocaleString('vi-VN')} đ` : 'Liên hệ';
+        let priceDisplay = minPrice > 0 ? `${minPrice.toLocaleString('vi-VN')} đ` : 'Liên hệ';
         if (prodFlashDeal) {
-          priceDisplay = `<span class="text-rose-600 dark:text-rose-400 font-extrabold">Từ ${minPrice.toLocaleString('vi-VN')} đ</span>`;
+          priceDisplay = `<span class="text-rose-600 dark:text-rose-400 font-black">${minPrice.toLocaleString('vi-VN')} đ</span>`;
         }
 
         const badgeHtml = prodFlashDeal
-          ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-500 text-white shadow-sm flex items-center gap-1 animate-pulse">🔥 FLASH SALE ${escapeHtml(prodFlashDeal.badge || '')}</span>`
-          : (p.badge ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-600 dark:text-cyan-300 border border-blue-500/30">${escapeHtml(p.badge)}</span>` : '');
+          ? `<span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-sm flex items-center gap-1 animate-pulse">🔥 SALE ${escapeHtml(prodFlashDeal.badge || '')}</span>`
+          : (p.badge ? `<span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-500/15 text-blue-600 dark:text-cyan-300 border border-blue-500/30">${escapeHtml(p.badge)}</span>` : `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">✓ Sẵn hàng</span>`);
 
         return `
-          <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between border border-cyan-500/20 shadow-sm transition">
+          <div onclick="openProductModal('${p.id}')" class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between border border-slate-200/90 dark:border-slate-800/90 hover:border-blue-500/60 dark:hover:border-cyan-500/50 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group hover:-translate-y-1">
             <div class="p-4 sm:p-5">
-              <div class="flex items-start justify-between mb-3">
-                <div class="product-card-logo w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-1.5 flex items-center justify-center font-bold text-white shadow-inner flex-shrink-0 overflow-hidden">
-                  ${p.logo_url ? `<img src="${escapeHtml(p.logo_url)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain drop-shadow" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'text-xs font-bold text-slate-300\\'>${escapeHtml(p.name.substring(0, 2).toUpperCase())}</span>'">` : escapeHtml(p.name.substring(0, 2).toUpperCase())}
+              <!-- Card Top: Logo + Badge -->
+              <div class="flex items-start justify-between gap-2 mb-3.5">
+                <div class="product-card-logo w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700/80 p-2 flex items-center justify-center font-bold text-white shadow-md flex-shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+                  ${p.logo_url ? `<img src="${escapeHtml(p.logo_url)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain drop-shadow" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'text-sm font-black text-cyan-400\\'>${escapeHtml(p.name.substring(0, 2).toUpperCase())}</span>'">` : `<span class="text-sm font-black text-cyan-400">${escapeHtml(p.name.substring(0, 2).toUpperCase())}</span>`}
                 </div>
-                ${badgeHtml}
+                <div class="flex flex-col items-end gap-1">
+                  ${badgeHtml}
+                  <span class="text-[10px] text-slate-400 font-medium">${activePlans.length} gói tùy chọn</span>
+                </div>
               </div>
 
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-1 tracking-tight">${escapeHtml(p.name)}</h3>
+              <!-- Title with uniform 2-line height -->
+              <h3 class="font-black text-slate-900 dark:text-white text-sm sm:text-base mb-1.5 tracking-tight line-clamp-2 min-h-[2.5rem] group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">${escapeHtml(p.name)}</h3>
               
-              <div class="flex items-center gap-1.5 mb-1.5 text-[11px]">
-                <span class="text-amber-500 font-bold flex items-center gap-0.5">⭐ ${Number(p.rating_avg || 5.0).toFixed(1)}</span>
-                <span class="text-slate-400">(${p.rating_count || 0})</span>
-                <span class="text-slate-300 dark:text-slate-700">•</span>
-                <span class="text-rose-500 dark:text-rose-400 font-semibold text-[10px]">🔥 Đã bán: ${p.total_sold || 0}</span>
+              <!-- Rating, Sold & Stock Row -->
+              <div class="flex items-center justify-between gap-1.5 mb-3 pb-2.5 border-b border-slate-200/60 dark:border-slate-800/70 text-[11px]">
+                <div class="flex items-center gap-1">
+                  <span class="text-amber-500 font-bold">⭐ ${Number(p.rating_avg || 5.0).toFixed(1)}</span>
+                  <span class="text-slate-400">(${p.rating_count || 0})</span>
+                  <span class="text-slate-300 dark:text-slate-700">•</span>
+                  <span class="text-rose-500 dark:text-rose-400 font-bold text-[10px]">Đã bán ${p.total_sold || 0}</span>
+                </div>
+                <span class="text-[10px] font-bold ${totalStock > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-500'}">
+                  ${totalStock > 0 ? `Kho: ${totalStock}` : 'Tạm hết'}
+                </span>
               </div>
 
-              <p class="text-slate-500 dark:text-slate-400 text-xs line-clamp-2 mb-3 leading-relaxed">${escapeHtml(p.short_desc || '')}</p>
-
-              <div class="space-y-1.5 mb-3">
-                ${activePlans.slice(0, 2).map(pl => {
+              <!-- Interactive Plan Rows (Clicking a plan opens product page with that plan selected!) -->
+              <div class="space-y-1.5 mb-1">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1 flex items-center justify-between">
+                  <span>Chọn nhanh gói:</span>
+                  <span class="text-blue-500 dark:text-cyan-400 font-semibold">Bấm để mua &rarr;</span>
+                </div>
+                ${activePlans.slice(0, 3).map(pl => {
                   const fsPlan = getFlashSaleForPlan(pl.id, p.id);
                   const isPlanSoldOut = (pl.stock !== undefined && pl.stock !== null && Number(pl.stock) <= 0);
                   return `
-                    <div class="product-plan-row flex items-center justify-between text-[11px] bg-slate-950/80 px-2.5 py-1.5 rounded-lg border border-slate-800">
-                      <div class="truncate flex-1 pr-2">
-                        <span class="text-slate-700 dark:text-slate-300 font-medium">${escapeHtml(pl.name)}</span>
-                        ${isPlanSoldOut ? `<span class="text-[9px] text-rose-500 font-bold ml-1">(Hết hàng)</span>` : ''}
+                    <div onclick="event.stopPropagation(); openProductModal('${p.id}', '${pl.id}')"
+                      class="product-plan-row flex items-center justify-between text-[11px] bg-slate-950/80 hover:bg-blue-950/60 px-2.5 py-2 rounded-xl border border-slate-800 hover:border-blue-500/50 transition cursor-pointer">
+                      <div class="truncate flex-1 pr-2 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full ${isPlanSoldOut ? 'bg-rose-500' : 'bg-cyan-400'} flex-shrink-0"></span>
+                        <span class="text-slate-700 dark:text-slate-200 font-semibold truncate">${escapeHtml(pl.name)}</span>
+                        ${isPlanSoldOut ? `<span class="text-[9px] text-rose-500 font-bold flex-shrink-0">(Hết)</span>` : ''}
                       </div>
                       ${fsPlan ? `
-                        <div class="text-right">
-                          <span class="text-[10px] text-slate-500 line-through mr-1">${(pl.price || 0).toLocaleString('vi-VN')} đ</span>
-                          <strong class="text-rose-600 dark:text-rose-400 font-mono font-bold">${(Number(fsPlan.sale_price) || 0).toLocaleString('vi-VN')} đ</strong>
+                        <div class="text-right flex-shrink-0">
+                          <span class="text-[9px] text-slate-500 line-through mr-1">${(pl.price || 0).toLocaleString('vi-VN')}đ</span>
+                          <strong class="text-rose-600 dark:text-rose-400 font-mono font-extrabold">${(Number(fsPlan.sale_price) || 0).toLocaleString('vi-VN')} đ</strong>
                         </div>
                       ` : `
-                        <strong class="text-emerald-600 dark:text-emerald-400 font-mono font-bold">${(pl.price || 0).toLocaleString('vi-VN')} đ</strong>
+                        <strong class="text-emerald-600 dark:text-emerald-400 font-mono font-extrabold flex-shrink-0">${(pl.price || 0).toLocaleString('vi-VN')} đ</strong>
                       `}
                     </div>
                   `;
                 }).join('')}
+                ${activePlans.length > 3 ? `<div class="text-center text-[10px] font-bold text-blue-500 dark:text-cyan-400 pt-0.5">+ Xem thêm ${activePlans.length - 3} gói khác...</div>` : ''}
               </div>
             </div>
 
-            <div class="product-card-footer p-4 sm:p-5 pt-0 border-t border-slate-800/80 mt-auto bg-slate-950/40">
-              <div class="flex items-center justify-between pt-3 mb-3">
+            <!-- Card Footer -->
+            <div class="product-card-footer p-4 sm:p-5 pt-3 border-t border-slate-200/80 dark:border-slate-800/80 mt-auto bg-slate-50/70 dark:bg-slate-950/50">
+              <div class="flex items-center justify-between mb-3">
                 <div>
-                  <span class="price-label text-[10px] text-slate-500 block">Giá tốt nhất</span>
-                  <span class="price-value text-sm font-black text-slate-900 dark:text-white">${priceDisplay}</span>
+                  <span class="price-label text-[10px] text-slate-500 block font-medium">Giá chỉ từ</span>
+                  <span class="price-value text-base font-black text-slate-900 dark:text-white font-mono">${priceDisplay}</span>
                 </div>
                 <div class="text-right">
-                  <span class="warranty-label text-[10px] text-slate-500 block">Bảo hành</span>
-                  <span class="text-xs font-bold text-blue-600 dark:text-cyan-400">Trọn thời hạn gói</span>
+                  <span class="warranty-label text-[10px] text-slate-500 block font-medium">Cam kết</span>
+                  <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">🛡️ Bảo hành 1 đổi 1</span>
                 </div>
               </div>
 
-              <button onclick="openProductModal('${p.id}')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-extrabold rounded-xl transition text-center shadow-lg shadow-blue-600/30 active:scale-95">
-                Xem Gói & Đặt Mua
+              <button type="button" onclick="event.stopPropagation(); openProductModal('${p.id}')" class="w-full py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black rounded-xl transition text-center shadow-md shadow-blue-600/25 active:scale-95 flex items-center justify-center gap-1.5">
+                <span>⚡ Chọn Gói & Mua Ngay</span>
+                <span>&rarr;</span>
               </button>
             </div>
           </div>
@@ -2364,11 +2542,11 @@
       }).join('');
     }
 
-    function openProductModal(productId) {
+    function openProductModal(productId, preselectPlanId) {
       try {
         if (!PRODUCTS || PRODUCTS.length === 0) {
           showToast('Đang tải danh mục sản phẩm, vui lòng chờ 1 giây...', 'info');
-          loadCatalog().then(() => openProductModal(productId));
+          loadCatalog().then(() => openProductModal(productId, preselectPlanId));
           return;
         }
 
@@ -2384,8 +2562,9 @@
         }
 
         const activePlans = (activeProduct.plans || []).filter(pl => pl.is_active);
+        const preselected = preselectPlanId ? activePlans.find(pl => String(pl.id) === String(preselectPlanId)) : null;
         const fsPlan = activePlans.find(pl => getFlashSaleForPlan(pl.id, activeProduct.id));
-        selectedPlan = fsPlan || (activePlans.length > 0 ? activePlans[0] : null);
+        selectedPlan = preselected || fsPlan || (activePlans.length > 0 ? activePlans[0] : null);
 
         const nameEl = document.getElementById('modal-prod-name');
         if (nameEl) nameEl.textContent = activeProduct.name;
@@ -2488,30 +2667,37 @@
           : (pl.stock !== undefined && pl.stock !== null && Number(pl.stock) <= 0);
 
         const stockText = isOutOfStock
-          ? '<span class="text-[10px] text-rose-500 font-bold">❌ Hết hàng</span>'
+          ? '<span class="text-[10px] text-rose-500 font-bold">❌ Tạm hết hàng</span>'
           : (fs 
               ? `<span class="text-[10px] text-rose-600 dark:text-rose-400 font-bold">🔥 Còn ${Number(fs.remaining_stock)} suất sale</span>` 
-              : `<span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">Còn ${Number(pl.stock) || 0} tài khoản</span>`
+              : `<span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">🟢 Sẵn ${Number(pl.stock) || 0} tài khoản</span>`
             );
+
+        const radioIndicator = isSelected
+          ? `<span class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[11px] font-black shadow-xs flex-shrink-0">✓</span>`
+          : `<span class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 flex-shrink-0"></span>`;
 
         return `
           <div onclick="${isOutOfStock ? `showToast('Gói này tạm thời hết hàng. Vui lòng chọn gói khác hoặc liên hệ CSKH!', 'warning')` : `selectModalPlan('${pl.id}')`}"
-            class="modal-plan-card p-3 rounded-xl border cursor-pointer transition flex items-center justify-between ${isOutOfStock ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-800' : (isSelected ? 'plan-selected bg-blue-50 dark:bg-blue-600/20 border-blue-600 dark:border-cyan-400 shadow-md ring-1 ring-blue-500' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-slate-700')}">
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="modal-plan-title text-xs font-bold text-slate-900 dark:text-white">${escapeHtml(pl.name)}</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${pl.account_type === 'shared' ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-blue-700 dark:text-cyan-300 border border-cyan-500/30'}">${escapeHtml(typeBadge)}</span>
-                ${fs ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-black bg-rose-500 text-white animate-pulse">🔥 FLASH SALE ${escapeHtml(fs.badge || '')}</span>` : ''}
-              </div>
-              <div class="flex items-center gap-2.5 mt-1">
-                <span class="text-[10px] text-slate-500 dark:text-slate-400">Bảo hành: <strong class="text-amber-700 dark:text-amber-300 font-semibold">${pl.duration_days || 30} ngày</strong></span>
-                <span class="text-slate-300 dark:text-slate-700">•</span>
-                ${stockText}
+            class="modal-plan-card p-3.5 rounded-2xl border cursor-pointer transition-all duration-150 flex items-center justify-between gap-3 ${isOutOfStock ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-800' : (isSelected ? 'plan-selected bg-blue-50 dark:bg-blue-600/20 border-blue-600 dark:border-cyan-400 shadow-md ring-1 ring-blue-500/60' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-slate-700')}">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+              ${radioIndicator}
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="modal-plan-title text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">${escapeHtml(pl.name)}</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${pl.account_type === 'shared' ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-blue-700 dark:text-cyan-300 border border-cyan-500/30'}">${escapeHtml(typeBadge)}</span>
+                  ${fs ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-black bg-rose-500 text-white animate-pulse">🔥 SALE ${escapeHtml(fs.badge || '')}</span>` : ''}
+                </div>
+                <div class="flex items-center gap-2.5 mt-1 flex-wrap">
+                  <span class="text-[10px] text-slate-500 dark:text-slate-400">⏱️ Bảo hành: <strong class="text-amber-700 dark:text-amber-300 font-bold">${pl.duration_days || 30} ngày</strong></span>
+                  <span class="text-slate-300 dark:text-slate-700">•</span>
+                  ${stockText}
+                </div>
               </div>
             </div>
             <div class="text-right flex-shrink-0 ml-2">
               ${(fs && origPrice > finalPrice) ? `<span class="text-[10px] text-slate-400 line-through block font-mono">${origPrice.toLocaleString('vi-VN')} đ</span>` : ''}
-              <strong class="text-sm font-black ${fs ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}">${finalPrice.toLocaleString('vi-VN')} đ</strong>
+              <strong class="text-sm sm:text-base font-black font-mono ${fs ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}">${finalPrice.toLocaleString('vi-VN')} đ</strong>
             </div>
           </div>
         `;
@@ -2524,10 +2710,12 @@
       renderModalPlansList(activePlans);
       updateSelectedPriceDisplay();
       renderModalProductStock(activeProduct, selectedPlan);
+      renderModalSpecsTable(activeProduct, selectedPlan);
     }
 
     function updateSelectedPriceDisplay() {
       const priceEl = document.getElementById('modal-selected-price');
+      const btnTextEl = document.getElementById('btn-next-step2-text');
       if (priceEl && selectedPlan) {
         const fs = getFlashSaleForPlan(selectedPlan.id, activeProduct ? activeProduct.id : null);
         const finalPrice = (fs && fs.sale_price) ? Number(fs.sale_price) : Number(selectedPlan.price || 0);
@@ -2535,14 +2723,51 @@
         if (origPrice > finalPrice) {
           const discountPct = Math.round(((origPrice - finalPrice) / origPrice) * 100);
           priceEl.innerHTML = `
-            <span class="text-xl sm:text-2xl font-black text-orange-500 dark:text-orange-400 font-mono">${finalPrice.toLocaleString('vi-VN')} đ</span>
-            <span class="text-xs text-slate-400 line-through font-normal font-mono ml-2">${origPrice.toLocaleString('vi-VN')} đ</span>
-            <span class="ml-1.5 px-2 py-0.5 rounded text-[10px] font-black bg-rose-500 text-white">-${discountPct}%</span>
+            <span class="text-2xl sm:text-3xl font-black text-orange-500 dark:text-orange-400 font-mono">${finalPrice.toLocaleString('vi-VN')} đ</span>
+            <span class="text-xs sm:text-sm text-slate-400 line-through font-normal font-mono ml-2">${origPrice.toLocaleString('vi-VN')} đ</span>
+            <span class="ml-2 px-2 py-0.5 rounded-md text-[10px] font-black bg-rose-500 text-white">-${discountPct}%</span>
           `;
         } else {
-          priceEl.innerHTML = `<span class="text-xl sm:text-2xl font-black text-orange-500 dark:text-orange-400 font-mono">${finalPrice.toLocaleString('vi-VN')} đ</span>`;
+          priceEl.innerHTML = `<span class="text-2xl sm:text-3xl font-black text-orange-500 dark:text-orange-400 font-mono">${finalPrice.toLocaleString('vi-VN')} đ</span>`;
+        }
+        if (btnTextEl) {
+          btnTextEl.textContent = `⚡ MUA NGAY • ${finalPrice.toLocaleString('vi-VN')} đ`;
         }
       }
+    }
+
+    function renderCheckoutStepper(activeStep) {
+      const hdr = document.getElementById('checkout-step-header');
+      if (!hdr) return;
+      hdr.classList.remove('hidden');
+
+      const steps = [
+        { num: 1, shortLabel: 'Chọn gói', label: '1. Chọn gói dịch vụ' },
+        { num: 2, shortLabel: 'Thông tin', label: '2. Thông tin nhận Acc' },
+        { num: 3, shortLabel: 'Hoàn tất', label: '3. Hoàn tất & Nhận Acc' }
+      ];
+
+      hdr.innerHTML = steps.map((st, idx) => {
+        const isCurrent = st.num === activeStep;
+        const isDone = st.num < activeStep;
+        const badgeCls = isDone
+          ? 'bg-emerald-500 text-white'
+          : (isCurrent ? 'bg-blue-600 text-white ring-4 ring-blue-500/20' : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400');
+        const textCls = isDone
+          ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+          : (isCurrent ? 'text-blue-600 dark:text-cyan-400 font-black' : 'text-slate-400 dark:text-slate-500 font-semibold');
+
+        return `
+          <div class="flex items-center gap-1.5 sm:gap-2 ${idx < steps.length - 1 ? 'flex-1' : ''}">
+            <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-[11px] font-black flex-shrink-0 transition ${badgeCls}">
+              ${isDone ? '✓' : st.num}
+            </span>
+            <span class="sm:hidden text-[11px] whitespace-nowrap ${textCls}">${st.shortLabel}</span>
+            <span class="hidden sm:inline text-xs whitespace-nowrap ${textCls}">${st.label}</span>
+            ${idx < steps.length - 1 ? `<div class="flex-1 h-0.5 mx-1 sm:mx-2 rounded ${isDone ? 'bg-emerald-500/50' : 'bg-slate-200 dark:bg-slate-800'}"></div>` : ''}
+          </div>
+        `;
+      }).join('');
     }
 
     function closeProductModal() {
@@ -2558,13 +2783,7 @@
       if (s2) s2.classList.add('hidden');
       const s3 = document.getElementById('checkout-step-3');
       if (s3) s3.classList.add('hidden');
-      const hdr = document.getElementById('checkout-step-header');
-      if (hdr) {
-        hdr.innerHTML = `
-          <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-cyan-500/20 flex items-center justify-center border border-blue-300 dark:border-cyan-500/40 text-[11px]">1</span>
-          <span>CHỌN GÓI DỊCH VỤ & XÁC NHẬN</span>
-        `;
-      }
+      renderCheckoutStepper(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         const vp = document.getElementById('view-product');
@@ -2594,14 +2813,7 @@
       document.getElementById('checkout-step-1').classList.add('hidden');
       document.getElementById('checkout-step-2').classList.remove('hidden');
       document.getElementById('checkout-step-3').classList.add('hidden');
-      const hdr2 = document.getElementById('checkout-step-header');
-      if (hdr2) {
-        hdr2.innerHTML = `
-          <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[11px] font-bold">2</span>
-          <span>XÁC NHẬN THÔNG TIN LIÊN HỆ</span>
-        `;
-        hdr2.classList.remove('hidden');
-      }
+      renderCheckoutStepper(2);
 
       // Smooth scroll directly to the top of step 2 form (avoids landing at footer)
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2729,13 +2941,7 @@
       document.getElementById('checkout-step-1').classList.add('hidden');
       document.getElementById('checkout-step-2').classList.add('hidden');
       document.getElementById('checkout-step-3').classList.remove('hidden');
-      const hdr3 = document.getElementById('checkout-step-header');
-      if (hdr3) {
-        hdr3.innerHTML = `
-          <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 text-[11px]">✓</span>
-          <span>XÁC NHẬN ĐẶT HÀNG THÀNH CÔNG</span>
-        `;
-      }
+      renderCheckoutStepper(3);
 
       document.getElementById('success-order-code').textContent = order.code;
       document.getElementById('success-plan-name').textContent = `${order.product_name ? `${order.product_name} - ` : ''}${order.plan_name}`;
