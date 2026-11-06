@@ -899,36 +899,37 @@
 
       <!-- Flash Sale Section (Modern Slider Carousel with Live Countdown & 2-Side Navigation) -->
       <section class="container mx-auto max-w-6xl px-3 sm:px-4 py-2 sm:py-3">
-        <div class="flash-sale-box rounded-3xl p-4 sm:p-6 transition relative overflow-hidden">
-          <div class="flex flex-wrap items-center justify-between gap-2.5 mb-4">
-            <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
-              <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white flex items-center justify-center text-lg flex-shrink-0 shadow-md shadow-rose-500/25 font-bold">
+        <div class="flash-sale-box rounded-3xl p-3.5 sm:p-6 transition relative overflow-hidden">
+          <!-- Flash Sale Header (Mobile-optimized 2-row layout, Desktop 1-row layout) -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3.5 sm:mb-4">
+            <div class="flex items-start sm:items-center gap-2.5 min-w-0">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white flex items-center justify-center text-base sm:text-lg flex-shrink-0 shadow-md shadow-rose-500/25 font-bold">
                 ⚡
               </div>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h2 class="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400 tracking-tight leading-tight uppercase">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <h2 class="text-sm sm:text-xl font-black text-rose-600 dark:text-rose-400 tracking-tight leading-tight uppercase whitespace-nowrap">
                     GIỜ VÀNG GIÁ SỐC
                   </h2>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30 animate-pulse">
-                    SỐ LƯỢNG CÓ HẠN
+                  <span class="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30 animate-pulse whitespace-nowrap">
+                    GIẢM TỚI 60%
                   </span>
                 </div>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Săn deal bản quyền giảm sâu tới 60% • Tự động áp giá khi bấm mua</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate sm:whitespace-normal">Săn deal bản quyền giá tốt • Tự động áp giá khi bấm mua</p>
               </div>
             </div>
 
             <!-- Live Countdown Timer + View All -->
-            <div class="flex items-center gap-3">
-              <div class="flex items-center gap-1.5 bg-slate-900/90 dark:bg-slate-950 px-3 py-1.5 rounded-xl border border-rose-500/30 text-white text-xs font-bold shadow-sm">
-                <span class="text-rose-400 text-[11px]">⏱️ Kết thúc:</span>
-                <span id="fs-timer-h" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">03</span>
+            <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 pt-1 sm:pt-0 border-t border-rose-500/10 sm:border-0">
+              <div class="inline-flex items-center gap-1 sm:gap-1.5 bg-slate-900/95 dark:bg-slate-950 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl border border-rose-500/30 text-white text-xs font-bold shadow-sm whitespace-nowrap">
+                <span class="text-rose-400 text-[10px] sm:text-[11px]">⏱️ Kết thúc:</span>
+                <span id="fs-timer-h" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[10px] sm:text-[11px] font-black">03</span>
                 <span class="text-rose-400 font-black">:</span>
-                <span id="fs-timer-m" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">45</span>
+                <span id="fs-timer-m" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[10px] sm:text-[11px] font-black">45</span>
                 <span class="text-rose-400 font-black">:</span>
-                <span id="fs-timer-s" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[11px] font-black">18</span>
+                <span id="fs-timer-s" class="bg-rose-600 text-white px-1.5 py-0.5 rounded font-mono text-[10px] sm:text-[11px] font-black">18</span>
               </div>
-              <button onclick="scrollToStore()" class="hidden sm:inline-flex text-xs font-extrabold text-rose-600 dark:text-rose-400 hover:underline items-center gap-1 whitespace-nowrap">
+              <button onclick="scrollToStore()" class="inline-flex text-[11px] sm:text-xs font-extrabold text-rose-600 dark:text-rose-400 hover:underline items-center gap-1 whitespace-nowrap">
                 <span>Xem tất cả &rarr;</span>
               </button>
             </div>
@@ -942,7 +943,7 @@
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <div class="flex items-stretch gap-3.5 sm:gap-4 overflow-x-auto pb-2 px-1 scrollbar-none snap-x snap-mandatory scroll-smooth touch-pan-x" id="flash-sale-items">
+            <div class="flex items-stretch gap-3 sm:gap-4 overflow-x-auto pb-1.5 px-0.5 scrollbar-none snap-x snap-mandatory scroll-smooth touch-pan-x" id="flash-sale-items">
               <!-- Dynamic Flash Sale Items injected by JavaScript -->
             </div>
 
@@ -1982,47 +1983,45 @@
         const pct = Math.min(100, Math.max(12, Math.round(((totalStock - remCount) / Math.max(1, totalStock)) * 100)));
         const progressWidth = `${pct}%`;
         const priceHtml = (origPrice > salePrice)
-          ? `<span class="text-lg sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono">${salePrice.toLocaleString('vi-VN')} đ</span><span class="text-xs text-slate-400 line-through font-mono">${origPrice.toLocaleString('vi-VN')} đ</span>`
-          : `<span class="text-lg sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono">${salePrice.toLocaleString('vi-VN')} đ</span>`;
+          ? `<span class="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono whitespace-nowrap">${salePrice.toLocaleString('vi-VN')} đ</span><span class="text-[11px] sm:text-xs text-slate-400 line-through font-mono whitespace-nowrap">${origPrice.toLocaleString('vi-VN')} đ</span>`
+          : `<span class="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400 font-mono whitespace-nowrap">${salePrice.toLocaleString('vi-VN')} đ</span>`;
 
         return `
         <div onclick="${isSoldOut ? '' : `handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')`}"
-          class="snap-start flex-shrink-0 w-[275px] sm:w-[305px] flash-sale-card rounded-2xl p-4 border transition-all duration-200 flex flex-col justify-between ${isSoldOut ? 'opacity-60' : 'cursor-pointer hover:-translate-y-1 hover:border-rose-500/60 hover:shadow-xl'}">
+          class="snap-start flex-shrink-0 w-[250px] sm:w-[295px] flash-sale-card rounded-2xl p-3.5 sm:p-4 border transition-all duration-200 flex flex-col justify-between ${isSoldOut ? 'opacity-60' : 'cursor-pointer hover:-translate-y-1 hover:border-rose-500/60 hover:shadow-xl'}">
           <div>
-            <div class="flex items-start gap-3 mb-3">
-              <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-slate-900 border border-slate-700/70 p-1.5 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md">
+            <div class="flex items-start gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-900 border border-slate-700/70 p-1.5 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md">
                 <img src="${escapeHtml(it.logo_url)}" alt="${escapeHtml(it.name)}" class="w-full h-full object-contain" onerror="this.parentElement.textContent='VIP'">
               </div>
               <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-1.5 mb-1 flex-wrap">
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-xs">${escapeHtml(it.badge || '-50%')}</span>
-                  ${savedAmount > 0 ? `<span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-md">Tiết kiệm ${savedAmount.toLocaleString('vi-VN')}đ</span>` : `<span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded-md">GIÁ SỐC</span>`}
+                <div class="flex items-center gap-1 mb-1 overflow-hidden">
+                  <span class="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-xs whitespace-nowrap flex-shrink-0">${escapeHtml(it.badge || '-50%')}</span>
+                  ${savedAmount > 0 ? `<span class="text-[9px] sm:text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-md whitespace-nowrap truncate">-${savedAmount.toLocaleString('vi-VN')}đ</span>` : `<span class="text-[9px] sm:text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded-md whitespace-nowrap">HOT</span>`}
                 </div>
-                <h3 class="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(it.name)}</h3>
+                <h3 class="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 min-h-[2rem] sm:min-h-[2.25rem] leading-snug">${escapeHtml(it.name)}</h3>
               </div>
             </div>
           </div>
 
           <div class="pt-2 border-t border-slate-200/70 dark:border-slate-800/80">
-            <div class="flex items-baseline justify-between gap-2 mb-2">
-              <div class="flex items-baseline gap-2 flex-wrap">
-                ${priceHtml}
-              </div>
+            <div class="flex items-baseline gap-1.5 sm:gap-2 mb-1.5 flex-wrap">
+              ${priceHtml}
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden relative">
-              <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 h-2 rounded-full transition-all duration-500" style="width: ${progressWidth}"></div>
+            <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 sm:h-2 overflow-hidden relative">
+              <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 h-full rounded-full transition-all duration-500" style="width: ${progressWidth}"></div>
             </div>
-            <div class="text-[10px] font-semibold mt-1.5 flex items-center justify-between">
-              <span class="${isSoldOut ? 'text-rose-500 font-bold' : 'text-rose-600 dark:text-amber-300 font-bold'}">🔥 ${escapeHtml(remText)}</span>
-              <span class="text-[10px] text-slate-400">Giao tự động 30s</span>
+            <div class="text-[10px] font-semibold mt-1.5 flex items-center justify-between gap-1">
+              <span class="${isSoldOut ? 'text-rose-500 font-bold' : 'text-rose-600 dark:text-amber-300 font-bold'} whitespace-nowrap">🔥 ${escapeHtml(remText)}</span>
+              <span class="text-[9px] sm:text-[10px] text-slate-400 whitespace-nowrap">⚡ Tự động 30s</span>
             </div>
 
             ${isSoldOut ? `
-              <button disabled class="mt-2.5 w-full py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-extrabold text-xs rounded-xl cursor-not-allowed flex items-center justify-center">
+              <button disabled class="mt-2 w-full py-2 sm:py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-extrabold text-xs rounded-xl cursor-not-allowed flex items-center justify-center">
                 <span>ĐÃ CHÁY HÀNG</span>
               </button>
             ` : `
-              <button type="button" onclick="event.stopPropagation(); handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')" class="mt-2.5 w-full py-2.5 bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 transition active:scale-95 flex items-center justify-center gap-1.5">
+              <button type="button" onclick="event.stopPropagation(); handleFlashSaleBuy('${it.product_id || it.id}', '${it.plan_id || ''}')" class="mt-2 w-full py-2 sm:py-2.5 bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 transition active:scale-95 flex items-center justify-center gap-1.5">
                 <span>⚡ Săn Deal Ngay &rarr;</span>
               </button>
             `}
