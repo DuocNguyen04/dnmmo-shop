@@ -175,6 +175,8 @@
 
     /* All text colors in Light Mode */
     body.theme-light #view-orders h2,
+    body.theme-light #view-resources h2,
+    body.theme-light #view-resources h3,
     body.theme-light #view-policy h2,
     body.theme-light #view-terms h2,
     body.theme-light #view-product h1,
@@ -331,12 +333,14 @@
       background-color: rgba(243, 246, 252, 0.95) !important;
       border-bottom-color: #e2e8f0 !important;
     }
-    body.theme-light .cat-pill {
+    body.theme-light .cat-pill,
+    body.theme-light .res-cat-pill {
       background-color: #ffffff !important;
       color: #334155 !important;
       border: 1px solid #cbd5e1 !important;
     }
-    body.theme-light .cat-pill.active {
+    body.theme-light .cat-pill.active,
+    body.theme-light .res-cat-pill.active {
       background-color: #2563eb !important;
       color: #ffffff !important;
       border-color: #2563eb !important;
@@ -619,46 +623,53 @@
   </div>
 
   <header id="main-header" class="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-cyan-500/20 shadow-lg w-full transition-all duration-150">
-    <div class="container mx-auto max-w-7xl px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-4">
-      <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2 sm:gap-2.5 group min-w-0 flex-shrink">
+    <div class="container mx-auto max-w-7xl px-2.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-3">
+      <!-- Shop Brand Logo (flex-shrink-0 so menu never covers or squeezes it) -->
+      <a href="javascript:void(0)" onclick="switchView('store')" class="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
         <img src="logo.png" alt="DNMMO" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-contain shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform border border-cyan-500/40 bg-black flex-shrink-0">
-        <div class="flex flex-col min-w-0">
-          <span class="site-brand-text font-black text-base sm:text-lg tracking-tight block leading-tight truncate">DNMMO</span>
-          <span class="site-brand-sub text-[8px] sm:text-[9px] font-bold uppercase tracking-wider block leading-tight truncate hidden xs:block">Dịch Vụ Phần Mềm & AI</span>
+        <div class="flex flex-col flex-shrink-0">
+          <span class="site-brand-text font-black text-sm sm:text-lg tracking-tight block leading-tight whitespace-nowrap">DNMMO</span>
+          <span class="site-brand-sub text-[8px] sm:text-[9px] font-bold uppercase tracking-wider block leading-tight whitespace-nowrap">Dịch Vụ Phần Mềm & AI</span>
         </div>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs sm:text-sm">
-        <button onclick="switchView('store')" id="nav-store" class="px-3.5 py-1.5 rounded-lg font-bold text-white bg-blue-600 shadow transition whitespace-nowrap">
-          Sản phẩm & Bảng giá
+      <!-- Desktop Navigation Menu (Compact on lg, expanded on xl so it never collides with logo) -->
+      <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs flex-shrink-0">
+        <button onclick="switchView('store')" id="nav-store" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-bold text-white bg-blue-600 shadow transition flex items-center gap-1 whitespace-nowrap">
+          <span>🏪 Sản phẩm</span><span class="hidden xl:inline">& Bảng giá</span>
         </button>
-        <button onclick="switchView('orders')" id="nav-orders" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap">
+        <button onclick="switchView('orders')" id="nav-orders" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
           <span>📋 Đơn hàng</span>
-          <span id="user-orders-badge" class="bg-blue-500/20 text-blue-300 text-xs px-1.5 py-0.2 rounded-full font-bold">0</span>
+          <span id="user-orders-badge" class="bg-blue-500/20 text-blue-300 text-[11px] px-1.5 py-0.2 rounded-full font-bold">0</span>
         </button>
-        <button onclick="switchView('policy')" id="nav-policy" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">
-          Quy định bảo hành
+        <button onclick="switchView('resources')" id="nav-resources" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
+          <span>🎁 Tài liệu AI</span>
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] px-1.5 py-0.2 rounded-full font-extrabold uppercase">FREE</span>
         </button>
-        <button onclick="switchView('terms')" id="nav-terms" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">
-          Điều khoản & Bảo mật
+        <button onclick="switchView('policy')" id="nav-policy" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
+          <span>🛡️ Bảo hành</span>
+        </button>
+        <button onclick="switchView('terms')" id="nav-terms" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
+          <span>📜 Điều khoản</span>
         </button>
       </nav>
 
+      <!-- Right Controls: Theme Toggle + Auth (Compact on mobile so logo has plenty of space) -->
       <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
         <div id="theme-toggle-btn" onclick="toggleTheme()" role="button" tabindex="0" class="theme-toggle-pill cursor-pointer inline-flex items-center p-0.5 rounded-full border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 transition shadow-sm whitespace-nowrap select-none active:scale-95 flex-shrink-0" title="Bấm để chuyển đổi Giao diện Sáng / Tối">
-          <span id="theme-pill-light" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-bold transition">
+          <span id="theme-pill-light" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold transition">
             <span>☀️</span>
-            <span class="hidden md:inline">Sáng</span>
+            <span class="hidden xl:inline">Sáng</span>
           </span>
-          <span id="theme-pill-dark" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-bold transition">
+          <span id="theme-pill-dark" class="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold transition">
             <span>🌙</span>
-            <span class="hidden md:inline">Tối</span>
+            <span class="hidden xl:inline">Tối</span>
           </span>
         </div>
 
         <div id="auth-logged-out" class="flex items-center">
           <button onclick="openAuthModal('login')" class="flex items-center gap-1 sm:gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-2 sm:px-2.5 py-1.5 rounded-xl transition border border-cyan-500/30 shadow-sm whitespace-nowrap active:scale-95">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -676,8 +687,8 @@
               <span id="user-avatar-text">U</span>
               <img id="user-avatar-img" class="w-full h-full object-cover hidden absolute inset-0" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.classList.add('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.remove('hidden');" onload="this.style.display='block'; this.classList.remove('hidden'); const txt = document.getElementById('user-avatar-text'); if(txt) txt.classList.add('hidden');">
             </div>
-            <span id="user-name" class="text-xs font-bold text-white truncate max-w-[45px] sm:max-w-[110px] text-left"></span>
-            <svg id="user-chevron" class="w-3 h-3 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <span id="user-name" class="text-xs font-bold text-white truncate max-w-[50px] sm:max-w-[100px] text-left"></span>
+            <svg id="user-chevron" class="w-3 h-3 text-slate-400 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
 
           <!-- User Account Dropdown -->
@@ -711,6 +722,14 @@
                   <span>Flash Sale Giảm Sốc</span>
                 </span>
                 <span class="text-[9px] bg-rose-500 text-white font-extrabold px-1.5 py-0.2 rounded-full uppercase">HOT</span>
+              </button>
+
+              <button onclick="switchView('resources'); closeUserDropdown()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl transition text-left">
+                <span class="flex items-center gap-2 font-semibold">
+                  <span>🎁</span>
+                  <span>Tài liệu & Skill AI</span>
+                </span>
+                <span class="text-[9px] bg-emerald-500 text-white font-extrabold px-1.5 py-0.2 rounded-full uppercase">FREE</span>
               </button>
 
               <a href="/admin" id="user-dropdown-admin-link" class="hidden w-full flex items-center justify-between px-3 py-2 rounded-xl text-amber-300 bg-amber-950/40 hover:bg-amber-950/70 border border-amber-600/30 font-bold transition">
@@ -763,17 +782,21 @@
           <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
 
           <!-- Top Action Pills inside Hero -->
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-5 relative z-10">
-            <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
-              <button onclick="scrollToStore()" class="px-4 py-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/25 transition active:scale-95 flex items-center gap-1.5">
+          <div class="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-4 sm:mb-5 relative z-10">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
+              <button onclick="scrollToStore()" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-[11px] sm:text-sm shadow-lg shadow-amber-500/25 transition active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
                 <span>⚡</span>
                 <span>Khám phá Kho Tài Khoản</span>
               </button>
-              <button onclick="handleHeroAuthClick()" id="hero-auth-btn" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5">
+              <button onclick="switchView('resources')" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-emerald-500/25 hover:bg-emerald-500/35 text-emerald-200 font-extrabold text-[11px] sm:text-sm border border-emerald-400/40 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+                <span>🎁</span>
+                <span>Tài liệu & Gemini Pro Free</span>
+              </button>
+              <button onclick="handleHeroAuthClick()" id="hero-auth-btn" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-[11px] sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
                 <span>✨ Tạo tài khoản</span>
               </button>
-              <a href="https://zalo.me/0865899763" target="_blank" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              <a href="https://zalo.me/0865899763" target="_blank" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-[11px] sm:text-sm border border-white/25 backdrop-blur-sm transition active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 text-cyan-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 <span>Hỗ trợ Zalo 24/7</span>
               </a>
             </div>
@@ -797,12 +820,18 @@
             </div>
           </div>
 
-          <!-- Visitor Counter Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/35 border border-white/20 text-white/95 text-[11px] sm:text-xs font-semibold mb-3.5 backdrop-blur-sm relative z-10">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span>👁</span>
-            <span id="hero-visitor-count" class="font-bold text-cyan-300">13.439</span>
-            <span>lượt truy cập & mua sắm hôm nay</span>
+          <!-- Brand Logo Pill + Visitor Counter Badge -->
+          <div class="flex flex-wrap items-center gap-2 mb-3.5 relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/45 border border-cyan-400/40 text-white text-[11px] sm:text-xs font-extrabold backdrop-blur-sm shadow-sm">
+              <img src="logo.png" alt="DNMMO" class="w-4 h-4 sm:w-5 sm:h-5 rounded-md object-contain bg-black border border-cyan-400/50 flex-shrink-0">
+              <span class="text-cyan-300 tracking-wide">DNMMO OFFICIAL</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-black/35 border border-white/20 text-white/95 text-[11px] sm:text-xs font-semibold backdrop-blur-sm">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping flex-shrink-0"></span>
+              <span>👁</span>
+              <span id="hero-visitor-count" class="font-bold text-cyan-300">13.439</span>
+              <span>lượt truy cập hôm nay</span>
+            </div>
           </div>
 
           <!-- Main Hero Headline -->
@@ -956,50 +985,52 @@
         </div>
       </section>
 
-      <!-- Sticky Category + Search + Sort Bar -->
-      <section id="catalog-filter-bar" class="category-bar py-2 sm:py-3 bg-slate-950/95 border-b border-slate-800/80 sticky top-14 sm:top-16 z-30 backdrop-blur-md shadow-sm">
+      <!-- Sticky Category Bar (Single sleek row on mobile so sticky menu never covers product logos/cards) -->
+      <section id="catalog-filter-bar" class="category-bar py-2 sm:py-2.5 bg-slate-950/95 border-b border-slate-800/80 sticky top-14 sm:top-16 z-30 backdrop-blur-md shadow-sm">
         <div class="container mx-auto max-w-6xl px-3 sm:px-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <div class="flex items-center justify-between gap-2">
             <!-- Category Pills -->
-            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-0.5 md:pb-0 scrollbar-none snap-x touch-pan-x flex-1" id="category-pills">
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-0.5 scrollbar-none snap-x touch-pan-x flex-1" id="category-pills">
               <button onclick="setCategory('ALL', this)" class="cat-pill active snap-start px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold transition bg-blue-600 text-white shadow-md whitespace-nowrap active:scale-95">
                 Tất cả danh mục (<span id="cat-count-all">0</span>)
               </button>
-            </div>
-
-            <!-- Sticky Quick Search & Price Sort Controls -->
-            <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              <div class="relative flex-1 sm:w-52">
-                <input type="text" id="sticky-search-input" oninput="syncSearchInputs(this.value)" placeholder="Lọc nhanh tên gói..."
-                  class="w-full bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-1.5 pl-8 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
-                <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              </div>
-              <select id="sort-select" onchange="setProductSort(this.value)" aria-label="Sắp xếp sản phẩm"
-                class="bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-200 focus:outline-none focus:border-blue-500 cursor-pointer transition flex-shrink-0">
-                <option value="popular">🔥 Phổ biến</option>
-                <option value="price-asc">💰 Giá tăng dần</option>
-                <option value="price-desc">💎 Giá giảm dần</option>
-                <option value="rating">⭐ Đánh giá cao</option>
-              </select>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Main Products Catalog Grid -->
-      <section class="py-6 sm:py-9 px-3 sm:px-4">
+      <section id="catalog-section" class="py-5 sm:py-8 px-3 sm:px-4 scroll-mt-28 sm:scroll-mt-32">
         <div class="container mx-auto max-w-6xl">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 sm:mb-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 sm:mb-6">
             <div>
-              <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                <span class="w-2 sm:w-2.5 h-5 sm:h-6 bg-gradient-to-b from-blue-500 to-cyan-400 rounded-full inline-block"></span>
-                <span>KHO TÀI KHOẢN & BẢNG GIÁ DỊCH VỤ</span>
-              </h2>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h2 class="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                  <span class="w-2 sm:w-2.5 h-5 sm:h-6 bg-gradient-to-b from-blue-500 to-cyan-400 rounded-full inline-block flex-shrink-0"></span>
+                  <span>KHO TÀI KHOẢN & BẢNG GIÁ DỊCH VỤ</span>
+                </h2>
+                <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Sẵn hàng giao ngay</span>
+                </span>
+              </div>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Bấm trực tiếp vào gói bạn muốn mua để xem chi tiết cấu hình hoặc đặt mua ngay trong 30 giây</p>
             </div>
-            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full self-start sm:self-auto">
-              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Trạng thái kho: <strong class="text-emerald-600 dark:text-emerald-400">Sẵn hàng giao ngay</strong></span>
+
+            <!-- Quick Search & Price Sort Controls -->
+            <div class="flex items-center gap-2 flex-shrink-0 w-full md:w-auto">
+              <div class="relative flex-1 md:w-56">
+                <input type="text" id="sticky-search-input" oninput="syncSearchInputs(this.value)" placeholder="Lọc nhanh tên gói..."
+                  class="w-full bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 pl-8 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <select id="sort-select" onchange="setProductSort(this.value)" aria-label="Sắp xếp sản phẩm"
+                class="bg-slate-900 dark:bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-blue-500 cursor-pointer transition flex-shrink-0">
+                <option value="popular">🔥 Phổ biến</option>
+                <option value="price-asc">💰 Giá tăng dần</option>
+                <option value="price-desc">💎 Giá giảm dần</option>
+                <option value="rating">⭐ Đánh giá cao</option>
+              </select>
             </div>
           </div>
 
@@ -1110,6 +1141,298 @@
 
         <div id="orders-content" class="space-y-4">
         </div>
+      </div>
+    </div>
+
+    <!-- AI SKILLS, GUIDES & FREE DOWNLOADS VIEW -->
+    <div id="view-resources" class="hidden py-5 sm:py-10 px-3 sm:px-4">
+      <div class="container mx-auto max-w-5xl space-y-6 sm:space-y-8">
+
+        <!-- Hero Banner for AI Skills & Resources -->
+        <div id="resources-hero-banner" class="relative rounded-2xl sm:rounded-3xl p-4 sm:p-8 overflow-hidden shadow-2xl text-white border border-white/10"
+             style="background: linear-gradient(135deg, #0f172a 0%, #065f46 35%, #0f766e 70%, #1e3a8a 100%);">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(52,211,153,0.22),_transparent_60%)] pointer-events-none"></div>
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/35 border border-emerald-400/40 text-emerald-200 text-[10px] sm:text-[11px] font-black uppercase tracking-wider mb-3 backdrop-blur-sm">
+                <img src="logo.png" alt="DNMMO" class="w-4 h-4 rounded object-contain bg-black border border-cyan-400/40 flex-shrink-0">
+                <span>🎁 Chia Sẻ Miễn Phí Từ DNMMO</span>
+              </div>
+              <h1 class="text-lg sm:text-3xl font-black text-white tracking-tight leading-snug mb-2">
+                Kho Tài Liệu, Extension & Skill AI Thực Chiến
+              </h1>
+              <p class="text-white/85 text-xs sm:text-sm leading-relaxed">
+                Tổng hợp các tiện ích mở rộng (Extension), thủ thuật nhận AI bản quyền miễn phí, bộ Mega-Prompt ChatGPT/Claude/Gemini và tài liệu hướng dẫn tối ưu công việc cập nhật mới nhất 2026.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row md:flex-col gap-2 sm:gap-2.5 flex-shrink-0 w-full md:w-auto">
+              <a href="https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link" target="_blank" rel="noopener"
+                 class="w-full sm:w-auto px-4 sm:px-5 py-3 rounded-2xl bg-white text-emerald-800 hover:bg-slate-100 font-black text-xs sm:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap">
+                <span>☁️ Mở Kho Google Drive</span>
+                <span>&rarr;</span>
+              </a>
+              <button onclick="switchView('store')" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs border border-white/25 transition active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <span>&larr; Quay lại Cửa hàng</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills for Resources -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x touch-pan-x">
+          <button onclick="filterResourceCards('ALL', this)" class="res-cat-pill active snap-start px-4 py-2 rounded-xl text-xs font-extrabold transition bg-blue-600 text-white shadow-md whitespace-nowrap">
+            🔥 Tất cả tài liệu (4)
+          </button>
+          <button onclick="filterResourceCards('extension', this)" class="res-cat-pill snap-start px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">
+            🧩 Thủ thuật & Extension (2)
+          </button>
+          <button onclick="filterResourceCards('prompt', this)" class="res-cat-pill snap-start px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">
+            🤖 Skill & Prompt AI (1)
+          </button>
+          <button onclick="filterResourceCards('design', this)" class="res-cat-pill snap-start px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">
+            🎬 Thiết kế & Video AI (1)
+          </button>
+        </div>
+
+        <!-- FEATURED TUTORIAL #1: CÁCH NHẬN GEMINI PRO (GOOGLE AI PRO) MIỄN PHÍ - LÀM TRONG 5 PHÚT -->
+        <div data-res-cat="extension" class="res-card-item glass-card rounded-3xl p-4 sm:p-7 border-2 border-emerald-500/40 dark:border-emerald-500/40 bg-white dark:bg-slate-900/95 shadow-xl relative overflow-hidden">
+          <!-- Top Badges & Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-4 mb-5 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-black bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-xs uppercase whitespace-nowrap">
+                🔥 THỦ THUẬT HOT NHẤT 2026
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-bold bg-blue-500/15 text-blue-600 dark:text-cyan-300 border border-blue-500/30 whitespace-nowrap">
+                ⏱️ Làm trong 5 phút
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30 whitespace-nowrap">
+                📦 Thư mục: gemini2026
+              </span>
+            </div>
+            <span class="text-[11px] text-slate-400 font-medium">Cập nhật: Mới nhất • Miễn phí 100%</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Left / Main Column: Title & 5-Step Instructions -->
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <h2 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
+                  CÁCH NHẬN GEMINI PRO (GOOGLE AI PRO) MIỄN PHÍ - LÀM TRONG 5 PHÚT
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
+                  Muốn dùng <strong>Gemini Pro (Google AI Pro)</strong> mà chưa biết cách nhận ưu đãi từ Google One? Hãy tải file Extension bên cạnh và làm theo đúng <strong>5 bước</strong> dưới đây nhé:
+                </p>
+              </div>
+
+              <!-- 5 Steps Interactive Checklist -->
+              <div class="space-y-3">
+                <!-- Step 1 -->
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">1</div>
+                  <div class="min-w-0 flex-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div class="font-extrabold text-slate-900 dark:text-white mb-1">Cài đặt tiện ích mở rộng (Extension) vào Chrome</div>
+                    <p>Mở trình duyệt Chrome trên máy tính &rarr; gõ <code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-blue-600 dark:text-cyan-300 font-mono font-bold">chrome://extensions</code> lên thanh địa chỉ &rarr; bật <strong>Developer mode</strong> (Chế độ dành cho nhà phát triển) &rarr; bấm <strong>Load unpacked</strong> (Tải tiện ích đã giải nén) &rarr; chọn thư mục <strong>gemini2026</strong> (sau khi đã giải nén file tải về).</p>
+                    <div class="mt-2 flex items-center gap-2 flex-wrap">
+                      <button type="button" onclick="copyResourceText('chrome://extensions', 'đường dẫn chrome://extensions')"
+                        class="px-3 py-1.5 rounded-xl bg-blue-600/15 hover:bg-blue-600/25 text-blue-600 dark:text-cyan-300 border border-blue-500/30 font-bold text-[11px] transition active:scale-95 inline-flex items-center gap-1.5">
+                        <span>📋 Copy: chrome://extensions</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">2</div>
+                  <div class="min-w-0 flex-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div class="font-extrabold text-slate-900 dark:text-white mb-0.5">Bật VPN sang máy chủ Mỹ (US)</div>
+                    <p>Bật phần mềm hoặc tiện ích <strong>VPN</strong>, chọn server <strong>Mỹ (United States - US)</strong> để đủ điều kiện hiển thị chương trình ưu đãi của Google.</p>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-teal-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">3</div>
+                  <div class="min-w-0 flex-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div class="font-extrabold text-slate-900 dark:text-white mb-1">Truy cập trang quản lý Google One</div>
+                    <p>Đăng nhập tài khoản <strong>Gmail</strong> bạn muốn kích hoạt &rarr; truy cập vào trang <a href="https://one.google.com" target="_blank" rel="noopener" class="text-blue-600 dark:text-cyan-400 font-bold underline">one.google.com</a>.</p>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-amber-500 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">4</div>
+                  <div class="min-w-0 flex-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div class="font-extrabold text-slate-900 dark:text-white mb-0.5">Mở Extension chọn gói 12 tháng</div>
+                    <p>Bấm vào biểu tượng <strong>Extensions</strong> trên góc phải trình duyệt &rarr; mở tiện ích vừa cài và <strong>chọn 12 tháng</strong> <span class="text-amber-600 dark:text-amber-300 font-semibold">(theo kinh nghiệm chọn 12 tháng là đủ dùng ổn định rồi, không cần cộng dồn)</span>.</p>
+                  </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-700/50 flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">5</div>
+                  <div class="min-w-0 flex-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div class="font-extrabold text-emerald-700 dark:text-emerald-300 mb-0.5">Làm mới trang & Nhận ưu đãi Google AI Pro</div>
+                    <p>Nhấn tổ hợp phím <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-mono text-xs font-bold">Ctrl + Shift + R</kbd> để tải lại trang &rarr; thấy xuất hiện ưu đãi <strong>Google AI Pro (Gemini Pro)</strong> thì bấm <strong>Nhận ưu đãi</strong> là thành công!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Download Card & Quick Links -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="p-4 sm:p-5 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4 shadow-md">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-600 text-white flex items-center justify-center text-2xl shadow-md flex-shrink-0">
+                    📦
+                  </div>
+                  <div class="min-w-0">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block">FILE TIỆN ÍCH CHUẨN</span>
+                    <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white truncate">gemini2026.zip</h3>
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400">Dung lượng: ~12 KB • Sạch & An toàn 100%</span>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs space-y-1.5">
+                  <div class="flex justify-between gap-2">
+                    <span class="text-slate-500 flex-shrink-0">Định dạng:</span>
+                    <strong class="text-slate-900 dark:text-white text-right">Chrome / Edge / Brave Extension</strong>
+                  </div>
+                  <div class="flex justify-between gap-2">
+                    <span class="text-slate-500 flex-shrink-0">Thư mục giải nén:</span>
+                    <strong class="text-blue-600 dark:text-cyan-400 font-mono text-right">gemini2026/</strong>
+                  </div>
+                  <div class="flex justify-between gap-2">
+                    <span class="text-slate-500 flex-shrink-0">Chi phí tải về:</span>
+                    <strong class="text-emerald-600 dark:text-emerald-400 text-right">Miễn phí (0 đ)</strong>
+                  </div>
+                </div>
+
+                <!-- Download Buttons -->
+                <div class="space-y-2.5">
+                  <a href="https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link" target="_blank" rel="noopener"
+                     class="w-full py-3 sm:py-3.5 px-3 sm:px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition active:scale-95 flex items-center justify-center gap-1.5 sm:gap-2 text-center">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <span>☁️ Mở Google Drive Tải File (gemini2026)</span>
+                  </a>
+
+                  <a href="https://one.google.com" target="_blank" rel="noopener"
+                     class="w-full py-2.5 px-4 rounded-xl bg-slate-200/80 hover:bg-slate-300/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center justify-center gap-1.5">
+                    <span>🌐 Mở nhanh trang one.google.com</span>
+                  </a>
+                </div>
+
+                <!-- Helpful tip if user doesn't want to do manual steps -->
+                <div class="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-700/50 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed">
+                  <strong>💡 Bạn dùng điện thoại hoặc ngại thao tác?</strong><br>
+                  Nếu bạn không tiện cài Extension trên máy tính hoặc cần gói <strong>Gemini Advanced / ChatGPT Plus / Canva Pro / YouTube Premium</strong> kích hoạt sẵn bảo hành 1 đổi 1, bạn có thể <a href="javascript:void(0)" onclick="switchView('store')" class="font-extrabold underline text-blue-600 dark:text-cyan-400">đặt mua gói làm sẵn tại Cửa hàng</a> chỉ từ vài chục nghìn nhé!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDITIONAL AI SKILLS & RESOURCE CARDS GRID -->
+        <div>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <span class="w-2 h-5 bg-emerald-500 rounded-full inline-block"></span>
+            <span>TÀI LIỆU & SKILL AI BỔ TRỢ KHÁC</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+            <!-- Resource Card 2: Mega Prompts -->
+            <div data-res-cat="prompt" class="res-card-item glass-card rounded-3xl p-5 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="w-11 h-11 rounded-2xl bg-violet-500/15 text-violet-600 dark:text-violet-400 border border-violet-500/30 flex items-center justify-center text-xl">🤖</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-violet-500/15 text-violet-600 dark:text-violet-300 border border-violet-500/30">SKILL & PROMPT AI</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white mb-1.5 leading-snug">
+                  Công Thức Viết Mega-Prompt Chuẩn Chuyên Gia Cho ChatGPT & Gemini
+                </h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                  Áp dụng cấu trúc 5 lớp <strong>(Đóng vai - Bối cảnh - Nhiệm vụ - Ràng buộc - Định dạng đầu ra)</strong> giúp AI trả lời sâu sắc, chính xác gấp 5 lần cách hỏi thông thường.
+                </p>
+                <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-700 dark:text-slate-300 mb-4 leading-relaxed">
+                  "Hãy đóng vai chuyên gia [Lĩnh vực] với 10 năm kinh nghiệm. Nhiệm vụ của bạn là [Mục tiêu]. Bối cảnh: [Đối tượng/Sản phẩm]. Trình bày dạng bảng kèm ví dụ thực tế..."
+                </div>
+              </div>
+              <div class="space-y-2 pt-2 border-t border-slate-200/70 dark:border-slate-800/80">
+                <button type="button" onclick="copyResourceText('Hãy đóng vai chuyên gia [Lĩnh vực] với 10 năm kinh nghiệm. Nhiệm vụ của bạn là [Mục tiêu cụ thể]. Bối cảnh: [Thông tin đầu vào]. Yêu cầu: Trình bày rõ ràng từng bước, có bảng so sánh và ví dụ thực tế.', 'Mẫu Mega-Prompt chuẩn')"
+                  class="w-full py-2.5 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <span>📋 Copy Khung Mega-Prompt</span>
+                </button>
+                <a href="https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link" target="_blank" rel="noopener"
+                   class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition flex items-center justify-center gap-1">
+                  <span>☁️ Xem thêm trên Google Drive &rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Resource Card 3: NotebookLM & Gemini 2TB Guide -->
+            <div data-res-cat="extension" class="res-card-item glass-card rounded-3xl p-5 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="w-11 h-11 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-xl">🧠</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/15 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30">MẸO SỬ DỤNG AI</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white mb-1.5 leading-snug">
+                  Tận Dụng Tối Đa Gemini Pro & NotebookLM Trong Học Tập / Làm Việc
+                </h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                  Khi đã kích hoạt <strong>Google AI Pro</strong>, bạn được mở khóa mô hình Gemini Pro cửa sổ ngữ cảnh lớn và tích hợp trực tiếp trong Gmail, Docs, Sheets:
+                </p>
+                <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 mb-4 list-disc pl-4">
+                  <li>Tải lên hàng chục file PDF/Word dài hàng trăm trang để tóm tắt và tra cứu dẫn chứng chính xác.</li>
+                  <li>Sử dụng Gemini ngay trong <strong>Google Docs & Gmail</strong> để soạn thảo văn bản và trả lời email tự động.</li>
+                  <li>Kết hợp <strong>2TB Google Drive</strong> lưu trữ thoải mái dữ liệu công việc và backup ảnh/video chất lượng gốc.</li>
+                </ul>
+              </div>
+              <div class="space-y-2 pt-2 border-t border-slate-200/70 dark:border-slate-800/80">
+                <a href="https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link" target="_blank" rel="noopener"
+                   class="w-full py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <span>☁️ Mở Thư Mục Tài Liệu Google Drive &rarr;</span>
+                </a>
+                <a href="https://one.google.com" target="_blank" rel="noopener"
+                   class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition flex items-center justify-center gap-1">
+                  <span>🌐 Truy cập one.google.com &rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Resource Card 4: Canva Pro + CapCut Pro AI Video Workflow -->
+            <div data-res-cat="design" class="res-card-item glass-card rounded-3xl p-5 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="w-11 h-11 rounded-2xl bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 flex items-center justify-center text-xl">🎬</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30">THIẾT KẾ & VIDEO AI</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white mb-1.5 leading-snug">
+                  Quy Trình Sản Xuất Video Ngắn Hàng Loạt Bằng AI + Canva Pro + CapCut Pro
+                </h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                  Quy trình chuẩn giúp nhà sáng tạo nội dung & MMO tạo 10–20 video TikTok/Reels/Shorts mỗi ngày chỉ trong 30 phút:
+                </p>
+                <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 mb-4 list-disc pl-4">
+                  <li><strong>Bước 1:</strong> Dùng ChatGPT / Gemini xuất bảng 20 kịch bản ngắn dưới dạng bảng CSV.</li>
+                  <li><strong>Bước 2:</strong> Đưa vào tính năng <strong>Tạo hàng loạt (Bulk Create)</strong> của Canva Pro để render đồng loạt.</li>
+                  <li><strong>Bước 3:</strong> Dùng <strong>CapCut Pro</strong> tạo phụ đề AI tự động, tách nền thông minh và xuất 4K 60fps.</li>
+                </ul>
+              </div>
+              <div class="space-y-2 pt-2 border-t border-slate-200/70 dark:border-slate-800/80">
+                <a href="https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link" target="_blank" rel="noopener"
+                   class="w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <span>☁️ Tải Tài Liệu Trên Google Drive</span>
+                </a>
+                <button type="button" onclick="switchView('store')"
+                   class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition flex items-center justify-center gap-1">
+                  <span>🛒 Xem gói Canva / CapCut Pro &rarr;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1717,11 +2040,11 @@
     <span>Hỗ trợ</span>
   </a>
 
-  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-8 sm:py-10 text-slate-400 text-xs">
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 pt-8 pb-24 lg:py-10 text-slate-400 text-xs">
     <div class="container mx-auto max-w-6xl px-4 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
       <div>
         <div class="flex items-center gap-2.5 mb-3">
-          <img src="logo.png" alt="DNMMO" class="w-7 h-7 rounded-lg object-contain border border-cyan-500/40 bg-black">
+          <img src="logo.png" alt="DNMMO" class="w-8 h-8 rounded-xl object-contain border border-cyan-500/40 bg-black flex-shrink-0">
           <span class="font-extrabold text-white text-sm tracking-wide">DNMMO PRO</span>
         </div>
         <p class="text-slate-400 leading-relaxed mb-3">
@@ -1741,6 +2064,7 @@
       <div>
         <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Chính Sách & Quy Định</h4>
         <ul class="space-y-1.5 text-slate-400">
+          <li>• <a href="javascript:void(0)" onclick="switchView('resources')" class="hover:underline text-emerald-400 font-semibold">Kho Tài Liệu & Skill AI Miễn Phí</a></li>
           <li>• <a href="javascript:void(0)" onclick="switchView('policy')" class="hover:underline">Chính sách bảo hành & hoàn tiền</a></li>
           <li>• <a href="javascript:void(0)" onclick="switchView('terms')" class="hover:underline">Điều khoản dịch vụ & bảo vệ dữ liệu</a></li>
           <li>• <a href="javascript:void(0)" onclick="switchView('orders')" class="hover:underline">Tra cứu & Lịch sử đơn hàng</a></li>
@@ -1752,30 +2076,38 @@
     </div>
   </footer>
 
-  <nav id="mobile-app-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-cyan-500/20 shadow-[0_-8px_30px_rgba(0,0,0,0.85)] px-2 py-1.5 flex items-center justify-around select-none">
-    <button onclick="switchView('store')" id="mob-nav-store" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-cyan-400 font-black scale-105 transition-all group">
+  <nav id="mobile-app-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-cyan-500/20 shadow-[0_-8px_30px_rgba(0,0,0,0.85)] px-1 py-1.5 flex items-center justify-around select-none">
+    <button onclick="switchView('store')" id="mob-nav-store" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-cyan-400 font-black transition-all group min-w-0">
       <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-      <span class="text-[10px] tracking-tight">Cửa hàng</span>
+      <span class="text-[10px] tracking-tight whitespace-nowrap">Cửa hàng</span>
     </button>
 
-    <a href="https://zalo.me/0865899763" target="_blank" class="flex flex-col items-center justify-center px-2 -mt-5 group" title="Nhắn Zalo tư vấn ngay">
-      <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/40 border-2 border-slate-950 group-active:scale-95 group-hover:scale-105 transition-all">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    <button onclick="switchView('resources')" id="mob-nav-resources" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group min-w-0">
+      <div class="relative">
+        <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span class="absolute -top-1 -right-2 bg-emerald-500 text-white text-[7px] font-black px-1 rounded-full leading-tight">FREE</span>
       </div>
-      <span class="text-[9px] font-black text-cyan-300 mt-0.5 tracking-tight uppercase">Zalo 1-Chạm</span>
+      <span class="text-[10px] tracking-tight whitespace-nowrap">Tài liệu AI</span>
+    </button>
+
+    <a href="https://zalo.me/0865899763" target="_blank" class="flex flex-col items-center justify-center px-1.5 -mt-5 group flex-shrink-0" title="Nhắn Zalo tư vấn ngay">
+      <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/40 border-2 border-slate-950 group-active:scale-95 group-hover:scale-105 transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      </div>
+      <span class="text-[9px] font-black text-cyan-300 mt-0.5 tracking-tight uppercase whitespace-nowrap">Zalo</span>
     </a>
 
-    <button onclick="switchView('orders')" id="mob-nav-orders" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group">
+    <button onclick="switchView('orders')" id="mob-nav-orders" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group min-w-0">
       <div class="relative">
         <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         <span id="mob-orders-badge" class="absolute -top-1 -right-2 bg-blue-500 text-white text-[9px] font-bold px-1 rounded-full min-w-[14px] text-center leading-tight">0</span>
       </div>
-      <span class="text-[10px] tracking-tight">Đơn của tôi</span>
+      <span class="text-[10px] tracking-tight whitespace-nowrap">Đơn của tôi</span>
     </button>
 
-    <button onclick="switchView('policy')" id="mob-nav-policy" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group">
+    <button onclick="switchView('policy')" id="mob-nav-policy" class="mob-bottom-btn flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group min-w-0">
       <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-      <span class="text-[10px] tracking-tight">Bảo hành</span>
+      <span class="text-[10px] tracking-tight whitespace-nowrap">Bảo hành</span>
     </button>
   </nav>
 
@@ -1875,10 +2207,12 @@
 
     function scrollToStore() {
       switchView('store');
-      const target = document.getElementById('category-pills') || document.getElementById('products-grid');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      setTimeout(() => {
+        const target = document.getElementById('catalog-section') || document.getElementById('products-grid');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 60);
     }
 
     function handleHeroAuthClick() {
@@ -2138,30 +2472,30 @@
     function switchView(viewName) {
       closeUserDropdown();
       if (viewName === 'lookup') viewName = 'orders';
-      ['store', 'orders', 'policy', 'terms', 'product'].forEach(v => {
+      ['store', 'orders', 'resources', 'policy', 'terms', 'product'].forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.toggle('hidden', v !== viewName);
       });
 
-      ['store', 'orders', 'policy', 'terms'].forEach(v => {
+      ['store', 'orders', 'resources', 'policy', 'terms'].forEach(v => {
         const btn = document.getElementById(`nav-${v}`);
         if (btn) {
           if (v === viewName) {
-            btn.className = 'px-3.5 py-1.5 rounded-lg font-bold text-white bg-blue-600 shadow transition whitespace-nowrap';
+            btn.className = 'px-2.5 xl:px-3.5 py-1.5 rounded-lg font-bold text-white bg-blue-600 shadow transition flex items-center gap-1 whitespace-nowrap';
           } else {
-            btn.className = 'px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition whitespace-nowrap';
+            btn.className = 'px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap';
           }
         }
       });
 
-      ['store', 'orders', 'policy'].forEach(v => {
+      ['store', 'resources', 'orders', 'policy'].forEach(v => {
         const mobBtn = document.getElementById(`mob-nav-${v}`);
         if (mobBtn) {
           if (v === viewName) {
             mobBtn.classList.remove('text-slate-400');
-            mobBtn.classList.add('text-cyan-400', 'font-black', 'scale-105');
+            mobBtn.classList.add('text-cyan-400', 'font-black');
           } else {
-            mobBtn.classList.remove('text-cyan-400', 'font-black', 'scale-105');
+            mobBtn.classList.remove('text-cyan-400', 'font-black');
             mobBtn.classList.add('text-slate-400');
           }
         }
@@ -2169,6 +2503,35 @@
 
       if (viewName === 'orders') renderCustomerOrdersView();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterResourceCards(cat, btn) {
+      document.querySelectorAll('.res-cat-pill').forEach(p => {
+        p.className = 'res-cat-pill snap-start px-4 py-2 rounded-xl text-xs font-semibold transition bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap';
+      });
+      if (btn) {
+        btn.className = 'res-cat-pill active snap-start px-4 py-2 rounded-xl text-xs font-extrabold transition bg-blue-600 text-white shadow-md whitespace-nowrap';
+      }
+      document.querySelectorAll('.res-card-item').forEach(card => {
+        const itemCat = card.getAttribute('data-res-cat');
+        if (cat === 'ALL' || itemCat === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function copyResourceText(text, label) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(`Đã sao chép ${label || 'nội dung'}!`, 'success');
+        }).catch(() => {
+          showToast(`Đã sao chép: ${text}`, 'success');
+        });
+      } else {
+        showToast(`Đã sao chép: ${text}`, 'success');
+      }
     }
 
     // Smooth Count-Up Animation for Hero Metrics
@@ -2371,7 +2734,7 @@
       currentCategory = 'ALL';
       renderCategoryPills();
       syncSearchInputs(kw);
-      const gridEl = document.getElementById('catalog-filter-bar') || document.getElementById('products-grid');
+      const gridEl = document.getElementById('catalog-section') || document.getElementById('products-grid');
       if (gridEl && kw) {
         gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
