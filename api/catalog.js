@@ -1,4 +1,5 @@
 const { query } = require('./lib/db');
+const { ensureResourcesTable } = require('./lib/resources');
 
 const DEFAULT_CATEGORIES = [
   { id: '11111111-1111-1111-1111-111111111111', name: 'Trí tuệ nhân tạo (AI Tools)', slug: 'ai-tools' },
@@ -31,7 +32,7 @@ const DEFAULT_PRODUCTS = [
     category_id: '22222222-2222-2222-2222-222222222222',
     name: 'Canva Pro',
     slug: 'canva-pro',
-    badge: 'BẢN QUYỀN',
+    badge: 'CAO CẤP',
     short_desc: 'Nâng cấp chính chủ email của bạn, mở khóa 100M+ tài nguyên Pro.',
     description: 'Kích hoạt trực tiếp trên email của bạn, giữ nguyên thiết kế cũ. Mở khóa 100M+ ảnh/video/đồ họa Pro, công cụ xóa phông nền 1 chạm.',
     warranty_policy: 'Bảo hành trọn thời gian sử dụng 1 năm theo cam kết. Nâng cấp chính chủ, dữ liệu thiết kế riêng tư.',
@@ -52,7 +53,7 @@ const DEFAULT_PRODUCTS = [
     slug: 'capcut-pro',
     badge: 'EDITOR VIP',
     short_desc: 'Dựng video TikTok/Reels Pro, xóa phông nền AI, phụ đề tự động và hiệu ứng VIP.',
-    description: 'Mở khóa kho nhạc bản quyền, hiệu ứng chuyển cảnh độc quyền VIP, phụ đề tự động đa ngôn ngữ, xuất video 4K 60FPS không watermark.',
+    description: 'Mở khóa kho âm thanh cao cấp, hiệu ứng chuyển cảnh độc quyền VIP, phụ đề tự động đa ngôn ngữ, xuất video 4K 60FPS không watermark.',
     warranty_policy: 'Bảo hành đúng thời hạn đã chọn (7 ngày hoặc 1 tháng). Hỗ trợ đăng nhập PC, Laptop, điện thoại.',
     logo_url: 'https://i.pinimg.com/474x/e7/7a/00/e77a00979cfb814f4aff1acffb4f0c64.jpg',
     is_active: true,
@@ -69,7 +70,7 @@ const DEFAULT_PRODUCTS = [
     category_id: '33333333-3333-3333-3333-333333333333',
     name: 'YouTube Premium',
     slug: 'youtube-premium',
-    badge: 'CHÍNH HÃNG',
+    badge: 'GÓI GIA ĐÌNH',
     short_desc: 'Chặn 100% quảng cáo, phát trong nền, nghe nhạc YouTube Music chất lượng cao.',
     description: 'Mời nhóm Gia đình (Family) vào email Gmail cá nhân của bạn. Xem video không quảng cáo trên mọi thiết bị TV, Điện thoại, Máy tính.',
     warranty_policy: 'Bảo hành trọn vẹn theo thời hạn gói (1 tháng, 3 tháng, 6 tháng). Nâng cấp chính chủ email Gmail.',
@@ -92,7 +93,7 @@ const DEFAULT_PRODUCTS = [
     badge: 'GOOGLE AI',
     short_desc: 'Gemini 1.5 Pro với 2 triệu token context, tích hợp Google Workspace.',
     description: 'Sức mạnh xử lý đa phương thức với cửa sổ ngữ cảnh 2 triệu tokens. Tích hợp trực tiếp vào Gmail, Docs và tặng kèm 2TB Google Drive.',
-    warranty_policy: 'Bảo hành gói bản quyền theo thời hạn đã đăng ký (1 năm / 18 tháng). Cam kết dung lượng Drive 2TB ổn định.',
+    warranty_policy: 'Bảo hành tính năng gói theo thời hạn đã đăng ký (1 năm / 18 tháng). Cam kết dung lượng Drive 2TB ổn định.',
     logo_url: 'https://tse4.mm.bing.net/th/id/OIP.umfUzNjKLT1bMF25L3QPoAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
     is_active: true,
     rating_avg: 4.9,
@@ -158,7 +159,7 @@ const DEFAULT_FLASH_SALES = [
     id: 'eea420d0-dab0-4484-8417-151f7742244d',
     product_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
     plan_id: 'b02837ce-dbc9-4af0-8e75-99155f2cb9b3',
-    name: 'Canva Pro Bản Quyền 1 Năm',
+    name: 'Canva Pro Nâng Cấp 1 Năm',
     badge: '-56%',
     original_price: 135000,
     sale_price: 59000,
@@ -245,9 +246,9 @@ module.exports = async (req, res) => {
           ord.customer_phone || '',
           ord.customer_email || '',
           ord.product_id,
-          ord.product_name || 'Tài khoản bản quyền',
+          ord.product_name || 'Tài khoản dịch vụ',
           ord.plan_id,
-          ord.plan_name || 'Gói bản quyền',
+          ord.plan_name || 'Gói tài khoản',
           rating,
           comment
         ]);
@@ -271,6 +272,23 @@ module.exports = async (req, res) => {
       return res.status(200).json({ success: true, review: revRes.rows[0] || null });
     } catch (e) {
       return res.status(200).json({ success: true, review: null });
+    }
+  }
+
+  // 2b. ACTION: PUBLIC LIST OF ACTIVE AI RESOURCES (Trang Tài liệu AI)
+  if (action === 'resources') {
+    try {
+      await ensureResourcesTable();
+      const rRes = await query(`
+        SELECT id, title, category, badge, icon, summary, content, copy_text, drive_url, extra_url, extra_label, sort_order
+        FROM public.site_resources
+        WHERE is_active = true
+        ORDER BY sort_order ASC, created_at DESC;
+      `);
+      return res.status(200).json({ success: true, resources: rRes.rows });
+    } catch (e) {
+      console.warn('Resources notice:', e.message);
+      return res.status(200).json({ success: false, resources: null });
     }
   }
 

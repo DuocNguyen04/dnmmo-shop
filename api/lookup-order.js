@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
           o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email,
           o.created_at, o.paid_at, o.delivered_at, o.warranty_until,
           p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
-          pr.id as product_id, pr.name as product_name
+          pr.id as product_id, pr.name as product_name, pr.logo_url as product_logo_url
         FROM public.orders o
         LEFT JOIN public.plans p ON p.id = o.plan_id
         LEFT JOIN public.products pr ON pr.id = p.product_id
@@ -86,7 +86,7 @@ module.exports = async (req, res) => {
           o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
           o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.license_info,
           p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
-          pr.id as product_id, pr.name as product_name, pr.warranty_policy
+          pr.id as product_id, pr.name as product_name, pr.warranty_policy, pr.logo_url as product_logo_url
         FROM public.orders o
         LEFT JOIN public.plans p ON p.id = o.plan_id
         LEFT JOIN public.products pr ON pr.id = p.product_id
@@ -99,7 +99,7 @@ module.exports = async (req, res) => {
           o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
           o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.license_info,
           p.id as plan_id, p.name as plan_name, p.duration_days, p.account_type,
-          pr.id as product_id, pr.name as product_name, pr.warranty_policy
+          pr.id as product_id, pr.name as product_name, pr.warranty_policy, pr.logo_url as product_logo_url
         FROM public.orders o
         LEFT JOIN public.plans p ON p.id = o.plan_id
         LEFT JOIN public.products pr ON pr.id = p.product_id
@@ -156,6 +156,7 @@ module.exports = async (req, res) => {
           ? order.contact_phone.slice(0, 3) + '***' + order.contact_phone.slice(-3)
           : '***',
         product_id: order.product_id,
+        product_logo_url: order.product_logo_url || '',
         plan_name: order.plan_name,
         product_name: order.product_name,
         duration_days: order.duration_days,

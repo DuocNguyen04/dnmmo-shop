@@ -117,7 +117,7 @@ module.exports = async (req, res) => {
     const planRes = await query(`
       SELECT 
         p.id as plan_id, p.name as plan_name, p.price, p.duration_days, p.account_type, p.is_active as plan_active, p.stock,
-        pr.id as product_id, pr.name as product_name, pr.is_active as product_active
+        pr.id as product_id, pr.name as product_name, pr.is_active as product_active, pr.logo_url as product_logo_url
       FROM public.plans p
       JOIN public.products pr ON pr.id = p.product_id
       WHERE p.id = $1;
@@ -193,13 +193,13 @@ module.exports = async (req, res) => {
 
     const insertRes = await query(`
       INSERT INTO public.orders (
-        code, user_id, plan_id, variant_id, amount, price, 
+        code, user_id, plan_id, amount, price, 
         contact_name, customer_name, 
         contact_phone, customer_phone, 
         contact_email, customer_email, 
         note, customer_note, status
       )
-      VALUES ($1, $2, $3, $3, $4::int, $4::numeric, $5, $5, $6, $6, $7, $7, $8, $8, 'pending')
+      VALUES ($1, $2, $3, $4::int, $4::numeric, $5, $5, $6, $6, $7, $7, $8, $8, 'pending')
       RETURNING id, code, amount, status, contact_name, contact_phone, contact_email, created_at;
     `, [
       code,
@@ -243,6 +243,8 @@ module.exports = async (req, res) => {
         contact_email: order.contact_email,
         plan_name: plan.plan_name,
         product_name: plan.product_name,
+        product_id: plan.product_id,
+        product_logo_url: plan.product_logo_url || '',
         duration_days: plan.duration_days,
         account_type: plan.account_type,
         created_at: order.created_at,
