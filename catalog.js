@@ -1,4 +1,5 @@
 const { query } = require('./lib/db');
+const { ensureResourcesTable } = require('./lib/resources');
 
 const DEFAULT_CATEGORIES = [
   { id: '11111111-1111-1111-1111-111111111111', name: 'Trí tuệ nhân tạo (AI Tools)', slug: 'ai-tools' },
@@ -271,6 +272,23 @@ module.exports = async (req, res) => {
       return res.status(200).json({ success: true, review: revRes.rows[0] || null });
     } catch (e) {
       return res.status(200).json({ success: true, review: null });
+    }
+  }
+
+  // 2b. ACTION: PUBLIC LIST OF ACTIVE AI RESOURCES (Trang Tài liệu AI)
+  if (action === 'resources') {
+    try {
+      await ensureResourcesTable();
+      const rRes = await query(`
+        SELECT id, title, category, badge, icon, summary, content, copy_text, drive_url, extra_url, extra_label, sort_order
+        FROM public.site_resources
+        WHERE is_active = true
+        ORDER BY sort_order ASC, created_at DESC;
+      `);
+      return res.status(200).json({ success: true, resources: rRes.rows });
+    } catch (e) {
+      console.warn('Resources notice:', e.message);
+      return res.status(200).json({ success: false, resources: null });
     }
   }
 

@@ -133,6 +133,12 @@
             <span id="badge-popup-status" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">BẬT</span>
           </button>
 
+          <button onclick="setTab('resources')" id="tab-resources" class="sidebar-tab flex-shrink-0 w-auto md:w-full text-left px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl flex items-center gap-2.5 sm:gap-3 transition">
+            <svg class="w-4 h-4 flex-shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span class="flex-1">Tài liệu AI</span>
+            <span id="badge-resources-count" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">0</span>
+          </button>
+
           <button onclick="setTab('warranties')" id="tab-warranties" class="sidebar-tab flex-shrink-0 w-auto md:w-full text-left px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl flex items-center gap-2.5 sm:gap-3 transition">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             <span class="flex-1">Sổ bảo hành</span>
@@ -550,6 +556,39 @@
         </div>
       </div>
 
+      <!-- AI Resources / Tài liệu Management Panel -->
+      <div id="panel-resources" class="hidden space-y-5">
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white">📚 Danh Sách Tài Liệu & Skill AI</h3>
+              <p class="text-xs text-slate-400">Thêm / sửa / ẩn / xóa các thẻ tài liệu hiển thị trên trang "Tài liệu AI" của cửa hàng</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="loadResources()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl border border-slate-700 transition">🔄 Làm mới</button>
+              <button onclick="openResourceModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition shadow-lg shadow-emerald-600/30">+ Thêm tài liệu</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3 w-12">Thứ tự</th>
+                  <th class="py-2.5 px-3">Tài liệu</th>
+                  <th class="py-2.5 px-3">Danh mục</th>
+                  <th class="py-2.5 px-3">Liên kết</th>
+                  <th class="py-2.5 px-3 text-center">Hiển thị</th>
+                  <th class="py-2.5 px-3 text-right">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="resources-table-body" class="divide-y divide-slate-800/60 text-slate-200">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <!-- Popup & Banner Management Panel -->
       <div id="panel-popup" class="hidden space-y-5">
         <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800">
@@ -767,7 +806,7 @@
             <div class="flex flex-wrap gap-1 mt-1.5">
               <button type="button" onclick="setQuickBadge('BÁN CHẠY')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-400 text-[10px] font-bold">+ BÁN CHẠY</button>
               <button type="button" onclick="setQuickBadge('HOT 🔥')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-rose-400 text-[10px] font-bold">+ HOT 🔥</button>
-              <button type="button" onclick="setQuickBadge('BẢN QUYỀN')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-[10px] font-bold">+ BẢN QUYỀN</button>
+              <button type="button" onclick="setQuickBadge('CAO CẤP')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-[10px] font-bold">+ CAO CẤP</button>
               <button type="button" onclick="setQuickBadge('EDITOR VIP')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-purple-400 text-[10px] font-bold">+ EDITOR VIP</button>
               <button type="button" onclick="setQuickBadge('GIÁ TỐT')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 text-[10px] font-bold">+ GIÁ TỐT</button>
             </div>
@@ -1086,6 +1125,101 @@
     </div>
   </div>
 
+  <!-- Modal Add / Edit Resource -->
+  <div id="modal-resource" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-start sm:items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-card max-w-2xl w-full p-5 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl relative my-6">
+      <button onclick="closeResourceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
+      <h3 id="modal-resource-title" class="text-lg font-bold text-white mb-4">📚 Thêm Tài Liệu Mới</h3>
+
+      <form onsubmit="handleResourceSubmit(event)" class="space-y-3">
+        <input type="hidden" id="res-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+          <div class="sm:col-span-3">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề *</label>
+            <input type="text" id="res-title" required maxlength="300" placeholder="VD: Bộ Prompt viết content bán hàng"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Icon (emoji)</label>
+            <input type="text" id="res-icon" maxlength="16" placeholder="📘"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Danh mục *</label>
+            <select id="res-category" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="extension">🧩 Thủ thuật & Extension</option>
+              <option value="prompt">🤖 Skill & Prompt AI</option>
+              <option value="design">🎬 Thiết kế & Video AI</option>
+              <option value="guide">📘 Hướng dẫn chung</option>
+              <option value="other">📦 Khác</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Nhãn (badge)</label>
+            <input type="text" id="res-badge" maxlength="60" placeholder="VD: MẸO SỬ DỤNG AI"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Thứ tự hiển thị</label>
+            <input type="number" id="res-sort" value="0"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Mô tả ngắn</label>
+          <textarea id="res-summary" rows="2" maxlength="2000" placeholder="Giới thiệu ngắn gọn tài liệu này giúp gì cho người dùng..."
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Các ý chính / các bước <span class="text-slate-500 font-normal">(mỗi dòng là 1 gạch đầu dòng)</span></label>
+          <textarea id="res-content" rows="4" maxlength="8000" placeholder="Bước 1: ...&#10;Bước 2: ...&#10;Bước 3: ..."
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Nội dung cho nút "Copy" <span class="text-slate-500 font-normal">(tùy chọn – VD: mẫu prompt)</span></label>
+          <textarea id="res-copy" rows="2" maxlength="4000" placeholder="Để trống nếu không cần nút Copy"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Link tải (Google Drive...)</label>
+          <input type="url" id="res-drive" placeholder="https://drive.google.com/..."
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Link phụ (tùy chọn)</label>
+            <input type="url" id="res-extra-url" placeholder="https://..."
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Chữ trên nút link phụ</label>
+            <input type="text" id="res-extra-label" maxlength="120" placeholder="VD: 🌐 Mở trang chính thức"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none pt-1">
+          <input type="checkbox" id="res-active" checked class="rounded bg-slate-800 border-slate-600 text-emerald-600 focus:ring-0">
+          <span>Hiển thị tài liệu này trên cửa hàng</span>
+        </label>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeResourceModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">Hủy</button>
+          <button type="submit" id="btn-save-resource" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/30">✓ Lưu Tài Liệu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="toast" class="fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900/95 backdrop-blur-md border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
     <div id="toast-icon-wrap" class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-500/20 text-blue-400">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -1269,7 +1403,7 @@
       const mainEl = document.querySelector('main');
       if (mainEl) mainEl.scrollTop = 0;
 
-      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'warranties', 'audit'];
+      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'resources', 'warranties', 'audit'];
       
       const titles = {
         'dashboard': 'Tổng Quan Bảng Điều Khiển & Doanh Thu',
@@ -1279,6 +1413,7 @@
         'flash-sale': 'Quản Lý Chiến Dịch Flash Sale',
         'reviews': 'Quản Lý Đánh Giá & Phản Hồi Khách Hàng',
         'popup': 'Quản Lý Popup Banner Sự Kiện Trang Chủ',
+        'resources': 'Quản Lý Tài Liệu & Skill AI',
         'warranties': 'Sổ Bảo Hành & Hạn Dịch Vụ',
         'audit': 'Nhật Ký Bảo Mật (Audit Logs)'
       };
@@ -1315,6 +1450,7 @@
       if (currentTab === 'flash-sale') loadFlashSales();
       if (currentTab === 'reviews') loadReviews();
       if (currentTab === 'popup') loadPopupBanner();
+      if (currentTab === 'resources') loadResources();
       if (currentTab === 'warranties') loadWarranties();
       if (currentTab === 'audit') loadAuditLogs();
     }
@@ -2652,7 +2788,7 @@
             </td>
             <td class="py-3 px-3">
               <span class="font-mono text-amber-400 font-bold block">${escapeHtml(r.order_code || '---')}</span>
-              <span class="text-[11px] text-cyan-300 block truncate max-w-[150px]">${escapeHtml(r.product_name || r.plan_name || 'Gói bản quyền')}</span>
+              <span class="text-[11px] text-cyan-300 block truncate max-w-[150px]">${escapeHtml(r.product_name || r.plan_name || 'Gói tài khoản')}</span>
             </td>
             <td class="py-3 px-3 whitespace-nowrap">
               <span class="text-sm font-bold text-amber-400">${stars}</span>
@@ -2929,7 +3065,7 @@
           width: 580
         },
         'ai': {
-          title: '🤖 NÂNG CẤP BỘ CÔNG CỤ AI BẢN QUYỀN 2026',
+          title: '🤖 NÂNG CẤP BỘ CÔNG CỤ AI CHUYÊN NGHIỆP 2026',
           subtitle: 'Mở khóa Claude 3.5 Sonnet, ChatGPT Plus, Gemini Advanced, Midjourney phục vụ công việc và học tập đỉnh cao.',
           image_url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80',
           target_url: '#products-grid',
@@ -3019,6 +3155,151 @@
         'cancelled': '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">❌ Đã hủy</span>'
       };
       return map[status] || `<span class="px-2 py-0.5 rounded text-[10px]">${escapeHtml(status)}</span>`;
+    }
+
+    // ===================== AI RESOURCES / TÀI LIỆU =====================
+    let allResources = [];
+    const RESOURCE_CATEGORY_LABELS = {
+      extension: '🧩 Thủ thuật & Extension',
+      prompt: '🤖 Skill & Prompt AI',
+      design: '🎬 Thiết kế & Video AI',
+      guide: '📘 Hướng dẫn chung',
+      other: '📦 Khác'
+    };
+
+    async function loadResources() {
+      const tbody = document.getElementById('resources-table-body');
+      if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-500">Đang tải...</td></tr>';
+      try {
+        const data = await adminApi('list-resources');
+        if (!data.success) throw new Error(data.error || 'Không tải được danh sách tài liệu');
+        allResources = data.resources || [];
+        renderResourcesTable();
+      } catch (err) {
+        if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-400">${escapeHtml(err.message)}</td></tr>`;
+      }
+    }
+
+    function renderResourcesTable() {
+      const tbody = document.getElementById('resources-table-body');
+      const badge = document.getElementById('badge-resources-count');
+      if (badge) badge.textContent = allResources.length;
+      if (!tbody) return;
+
+      if (allResources.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-500">Chưa có tài liệu nào. Bấm "+ Thêm tài liệu" để tạo mới.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = allResources.map(r => `
+        <tr class="hover:bg-slate-900/60 transition ${r.is_active ? '' : 'opacity-50'}">
+          <td class="py-3 px-3 font-mono text-slate-400">${Number(r.sort_order) || 0}</td>
+          <td class="py-3 px-3 max-w-[320px]">
+            <div class="flex items-start gap-2">
+              <span class="text-lg leading-none">${escapeHtml(r.icon || '📘')}</span>
+              <div class="min-w-0">
+                <strong class="text-white font-semibold block leading-snug">${escapeHtml(r.title)}</strong>
+                ${r.badge ? `<span class="inline-block mt-0.5 text-[9px] font-black px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">${escapeHtml(r.badge)}</span>` : ''}
+                <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">${escapeHtml(r.summary || '')}</p>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-3 whitespace-nowrap text-slate-300">${RESOURCE_CATEGORY_LABELS[r.category] || escapeHtml(r.category)}</td>
+          <td class="py-3 px-3 text-[11px] space-y-0.5">
+            ${r.drive_url ? `<a href="${escapeHtml(r.drive_url)}" target="_blank" rel="noopener" class="text-cyan-400 hover:underline block">☁️ Link tải</a>` : '<span class="text-slate-600 block">— Không có link tải</span>'}
+            ${r.extra_url ? `<a href="${escapeHtml(r.extra_url)}" target="_blank" rel="noopener" class="text-slate-300 hover:underline block">🔗 ${escapeHtml(r.extra_label || 'Link phụ')}</a>` : ''}
+            ${r.copy_text ? '<span class="text-violet-300 block">📋 Có nút Copy</span>' : ''}
+          </td>
+          <td class="py-3 px-3 text-center">
+            <button onclick="toggleResource('${r.id}', ${!r.is_active})" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${r.is_active ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/30' : 'bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700'}">
+              ${r.is_active ? '👁️ Đang hiện' : '🚫 Đang ẩn'}
+            </button>
+          </td>
+          <td class="py-3 px-3 text-right whitespace-nowrap">
+            <button onclick="openResourceModal('${r.id}')" class="px-2.5 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 rounded-lg text-[11px] font-bold border border-blue-500/30 transition">✏️ Sửa</button>
+            <button onclick="deleteResource('${r.id}')" class="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded-lg text-[11px] font-bold border border-rose-500/30 transition ml-1">🗑️ Xóa</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openResourceModal(id) {
+      const r = id ? allResources.find(x => x.id === id) : null;
+      document.getElementById('modal-resource-title').textContent = r ? '✏️ Sửa Tài Liệu' : '📚 Thêm Tài Liệu Mới';
+      document.getElementById('res-id').value = r ? r.id : '';
+      document.getElementById('res-title').value = r ? r.title : '';
+      document.getElementById('res-icon').value = r ? (r.icon || '') : '📘';
+      document.getElementById('res-category').value = r ? r.category : 'guide';
+      document.getElementById('res-badge').value = r ? (r.badge || '') : '';
+      document.getElementById('res-sort').value = r ? (Number(r.sort_order) || 0) : (allResources.length + 1);
+      document.getElementById('res-summary').value = r ? (r.summary || '') : '';
+      document.getElementById('res-content').value = r ? (r.content || '') : '';
+      document.getElementById('res-copy').value = r ? (r.copy_text || '') : '';
+      document.getElementById('res-drive').value = r ? (r.drive_url || '') : 'https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link';
+      document.getElementById('res-extra-url').value = r ? (r.extra_url || '') : '';
+      document.getElementById('res-extra-label').value = r ? (r.extra_label || '') : '';
+      document.getElementById('res-active').checked = r ? Boolean(r.is_active) : true;
+      document.getElementById('modal-resource').classList.remove('hidden');
+    }
+
+    function closeResourceModal() {
+      document.getElementById('modal-resource').classList.add('hidden');
+    }
+
+    async function handleResourceSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-resource');
+      const payload = {
+        id: document.getElementById('res-id').value || null,
+        title: document.getElementById('res-title').value,
+        icon: document.getElementById('res-icon').value,
+        category: document.getElementById('res-category').value,
+        badge: document.getElementById('res-badge').value,
+        sort_order: document.getElementById('res-sort').value,
+        summary: document.getElementById('res-summary').value,
+        content: document.getElementById('res-content').value,
+        copy_text: document.getElementById('res-copy').value,
+        drive_url: document.getElementById('res-drive').value,
+        extra_url: document.getElementById('res-extra-url').value,
+        extra_label: document.getElementById('res-extra-label').value,
+        is_active: document.getElementById('res-active').checked
+      };
+      btn.disabled = true;
+      try {
+        const data = await adminApi('save-resource', 'POST', payload);
+        if (!data.success) throw new Error(data.error || 'Lưu thất bại');
+        showToast(data.message || 'Đã lưu tài liệu!', 'success');
+        closeResourceModal();
+        loadResources();
+      } catch (err) {
+        showToast(err.message, 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function toggleResource(id, isActive) {
+      try {
+        const data = await adminApi('toggle-resource', 'POST', { id, is_active: isActive });
+        if (!data.success) throw new Error(data.error || 'Không cập nhật được');
+        showToast(data.message, 'success');
+        loadResources();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function deleteResource(id) {
+      const r = allResources.find(x => x.id === id);
+      if (!confirm(`Xóa vĩnh viễn tài liệu "${r ? r.title : ''}"?`)) return;
+      try {
+        const data = await adminApi('delete-resource', 'POST', { id });
+        if (!data.success) throw new Error(data.error || 'Không xóa được');
+        showToast(data.message, 'success');
+        loadResources();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
     }
 
     function escapeHtml(str) {
