@@ -62,6 +62,7 @@ async function ensureResourcesTable() {
       content TEXT DEFAULT '',
       copy_text TEXT DEFAULT '',
       drive_url TEXT DEFAULT '',
+      drive_label TEXT DEFAULT '',
       extra_url TEXT DEFAULT '',
       extra_label TEXT DEFAULT '',
       is_active BOOLEAN NOT NULL DEFAULT true,
@@ -70,6 +71,8 @@ async function ensureResourcesTable() {
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
   `);
+  // Bổ sung cột nếu bảng đã tồn tại từ trước
+  await query('ALTER TABLE public.site_resources ADD COLUMN IF NOT EXISTS drive_label TEXT DEFAULT \'\';');
   // Bật RLS để Supabase Security Advisor không cảnh báo.
   // Backend kết nối bằng role chủ sở hữu (postgres) nên vẫn đọc/ghi bình thường;
   // khóa anon công khai sẽ KHÔNG truy cập được bảng này qua REST API.
@@ -107,6 +110,7 @@ function normalizeResourceInput(body) {
     content: String(b.content || '').trim().slice(0, 8000),
     copy_text: String(b.copy_text || '').trim().slice(0, 4000),
     drive_url: sanitizeUrl(b.drive_url),
+    drive_label: String(b.drive_label || '').trim().slice(0, 120),
     extra_url: sanitizeUrl(b.extra_url),
     extra_label: String(b.extra_label || '').trim().slice(0, 120),
     is_active: b.is_active === undefined ? true : Boolean(b.is_active),
