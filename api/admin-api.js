@@ -811,17 +811,17 @@ module.exports = async (req, res) => {
         const upd = await query(`
           UPDATE public.site_resources SET
             title = $1, category = $2, badge = $3, icon = $4, summary = $5, content = $6,
-            copy_text = $7, drive_url = $8, extra_url = $9, extra_label = $10,
-            is_active = $11, sort_order = $12, updated_at = NOW()
-          WHERE id = $13 RETURNING id;
-        `, [r.title, r.category, r.badge, r.icon, r.summary, r.content, r.copy_text, r.drive_url, r.extra_url, r.extra_label, r.is_active, r.sort_order, id]);
+            copy_text = $7, drive_url = $8, drive_label = $9, extra_url = $10, extra_label = $11,
+            is_active = $12, sort_order = $13, updated_at = NOW()
+          WHERE id = $14 RETURNING id;
+        `, [r.title, r.category, r.badge, r.icon, r.summary, r.content, r.copy_text, r.drive_url, r.drive_label, r.extra_url, r.extra_label, r.is_active, r.sort_order, id]);
         if (upd.rows.length === 0) return res.status(404).json({ error: 'Không tìm thấy tài liệu cần sửa!' });
       } else {
         await query(`
           INSERT INTO public.site_resources
-            (title, category, badge, icon, summary, content, copy_text, drive_url, extra_url, extra_label, is_active, sort_order)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
-        `, [r.title, r.category, r.badge, r.icon, r.summary, r.content, r.copy_text, r.drive_url, r.extra_url, r.extra_label, r.is_active, r.sort_order]);
+            (title, category, badge, icon, summary, content, copy_text, drive_url, drive_label, extra_url, extra_label, is_active, sort_order)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+        `, [r.title, r.category, r.badge, r.icon, r.summary, r.content, r.copy_text, r.drive_url, r.drive_label, r.extra_url, r.extra_label, r.is_active, r.sort_order]);
       }
 
       try {

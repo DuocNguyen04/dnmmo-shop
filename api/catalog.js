@@ -280,7 +280,7 @@ module.exports = async (req, res) => {
     try {
       await ensureResourcesTable();
       const rRes = await query(`
-        SELECT id, title, category, badge, icon, summary, content, copy_text, drive_url, extra_url, extra_label, sort_order
+        SELECT id, title, category, badge, icon, summary, content, copy_text, drive_url, drive_label, extra_url, extra_label, sort_order
         FROM public.site_resources
         WHERE is_active = true
         ORDER BY sort_order ASC, created_at DESC;
