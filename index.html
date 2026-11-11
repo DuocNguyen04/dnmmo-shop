@@ -2518,10 +2518,16 @@
           </button>
         ` : '';
 
+        let mainLabel = (r.drive_label || '').trim();
+        if (!mainLabel) {
+          const isDrive = /drive\.google\.com/i.test(r.drive_url || '');
+          mainLabel = isDrive ? '☁️ Mở Tải Trên Google Drive' : '🔗 Truy Cập Tài Liệu Ngay';
+        }
+
         const driveBtnHtml = r.drive_url ? `
           <a href="${escapeHtml(r.drive_url)}" target="_blank" rel="noopener"
              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
-            <span>☁️ Mở Tải Trên Google Drive</span>
+            <span>${escapeHtml(mainLabel)}</span>
             <span>&rarr;</span>
           </a>
         ` : '';

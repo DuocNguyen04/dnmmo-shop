@@ -1126,95 +1126,120 @@
   </div>
 
   <!-- Modal Add / Edit Resource -->
-  <div id="modal-resource" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-start sm:items-center justify-center p-4 overflow-y-auto">
-    <div class="glass-card max-w-2xl w-full p-5 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl relative my-6">
-      <button onclick="closeResourceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
-      <h3 id="modal-resource-title" class="text-lg font-bold text-white mb-4">📚 Thêm Tài Liệu Mới</h3>
+  <div id="modal-resource" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="glass-card max-w-2xl w-full max-h-[92vh] flex flex-col rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden bg-slate-900/95">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/60 flex-shrink-0">
+        <h3 id="modal-resource-title" class="text-base sm:text-lg font-bold text-white flex items-center gap-2">📚 Thêm Tài Liệu Mới</h3>
+        <button type="button" onclick="closeResourceModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition">✕</button>
+      </div>
 
-      <form onsubmit="handleResourceSubmit(event)" class="space-y-3">
-        <input type="hidden" id="res-id">
+      <!-- Modal Form & Body (Scrollable) -->
+      <form onsubmit="handleResourceSubmit(event)" class="flex flex-col flex-1 overflow-hidden">
+        <div class="p-4 sm:p-6 overflow-y-auto space-y-3.5 flex-1 custom-scrollbar">
+          <input type="hidden" id="res-id">
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <div class="sm:col-span-3">
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề *</label>
-            <input type="text" id="res-title" required maxlength="300" placeholder="VD: Bộ Prompt viết content bán hàng"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <div class="sm:col-span-3">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề *</label>
+              <input type="text" id="res-title" required maxlength="300" placeholder="VD: Bộ Prompt viết content bán hàng"
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Icon (emoji)</label>
+              <input type="text" id="res-icon" maxlength="16" placeholder="📘"
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-emerald-500">
+            </div>
           </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Danh mục *</label>
+              <select id="res-category" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                <option value="extension">🧩 Thủ thuật & Extension</option>
+                <option value="prompt">🤖 Skill & Prompt AI</option>
+                <option value="design">🎬 Thiết kế & Video AI</option>
+                <option value="guide">📘 Hướng dẫn chung</option>
+                <option value="other">📦 Khác</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Nhãn (badge)</label>
+              <input type="text" id="res-badge" maxlength="60" placeholder="VD: MẸO SỬ DỤNG AI"
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Thứ tự hiển thị</label>
+              <input type="number" id="res-sort" value="0"
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+            </div>
+          </div>
+
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Icon (emoji)</label>
-            <input type="text" id="res-icon" maxlength="16" placeholder="📘"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Mô tả ngắn</label>
+            <textarea id="res-summary" rows="2" maxlength="2000" placeholder="Giới thiệu ngắn gọn tài liệu này giúp gì cho người dùng..."
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Danh mục *</label>
-            <select id="res-category" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-              <option value="extension">🧩 Thủ thuật & Extension</option>
-              <option value="prompt">🤖 Skill & Prompt AI</option>
-              <option value="design">🎬 Thiết kế & Video AI</option>
-              <option value="guide">📘 Hướng dẫn chung</option>
-              <option value="other">📦 Khác</option>
-            </select>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Các ý chính / các bước <span class="text-slate-500 font-normal">(mỗi dòng là 1 gạch đầu dòng)</span></label>
+            <textarea id="res-content" rows="3" maxlength="8000" placeholder="Bước 1: ...&#10;Bước 2: ...&#10;Bước 3: ..."
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Nhãn (badge)</label>
-            <input type="text" id="res-badge" maxlength="60" placeholder="VD: MẸO SỬ DỤNG AI"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Thứ tự hiển thị</label>
-            <input type="number" id="res-sort" value="0"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-          </div>
-        </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Mô tả ngắn</label>
-          <textarea id="res-summary" rows="2" maxlength="2000" placeholder="Giới thiệu ngắn gọn tài liệu này giúp gì cho người dùng..."
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
-        </div>
+          <!-- KHỐI THIẾT LẬP NÚT BẤM -->
+          <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-3">
+            <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🔘 Cài Đặt Nút Bấm Hiển Thị Trên Thẻ</span>
+            </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Các ý chính / các bước <span class="text-slate-500 font-normal">(mỗi dòng là 1 gạch đầu dòng)</span></label>
-          <textarea id="res-content" rows="4" maxlength="8000" placeholder="Bước 1: ...&#10;Bước 2: ...&#10;Bước 3: ..."
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
-        </div>
+            <!-- Nút chính -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">🔗 Link nút chính (Drive / Web / Tool...)</label>
+                <input type="url" id="res-drive" placeholder="https://drive.google.com/... hoặc website"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Chữ trên nút chính <span class="text-slate-500 font-normal">(tùy chọn)</span></label>
+                <input type="text" id="res-drive-label" maxlength="120" placeholder="VD: Xem ngay, Mở tài liệu... (để trống: tự động)"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Nội dung cho nút "Copy" <span class="text-slate-500 font-normal">(tùy chọn – VD: mẫu prompt)</span></label>
-          <textarea id="res-copy" rows="2" maxlength="4000" placeholder="Để trống nếu không cần nút Copy"
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
-        </div>
+            <!-- Nút phụ -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">🌐 Link nút phụ <span class="text-slate-500 font-normal">(tùy chọn)</span></label>
+                <input type="url" id="res-extra-url" placeholder="https://..."
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Chữ trên nút phụ</label>
+                <input type="text" id="res-extra-label" maxlength="120" placeholder="VD: 🌐 Trang chủ, Mở website..."
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Link tải (Google Drive...)</label>
-          <input type="url" id="res-drive" placeholder="https://drive.google.com/..."
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Link phụ (tùy chọn)</label>
-            <input type="url" id="res-extra-url" placeholder="https://..."
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Chữ trên nút link phụ</label>
-            <input type="text" id="res-extra-label" maxlength="120" placeholder="VD: 🌐 Mở trang chính thức"
-              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+            <!-- Nút Copy Prompt -->
+            <div class="pt-2 border-t border-slate-800/80">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">📋 Nội dung cho nút "Copy Prompt / Mẫu" <span class="text-slate-500 font-normal">(để trống nếu không cần nút tím)</span></label>
+              <textarea id="res-copy" rows="2" maxlength="4000" placeholder="Đoạn văn bản sẽ tự động copy vào bộ nhớ khi khách bấm nút..."
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
+            </div>
           </div>
         </div>
 
-        <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none pt-1">
-          <input type="checkbox" id="res-active" checked class="rounded bg-slate-800 border-slate-600 text-emerald-600 focus:ring-0">
-          <span>Hiển thị tài liệu này trên cửa hàng</span>
-        </label>
-
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeResourceModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">Hủy</button>
-          <button type="submit" id="btn-save-resource" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/30">✓ Lưu Tài Liệu</button>
+        <!-- Modal Footer (Luôn hiển thị cố định ở đáy) -->
+        <div class="p-3.5 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between flex-shrink-0">
+          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+            <input type="checkbox" id="res-active" checked class="rounded bg-slate-800 border-slate-600 text-emerald-600 focus:ring-0">
+            <span>Hiển thị tài liệu này trên cửa hàng</span>
+          </label>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeResourceModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">Hủy</button>
+            <button type="submit" id="btn-save-resource" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/30">✓ Lưu Thay Đổi</button>
+          </div>
         </div>
       </form>
     </div>
@@ -3236,6 +3261,7 @@
       document.getElementById('res-content').value = r ? (r.content || '') : '';
       document.getElementById('res-copy').value = r ? (r.copy_text || '') : '';
       document.getElementById('res-drive').value = r ? (r.drive_url || '') : 'https://drive.google.com/drive/folders/18ilzg275sTy4HJ8u-GPFRziHcSoRXuZi?usp=drive_link';
+      document.getElementById('res-drive-label').value = r ? (r.drive_label || '') : '';
       document.getElementById('res-extra-url').value = r ? (r.extra_url || '') : '';
       document.getElementById('res-extra-label').value = r ? (r.extra_label || '') : '';
       document.getElementById('res-active').checked = r ? Boolean(r.is_active) : true;
@@ -3260,6 +3286,7 @@
         content: document.getElementById('res-content').value,
         copy_text: document.getElementById('res-copy').value,
         drive_url: document.getElementById('res-drive').value,
+        drive_label: document.getElementById('res-drive-label').value,
         extra_url: document.getElementById('res-extra-url').value,
         extra_label: document.getElementById('res-extra-label').value,
         is_active: document.getElementById('res-active').checked
