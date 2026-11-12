@@ -318,7 +318,11 @@ module.exports = async (req, res) => {
     if (action === 'orders') {
       const ordersRes = await query(`
         SELECT 
-          o.id, o.code, o.amount, o.status, o.contact_name, o.contact_phone, o.contact_email, o.note,
+          o.id, o.code, o.amount, o.status,
+          COALESCE(o.contact_name, o.customer_name, 'Khách hàng') as contact_name,
+          COALESCE(o.contact_phone, o.customer_phone, '') as contact_phone,
+          COALESCE(o.contact_email, o.customer_email, '') as contact_email,
+          COALESCE(o.note, o.customer_note, '') as note,
           o.created_at, o.paid_at, o.delivered_at, o.warranty_until, o.payment_ref,
           p.name as plan_name, p.duration_days, p.account_type,
           pr.name as product_name,
