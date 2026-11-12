@@ -752,8 +752,26 @@
   <div id="modal-deliver" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="glass-card max-w-lg w-full p-6 rounded-3xl border border-slate-800 shadow-2xl relative">
       <button onclick="closeDeliverModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl">✕</button>
-      <h3 class="text-lg font-bold text-white mb-1">Bàn Giao Tài Khoản Cho Khách</h3>
-      <p class="text-xs text-slate-400 mb-4">Đơn hàng: <strong id="deliver-order-code" class="text-amber-400"></strong></p>
+      <h3 class="text-lg font-bold text-white mb-2">Bàn Giao Tài Khoản Cho Khách</h3>
+      
+      <div class="text-xs text-slate-300 mb-4 space-y-1 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Mã đơn:</span>
+          <strong id="deliver-order-code" class="text-amber-400 font-mono"></strong>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Khách hàng:</span>
+          <span id="deliver-customer-name" class="text-white font-medium"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Số điện thoại:</span>
+          <span id="deliver-customer-phone" class="text-emerald-400 font-mono"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Email nhận acc:</span>
+          <strong id="deliver-customer-email" class="text-cyan-300 font-mono select-all"></strong>
+        </div>
+      </div>
 
       <form onsubmit="handleDeliverSubmit(event)" class="space-y-3">
         <input type="hidden" id="deliver-order-id">
@@ -1585,14 +1603,22 @@
         <tr class="hover:bg-slate-900/50 transition">
           <td class="py-2.5 px-3 font-mono font-bold text-amber-400">${escapeHtml(o.code)}</td>
           <td class="py-2.5 px-3 font-semibold text-white">${escapeHtml(o.contact_name || 'Khách')}</td>
-          <td class="py-2.5 px-3 font-mono text-emerald-400">
-            <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone)}</a>
+          <td class="py-2.5 px-3">
+            <div class="font-mono text-emerald-400">
+              <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone || '---')}</a>
+            </div>
+            ${o.contact_email ? `
+              <div class="text-[10px] text-cyan-300 font-mono truncate max-w-[160px] select-all flex items-center gap-1 mt-0.5" title="${escapeHtml(o.contact_email)}">
+                <span>✉️</span>
+                <span class="truncate">${escapeHtml(o.contact_email)}</span>
+              </div>
+            ` : '<div class="text-[10px] text-slate-500 italic mt-0.5">Không có email</div>'}
           </td>
           <td class="py-2.5 px-3 text-slate-300">${escapeHtml(o.plan_name || o.product_name)}</td>
           <td class="py-2.5 px-3 font-bold text-white">${(o.amount || 0).toLocaleString('vi-VN')} đ</td>
           <td class="py-2.5 px-3">${renderStatusBadge(o.status)}</td>
           <td class="py-2.5 px-3 text-right">
-            <button onclick="openDeliverModal('${o.id}', '${escapeHtml(o.code)}', ${getPlanDurationDays(o)})" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold">
+            <button onclick="openDeliverModal('${o.id}')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold">
               Bàn giao
             </button>
           </td>
@@ -1620,6 +1646,7 @@
         const matchStatus = (statusFilter === 'ALL') || (o.status === statusFilter);
         const matchQuery = !q || (o.code || '').toLowerCase().includes(q) ||
           (o.contact_phone || '').toLowerCase().includes(q) ||
+          (o.contact_email || '').toLowerCase().includes(q) ||
           (o.contact_name || '').toLowerCase().includes(q) ||
           (o.plan_name || '').toLowerCase().includes(q);
         return matchStatus && matchQuery;
@@ -1683,9 +1710,15 @@
           </td>
           <td class="py-3 px-3">
             <div class="flex items-center gap-1.5 font-mono text-emerald-400">
-              <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone)}</a>
-              <a href="https://zalo.me/${escapeHtml(o.contact_phone.replace(/[^0-9]/g, ''))}" target="_blank" class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] hover:bg-blue-500/30">Zalo</a>
+              <a href="tel:${escapeHtml(o.contact_phone)}" class="hover:underline">📞 ${escapeHtml(o.contact_phone || '---')}</a>
+              ${o.contact_phone ? `<a href="https://zalo.me/${escapeHtml(o.contact_phone.replace(/[^0-9]/g, ''))}" target="_blank" class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] hover:bg-blue-500/30">Zalo</a>` : ''}
             </div>
+            ${o.contact_email ? `
+              <div class="text-[11px] text-cyan-300 font-mono flex items-center gap-1 mt-1 bg-slate-900/80 px-2 py-0.5 rounded-lg border border-slate-800 max-w-fit" title="${escapeHtml(o.contact_email)}">
+                <span>✉️</span>
+                <span class="truncate max-w-[170px] select-all">${escapeHtml(o.contact_email)}</span>
+              </div>
+            ` : '<div class="text-[10px] text-slate-500 mt-1 italic">Chưa nhập email</div>'}
           </td>
           <td class="py-3 px-3">
             <div class="text-white font-semibold">${escapeHtml(o.plan_name || o.product_name)}</div>
@@ -1705,7 +1738,7 @@
           </td>
           <td class="py-3 px-3 text-right">
             <div class="flex items-center justify-end gap-1.5">
-              <button onclick="openDeliverModal('${o.id}', '${escapeHtml(o.code)}', ${getPlanDurationDays(o)})" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold transition">
+              <button onclick="openDeliverModal('${o.id}')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold transition">
                 Giao Acc
               </button>
               <select onchange="updateStatus('${o.id}', this.value)" class="bg-slate-800 text-slate-300 rounded-lg text-[10px] px-1.5 py-1 border border-slate-700">
@@ -2431,9 +2464,18 @@
     }
 
     function openDeliverModal(orderId, orderCode, durationDays) {
+      const o = allOrders.find(x => x.id === orderId) || {};
+      const code = orderCode || o.code || '---';
+      const days = durationDays || getPlanDurationDays(o) || 30;
       document.getElementById('deliver-order-id').value = orderId;
-      document.getElementById('deliver-order-code').textContent = orderCode;
-      document.getElementById('deliver-days').value = durationDays || 30;
+      document.getElementById('deliver-order-code').textContent = code;
+      const nameEl = document.getElementById('deliver-customer-name');
+      if (nameEl) nameEl.textContent = o.contact_name || 'Khách hàng';
+      const phoneEl = document.getElementById('deliver-customer-phone');
+      if (phoneEl) phoneEl.textContent = o.contact_phone || '---';
+      const emailEl = document.getElementById('deliver-customer-email');
+      if (emailEl) emailEl.textContent = o.contact_email || '(Khách chưa nhập email)';
+      document.getElementById('deliver-days').value = days;
       document.getElementById('deliver-credentials').value = '';
       document.getElementById('modal-deliver').classList.remove('hidden');
     }
