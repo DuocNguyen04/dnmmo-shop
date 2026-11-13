@@ -6,6 +6,60 @@
   <link rel="icon" type="image/png" href="logo.png">
   <title>DNMMO - Dịch Vụ Tài Khoản & Giải Pháp Phần Mềm Uy Tín</title>
   <meta name="description" content="Chuyên cung cấp gói tài khoản phần mềm và công cụ AI: ChatGPT Plus, Canva Pro, CapCut Pro, YouTube Premium, Gemini Advanced, Claude AI uy tín, hỗ trợ kích hoạt tận tình qua Zalo.">
+  <link rel="canonical" href="https://www.duocnguyenmmo.store/">
+
+  <!-- AI & Google Search Knowledge Graph Entity (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Store",
+        "@id": "https://www.duocnguyenmmo.store/#store",
+        "name": "DNMMO PRO - Cửa Hàng Tài Khoản AI & Phần Mềm Uy Tín",
+        "url": "https://www.duocnguyenmmo.store",
+        "logo": "https://www.duocnguyenmmo.store/logo.png",
+        "image": "https://www.duocnguyenmmo.store/logo.png",
+        "description": "Nền tảng cung cấp tài khoản công cụ AI (ChatGPT Plus, Gemini Pro, Claude Pro), thiết kế đồ họa (Canva Pro, CapCut Pro) và dịch vụ phần mềm với chính sách bảo hành 1 đổi 1 suốt thời gian sử dụng.",
+        "telephone": "+84865099763",
+        "priceRange": "49000VND - 500000VND",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "VN"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "1250",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.duocnguyenmmo.store/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Mua tài khoản ChatGPT Plus và Canva Pro tại DNMMO có được bảo hành không?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Có, 100% gói tài khoản tại DNMMO PRO đều được bảo hành 1 đổi 1 xuyên suốt thời hạn sử dụng. Hỗ trợ kỹ thuật nhanh chóng qua Zalo 0865 099 763."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Thời gian nhận tài khoản sau khi chuyển khoản là bao lâu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hệ thống tự động kích hoạt và bàn giao thông tin tài khoản qua hệ thống tra cứu đơn hàng hoặc gửi trực tiếp trong 5-15 phút."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D665LJT68V"></script>
   <script>
@@ -642,10 +696,10 @@
           <span>📋 Đơn hàng</span>
           <span id="user-orders-badge" class="bg-blue-500/20 text-blue-300 text-[11px] px-1.5 py-0.2 rounded-full font-bold">0</span>
         </button>
-        <button onclick="switchView('resources')" id="nav-resources" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
-          <span>🎁 Tài liệu AI</span>
+        <a href="/blog" id="nav-blog" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>📚 Blog & Tài Liệu</span>
           <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] px-1.5 py-0.2 rounded-full font-extrabold uppercase">FREE</span>
-        </button>
+        </a>
         <button onclick="switchView('policy')" id="nav-policy" class="px-2.5 xl:px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1 whitespace-nowrap">
           <span>🛡️ Bảo hành</span>
         </button>
@@ -1418,13 +1472,14 @@
         <!-- Breadcrumbs Navigation Bar -->
         <nav class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 py-1 overflow-x-auto whitespace-nowrap">
           <div class="flex items-center gap-1.5 sm:gap-2">
-            <a href="javascript:void(0)" onclick="switchView('store')" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Trang chủ</a>
+            <a href="javascript:void(0)" onclick="closeProductModal()" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Trang chủ</a>
             <span>/</span>
-            <a href="javascript:void(0)" onclick="switchView('store')" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Cửa hàng</a>
+            <a href="javascript:void(0)" onclick="closeProductModal()" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Cửa hàng</a>
             <span>/</span>
             <span id="prod-page-breadcrumb-name" class="text-rose-600 dark:text-rose-400 font-semibold truncate max-w-[200px] sm:max-w-md"></span>
+            <span id="prod-page-breadcrumb-step" class="flex items-center gap-1.5 sm:gap-2"></span>
           </div>
-          <button onclick="switchView('store')" class="text-xs font-bold text-blue-600 dark:text-cyan-400 hover:underline flex items-center gap-1 flex-shrink-0 ml-3">
+          <button onclick="closeProductModal()" class="text-xs font-bold text-blue-600 dark:text-cyan-400 hover:underline flex items-center gap-1 flex-shrink-0 ml-3">
             <span>&larr;</span>
             <span>Quay lại cửa hàng</span>
           </button>
@@ -1714,12 +1769,12 @@
               <span>Nhắn Zalo Nhận Tài Khoản Ngay (0865 899 763)</span>
             </a>
 
-            <button onclick="switchView('orders');"
+            <button onclick="closeProductModal(); switchView('orders');"
               class="w-full py-3 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-blue-600 dark:text-cyan-300 text-xs sm:text-sm font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98]">
               <span>📋 Xem đơn hàng của tôi &rarr;</span>
             </button>
 
-            <button onclick="switchView('store')"
+            <button onclick="closeProductModal()"
               class="w-full py-2.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 text-xs font-semibold">
               &larr; Tiếp tục xem các sản phẩm khác
             </button>
@@ -1993,13 +2048,13 @@
       <span class="text-[10px] tracking-tight whitespace-nowrap">Cửa hàng</span>
     </button>
 
-    <button onclick="switchView('resources')" id="mob-nav-resources" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group min-w-0">
+    <a href="/blog" class="mob-bottom-btn relative flex flex-col items-center justify-center flex-1 py-1 text-slate-400 hover:text-white transition-all group min-w-0">
       <div class="relative">
         <svg class="w-5 h-5 mb-0.5 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
         <span class="absolute -top-1 -right-2 bg-emerald-500 text-white text-[7px] font-black px-1 rounded-full leading-tight">FREE</span>
       </div>
-      <span class="text-[10px] tracking-tight whitespace-nowrap">Tài liệu AI</span>
-    </button>
+      <span class="text-[10px] tracking-tight whitespace-nowrap">Tài liệu & Blog</span>
+    </a>
 
     <a href="https://zalo.me/0865899763" target="_blank" class="flex flex-col items-center justify-center px-1.5 -mt-5 group flex-shrink-0" title="Nhắn Zalo tư vấn ngay">
       <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/40 border-2 border-slate-950 group-active:scale-95 group-hover:scale-105 transition-all">
@@ -2380,9 +2435,13 @@
       }
     });
 
-    function switchView(viewName) {
+    function switchView(viewName, updateUrl = true) {
       closeUserDropdown();
       if (viewName === 'lookup') viewName = 'orders';
+      if (viewName === 'resources') {
+        window.location.href = '/blog?tab=resources';
+        return;
+      }
       ['store', 'orders', 'resources', 'policy', 'terms', 'product'].forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.toggle('hidden', v !== viewName);
@@ -2413,7 +2472,15 @@
       });
 
       if (viewName === 'orders') renderCustomerOrdersView();
-      if (viewName === 'resources' && ALL_RESOURCES.length === 0) loadResources();
+
+      if (updateUrl && viewName === 'store') {
+        if (window.location.pathname.startsWith('/san-pham/')) {
+          try {
+            window.history.pushState({ view: 'store' }, 'DNMMO PRO - Cửa Hàng Tài Khoản AI & Dịch Vụ Số', '/');
+          } catch (e) {}
+        }
+        document.title = 'DNMMO PRO - Cửa Hàng Tài Khoản AI & Dịch Vụ Số';
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2967,17 +3034,28 @@
       }).join('');
     }
 
-    function openProductModal(productId, preselectPlanId) {
+    function productToSlug(product) {
+      if (!product) return '';
+      const text = (product.name || '').trim();
+      return text.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[đĐ]/g, 'd')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '') || String(product.id);
+    }
+
+    function openProductModal(productId, preselectPlanId, updateUrl = true) {
       try {
         if (!PRODUCTS || PRODUCTS.length === 0) {
           showToast('Đang tải danh mục sản phẩm, vui lòng chờ 1 giây...', 'info');
-          loadCatalog().then(() => openProductModal(productId, preselectPlanId));
+          loadCatalog().then(() => openProductModal(productId, preselectPlanId, updateUrl));
           return;
         }
 
         activeProduct = PRODUCTS.find(p => p.id === productId);
         if (!activeProduct) {
-          activeProduct = PRODUCTS.find(p => String(p.id).toLowerCase() === String(productId).toLowerCase() || (p.name && productId && p.name.toLowerCase().includes(String(productId).toLowerCase())));
+          activeProduct = PRODUCTS.find(p => String(p.id).toLowerCase() === String(productId).toLowerCase() || (p.name && productId && p.name.toLowerCase().includes(String(productId).toLowerCase())) || productToSlug(p) === String(productId).toLowerCase());
         }
         if (!activeProduct) {
           activeProduct = PRODUCTS[0];
@@ -3032,6 +3110,18 @@
         goToCheckoutStep1();
         switchView('product');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Dynamic URL rewrite for SEO & shareable links (/san-pham/:slug)
+        if (updateUrl) {
+          const slug = productToSlug(activeProduct);
+          const newPath = '/san-pham/' + slug;
+          if (window.location.pathname !== newPath) {
+            try {
+              window.history.pushState({ view: 'product', productId: activeProduct.id, slug: slug }, activeProduct.name + ' | DNMMO PRO', newPath);
+            } catch (e) {}
+          }
+        }
+        document.title = activeProduct.name + ' - Nâng Cấp Tài Khoản Uy Tín | DNMMO PRO';
       } catch (err) {
         console.error('Error opening product page:', err);
         showToast('Lỗi khi mở sản phẩm: ' + (err.message || err), 'error');
@@ -3195,8 +3285,8 @@
       }).join('');
     }
 
-    function closeProductModal() {
-      switchView('store');
+    function closeProductModal(updateUrl = true) {
+      switchView('store', updateUrl);
       if (pollInterval) clearInterval(pollInterval);
       if (countdownInterval) clearInterval(countdownInterval);
     }
@@ -3209,6 +3299,10 @@
       const s3 = document.getElementById('checkout-step-3');
       if (s3) s3.classList.add('hidden');
       renderCheckoutStepper(1);
+
+      const bcStep = document.getElementById('prod-page-breadcrumb-step');
+      if (bcStep) bcStep.innerHTML = '';
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         const vp = document.getElementById('view-product');
@@ -3239,6 +3333,9 @@
       document.getElementById('checkout-step-2').classList.remove('hidden');
       document.getElementById('checkout-step-3').classList.add('hidden');
       renderCheckoutStepper(2);
+
+      const bcStep = document.getElementById('prod-page-breadcrumb-step');
+      if (bcStep) bcStep.innerHTML = '<span>/</span><span class="text-blue-500 font-bold">Thanh toán</span>';
 
       // Smooth scroll directly to the top of step 2 form (avoids landing at footer)
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3367,6 +3464,21 @@
       document.getElementById('checkout-step-2').classList.add('hidden');
       document.getElementById('checkout-step-3').classList.remove('hidden');
       renderCheckoutStepper(3);
+
+      const bcStep = document.getElementById('prod-page-breadcrumb-step');
+      if (bcStep) bcStep.innerHTML = `<span>/</span><span class="text-emerald-500 font-bold">Đặt hàng thành công (#${order.code})</span>`;
+
+      if (activeProduct) {
+        const slug = productToSlug(activeProduct);
+        try {
+          window.history.pushState(
+            { view: 'product_success', productId: activeProduct.id, orderCode: order.code },
+            `Đặt hàng thành công #${order.code} | DNMMO PRO`,
+            `/san-pham/${slug}?order=${order.code}`
+          );
+        } catch (e) {}
+        document.title = `Đặt hàng thành công #${order.code} - ${activeProduct.name} | DNMMO PRO`;
+      }
 
       document.getElementById('success-order-code').textContent = order.code;
       document.getElementById('success-plan-name').textContent = `${order.product_name ? `${order.product_name} - ` : ''}${order.plan_name}`;
@@ -4828,11 +4940,51 @@
       return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
     }
 
+    function checkInitialRoute() {
+      try {
+        const pathname = window.location.pathname;
+        if (pathname.startsWith('/san-pham/')) {
+          const targetSlug = decodeURIComponent(pathname.replace('/san-pham/', '')).replace(/\/$/, '').trim().toLowerCase();
+          if (targetSlug && PRODUCTS && PRODUCTS.length > 0) {
+            const matched = PRODUCTS.find(p => productToSlug(p) === targetSlug || String(p.id).toLowerCase() === targetSlug);
+            if (matched) {
+              openProductModal(matched.id, null, false);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Initial route parsing error:', e);
+      }
+    }
+
+    window.addEventListener('popstate', (e) => {
+      try {
+        const pathname = window.location.pathname;
+        if (pathname.startsWith('/san-pham/')) {
+          const targetSlug = decodeURIComponent(pathname.replace('/san-pham/', '')).replace(/\/$/, '').trim().toLowerCase();
+          if (PRODUCTS && PRODUCTS.length > 0) {
+            const matched = PRODUCTS.find(p => productToSlug(p) === targetSlug || String(p.id).toLowerCase() === targetSlug);
+            if (matched) {
+              openProductModal(matched.id, null, false);
+              return;
+            }
+          }
+        } else {
+          switchView('store', false);
+        }
+      } catch (err) {
+        console.warn('popstate error:', err);
+      }
+    });
+
     initTheme();
     updateUserUI();
     updateOrderBadges();
     renderFlashSaleItems();
-    loadCatalog();
+    loadCatalog().then(() => {
+      checkInitialRoute();
+    });
     // Real-Time automatic stock & promotion sync every 15s to avoid out-of-sync discrepancies
     setInterval(loadCatalog, 15000);
     window.addEventListener('focus', () => loadCatalog());

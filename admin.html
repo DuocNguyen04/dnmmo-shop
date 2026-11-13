@@ -139,6 +139,12 @@
             <span id="badge-resources-count" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">0</span>
           </button>
 
+          <button onclick="setTab('blog')" id="tab-blog" class="sidebar-tab flex-shrink-0 w-auto md:w-full text-left px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl flex items-center gap-2.5 sm:gap-3 transition">
+            <svg class="w-4 h-4 flex-shrink-0 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+            <span class="flex-1">Blog SEO & AI</span>
+            <span id="badge-blog-count" class="bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full text-[10px] font-black ml-auto">0</span>
+          </button>
+
           <button onclick="setTab('warranties')" id="tab-warranties" class="sidebar-tab flex-shrink-0 w-auto md:w-full text-left px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl flex items-center gap-2.5 sm:gap-3 transition">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             <span class="flex-1">Sổ bảo hành</span>
@@ -583,6 +589,46 @@
                 </tr>
               </thead>
               <tbody id="resources-table-body" class="divide-y divide-slate-800/60 text-slate-200">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog SEO Management Panel -->
+      <div id="panel-blog" class="hidden space-y-5">
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>📰 Quản Lý Bài Viết Blog & SEO AI</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Tạo bài viết SEO, tối ưu câu hỏi FAQ cho ChatGPT / Perplexity và gắn sản phẩm gợi ý chốt đơn</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="/blog" target="_blank" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-xl border border-slate-700 transition flex items-center gap-1">
+                <span>🌐</span> Xem Blog
+              </a>
+              <button onclick="loadBlogPostsAdmin()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl border border-slate-700 transition">🔄 Làm mới</button>
+              <button onclick="openBlogModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition shadow-lg shadow-emerald-600/30 flex items-center gap-1 active:scale-95">
+                <span>+</span> Viết Bài Mới
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Bài viết & Tiêu đề</th>
+                  <th class="py-2.5 px-3">Danh mục</th>
+                  <th class="py-2.5 px-3">Slug (Đường dẫn)</th>
+                  <th class="py-2.5 px-3 text-center">Lượt đọc</th>
+                  <th class="py-2.5 px-3 text-center">Trạng thái</th>
+                  <th class="py-2.5 px-3 text-right">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="blog-table-body" class="divide-y divide-slate-800/60 text-slate-200">
               </tbody>
             </table>
           </div>
@@ -1263,6 +1309,136 @@
     </div>
   </div>
 
+  <!-- Modal Add / Edit Blog Post -->
+  <div id="modal-blog" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="glass-card max-w-3xl w-full max-h-[94vh] flex flex-col rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden bg-slate-900/95">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-900/60 flex-shrink-0">
+        <h3 id="modal-blog-title" class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <span>✍️</span> Viết Bài Blog Mới
+        </h3>
+        <button type="button" onclick="closeBlogModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition">✕</button>
+      </div>
+
+      <!-- Modal Body -->
+      <form onsubmit="handleBlogSubmit(event)" class="flex flex-col flex-1 overflow-hidden">
+        <div class="p-4 sm:p-6 overflow-y-auto space-y-3.5 flex-1 custom-scrollbar">
+          <input type="hidden" id="blog-id">
+
+          <!-- Tiêu đề & Slug -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề bài viết *</label>
+            <input type="text" id="blog-title" required maxlength="300" placeholder="VD: Hướng Dẫn Sử Dụng ChatGPT Plus Cho Dân MMO"
+              oninput="autoGenerateSlug()"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Đường dẫn tĩnh (Slug URL) *</label>
+              <div class="flex items-center">
+                <span class="bg-slate-900 text-slate-500 border border-r-0 border-slate-700 rounded-l-xl px-2.5 py-2 text-[11px] font-mono">/blog/</span>
+                <input type="text" id="blog-slug" required maxlength="200" placeholder="huong-dan-su-dung-chatgpt"
+                  class="w-full bg-slate-950 border border-slate-700 rounded-r-xl px-3 py-2 text-xs text-cyan-300 font-mono placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Danh mục *</label>
+              <select id="blog-category" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="ai-tools">🤖 Công cụ AI</option>
+                <option value="tips">💡 Mẹo & Quy trình</option>
+                <option value="guides">📘 Hướng dẫn</option>
+                <option value="news">📰 Tin tức công nghệ</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Ảnh bìa & Tags & Tác giả -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Link Ảnh Bìa (Cover Image)</label>
+              <input type="url" id="blog-cover" placeholder="https://images.unsplash.com/..."
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Từ khóa (Tags, cách nhau dấu phẩy)</label>
+              <input type="text" id="blog-tags" placeholder="ChatGPT, AI, Canva, MMO..."
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Tác giả</label>
+              <input type="text" id="blog-author" value="Được Nguyễn (DNMMO)"
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+            </div>
+          </div>
+
+          <!-- Tóm tắt ngắn -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Tóm tắt ngắn (Dùng cho Google Search Snippet & AI Summary)</label>
+            <textarea id="blog-summary" rows="2" maxlength="2000" placeholder="Tóm tắt ngắn gọn nội dung bài viết trong 1-2 câu để AI và người đọc hiểu nhanh..."
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 leading-relaxed"></textarea>
+          </div>
+
+          <!-- Nội dung chi tiết (HTML) -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1 flex items-center justify-between">
+              <span>Nội dung bài viết (Hỗ trợ định dạng HTML & Bảng dữ liệu) *</span>
+              <span class="text-[10px] text-slate-500">Dùng &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;table&gt;...</span>
+            </label>
+            <textarea id="blog-content" rows="8" required maxlength="50000" placeholder="<h2>1. Mở đầu</h2>&#10;<p>Nội dung đoạn văn...</p>&#10;<h2>2. Bảng so sánh</h2>"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-cyan-500 leading-relaxed"></textarea>
+          </div>
+
+          <!-- Khối Cài Đặt SEO & AI Bot Recommendation -->
+          <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-3">
+            <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🚀 Tối Ưu Hóa SEO Google & AI Trích Dẫn (GEO)</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Meta Title (Tiêu đề SEO Google)</label>
+                <input type="text" id="blog-meta-title" placeholder="Để trống: tự động lấy theo tiêu đề bài viết"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Gắn Gói Sản Phẩm Chốt Đơn (CTA Trong Bài)</label>
+                <select id="blog-related-plan" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                  <option value="">-- Không gắn sản phẩm --</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Câu hỏi FAQ cho AI Bot -->
+            <div class="pt-2 border-t border-slate-800/80">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">
+                ❓ Câu hỏi - Trả lời FAQ (AI Bot rất thích trích dẫn phần này)
+              </label>
+              <div class="space-y-2">
+                <input type="text" id="blog-faq-q1" placeholder="Câu hỏi 1: Mua tài khoản tại DNMMO có được bảo hành không?"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+                <input type="text" id="blog-faq-a1" placeholder="Trả lời 1: Có, DNMMO bảo hành 1 đổi 1 suốt thời gian sử dụng qua Zalo 0865 099 763."
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-300 placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="p-3.5 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between flex-shrink-0">
+          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+            <input type="checkbox" id="blog-published" checked class="rounded bg-slate-800 border-slate-600 text-cyan-600 focus:ring-0">
+            <span>Xuất bản công khai trên website & Sitemap</span>
+          </label>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeBlogModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">Hủy</button>
+            <button type="submit" id="btn-save-blog" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-cyan-600/30">✓ Lưu Bài Viết</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="toast" class="fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900/95 backdrop-blur-md border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
     <div id="toast-icon-wrap" class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-500/20 text-blue-400">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -1446,7 +1622,7 @@
       const mainEl = document.querySelector('main');
       if (mainEl) mainEl.scrollTop = 0;
 
-      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'resources', 'warranties', 'audit'];
+      const tabs = ['dashboard', 'orders', 'inventory', 'products', 'flash-sale', 'reviews', 'popup', 'resources', 'blog', 'warranties', 'audit'];
       
       const titles = {
         'dashboard': 'Tổng Quan Bảng Điều Khiển & Doanh Thu',
@@ -1457,6 +1633,7 @@
         'reviews': 'Quản Lý Đánh Giá & Phản Hồi Khách Hàng',
         'popup': 'Quản Lý Popup Banner Sự Kiện Trang Chủ',
         'resources': 'Quản Lý Tài Liệu & Skill AI',
+        'blog': 'Quản Lý Bài Viết Blog & Tối Ưu SEO AI',
         'warranties': 'Sổ Bảo Hành & Hạn Dịch Vụ',
         'audit': 'Nhật Ký Bảo Mật (Audit Logs)'
       };
@@ -1494,6 +1671,7 @@
       if (currentTab === 'reviews') loadReviews();
       if (currentTab === 'popup') loadPopupBanner();
       if (currentTab === 'resources') loadResources();
+      if (currentTab === 'blog') loadBlogPostsAdmin();
       if (currentTab === 'warranties') loadWarranties();
       if (currentTab === 'audit') loadAuditLogs();
     }
@@ -3366,6 +3544,202 @@
         if (!data.success) throw new Error(data.error || 'Không xóa được');
         showToast(data.message, 'success');
         loadResources();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    // --- BLOG SEO & BÀI VIẾT ADMIN CONTROLLER ---
+    let allBlogPosts = [];
+
+    function autoGenerateSlug() {
+      const title = document.getElementById('blog-title').value;
+      const slugInput = document.getElementById('blog-slug');
+      if (!document.getElementById('blog-id').value) {
+        slugInput.value = title
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/đ/g, 'd')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)+/g, '')
+          .slice(0, 150);
+      }
+    }
+
+    async function loadBlogPostsAdmin() {
+      const tbody = document.getElementById('blog-table-body');
+      if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-500">Đang tải bài viết...</td></tr>';
+      try {
+        const data = await adminApi('list-blog-posts');
+        if (!data.success) throw new Error(data.error || 'Không tải được danh sách bài viết');
+        allBlogPosts = data.posts || [];
+        renderBlogTable();
+      } catch (err) {
+        if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-400">${escapeHtml(err.message)}</td></tr>`;
+      }
+    }
+
+    function renderBlogTable() {
+      const tbody = document.getElementById('blog-table-body');
+      const badge = document.getElementById('badge-blog-count');
+      if (badge) badge.textContent = allBlogPosts.length;
+      if (!tbody) return;
+
+      if (allBlogPosts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-500">Chưa có bài viết nào. Bấm "+ Viết Bài Mới" để tạo bài viết SEO đầu tiên.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = allBlogPosts.map(p => {
+        const categoryName = {
+          'ai-tools': '🤖 Công cụ AI',
+          'tips': '💡 Mẹo & Quy trình',
+          'guides': '📘 Hướng dẫn',
+          'news': '📰 Tin tức'
+        }[p.category] || 'Khác';
+
+        return `
+          <tr class="hover:bg-slate-900/60 transition">
+            <td class="py-3 px-3">
+              <div class="font-bold text-white max-w-sm truncate" title="${escapeHtml(p.title)}">${escapeHtml(p.title)}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${p.published_at ? new Date(p.published_at).toLocaleDateString('vi-VN') : ''} • Tác giả: ${escapeHtml(p.author || 'DNMMO')}</div>
+            </td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-cyan-300 border border-slate-700">
+                ${categoryName}
+              </span>
+            </td>
+            <td class="py-3 px-3 font-mono text-cyan-400 text-[11px]">
+              <a href="/blog/${encodeURIComponent(p.slug)}" target="_blank" class="hover:underline flex items-center gap-1">
+                <span class="truncate max-w-[150px]">/blog/${escapeHtml(p.slug)}</span>
+                <span>↗</span>
+              </a>
+            </td>
+            <td class="py-3 px-3 text-center font-bold text-white">
+              ${p.views || 0}
+            </td>
+            <td class="py-3 px-3 text-center">
+              <button onclick="toggleBlogPost('${p.id}', ${!p.is_published})"
+                class="px-2.5 py-0.5 rounded-full text-[10px] font-black transition ${p.is_published ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/30' : 'bg-slate-800 text-slate-500 border border-slate-700 hover:bg-slate-700'}">
+                ${p.is_published ? 'ĐÃ ĐĂNG' : 'TẠM ẨN'}
+              </button>
+            </td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openBlogModal('${p.id}')" class="px-2.5 py-1 bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white rounded-lg text-[11px] font-bold transition">
+                  Sửa
+                </button>
+                <button onclick="deleteBlogPost('${p.id}')" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded-lg text-[11px] font-bold transition">
+                  Xóa
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function populateBlogRelatedPlans(selectedId) {
+      const select = document.getElementById('blog-related-plan');
+      if (!select) return;
+      select.innerHTML = '<option value="">-- Không gắn sản phẩm --</option>' + (allPlans || []).map(p => `
+        <option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>${escapeHtml(p.product_name || '')} - ${escapeHtml(p.name)} (${(p.price || 0).toLocaleString('vi-VN')} đ)</option>
+      `).join('');
+    }
+
+    function openBlogModal(id) {
+      const p = id ? allBlogPosts.find(x => x.id === id) : null;
+      document.getElementById('modal-blog-title').innerHTML = p ? '<span>✏️</span> Sửa Bài Viết Blog' : '<span>✍️</span> Viết Bài Blog Mới';
+      document.getElementById('blog-id').value = p ? p.id : '';
+      document.getElementById('blog-title').value = p ? p.title : '';
+      document.getElementById('blog-slug').value = p ? p.slug : '';
+      document.getElementById('blog-category').value = p ? p.category : 'ai-tools';
+      document.getElementById('blog-cover').value = p ? (p.cover_image || '') : '';
+      document.getElementById('blog-tags').value = p ? (p.tags || '') : '';
+      document.getElementById('blog-author').value = p ? (p.author || 'Được Nguyễn (DNMMO)') : 'Được Nguyễn (DNMMO)';
+      document.getElementById('blog-summary').value = p ? (p.summary || '') : '';
+      document.getElementById('blog-content').value = p ? (p.content || '') : '';
+      document.getElementById('blog-meta-title').value = p ? (p.meta_title || '') : '';
+
+      // FAQ
+      let faqs = [];
+      try {
+        if (p && p.faq_schema) {
+          faqs = typeof p.faq_schema === 'string' ? JSON.parse(p.faq_schema) : p.faq_schema;
+        }
+      } catch (e) {}
+
+      document.getElementById('blog-faq-q1').value = faqs[0]?.q || '';
+      document.getElementById('blog-faq-a1').value = faqs[0]?.a || '';
+
+      populateBlogRelatedPlans(p ? p.related_plan_id : null);
+      document.getElementById('blog-published').checked = p ? Boolean(p.is_published) : true;
+
+      document.getElementById('modal-blog').classList.remove('hidden');
+    }
+
+    function closeBlogModal() {
+      document.getElementById('modal-blog').classList.add('hidden');
+    }
+
+    async function handleBlogSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-blog');
+      const q1 = document.getElementById('blog-faq-q1').value.trim();
+      const a1 = document.getElementById('blog-faq-a1').value.trim();
+      const faqs = [];
+      if (q1 && a1) faqs.push({ q: q1, a: a1 });
+
+      const payload = {
+        id: document.getElementById('blog-id').value || null,
+        title: document.getElementById('blog-title').value,
+        slug: document.getElementById('blog-slug').value,
+        category: document.getElementById('blog-category').value,
+        cover_image: document.getElementById('blog-cover').value,
+        tags: document.getElementById('blog-tags').value,
+        author: document.getElementById('blog-author').value,
+        summary: document.getElementById('blog-summary').value,
+        content: document.getElementById('blog-content').value,
+        meta_title: document.getElementById('blog-meta-title').value,
+        faq_schema: JSON.stringify(faqs),
+        related_plan_id: document.getElementById('blog-related-plan').value || null,
+        is_published: document.getElementById('blog-published').checked
+      };
+
+      btn.disabled = true;
+      try {
+        const data = await adminApi('save-blog-post', 'POST', payload);
+        if (!data.success) throw new Error(data.error || 'Lưu thất bại');
+        showToast(data.message || 'Đã lưu bài viết!', 'success');
+        closeBlogModal();
+        loadBlogPostsAdmin();
+      } catch (err) {
+        showToast(err.message, 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function toggleBlogPost(id, isPublished) {
+      try {
+        const data = await adminApi('toggle-blog-post', 'POST', { id, is_published: isPublished });
+        if (!data.success) throw new Error(data.error || 'Không cập nhật được');
+        showToast(data.message, 'success');
+        loadBlogPostsAdmin();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function deleteBlogPost(id) {
+      const p = allBlogPosts.find(x => x.id === id);
+      if (!confirm(`Xóa vĩnh viễn bài viết "${p ? p.title : ''}"?`)) return;
+      try {
+        const data = await adminApi('delete-blog-post', 'POST', { id });
+        if (!data.success) throw new Error(data.error || 'Không xóa được');
+        showToast(data.message, 'success');
+        loadBlogPostsAdmin();
       } catch (err) {
         showToast(err.message, 'error');
       }
