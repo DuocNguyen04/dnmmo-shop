@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap.js"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog-detail.html"
+    },
+    {
+      "source": "/san-pham/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/api/blog",
+      "destination": "/api/blog.js"
+    },
+    {
+      "source": "/api/sitemap",
+      "destination": "/api/sitemap.js"
+    },
+    {
+      "source": "/api/create-order",
+      "destination": "/api/create-order.js"
+    },
+    {
+      "source": "/api/lookup-order",
+      "destination": "/api/lookup-order.js"
+    },
+    {
+      "source": "/api/payment-webhook",
+      "destination": "/api/payment-webhook.js"
+    },
+    {
+      "source": "/api/admin-api",
+      "destination": "/api/admin-api.js"
+    },
+    {
+      "source": "/api/catalog",
+      "destination": "/api/catalog.js"
+    },
+    {
+      "source": "/api/customer-auth",
+      "destination": "/api/customer-auth.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ]
+    }
+  ]
+}
