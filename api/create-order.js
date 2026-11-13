@@ -1,5 +1,5 @@
-const { query } = require('./lib/db');
-const { isRateLimited, getClientIp } = require('./lib/rate-limit');
+const { query } = require('../lib/db');
+const { isRateLimited, getClientIp } = require('../lib/rate-limit');
 const crypto = require('crypto');
 
 function generateOrderCode() {

@@ -1,4 +1,4 @@
-const { getPool, query } = require('./lib/db');
+const { getPool, query } = require('../lib/db');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

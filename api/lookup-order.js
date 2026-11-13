@@ -1,6 +1,6 @@
-const { query } = require('./lib/db');
-const { isRateLimited, getClientIp } = require('./lib/rate-limit');
-const { decrypt } = require('./lib/crypto');
+const { query } = require('../lib/db');
+const { isRateLimited, getClientIp } = require('../lib/rate-limit');
+const { decrypt } = require('../lib/crypto');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

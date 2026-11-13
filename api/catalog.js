@@ -1,5 +1,5 @@
-const { query } = require('./lib/db');
-const { ensureResourcesTable } = require('./lib/resources');
+const { query } = require('../lib/db');
+const { ensureResourcesTable } = require('../lib/resources');
 
 const DEFAULT_CATEGORIES = [
   { id: '11111111-1111-1111-1111-111111111111', name: 'Trí tuệ nhân tạo (AI Tools)', slug: 'ai-tools' },

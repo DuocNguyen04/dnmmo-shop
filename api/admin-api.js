@@ -1,6 +1,7 @@
-const { query, getPool } = require('./lib/db');
-const { encrypt, decrypt } = require('./lib/crypto');
-const { ensureResourcesTable, normalizeResourceInput } = require('./lib/resources');
+const { query, getPool } = require('../lib/db');
+const { encrypt, decrypt } = require('../lib/crypto');
+const { ensureResourcesTable, normalizeResourceInput } = require('../lib/resources');
+const { ensureBlogTable, normalizeBlogInput } = require('../lib/blog');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
@@ -854,6 +855,81 @@ module.exports = async (req, res) => {
         await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'delete_resource', 'site_resource', $2, '{}');", [auth.actorId, id]);
       } catch (e) {}
       return res.status(200).json({ success: true, message: 'Đã xóa tài liệu!' });
+    }
+
+    // --- BLOG SEO & BÀI VIẾT MANAGEMENT ---
+    if (action === 'list-blog-posts') {
+      await ensureBlogTable();
+      const bRes = await query(`
+        SELECT 
+          p.id, p.title, p.slug, p.summary, p.cover_image, p.category, p.tags, p.author,
+          p.meta_title, p.meta_description, p.faq_schema, p.related_plan_id,
+          p.is_published, p.views, p.published_at, p.updated_at,
+          pl.name as plan_name
+        FROM public.blog_posts p
+        LEFT JOIN public.plans pl ON pl.id = p.related_plan_id
+        ORDER BY p.created_at DESC;
+      `);
+      return res.status(200).json({ success: true, posts: bRes.rows });
+    }
+
+    if (action === 'save-blog-post') {
+      await ensureBlogTable();
+      const id = req.body?.id || null;
+      const b = normalizeBlogInput(req.body);
+      if (!b.title) return res.status(400).json({ error: 'Vui lòng nhập tiêu đề bài viết!' });
+
+      if (id) {
+        const upd = await query(`
+          UPDATE public.blog_posts SET
+            title = $1, slug = $2, summary = $3, content = $4, cover_image = $5,
+            category = $6, tags = $7, author = $8, meta_title = $9, meta_description = $10,
+            faq_schema = $11::jsonb, related_plan_id = $12, is_published = $13, updated_at = NOW()
+          WHERE id = $14 RETURNING id;
+        `, [
+          b.title, b.slug, b.summary, b.content, b.cover_image,
+          b.category, b.tags, b.author, b.meta_title, b.meta_description,
+          b.faq_schema, b.related_plan_id, b.is_published, id
+        ]);
+        if (upd.rows.length === 0) return res.status(404).json({ error: 'Không tìm thấy bài viết cần sửa!' });
+      } else {
+        await query(`
+          INSERT INTO public.blog_posts
+            (title, slug, summary, content, cover_image, category, tags, author, meta_title, meta_description, faq_schema, related_plan_id, is_published)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11::jsonb, $12, $13);
+        `, [
+          b.title, b.slug, b.summary, b.content, b.cover_image,
+          b.category, b.tags, b.author, b.meta_title, b.meta_description,
+          b.faq_schema, b.related_plan_id, b.is_published
+        ]);
+      }
+
+      try {
+        await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'save_blog_post', 'blog_post', $2, $3);", [
+          auth.actorId, id || 'new', JSON.stringify({ title: b.title, slug: b.slug, is_published: b.is_published })
+        ]);
+      } catch (e) {}
+
+      return res.status(200).json({ success: true, message: id ? 'Đã cập nhật bài viết!' : 'Đã đăng bài viết mới!' });
+    }
+
+    if (action === 'toggle-blog-post') {
+      await ensureBlogTable();
+      const { id, is_published } = req.body || {};
+      if (!id) return res.status(400).json({ error: 'Thiếu ID bài viết' });
+      await query('UPDATE public.blog_posts SET is_published = $1, updated_at = NOW() WHERE id = $2;', [Boolean(is_published), id]);
+      return res.status(200).json({ success: true, message: `Đã ${is_published ? 'xuất bản' : 'ẩn'} bài viết!` });
+    }
+
+    if (action === 'delete-blog-post') {
+      await ensureBlogTable();
+      const { id } = req.body || {};
+      if (!id) return res.status(400).json({ error: 'Thiếu ID bài viết' });
+      await query('DELETE FROM public.blog_posts WHERE id = $1;', [id]);
+      try {
+        await query("INSERT INTO public.audit_logs (actor_id, action, target_type, target_id, detail) VALUES ($1, 'delete_blog_post', 'blog_post', $2, '{}');", [auth.actorId, id]);
+      } catch (e) {}
+      return res.status(200).json({ success: true, message: 'Đã xóa bài viết!' });
     }
 
     // --- EVENT POPUP / BANNER MANAGEMENT ---

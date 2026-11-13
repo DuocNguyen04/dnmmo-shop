@@ -1,5 +1,5 @@
 const https = require('https');
-const { query } = require('./lib/db');
+const { query } = require('../lib/db');
 
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
