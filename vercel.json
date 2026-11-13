@@ -10,6 +10,34 @@
       "destination": "/admin.html"
     },
     {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap.js"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog-detail.html"
+    },
+    {
+      "source": "/san-pham/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/api/blog",
+      "destination": "/api/blog.js"
+    },
+    {
+      "source": "/api/sitemap",
+      "destination": "/api/sitemap.js"
+    },
+    {
       "source": "/api/create-order",
       "destination": "/api/create-order.js"
     },
