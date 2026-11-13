@@ -12,11 +12,10 @@ const SEED_RESOURCES = [
     badge: 'SKILL & PROMPT AI',
     icon: '🤖',
     summary: 'Áp dụng cấu trúc 5 lớp (Đóng vai - Bối cảnh - Nhiệm vụ - Ràng buộc - Định dạng đầu ra) giúp AI trả lời sâu sắc, chính xác hơn nhiều so với cách hỏi thông thường.',
-    content: '',
+    content: 'Lớp 1 (Role): Đóng vai chuyên gia đầu ngành trong lĩnh vực cụ thể.\nLớp 2 (Context): Cung cấp bối cảnh chi tiết và dữ liệu đầu vào thực tế.\nLớp 3 (Task): Nêu rõ mục tiêu cần đạt được kèm số lượng và tiêu chuẩn nghiệm thu.\nLớp 4 (Constraints): Đặt ranh giới những điều AI tuyệt đối KHÔNG ĐƯỢC làm.\nLớp 5 (Format): Định dạng kết quả (bảng biểu Markdown, JSON hoặc các bước hành động).',
     copy_text: 'Hãy đóng vai chuyên gia [Lĩnh vực] với 10 năm kinh nghiệm. Nhiệm vụ của bạn là [Mục tiêu cụ thể]. Bối cảnh: [Thông tin đầu vào]. Yêu cầu: Trình bày rõ ràng từng bước, có bảng so sánh và ví dụ thực tế.',
     drive_url: DRIVE_URL,
-    extra_url: '',
-    extra_label: '',
+    drive_label: '☁️ Mở Kho Prompt Đầy Đủ Trên Drive',
     sort_order: 1
   },
   {
